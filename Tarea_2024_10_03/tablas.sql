@@ -19,7 +19,7 @@ CREATE TABLE personas (
 
 
 CREATE TABLE empleados (
-	id_empleado INTEGER PRIMARY KEY,
+	id_empleado INTEGER PRIMARY KEY AUTO_INCREMENT,
 	dni INTEGER NOT NULL,
 		FOREIGN KEY(dni) REFERENCES personas(dni),
 	sueldo FLOAT NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE empleados (
 	-- Formato de fecha_ingreso es "AAAA-MM-DD"
 	fecha_ingreso VARCHAR(10) NOT NULL,
 		CHECK(LENGTH(fecha_ingreso) = 10),
-		CHECK(fecha_ingreso REGEXP '^20([01]\d|2[0-4])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$'),
+		-- CHECK( (fecha_ingreso REGEXP '^20([01]\d|2[0-4])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$') = 1),
 	-- Formato de fecha_egreso es "AAAA-MM-DD"
 	fecha_egreso VARCHAR(10) NULL,
 		CHECK(fecha_egreso = NULL | LENGTH(fecha_egreso) = 10),
