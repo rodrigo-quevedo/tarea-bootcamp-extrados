@@ -28,7 +28,7 @@ CREATE TABLE empleados (
 	-- Formato de fecha_ingreso es "AAAA-MM-DD"
 	fecha_ingreso VARCHAR(10) NOT NULL,
 		CHECK(LENGTH(fecha_ingreso) = 10),
-		-- CHECK( (fecha_ingreso REGEXP '^20([01]\d|2[0-4])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$') = 1),
+		CHECK(fecha_ingreso REGEXP '^20([01][0-9]|2[0-4])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$'),
 	-- Formato de fecha_egreso es "AAAA-MM-DD"
 	fecha_egreso VARCHAR(10) NULL,
 		CHECK(fecha_egreso = NULL | LENGTH(fecha_egreso) = 10),
@@ -62,7 +62,8 @@ CREATE TABLE productos (
    --   ->En cambio, si hubiera cantidad, se puede usar el mismo código de barra para todos los items "fideos marca M de 1kg".
 	codigo_barra VARCHAR(8) PRIMARY KEY,
 		CHECK(LENGTH(codigo_barra) = 8),
-	descripcion VARCHAR(50) NULL,
+		CHECK(codigo_barra REGEXP '^[0-9]{8}$'),
+	descripcion VARCHAR(50) NOT NULL,
 	precio FLOAT NOT NULL
 );
 
@@ -78,5 +79,5 @@ CREATE TABLE ventas (
 	-- Formato de fecha_hora es "AAAA-MM-DD HH:MM"
 	fecha_hora VARCHAR(16) NOT NULL,
 		CHECK(LENGTH(fecha_hora) = 16),
-		CHECK(fecha_hora REGEXP '^20([01]\d|2[0-4])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) ([01]\d|2[0-3]):([0-5]\d)$')
+		CHECK(fecha_hora REGEXP '^20([01][0-9]|2[0-4])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):([0-5][0-9])$')
 );
