@@ -20,7 +20,7 @@ INSERT INTO personas VALUES
 	(43908304, 'paula', 'díaz', 'pauladiaz@gmail.com'),
 	(22930394, 'santiago', 'sanchez', 'santiagosanchez@mail.com'),
 	(31939029, 'mario', 'castro', 'mariocastro@mail.com'),
-	(22092321, 'alma', 'sosa', 'almasosa@mail.com')
+	(36789111, 'alma', 'sosa', 'almasosa@mail.com')
 ;
 
 
@@ -58,24 +58,29 @@ JOIN
 
 -- estacionamiento
 INSERT INTO estacionamiento VALUES
+	('BS238WA', '2023-10-10', 1),
+	('CA045OR', '2023-10-10', 2),
+	('AT981KL', '2023-10-10', 4),
+	('AB125AE', '2023-10-10', 5),
+	
 	('BS238WA', '2024-10-01', 1),
 	('CA045OR', '2024-10-01', 2),
-	('AT981KL', '2024-10-01', 3),
-	('AB125AE', '2024-10-01', 4),
+	('AT981KL', '2024-10-01', 4),
+	('AB125AE', '2024-10-01', 5),
 	
 	('CA045OR', '2024-10-02', 1),
 	('BS238WA', '2024-10-02', 2),
-	('AB125AE', '2024-10-02', 3),
-	('AT981KL', '2024-10-02', 4),
+	('AB125AE', '2024-10-02', 4),
+	('AT981KL', '2024-10-02', 5),
 	
 	('CA045OR', '2024-10-03', 1),
 	('BS238WA', '2024-10-03', 2),
-	('AT981KL', '2024-10-03', 3),
+	('AT981KL', '2024-10-03', 4),
 	
 	('BS238WA', '2024-10-04', 1),
 	('CA045OR', '2024-10-04', 2),
-	('AT981KL', '2024-10-04', 3),
-	('AB125AE', '2024-10-04', 4)
+	('AT981KL', '2024-10-04', 4),
+	('AB125AE', '2024-10-04', 5)
 ;
 
 SELECT v.patente, est.fecha_ingreso AS fecha_estacionamiento, est.lote, e.id_empleado, p.nombre, p.apellido FROM estacionamiento est
@@ -141,7 +146,7 @@ INSERT INTO ventas VALUES
 	('00000024',31939029, 1, "2024-10-01 11:06"),
 	('00004333',31939029, 1, "2024-10-01 11:06"),
 	('00000300',14423898, 2, "2024-10-01 12:18"),	
-	('00000026',22092321, 1, "2024-10-01 14:53")
+	('00000026',36789111, 1, "2024-10-01 14:53")
 	
 ;
 
