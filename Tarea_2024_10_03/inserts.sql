@@ -28,6 +28,7 @@ INSERT INTO personas VALUES
 INSERT INTO empleados(dni, sueldo, rol, fecha_ingreso, fecha_egreso) VALUES 
 	(38290310, 500000, 'vendedor', '2018-02-15', NULL),
 	(39973920, 500000, 'vendedor', '2018-06-21', NULL),
+	(40048589, 480000, 'vendedor', '2018-06-21', '2018-09-21'),
 	(15920939, 480000, 'vendedor', '2020-11-20', NULL),
 	(26305890, 550000, 'manager', '2021-03-29', NULL)
 ;
@@ -40,8 +41,8 @@ INSERT INTO vehiculos VALUES
 	('AB523FX', 'chevrolet corsa', 'blanco', 1),
 	('AT981KL', 'volkswagen gol', 'gris', 2),
 	('BS238WA', 'fiat palio', 'rojo', 1),
-	('AB125AE', 'chevrolet chevy', 'verde', 3),
-	('CA045OR', 'citroen c3', 'blanco', 4)
+	('AB125AE', 'chevrolet chevy', 'verde', 4),
+	('CA045OR', 'citroen c3', 'blanco', 5)
 ;
 	
 SELECT v.patente, v.modelo, v.color, v.id_empleado, 

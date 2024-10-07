@@ -31,8 +31,8 @@ CREATE TABLE empleados (
 		CHECK(fecha_ingreso REGEXP '^20([01][0-9]|2[0-4])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$'),
 	-- Formato de fecha_egreso es "AAAA-MM-DD"
 	fecha_egreso VARCHAR(10) NULL,
-		CHECK(fecha_egreso = NULL | LENGTH(fecha_egreso) = 10),
-		CHECK(fecha_egreso = NULL | fecha_egreso REGEXP '^20([01]\d|2[0-4])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$')
+		CHECK(fecha_egreso = NULL OR LENGTH(fecha_egreso) = 10),
+		CHECK(fecha_egreso = NULL OR fecha_egreso REGEXP '^20([01][0-9]|2[0-4])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$')
 );
 
 
