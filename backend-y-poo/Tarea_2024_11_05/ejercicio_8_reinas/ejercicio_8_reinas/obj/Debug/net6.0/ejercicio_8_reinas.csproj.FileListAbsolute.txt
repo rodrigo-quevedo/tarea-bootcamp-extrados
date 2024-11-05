@@ -1,0 +1,15 @@
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\bin\Debug\net6.0\ejercicio_8_reinas.exe
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\bin\Debug\net6.0\ejercicio_8_reinas.deps.json
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\bin\Debug\net6.0\ejercicio_8_reinas.runtimeconfig.json
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\bin\Debug\net6.0\ejercicio_8_reinas.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\bin\Debug\net6.0\ejercicio_8_reinas.pdb
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\obj\Debug\net6.0\ejercicio_8_reinas.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\obj\Debug\net6.0\ejercicio_8_reinas.AssemblyInfoInputs.cache
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\obj\Debug\net6.0\ejercicio_8_reinas.AssemblyInfo.cs
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\obj\Debug\net6.0\ejercicio_8_reinas.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\obj\Debug\net6.0\ejercicio_8_reinas.sourcelink.json
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\obj\Debug\net6.0\ejercicio_8_reinas.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\obj\Debug\net6.0\refint\ejercicio_8_reinas.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\obj\Debug\net6.0\ejercicio_8_reinas.pdb
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\obj\Debug\net6.0\ejercicio_8_reinas.genruntimeconfig.cache
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_05\ejercicio_8_reinas\ejercicio_8_reinas\obj\Debug\net6.0\ref\ejercicio_8_reinas.dll

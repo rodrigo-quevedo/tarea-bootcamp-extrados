@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_05\\ejercicio_8_reinas\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6784A843-118D-4E08-B784-CA956AF5AC09}|ejercicio_8_reinas\\ejercicio_8_reinas.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_05\\ejercicio_8_reinas\\ejercicio_8_reinas\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6784A843-118D-4E08-B784-CA956AF5AC09}|ejercicio_8_reinas\\ejercicio_8_reinas.csproj|solutionrelative:ejercicio_8_reinas\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6784A843-118D-4E08-B784-CA956AF5AC09}|ejercicio_8_reinas\\ejercicio_8_reinas.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_05\\ejercicio_8_reinas\\ejercicio_8_reinas\\tablero.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6784A843-118D-4E08-B784-CA956AF5AC09}|ejercicio_8_reinas\\ejercicio_8_reinas.csproj|solutionrelative:ejercicio_8_reinas\\tablero.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6784A843-118D-4E08-B784-CA956AF5AC09}|ejercicio_8_reinas\\ejercicio_8_reinas.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_05\\ejercicio_8_reinas\\ejercicio_8_reinas\\reina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6784A843-118D-4E08-B784-CA956AF5AC09}|ejercicio_8_reinas\\ejercicio_8_reinas.csproj|solutionrelative:ejercicio_8_reinas\\reina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Reina.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_05\\ejercicio_8_reinas\\ejercicio_8_reinas\\Reina.cs",
+              "RelativeDocumentMoniker": "ejercicio_8_reinas\\Reina.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_05\\ejercicio_8_reinas\\ejercicio_8_reinas\\Reina.cs",
+              "RelativeToolTip": "ejercicio_8_reinas\\Reina.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T21:36:57.535Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Tablero.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_05\\ejercicio_8_reinas\\ejercicio_8_reinas\\Tablero.cs",
+              "RelativeDocumentMoniker": "ejercicio_8_reinas\\Tablero.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_05\\ejercicio_8_reinas\\ejercicio_8_reinas\\Tablero.cs",
+              "RelativeToolTip": "ejercicio_8_reinas\\Tablero.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAawBsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T21:36:08.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_05\\ejercicio_8_reinas\\ejercicio_8_reinas\\Program.cs",
+              "RelativeDocumentMoniker": "ejercicio_8_reinas\\Program.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_05\\ejercicio_8_reinas\\ejercicio_8_reinas\\Program.cs",
+              "RelativeToolTip": "ejercicio_8_reinas\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T21:31:55.629Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
