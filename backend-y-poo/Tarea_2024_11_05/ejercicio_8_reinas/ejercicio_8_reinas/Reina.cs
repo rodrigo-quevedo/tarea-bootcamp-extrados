@@ -12,10 +12,17 @@ namespace ejercicio_8_reinas
         public int fila { get; private set; }
 
 
-        public Reina(int col, int fila)
+        public Reina(int col, int fila, Boolean[,] posicionesDisponibles, Boolean[,] posicionesReina)
         {
             this.col = col;
             this.fila = fila;
+
+            posicionesReina[col, fila] = true;
+
+            //Cuando la reina empieza a existir, automaticamente inhabilita las posiciones correspondientes
+            this.calcularPosicionesVerticalesNoDisponibles(this, posicionesDisponibles);
+            this.calcularPosicionesHorizontalesNoDisponibles(this, posicionesDisponibles);
+            this.calcularPosicionesDiagonalesNoDisponibles(this, posicionesDisponibles);
         }
 
         public Boolean[,] calcularPosicionesVerticalesNoDisponibles(Reina reina, Boolean[,] posicionesDisponibles)
@@ -36,7 +43,7 @@ namespace ejercicio_8_reinas
 
             for (int colTablero = 0; colTablero <= 7; colTablero++)
             {
-                posicionesDisponibles[colTablero, fila] = true;
+                posicionesDisponibles[colTablero, fila] = false;
             }
 
             return posicionesDisponibles;

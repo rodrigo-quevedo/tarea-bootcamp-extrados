@@ -7,3 +7,5 @@ Tablero miTablero = new Tablero();
 
 miTablero.inicializar();
 miTablero.mostrar();
+
+miTablero.calcular8Reinas(0);
