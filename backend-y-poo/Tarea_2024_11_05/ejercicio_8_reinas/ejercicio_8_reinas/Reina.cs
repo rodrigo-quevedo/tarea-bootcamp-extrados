@@ -18,51 +18,53 @@ namespace ejercicio_8_reinas
             this.fila = fila;
         }
 
-        public Boolean[,] calcularPosicionesVerticalesNoDisponibles(int col)
+        public Boolean[,] calcularPosicionesVerticalesNoDisponibles(Reina reina, Boolean[,] posicionesDisponibles)
         {
-            var posicionesVerticalesNoDisponibles = new Boolean[8, 8];
+            int col = reina.col;
 
             for (int filaTablero = 0; filaTablero <= 7; filaTablero++)
             {
-                posicionesVerticalesNoDisponibles[col, filaTablero] = true;
+                posicionesDisponibles[col, filaTablero] = false;
             }
 
-            return posicionesVerticalesNoDisponibles;
+            return posicionesDisponibles;
         }
 
-        public Boolean[,] calcularPosicionesHorizontalesNoDisponibles(int fila)
+        public Boolean[,] calcularPosicionesHorizontalesNoDisponibles(Reina reina, Boolean[,] posicionesDisponibles)
         {
-            var posicionesVerticalesNoDisponibles = new Boolean[8, 8];
+            int fila = reina.fila;
 
             for (int colTablero = 0; colTablero <= 7; colTablero++)
             {
-                posicionesVerticalesNoDisponibles[colTablero, fila] = true;
+                posicionesDisponibles[colTablero, fila] = true;
             }
 
-            return posicionesVerticalesNoDisponibles;
+            return posicionesDisponibles;
         }
 
-        public Boolean[,] calcularPosicionesDiagonalesNoDisponibles(int col, int fila)
+        public Boolean[,] calcularPosicionesDiagonalesNoDisponibles(Reina reina, Boolean[,] posicionesDisponibles)
         {
-            var posicionesDiagonalesNoDisponibles = new Boolean[8, 8];
+            int col = reina.col;
+            int fila = reina.fila;
 
-      
-            calcularDiagonalArribaIzquierda(col, fila, posicionesDiagonalesNoDisponibles);
-            calcularDiagonalArribaDerecha(col, fila, posicionesDiagonalesNoDisponibles);
+            calcularDiagonalArribaIzquierda(col, fila, posicionesDisponibles);
+            calcularDiagonalArribaDerecha(col, fila, posicionesDisponibles);
+            calcularDiagonalAbajoIzquierda(col, fila, posicionesDisponibles);
+            calcularDiagonalAbajoDerecha(col, fila, posicionesDisponibles);
 
-
-
-            return posicionesDiagonalesNoDisponibles;
+            return posicionesDisponibles;
         }
 
         public void calcularDiagonalArribaIzquierda(int col, int fila, Boolean[,] posiciones)
         {
             int filaTablero = fila;
+            int colTablero = col;
 
-            for (int colTablero = col; colTablero >= 0; colTablero--)
+            while (colTablero > -1 && filaTablero < 8)
             {
-                posiciones[colTablero, filaTablero] = true;
+                posiciones[colTablero, filaTablero] = false;
 
+                colTablero--;
                 filaTablero++;
             }
 
@@ -72,11 +74,13 @@ namespace ejercicio_8_reinas
         public void calcularDiagonalArribaDerecha(int col, int fila, Boolean[,] posiciones)
         {
             int filaTablero = fila;
+            int colTablero = col;
 
-            for (int colTablero = col; colTablero <= 7; colTablero++)
+            while (colTablero < 8 && filaTablero < 8)
             {
-                posiciones[colTablero, filaTablero] = true;
+                posiciones[colTablero, filaTablero] = false;
 
+                colTablero++;
                 filaTablero++;
             }
 
@@ -86,11 +90,29 @@ namespace ejercicio_8_reinas
         public void calcularDiagonalAbajoIzquierda(int col, int fila, Boolean[,] posiciones)
         {
             int filaTablero = fila;
+            int colTablero = col;
 
-            for (int colTablero = col; colTablero >= 0 ; colTablero--)
+            while (colTablero > -1 && filaTablero > -1)
             {
-                posiciones[colTablero, filaTablero] = true;
+                posiciones[colTablero, filaTablero] = false;
 
+                colTablero--;
+                filaTablero--;
+            }
+
+            return;
+        }
+
+        public void calcularDiagonalAbajoDerecha(int col, int fila, Boolean[,] posiciones)
+        {
+            int filaTablero = fila;
+            int colTablero = col;
+
+            while (colTablero < 8 && filaTablero > -1)
+            {
+                posiciones[colTablero, filaTablero] = false;
+
+                colTablero++;
                 filaTablero--;
             }
 
