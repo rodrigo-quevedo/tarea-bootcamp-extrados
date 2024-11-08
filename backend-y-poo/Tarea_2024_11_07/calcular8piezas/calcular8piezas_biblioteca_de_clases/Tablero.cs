@@ -1,4 +1,6 @@
-﻿namespace calcular8piezas_biblioteca_de_clases
+﻿using calcular8piezas_biblioteca_de_clases.clases_de_prueba;
+
+namespace calcular8piezas_biblioteca_de_clases
 {
     public class Tablero
     {
@@ -30,7 +32,7 @@
                 {
                     if (this.posicionesPieza[col, fila])
                     {
-                        Console.Write(simboloPieza);
+                        Console.Write($" {simboloPieza} ");
                     }
                     else
                     {
@@ -51,6 +53,15 @@
         public void calcular8Piezas(int cantidadPiezas, IPieza pieza, int cantidadIntentos)
         {
             Console.WriteLine("Entrando a calcular8Piezas()...");
+
+            //mostrar primer estado del tablero:
+            if (cantidadIntentos == 0 && cantidadPiezas == 0)
+            {
+                this.inicializar();
+                this.mostrar(pieza.simboloPieza);
+            }
+
+
             //checkear reseteo del tablero
             Boolean resetearlo = true;
 
@@ -68,8 +79,11 @@
             if (resetearlo)
             {
                 this.inicializar();
+                pieza.inicializarPosicionesAtacadas();
+
                 cantidadPiezas = 0;
                 cantidadIntentos++;
+                
                 this.mostrar(pieza.simboloPieza);
             }
 
@@ -77,6 +91,7 @@
             if (cantidadIntentos > 100)
             {
                 Console.WriteLine("El programa no puede encontrar una solucion para esta pieza.");
+                return;
             }
 
             //meter pieza en el tablero
@@ -90,9 +105,11 @@
             while (piezaAgregada == false)
             {
                 if (posicionesDisponibles[randCol, randFila] == true)
-                {
-                    //esto lo tengo que cambiar:
-                    //IPieza pieza = new IPieza(randCol, randFila, this.posicionesDisponibles, this.posicionesReina);
+                {                    
+                    //establecerPosicion() tambien actualiza las posicionesAtacadas
+                    pieza.establecerPosicion(randCol, randFila);
+                    actualizarTablero(pieza.posicionesAtacadas);
+                    this.posicionesPieza[pieza.col, pieza.fila] = true;
 
 
                     piezaAgregada = true;
@@ -106,7 +123,7 @@
                 }
             }
             Console.WriteLine("Pieza agregada...");
-            //checkeo si ya estan las 8 reinas, sino, vuelvo a ejecutar esta funcion
+            //checkeo si ya estan las 8 piezas, sino, vuelvo a ejecutar esta funcion
             Console.WriteLine("Chequeando cantidad de piezas...");
             if (cantidadPiezas == 8)
             {
@@ -124,9 +141,19 @@
             return;
         }
 
-        public void actualizarTablero()
+        public void actualizarTablero(Boolean[,] posicionesAtacadas)
         {
+            for (int col = 0; col <= 7; col++) 
+            { 
+                for (int fila= 0; fila <= 7; fila++)
+                {
+                    if (posicionesAtacadas[col, fila])
+                    {
+                        this.posicionesDisponibles[col, fila] = false;
+                    }
 
+                }
+            }
         }
 
 

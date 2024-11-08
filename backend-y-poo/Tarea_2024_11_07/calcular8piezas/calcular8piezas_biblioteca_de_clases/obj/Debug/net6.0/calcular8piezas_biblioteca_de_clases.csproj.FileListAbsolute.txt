@@ -1,0 +1,12 @@
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\bin\Debug\net6.0\calcular8piezas_biblioteca_de_clases.deps.json
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\bin\Debug\net6.0\calcular8piezas_biblioteca_de_clases.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\bin\Debug\net6.0\calcular8piezas_biblioteca_de_clases.pdb
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\obj\Debug\net6.0\calcular8piezas_biblioteca_de_clases.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\obj\Debug\net6.0\calcular8piezas_biblioteca_de_clases.AssemblyInfoInputs.cache
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\obj\Debug\net6.0\calcular8piezas_biblioteca_de_clases.AssemblyInfo.cs
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\obj\Debug\net6.0\calcular8piezas_biblioteca_de_clases.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\obj\Debug\net6.0\calcular8piezas_biblioteca_de_clases.sourcelink.json
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\obj\Debug\net6.0\calcular8piezas_biblioteca_de_clases.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\obj\Debug\net6.0\refint\calcular8piezas_biblioteca_de_clases.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\obj\Debug\net6.0\calcular8piezas_biblioteca_de_clases.pdb
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_11_07\calcular8piezas\calcular8piezas_biblioteca_de_clases\obj\Debug\net6.0\ref\calcular8piezas_biblioteca_de_clases.dll

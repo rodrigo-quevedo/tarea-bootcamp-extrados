@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("calcular8piezas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a58362a0abd86fe0a4e6be406149741d63caf8db")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+988abc3e2766bce30216bb9e246fe4d4bd2580c0")]
 [assembly: System.Reflection.AssemblyProductAttribute("calcular8piezas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("calcular8piezas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

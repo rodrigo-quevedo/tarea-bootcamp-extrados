@@ -13,5 +13,7 @@ namespace calcular8piezas_biblioteca_de_clases
         public string simboloPieza { get;}
         public Boolean [,] posicionesAtacadas { get;}
 
+        public void establecerPosicion(int col, int fila);
+        public void inicializarPosicionesAtacadas();
     }
 }

@@ -14,21 +14,25 @@ namespace calcular8piezas_biblioteca_de_clases.clases_de_prueba
         public int col { get; private set; }
         public int fila { get; private set; }
         public string simboloPieza { get; private set; }
-        public Boolean[,] posicionesAtacadas { get; private set; }
+        public Boolean[,] posicionesAtacadas { get; private set; } = new Boolean[8, 8];
 
 
         // Implementacion especifica de cada clase.
         // Se debe setear cada dato segun corresponda:
-        public Reina (int col, int fila)
+        public Reina ()
+        {
+            this.simboloPieza = "R";
+            inicializarPosicionesAtacadas();
+        }
+
+        public void establecerPosicion(int col, int fila)
         {
             this.col = col;
             this.fila = fila;
-            this.simboloPieza = "R";
-            inicializarPosicionesAtacadas();
             calcularPosicionesAtacadas();
         }
 
-        void inicializarPosicionesAtacadas()
+        public void inicializarPosicionesAtacadas()
         {
             for (int col = 0; col <= 7; col++)
             {

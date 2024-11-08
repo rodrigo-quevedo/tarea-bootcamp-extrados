@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "calcular8piezas/1.0.0": {
+        "dependencies": {
+          "calcular8piezas_biblioteca_de_clases": "1.0.0"
+        },
+        "runtime": {
+          "calcular8piezas.dll": {}
+        }
+      },
+      "calcular8piezas_biblioteca_de_clases/1.0.0": {
+        "runtime": {
+          "calcular8piezas_biblioteca_de_clases.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "calcular8piezas/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "calcular8piezas_biblioteca_de_clases/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
