@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace calcular8piezas_biblioteca_de_clases.clases_de_prueba
+namespace calcular8piezas_biblioteca_de_clases.clases_implementando_interface
 {
     public class Reina : IPieza
     {

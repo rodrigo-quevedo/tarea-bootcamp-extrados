@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_07\\calcular8piezas\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\tablero.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|solutionrelative:calcular8piezas_biblioteca_de_clases\\tablero.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DD0B5299-5912-4D2F-B1D8-905ECDDD8773}|calcular8piezas\\calcular8piezas.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_07\\calcular8piezas\\calcular8piezas\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DD0B5299-5912-4D2F-B1D8-905ECDDD8773}|calcular8piezas\\calcular8piezas.csproj|solutionrelative:calcular8piezas\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\ipieza.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|solutionrelative:calcular8piezas_biblioteca_de_clases\\ipieza.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\torre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|solutionrelative:calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\torre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\tablero.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|solutionrelative:calcular8piezas_biblioteca_de_clases\\tablero.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\reina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|solutionrelative:calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\reina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\ipieza.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BFBD0E66-F946-4DB6-BF1E-67283EE54A74}|calcular8piezas_biblioteca_de_clases\\calcular8piezas_biblioteca_de_clases.csproj|solutionrelative:calcular8piezas_biblioteca_de_clases\\ipieza.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,8 +30,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Torre.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\Torre.cs",
+              "RelativeDocumentMoniker": "calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\Torre.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\Torre.cs",
+              "RelativeToolTip": "calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\Torre.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T19:30:18.524Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -36,46 +53,46 @@
               "RelativeDocumentMoniker": "calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\Reina.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\Reina.cs",
               "RelativeToolTip": "calcular8piezas_biblioteca_de_clases\\clases_implementando_interface\\Reina.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAA4wCIAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-08T16:45:43.15Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "IPieza.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\IPieza.cs",
               "RelativeDocumentMoniker": "calcular8piezas_biblioteca_de_clases\\IPieza.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\IPieza.cs",
               "RelativeToolTip": "calcular8piezas_biblioteca_de_clases\\IPieza.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABAAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-08T16:26:18.131Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Tablero.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\Tablero.cs",
               "RelativeDocumentMoniker": "calcular8piezas_biblioteca_de_clases\\Tablero.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_07\\calcular8piezas\\calcular8piezas_biblioteca_de_clases\\Tablero.cs",
               "RelativeToolTip": "calcular8piezas_biblioteca_de_clases\\Tablero.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAcwE4AAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-08T16:05:38.27Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_07\\calcular8piezas\\calcular8piezas\\Program.cs",
               "RelativeDocumentMoniker": "calcular8piezas\\Program.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_07\\calcular8piezas\\calcular8piezas\\Program.cs",
               "RelativeToolTip": "calcular8piezas\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-08T15:57:11.2Z",
               "EditorCaption": ""

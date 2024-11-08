@@ -1,4 +1,4 @@
-﻿using calcular8piezas_biblioteca_de_clases.clases_de_prueba;
+﻿
 
 namespace calcular8piezas_biblioteca_de_clases
 {
@@ -83,14 +83,15 @@ namespace calcular8piezas_biblioteca_de_clases
 
                 cantidadPiezas = 0;
                 cantidadIntentos++;
-                
+
+                Console.WriteLine($"Cantidad de intentos del programa: {cantidadIntentos}");
                 this.mostrar(pieza.simboloPieza);
             }
 
             // Chequear cantidad de intentos (llegada cierta cantidad de intentos, la pieza no tiene solucion):
             if (cantidadIntentos > 100)
             {
-                Console.WriteLine("El programa no puede encontrar una solucion para esta pieza.");
+                Console.WriteLine($"El programa no puede encontrar una solucion para esta pieza. Se hicieron {cantidadIntentos} intentos.");
                 return;
             }
 
@@ -127,6 +128,7 @@ namespace calcular8piezas_biblioteca_de_clases
             Console.WriteLine("Chequeando cantidad de piezas...");
             if (cantidadPiezas == 8)
             {
+                Console.WriteLine($"Cantidad de intentos del programa: {cantidadIntentos}");
                 Console.WriteLine("Ejercicio resuelto:");
                 this.mostrar(pieza.simboloPieza);
                 Console.WriteLine($"Cantidad de piezas: {cantidadPiezas}");
