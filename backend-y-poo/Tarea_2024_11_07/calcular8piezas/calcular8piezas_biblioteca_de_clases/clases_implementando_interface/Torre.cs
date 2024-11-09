@@ -20,9 +20,9 @@ namespace calcular8piezas_biblioteca_de_clases.clases_implementando_interface
 
         // Implementacion especifica de cada clase.
         // Se debe setear cada dato segun corresponda:
-        public Torre()
+        public Torre(string simboloPieza)
         {
-            this.simboloPieza = "T";
+            this.simboloPieza = simboloPieza;
             inicializarPosicionesAtacadas();
         }
 

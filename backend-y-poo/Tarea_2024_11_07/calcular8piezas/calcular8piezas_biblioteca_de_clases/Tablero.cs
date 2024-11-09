@@ -32,7 +32,9 @@ namespace calcular8piezas_biblioteca_de_clases
                 {
                     if (this.posicionesPieza[col, fila])
                     {
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write($" {simboloPieza} ");
+                        Console.ResetColor();
                     }
                     else
                     {
