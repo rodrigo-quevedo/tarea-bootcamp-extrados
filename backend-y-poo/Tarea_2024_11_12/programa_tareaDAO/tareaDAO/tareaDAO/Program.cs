@@ -1,53 +1,86 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using tareaDAO_libreria_de_clases.DAO;
+using tareaDAO_libreria_de_clases.Entidades;
 
 Console.WriteLine("Tarea DAO");
 
 UsuarioDAO usuarioDAO = new UsuarioDAO();
 
+prueba_READ_lista_usuarios();
+prueba_READ_usuario_by_id(1);
+prueba_CREATE_usuario(10, "cristian", 30);
+prueba_UPDATE_usuario(1, "julian", 50);
+
+
+
+
+
 //READ: Lista de usuarios
-var listaUsuarios = usuarioDAO.read_lista_usuarios();
-    //prueba:
-Console.WriteLine("Lista de usuarios:");
-if (listaUsuarios != null)
+void prueba_READ_lista_usuarios()
 {
-    foreach(var usuario in listaUsuarios)
+    IEnumerable<Usuario> listaUsuarios = usuarioDAO.read_lista_usuarios();
+        //prueba:
+    Console.WriteLine("Lista de usuarios:");
+    if (listaUsuarios != null)
     {
-        usuario.mostrarDatos();
+        foreach(var usuario in listaUsuarios)
+        {
+            usuario.mostrarDatos();
+        }
+    }
+    else
+    {
+        Console.WriteLine("null");
     }
 }
-else
-{
-    Console.WriteLine("null");
-}
+
 
 //READ: Usuario por ID
-int idPrueba = 1;
-var usuarioById = usuarioDAO.read_usuario_by_id(idPrueba);
-    //prueba:
-Console.WriteLine($"Mostrar usuario con Id={idPrueba}:");
-if (usuarioById != null)
+void prueba_READ_usuario_by_id(int idPrueba)
 {
-    usuarioById.mostrarDatos();
-}
-else {
-    Console.WriteLine("null");
+    Usuario usuarioById = usuarioDAO.read_usuario_by_id(idPrueba);
+        //prueba:
+    Console.WriteLine($"Mostrar usuario con Id={idPrueba}:");
+    if (usuarioById != null)
+    {
+        usuarioById.mostrarDatos();
+    }
+    else {
+        Console.WriteLine("null");
+    }
 }
 
 
 //CREATE usuario
-int idPruebaCreate = 5;
-string nombrePruebaCreate = "juan ignacio";
-int edadPruebaCreate = 100;
-var usuarioCreado = usuarioDAO.create_usuario(idPruebaCreate, nombrePruebaCreate, edadPruebaCreate);
+void prueba_CREATE_usuario(int idPruebaCreate, string nombrePruebaCreate, int edadPruebaCreate)
+{
+    Usuario usuarioCreado = usuarioDAO.create_usuario(idPruebaCreate, nombrePruebaCreate, edadPruebaCreate);
     //prueba
-Console.WriteLine($"Mostrar usuario creado con id {idPruebaCreate}:");
-if (usuarioCreado != null)
-{
-    usuarioCreado.mostrarDatos();
+    Console.WriteLine($"Mostrar usuario creado con id {idPruebaCreate}:");
+    if (usuarioCreado != null)
+    {
+        usuarioCreado.mostrarDatos();
+    }
+    else
+    {
+        Console.WriteLine("null");
+    }
 }
-else
+
+
+//UPDATE usuario
+void prueba_UPDATE_usuario(int idPruebaUpdate, string nuevoNombre, int nuevaEdad)
 {
-    Console.WriteLine("null");
+    Usuario usuarioModificado = usuarioDAO.update_usuario(idPruebaUpdate, nuevoNombre, nuevaEdad);
+    //prueba
+    Console.WriteLine($"Usuario id={idPruebaUpdate} luego del update:");
+    if (usuarioModificado != null)
+    {
+        usuarioModificado.mostrarDatos();
+    }
+    else
+    {
+        Console.WriteLine("null");
+    }
 }
 
