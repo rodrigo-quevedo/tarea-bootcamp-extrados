@@ -34,3 +34,20 @@ else {
     Console.WriteLine("null");
 }
 
+
+//CREATE usuario
+int idPruebaCreate = 5;
+string nombrePruebaCreate = "juan ignacio";
+int edadPruebaCreate = 100;
+var usuarioCreado = usuarioDAO.create_usuario(idPruebaCreate, nombrePruebaCreate, edadPruebaCreate);
+    //prueba
+Console.WriteLine($"Mostrar usuario creado con id {idPruebaCreate}:");
+if (usuarioCreado != null)
+{
+    usuarioCreado.mostrarDatos();
+}
+else
+{
+    Console.WriteLine("null");
+}
+
