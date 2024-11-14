@@ -44,10 +44,10 @@ namespace tareaDAO_libreria_de_clases.DAO
 
                 using (var connection = new MySqlConnection(connection_string))
                 {
-                    var rowsAffected =  connection.Execute(query, new { 
-                        Id = id, 
+                    var rowsAffected = connection.Execute(query, new {
+                        Id = id,
                         Nombre = nombre,
-                        Edad = edad 
+                        Edad = edad
                     });
 
                     string querySelect = "SELECT * FROM Usuarios WHERE Id=@Id;";
@@ -64,30 +64,27 @@ namespace tareaDAO_libreria_de_clases.DAO
             }
 
         }
-    
+
 
         //READ (lista usuarios)
         public IEnumerable<Usuario> read_lista_usuarios()
         {
             string query = "SELECT * FROM Usuarios;";
-            //connection string: esta string, o el user y password, se deberia guardar y traer de una variable de entorno
-            //(ahora no importa porque es una DB de practica).
-
-            //-> documentacion de la connection string para MySQLConnector: https://mysqlconnector.net/connection-options/
+            
             string connection_string = "Server=localhost;Port=3306;Username=tareaDAO_user;Password=123456;Database=tarea_dao;";
-           
+
             try
             {
                 using (var connection = new MySqlConnection(connection_string))
                 {
                     //Console.WriteLine(connection.State);
-                    
-                    var lista =  connection.Query<Usuario>(query).ToList();
+
+                    var lista = connection.Query<Usuario>(query).ToList();
 
                     return lista;
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return null;
@@ -116,7 +113,7 @@ namespace tareaDAO_libreria_de_clases.DAO
 
                 using (var connection = new MySqlConnection(connection_string))
                 {
-                    return connection.QueryFirstOrDefault<Usuario>(query,  new { Id = id });
+                    return connection.QueryFirstOrDefault<Usuario>(query, new { Id = id });
                 }
             }
             catch (Exception ex)
@@ -138,26 +135,23 @@ namespace tareaDAO_libreria_de_clases.DAO
                 {
                     throw new Exception($"{id} es una Id de usuario inválida.");
                 }
-                
+
                 if (edad < 0)
                 {
                     throw new Exception($"{edad} es una Edad de usuario inválida.");
                 }
-               
+
                 string nombre_pattern = @"^[a-zA-ZñÑ ]{0,50}$";
                 if (Regex.IsMatch(nombre, nombre_pattern) == false)
                 {
                     throw new Exception($"{nombre} es un nombre de usuario inválido.");
                 }
-                
+
 
                 string query = "UPDATE Usuarios SET Edad = @Edad, Nombre = @Nombre WHERE Id=@Id;";
                 string querySelect = "SELECT * FROM Usuarios WHERE Id=@Id;";
 
-                //connection string: esta string, o el user y password, se deberia guardar y traer de una variable de entorno
-                //(ahora no importa porque es una DB de practica).
-
-                //-> documentacion de la connection string para MySQLConnector: https://mysqlconnector.net/connection-options/
+                
                 string connection_string = "Server=localhost;Port=3306;Username=tareaDAO_user;Password=123456;Database=tarea_dao;";
 
                 using (var connection = new MySqlConnection(connection_string))
@@ -189,10 +183,62 @@ namespace tareaDAO_libreria_de_clases.DAO
             }
 
         }
+
+        //DELETE (borrado logico)
+        public Usuario delete_borrado_logico_usuario(int id)
+        {
+            try
+            {
+                //validacion de inputs
+                if (id < 0)
+                {
+                    throw new Exception($"{id} es una Id de usuario inválida.");
+                }
+
+                //formato de Fecha_baja en la DB:
+
+                string Fecha_baja = DateTime.Today.ToString("yyyy-MM-dd");
+
+                string query = $"UPDATE Usuarios SET Fecha_baja = @Fecha_baja WHERE Id=@Id;";
+                string querySelect = "SELECT * FROM Usuarios WHERE Id=@Id;";
+
+                
+                string connection_string = "Server=localhost;Port=3306;Username=tareaDAO_user;Password=123456;Database=tarea_dao;";
+
+                using (var connection = new MySqlConnection(connection_string))
+                {
+                    Console.WriteLine($"Usuario id={id} antes del borrado logico:");
+                    connection.QueryFirstOrDefault<Usuario>(querySelect, new
+                    {
+                        Id = id
+                    }).mostrarDatos();
+
+                    var rowsAffected = connection.Execute(query, new
+                    {
+                        Id = id,
+                        Fecha_baja = Fecha_baja
+                    });
+
+                    return connection.QueryFirstOrDefault<Usuario>(querySelect, new
+                    {
+                        Id = id
+                    });
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
+
     }
 
 
-        //DELETE (borrado logico)
-
     
+
+  
 }

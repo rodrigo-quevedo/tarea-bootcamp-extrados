@@ -1,5 +1,5 @@
--- Connection string: 
--- "server=locahost:3306;uid=tareaDAO_user;pwd=123456;database=tarea_dao"
+-- Connection string (formato para MySQLConnector -> https://mysqlconnector.net/connection-options/): 
+-- "Server=localhost;Port=3306;Username=tareaDAO_user;Password=123456;Database=tarea_dao;"
 
 DROP DATABASE IF EXISTS tarea_dao;
 CREATE DATABASE tarea_dao;
