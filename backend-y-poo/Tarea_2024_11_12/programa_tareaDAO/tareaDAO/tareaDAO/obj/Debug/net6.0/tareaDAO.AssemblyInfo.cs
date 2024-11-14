@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tareaDAO")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d8d3538d62a2b1960696ced77817f0e9aeb081fd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+191a85422652280459cf6d26d7fa67e55f494581")]
 [assembly: System.Reflection.AssemblyProductAttribute("tareaDAO")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tareaDAO")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -6,11 +6,31 @@ Console.WriteLine("Tarea DAO");
 UsuarioDAO usuarioDAO = new UsuarioDAO();
 
 //READ: Lista de usuarios
-Console.WriteLine("Lista de usuarios:");
 var listaUsuarios = usuarioDAO.read_lista_usuarios();
-foreach(var usuario in listaUsuarios)
+    //prueba:
+Console.WriteLine("Lista de usuarios:");
+if (listaUsuarios != null)
 {
-    usuario.mostrarDatos();
+    foreach(var usuario in listaUsuarios)
+    {
+        usuario.mostrarDatos();
+    }
+}
+else
+{
+    Console.WriteLine("null");
 }
 
 //READ: Usuario por ID
+int idPrueba = 1;
+var usuarioById = usuarioDAO.read_usuario_by_id(idPrueba);
+    //prueba:
+Console.WriteLine($"Mostrar usuario con Id={idPrueba}:");
+if (usuarioById != null)
+{
+    usuarioById.mostrarDatos();
+}
+else {
+    Console.WriteLine("null");
+}
+

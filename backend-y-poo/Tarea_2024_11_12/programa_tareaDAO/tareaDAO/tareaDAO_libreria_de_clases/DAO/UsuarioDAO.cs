@@ -15,7 +15,7 @@ namespace tareaDAO_libreria_de_clases.DAO
         //CREATE
         public void create()
         {
-
+            
         }
 
         //READ (lista usuarios)
@@ -48,9 +48,38 @@ namespace tareaDAO_libreria_de_clases.DAO
         }
 
         //READ (info de un usuario a partir de su Id)
+        public Usuario read_usuario_by_id(int id)
+        {
+            try
+            {
+                //validacion de input
+                if (id < 0)
+                {
+                    throw new Exception($"{id} es una Id de usuario inválida.");
+                }
 
 
-    
+                string query = "SELECT * FROM Usuarios WHERE Id=@Id;";
+                //esta string, o el user y password, se deberia guardar y traer de una variable de entorno
+                //(ahora no importa porque es una DB de practica).
+
+                //-> documentacion de la connection string para MySQLConnector: https://mysqlconnector.net/connection-options/
+                string connection_string = "Server=localhost;Port=3306;Username=tareaDAO_user;Password=123456;Database=tarea_dao;";
+
+                using (var connection = new MySqlConnection(connection_string))
+                {
+                    return connection.QueryFirstOrDefault<Usuario>(query,  new { Id = id });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
+
+        }
+
+
         //UPDATE
 
 
