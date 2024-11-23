@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_21\\tarea-API-Web-REST\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{412584BD-768F-416F-B9CA-826E84E7C13E}|DAO_biblioteca_de_cases\\DAO_biblioteca_de_cases.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_21\\tarea-api-web-rest\\dao_biblioteca_de_cases\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{412584BD-768F-416F-B9CA-826E84E7C13E}|DAO_biblioteca_de_cases\\DAO_biblioteca_de_cases.csproj|solutionrelative:dao_biblioteca_de_cases\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{412584BD-768F-416F-B9CA-826E84E7C13E}|DAO_biblioteca_de_cases\\DAO_biblioteca_de_cases.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_21\\tarea-api-web-rest\\dao_biblioteca_de_cases\\singleton_connection\\usuariosingletonconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{412584BD-768F-416F-B9CA-826E84E7C13E}|DAO_biblioteca_de_cases\\DAO_biblioteca_de_cases.csproj|solutionrelative:dao_biblioteca_de_cases\\singleton_connection\\usuariosingletonconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UsuarioSingletonConnection.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_21\\tarea-API-Web-REST\\DAO_biblioteca_de_cases\\Singleton_Connection\\UsuarioSingletonConnection.cs",
+              "RelativeDocumentMoniker": "DAO_biblioteca_de_cases\\Singleton_Connection\\UsuarioSingletonConnection.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_21\\tarea-API-Web-REST\\DAO_biblioteca_de_cases\\Singleton_Connection\\UsuarioSingletonConnection.cs",
+              "RelativeToolTip": "DAO_biblioteca_de_cases\\Singleton_Connection\\UsuarioSingletonConnection.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAqwAwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T22:33:12.195Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsuarioDAO.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_21\\tarea-API-Web-REST\\DAO_biblioteca_de_cases\\UsuarioDAO.cs",
+              "RelativeDocumentMoniker": "DAO_biblioteca_de_cases\\UsuarioDAO.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_21\\tarea-API-Web-REST\\DAO_biblioteca_de_cases\\UsuarioDAO.cs",
+              "RelativeToolTip": "DAO_biblioteca_de_cases\\UsuarioDAO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T21:48:48.578Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
