@@ -23,7 +23,7 @@ namespace DAO_biblioteca_de_cases.Singleton_Connection
                _instance.Open();
                 
                 
-                Console.WriteLine("Estado de la db connection:", _instance.State);
+                Console.WriteLine("Estado de la db connection:", _instance);
             }
 
             catch (Exception ex){ 

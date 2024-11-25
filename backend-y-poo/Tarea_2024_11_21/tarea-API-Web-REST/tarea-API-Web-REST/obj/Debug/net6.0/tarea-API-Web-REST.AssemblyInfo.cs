@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tarea-API-Web-REST")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd336edb3adc500f84ec9bd3652827d49b8d3a7a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f02929f5b4c532188955809aad6cddf87c38288a")]
 [assembly: System.Reflection.AssemblyProductAttribute("tarea-API-Web-REST")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tarea-API-Web-REST")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -12,5 +12,12 @@ namespace DAO_biblioteca_de_cases.Entidades
         public string nombre { get; set; }
         public int edad {  get; set; }
 
+        public void mostrarDatos()
+        {
+            Console.WriteLine($"Mail: {this.mail}");
+            Console.WriteLine($"Nombre: {this.nombre}");
+            Console.WriteLine($"Edad: {this.edad}");
+        }
+
     }
 }
