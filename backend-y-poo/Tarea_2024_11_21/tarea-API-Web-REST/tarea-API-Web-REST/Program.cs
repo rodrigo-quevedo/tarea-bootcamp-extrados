@@ -1,10 +1,10 @@
-using DAO_biblioteca_de_cases;
-using DAO_biblioteca_de_cases.Entidades;
+//using DAO_biblioteca_de_cases;
+//using DAO_biblioteca_de_cases.Entidades;
 
 Console.WriteLine("inicio programa");
 
 //test DAO
-UsuarioDAO dao = new UsuarioDAO();
+//UsuarioDAO dao = new UsuarioDAO();
 //Usuario u1 = dao.CrearUsuario("hola@gmail.com", "hola", 20);
 //if (u1 != null) u1.mostrarDatos();
 //else Console.WriteLine("u1 is null");

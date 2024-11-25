@@ -1,15 +1,21 @@
 [
   {
-    "ContainingType": "tarea_API_Web_REST.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",
+    "Method": "BuscarUsuarioPorMail",
+    "RelativePath": "Usuarios",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "mail",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[tarea_API_Web_REST.WeatherForecast, tarea-API-Web-REST, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "DAO_biblioteca_de_cases.Entidades.Usuario",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -17,7 +23,58 @@
         ],
         "StatusCode": 200
       }
+    ]
+  },
+  {
+    "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",
+    "Method": "AgregarUsuario",
+    "RelativePath": "Usuarios",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reqBody",
+        "Type": "DAO_biblioteca_de_cases.Entidades.Usuario",
+        "IsRequired": true
+      }
     ],
-    "EndpointName": "GetWeatherForecast"
+    "ReturnTypes": [
+      {
+        "Type": "DAO_biblioteca_de_cases.Entidades.Usuario",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",
+    "Method": "ActualizarUsuario",
+    "RelativePath": "Usuarios",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reqBody",
+        "Type": "DAO_biblioteca_de_cases.Entidades.Usuario",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DAO_biblioteca_de_cases.Entidades.Usuario",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

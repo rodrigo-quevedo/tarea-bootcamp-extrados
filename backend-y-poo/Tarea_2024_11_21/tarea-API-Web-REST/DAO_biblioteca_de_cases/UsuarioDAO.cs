@@ -130,10 +130,15 @@ namespace DAO_biblioteca_de_cases
                 string querySelect = "SELECT * FROM Usuarios WHERE Mail=@Mail;";
 
                 Console.WriteLine($"Usuario con mail={mail} antes del update:");
-                connection.QueryFirstOrDefault<Usuario>(querySelect, new
+                Usuario usuarioExistente = connection.QueryFirstOrDefault<Usuario>(querySelect, new
                 {
                     Mail = mail
-                }).mostrarDatos();
+                });
+                if (usuarioExistente == null)
+                {
+                    throw new Exception($"El usuario con mail '{mail}' no existe.");
+                }
+                usuarioExistente.mostrarDatos();
 
                 var rowsAffected = connection.Execute(query, new
                 {
