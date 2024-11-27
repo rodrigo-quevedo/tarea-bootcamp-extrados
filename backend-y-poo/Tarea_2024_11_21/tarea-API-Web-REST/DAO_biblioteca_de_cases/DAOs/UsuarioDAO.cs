@@ -5,7 +5,7 @@ using MySqlConnector;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 
-namespace DAO_biblioteca_de_cases
+namespace DAO_biblioteca_de_cases.DAOs
 {
     public class UsuarioDAO
     {
@@ -19,30 +19,6 @@ namespace DAO_biblioteca_de_cases
         {
             try
             {
-                //validacion de inputs 
-                if (edad <= 14)
-                {
-                    throw new Exception($"{edad} es una Edad de usuario inválida. " +
-                        $"\n1. Debe ser mayor a 14.");
-                }
-
-                string nombre_pattern = @"^[a-zA-ZñÑ ]{1,50}$";
-                if (Regex.IsMatch(nombre, nombre_pattern) == false)
-                {
-                    throw new Exception($"\n{nombre} es un nombre de usuario inválido. " +
-                        $"\n1. Solo se permiten letras mayusculas, minusculas y espacio. " +
-                        $"\n2. Debe tener un minimo de 1 y maximo de 50 caracteres.");
-                }
-
-                string mail_pattern = @"^[a-zA-ZñÑ0-9]{1,20}@gmail.com$";
-                if (Regex.IsMatch(mail, mail_pattern) == false)
-                {
-                    throw new Exception($"\n{mail} es un email inválido. " +
-                        $"\n1. No se permiten caracteres espaciales antes del '@'. " +
-                        $"\n2. Solo se permiten letras y numeros antes del '@'. " +
-                        $"\n3. Solo se permiten cuentas @gmail.com");
-                }
-
                 string query = "INSERT INTO Usuarios VALUES (@Mail , @Nombre, @Edad);";
 
                 var rowsAffected = connection.Execute(query, new
@@ -72,15 +48,6 @@ namespace DAO_biblioteca_de_cases
         {
             try
             {
-                string mail_pattern = @"^[a-zA-ZñÑ0-9]{1,20}@gmail.com$";
-                if (Regex.IsMatch(mail, mail_pattern) == false)
-                {
-                    throw new Exception($"\n{mail} es un email inválido. " +
-                        $"\n1. No se permiten caracteres espaciales antes del '@'. " +
-                        $"\n2. Solo se permiten letras y numeros antes del '@'. " +
-                        $"\n3. Solo se permiten cuentas @gmail.com");
-                }
-
                 string querySelect = "SELECT * FROM Usuarios WHERE Mail=@Mail";
                 return connection.QueryFirstOrDefault<Usuario>(querySelect, new
                 {
@@ -101,31 +68,6 @@ namespace DAO_biblioteca_de_cases
 
             try
             {
-                //validacion de inputs
-                if (edad <= 14)
-                {
-                    throw new Exception($"{edad} es una Edad de usuario inválida. " +
-                        $"\n1. Debe ser mayor a 14.");
-                }
-
-                string nombre_pattern = @"^[a-zA-ZñÑ ]{1,50}$";
-                if (Regex.IsMatch(nombre, nombre_pattern) == false)
-                {
-                    throw new Exception($"\n{nombre} es un nombre de usuario inválido. " +
-                        $"\n1. Solo se permiten letras mayusculas, minusculas y espacio. " +
-                        $"\n2. Debe tener un minimo de 1 y maximo de 50 caracteres.");
-                }
-
-                string mail_pattern = @"^[a-zA-ZñÑ0-9]{1,20}@gmail.com$";
-                if (Regex.IsMatch(mail, mail_pattern) == false)
-                {
-                    throw new Exception($"\n{mail} es un email inválido. " +
-                        $"\n1. No se permiten caracteres espaciales antes del '@'. " +
-                        $"\n2. Solo se permiten letras y numeros antes del '@'. " +
-                        $"\n3. Solo se permiten cuentas @gmail.com");
-                }
-
-
                 string query = "UPDATE Usuarios SET Nombre = @Nombre, Edad = @Edad WHERE Mail=@Mail;";
                 string querySelect = "SELECT * FROM Usuarios WHERE Mail=@Mail;";
 

@@ -1,4 +1,4 @@
-﻿using DAO_biblioteca_de_cases;
+﻿using DAO_biblioteca_de_cases.DAOs;
 using DAO_biblioteca_de_cases.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
