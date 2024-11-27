@@ -3,6 +3,7 @@ using DAO_biblioteca_de_cases.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
+using tarea_API_Web_REST.Services;
 
 namespace tarea_API_Web_REST.Controllers
 {
@@ -10,8 +11,21 @@ namespace tarea_API_Web_REST.Controllers
     [Route("[controller]")]
     public class UsuariosController : ControllerBase
     {
-        //usuario DAO
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        //services
+        BuscarUsuarioByMailService buscarUsuarioByMailService;
+        CrearUsuarioService crearUsuarioService;
+        ActualizarUsuarioService actualizarUsuarioService;
+
+        UsuariosInputValidationService usuariosInputValidationService;
+
+        public UsuariosController() {
+            buscarUsuarioByMailService = new ();
+            crearUsuarioService = new ();
+            actualizarUsuarioService = new ();
+            
+            usuariosInputValidationService = new ();
+        }
+
 
 
         [HttpGet]
@@ -22,22 +36,10 @@ namespace tarea_API_Web_REST.Controllers
             try
             {
                 //validacion de input
-                string mail_pattern = @"^[a-zA-ZñÑ0-9]{1,20}@gmail.com$";
-                if (Regex.IsMatch(mail, mail_pattern) == false)
-                {
-                    throw new Exception($"\n{mail} es un email inválido. " +
-                        $"\n1. No se permiten caracteres espaciales antes del '@'. " +
-                        $"\n2. Solo se permiten letras y numeros antes del '@'. " +
-                        $"\n3. Solo se permiten cuentas @gmail.com");
-                }
+                usuariosInputValidationService.validarMail(mail);
 
-                //DAO
-                Usuario usuarioEncontrado = usuarioDAO.BuscarUsuarioPorMail(mail);
-
-                if (usuarioEncontrado != null) usuarioEncontrado.mostrarDatos();
-                else Console.WriteLine("usuarioEncontrado is null");
-
-                return usuarioEncontrado;
+                //buscar usuario
+                return buscarUsuarioByMailService.BuscarUsuarioByMail(mail);
 
             }
             catch (Exception ex)
@@ -59,36 +61,11 @@ namespace tarea_API_Web_REST.Controllers
             try
             {
                 //validacion de input
-                if (reqBody.edad <= 14)
-                {
-                    throw new Exception($"{reqBody.edad} es una Edad de usuario inválida. " +
-                        $"\n1. Debe ser mayor a 14.");
-                }
+                usuariosInputValidationService.validarUsuarioObj(reqBody);
 
-                string nombre_pattern = @"^[a-zA-ZñÑ ]{1,50}$";
-                if (Regex.IsMatch(reqBody.nombre, nombre_pattern) == false)
-                {
-                    throw new Exception($"\n{reqBody.nombre} es un nombre de usuario inválido. " +
-                        $"\n1. Solo se permiten letras mayusculas, minusculas y espacio. " +
-                        $"\n2. Debe tener un minimo de 1 y maximo de 50 caracteres.");
-                }
-
-                string mail_pattern = @"^[a-zA-ZñÑ0-9]{1,20}@gmail.com$";
-                if (Regex.IsMatch(reqBody.mail, mail_pattern) == false)
-                {
-                    throw new Exception($"\n{reqBody.mail} es un email inválido. " +
-                        $"\n1. No se permiten caracteres espaciales antes del '@'. " +
-                        $"\n2. Solo se permiten letras y numeros antes del '@'. " +
-                        $"\n3. Solo se permiten cuentas @gmail.com");
-                }
-
-                //DAO
-                Usuario usuarioCreado = usuarioDAO.CrearUsuario(reqBody.mail, reqBody.nombre, reqBody.edad);
-
-                if (usuarioCreado != null) usuarioCreado.mostrarDatos();
-                else Console.WriteLine("usuarioCreado es null");
-
-                return usuarioCreado;
+                //crear usuario (el service crea el usuario, y luego lo busca y devuelve)
+                return crearUsuarioService.CrearUsuario(reqBody.mail, reqBody.nombre, reqBody.edad);
+                
 
             }
             catch (Exception ex)
@@ -109,37 +86,11 @@ namespace tarea_API_Web_REST.Controllers
             try
             {
                 //validacion de input
-                if (reqBody.edad <= 14)
-                {
-                    throw new Exception($"{reqBody.edad} es una Edad de usuario inválida. " +
-                        $"\n1. Debe ser mayor a 14.");
-                }
+                usuariosInputValidationService.validarUsuarioObj(reqBody);
 
-                string nombre_pattern = @"^[a-zA-ZñÑ ]{1,50}$";
-                if (Regex.IsMatch(reqBody.nombre, nombre_pattern) == false)
-                {
-                    throw new Exception($"\n{reqBody.nombre} es un nombre de usuario inválido. " +
-                        $"\n1. Solo se permiten letras mayusculas, minusculas y espacio. " +
-                        $"\n2. Debe tener un minimo de 1 y maximo de 50 caracteres.");
-                }
-
-                string mail_pattern = @"^[a-zA-ZñÑ0-9]{1,20}@gmail.com$";
-                if (Regex.IsMatch(reqBody.mail, mail_pattern) == false)
-                {
-                    throw new Exception($"\n{reqBody.mail} es un email inválido. " +
-                        $"\n1. No se permiten caracteres espaciales antes del '@'. " +
-                        $"\n2. Solo se permiten letras y numeros antes del '@'. " +
-                        $"\n3. Solo se permiten cuentas @gmail.com");
-                }
-
-                //DAO
-                Usuario usuarioActualizado = usuarioDAO.ActualizarUsuario(reqBody.mail, reqBody.nombre, reqBody.edad);
-
-                if (usuarioActualizado != null) usuarioActualizado.mostrarDatos();
-                else Console.WriteLine("usuarioActualizado es null");
-
-                return usuarioActualizado;
-
+                //actualizar usuario (el service actualiza el usuario, luego lo busca y lo devuelve)
+                return actualizarUsuarioService.ActualizarUsuario(reqBody.mail, reqBody.nombre, reqBody.edad);
+                
             }
             catch (Exception ex)
             {

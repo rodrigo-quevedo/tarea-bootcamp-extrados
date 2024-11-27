@@ -1,5 +1,5 @@
 ﻿using DAO_biblioteca_de_cases.Entidades;
-using DAO_biblioteca_de_cases.Singleton_Connection;
+using DAO_biblioteca_de_cases.Singleton_Connections;
 using Dapper;
 using MySqlConnector;
 using System.Security.Cryptography.X509Certificates;
@@ -29,10 +29,17 @@ namespace DAO_biblioteca_de_cases.DAOs
                 });
 
                 string querySelect = "SELECT * FROM Usuarios WHERE Mail=@Mail";
-                return connection.QueryFirstOrDefault<Usuario>(querySelect, new
+                Usuario usuarioExistente = connection.QueryFirstOrDefault<Usuario>(querySelect, new
                 {
                     Mail = mail
                 });
+
+                if (usuarioExistente == null)
+                {
+                    throw new Exception($"Error al intentar obtener el usuario creado. El usuario con mail '{mail}' no existe.");
+                }
+
+                return usuarioExistente;
             }
 
             catch (Exception ex)
@@ -49,10 +56,17 @@ namespace DAO_biblioteca_de_cases.DAOs
             try
             {
                 string querySelect = "SELECT * FROM Usuarios WHERE Mail=@Mail";
-                return connection.QueryFirstOrDefault<Usuario>(querySelect, new
+                Usuario usuarioExistente = connection.QueryFirstOrDefault<Usuario>(querySelect, new
                 {
                     Mail = mail
                 });
+
+                if (usuarioExistente == null)
+                {
+                    throw new Exception($"El usuario con mail '{mail}' no existe.");
+                }
+
+                return usuarioExistente;    
             }
 
             catch (Exception ex)
