@@ -1,5 +1,6 @@
 ﻿using DAO_biblioteca_de_cases.DAOs;
 using DAO_biblioteca_de_cases.Entidades;
+using tarea_API_Web_REST.Utils.Exceptions;
 
 namespace tarea_API_Web_REST.Services
 {
@@ -16,7 +17,7 @@ namespace tarea_API_Web_REST.Services
         {
             Usuario usuarioEncontrado = usuarioDAO.BuscarUsuarioPorMail(mail);
 
-            if (usuarioEncontrado == null) throw new Exception("usuarioEncontrado is null");
+            if (usuarioEncontrado == null) throw new NotFoundException($"No se encontró al usuario con mail '{mail}'");
 
             usuarioEncontrado.mostrarDatos();
           

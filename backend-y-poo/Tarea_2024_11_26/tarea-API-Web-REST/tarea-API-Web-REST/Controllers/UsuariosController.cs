@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tarea_API_Web_REST.Services;
+using tarea_API_Web_REST.Utils.ExceptionHandler;
 using tarea_API_Web_REST.Utils.Exceptions;
 
 namespace tarea_API_Web_REST.Controllers
@@ -17,15 +18,20 @@ namespace tarea_API_Web_REST.Controllers
 
         UsuariosInputValidationService usuariosInputValidationService;
 
+        ExceptionHandler exHandler;
+
         public UsuariosController() {
             buscarUsuarioByMailService = new ();
             crearUsuarioService = new ();
             actualizarUsuarioService = new ();
             
             usuariosInputValidationService = new ();
+
+            exHandler = new (this);
         }
 
 
+        //manejo de metodos HTTP
 
         [HttpGet]
         public ActionResult<Usuario> BuscarUsuarioPorMail(string mail)
@@ -41,21 +47,12 @@ namespace tarea_API_Web_REST.Controllers
                 return buscarUsuarioByMailService.BuscarUsuarioByMail(mail);
 
             }
-            catch(InputValidationException inputEx)
-            {
-                Console.WriteLine(inputEx.Message);
-                return BadRequest(inputEx.Message);
-            }
-            catch (Exception ex)
-            {
-            //si no es error de input, seguro es error del servidor
-                Console.WriteLine(ex.Message);
-                return StatusCode(
-                    StatusCodes.Status500InternalServerError, 
-                    new { message = ex.Message }
-                );
-            }
-
+            catch (InputValidationException inputEx) { return exHandler.InputValidationExceptionHandler(inputEx); }
+            
+            catch (NotFoundException notFoundEx) { return exHandler.NotFoundExceptionHandler(notFoundEx); }
+            
+            catch (Exception ex) { return exHandler.DefaultExceptionHandler(ex); }
+            
         }
 
 
@@ -75,20 +72,13 @@ namespace tarea_API_Web_REST.Controllers
                 
 
             }
-            catch (InputValidationException inputEx)
-            {
-                Console.WriteLine(inputEx.Message);
-                return BadRequest(inputEx.Message);
-            }
-            catch (Exception ex)
-            {
-                //si no es error de input, seguro es error del servidor
-                Console.WriteLine(ex.Message);
-                return StatusCode(
-                    StatusCodes.Status500InternalServerError,
-                    new { message = ex.Message }
-                );
-            }
+            catch (InputValidationException inputEx) { return exHandler.InputValidationExceptionHandler(inputEx); }
+
+            catch (NotFoundException notFoundEx) { return exHandler.NotFoundExceptionHandler(notFoundEx); }
+
+            catch (AlreadyExistsException alreadyExistsEx) { return exHandler.AlreadyExistsExceptionHandler(alreadyExistsEx); }
+
+            catch (Exception ex) { return exHandler.DefaultExceptionHandler(ex); }
         }
 
 
@@ -107,20 +97,11 @@ namespace tarea_API_Web_REST.Controllers
                 return actualizarUsuarioService.ActualizarUsuario(reqBody);
                 
             }
-            catch (InputValidationException inputEx)
-            {
-                Console.WriteLine(inputEx.Message);
-                return BadRequest(inputEx.Message);
-            }
-            catch (Exception ex)
-            {
-                //si no es error de input, seguro es error del servidor
-                Console.WriteLine(ex.Message);
-                return StatusCode(
-                    StatusCodes.Status500InternalServerError,
-                    new { message = ex.Message }
-                );
-            }
+            catch (InputValidationException inputEx) { return exHandler.InputValidationExceptionHandler(inputEx); }
+
+            catch (NotFoundException notFoundEx) { return exHandler.NotFoundExceptionHandler(notFoundEx); }
+
+            catch (Exception ex) { return exHandler.DefaultExceptionHandler(ex); }
         }
     }
 }
