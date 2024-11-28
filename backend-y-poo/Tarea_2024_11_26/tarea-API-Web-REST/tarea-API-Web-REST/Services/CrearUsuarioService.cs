@@ -1,5 +1,6 @@
 ﻿using DAO_biblioteca_de_cases.DAOs;
 using DAO_biblioteca_de_cases.Entidades;
+using Isopoh.Cryptography.Argon2;
 using tarea_API_Web_REST.Utils.Exceptions;
 
 namespace tarea_API_Web_REST.Services
@@ -23,9 +24,22 @@ namespace tarea_API_Web_REST.Services
                 throw new AlreadyExistsException($"No se puede crear el usuario con mail '{usuario.mail}' porque ya existe.");
             }
 
+            //hash password
+            
+            var passwordHash = Argon2.Hash(usuario.password);
+            Console.WriteLine($"password anterior: {usuario.password}");
+            Console.WriteLine($"password nueva: {passwordHash}");
+
+            Usuario nuevoUsuario = new Usuario(
+                usuario.mail,
+                usuario.nombre,
+                usuario.edad,
+                usuario.username,
+                passwordHash
+            );
 
             //crear usuario
-            usuarioDAO.CrearUsuario(usuario);
+            usuarioDAO.CrearUsuario(nuevoUsuario);
 
 
             //corroborar que se creo el usuario

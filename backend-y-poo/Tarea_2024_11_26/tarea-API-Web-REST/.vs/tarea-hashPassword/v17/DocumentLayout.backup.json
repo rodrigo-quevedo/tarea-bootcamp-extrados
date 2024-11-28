@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-hashPassword.csproj|solutionrelative:tarea-api-web-rest\\services\\logearusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-hashPassword.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_26\\tarea-api-web-rest\\tarea-api-web-rest\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-hashPassword.csproj|solutionrelative:tarea-api-web-rest\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-hashPassword.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_26\\tarea-api-web-rest\\tarea-api-web-rest\\services\\crearusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-hashPassword.csproj|solutionrelative:tarea-api-web-rest\\services\\crearusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-hashPassword.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_26\\tarea-api-web-rest\\tarea-api-web-rest\\utils\\exceptionhandler\\exceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-hashPassword.csproj|solutionrelative:tarea-api-web-rest\\utils\\exceptionhandler\\exceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-hashPassword.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_11_26\\tarea-api-web-rest\\tarea-api-web-rest\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-hashPassword.csproj|solutionrelative:tarea-api-web-rest\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,15 +26,15 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ExceptionHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_26\\tarea-API-Web-REST\\tarea-API-Web-REST\\Utils\\ExceptionHandler\\ExceptionHandler.cs",
-              "RelativeDocumentMoniker": "tarea-API-Web-REST\\Utils\\ExceptionHandler\\ExceptionHandler.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_26\\tarea-API-Web-REST\\tarea-API-Web-REST\\Utils\\ExceptionHandler\\ExceptionHandler.cs",
-              "RelativeToolTip": "tarea-API-Web-REST\\Utils\\ExceptionHandler\\ExceptionHandler.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAA3wDQAAABHAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "CrearUsuarioService.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_26\\tarea-API-Web-REST\\tarea-API-Web-REST\\Services\\CrearUsuarioService.cs",
+              "RelativeDocumentMoniker": "tarea-API-Web-REST\\Services\\CrearUsuarioService.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_26\\tarea-API-Web-REST\\tarea-API-Web-REST\\Services\\CrearUsuarioService.cs",
+              "RelativeToolTip": "tarea-API-Web-REST\\Services\\CrearUsuarioService.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAwwCUAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T18:50:32.839Z",
+              "WhenOpened": "2024-11-28T19:10:58.441Z",
               "EditorCaption": ""
             },
             {
@@ -45,20 +45,20 @@
               "RelativeDocumentMoniker": "tarea-API-Web-REST\\Services\\LogearUsuarioService.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_26\\tarea-API-Web-REST\\tarea-API-Web-REST\\Services\\LogearUsuarioService.cs",
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\LogearUsuarioService.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAYwBcAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAwBsAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-28T18:36:52.251Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UsuariosController.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_26\\tarea-API-Web-REST\\tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "RelativeDocumentMoniker": "tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_11_26\\tarea-API-Web-REST\\tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "RelativeToolTip": "tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAAFgAAAAAAAAAAAA1wGAAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAQwGAAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-25T18:57:29.628Z",
               "EditorCaption": ""

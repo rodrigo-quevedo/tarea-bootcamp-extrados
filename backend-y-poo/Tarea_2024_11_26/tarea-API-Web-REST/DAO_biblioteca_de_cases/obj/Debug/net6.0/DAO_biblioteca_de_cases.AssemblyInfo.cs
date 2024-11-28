@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DAO_biblioteca_de_cases")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+53aa1c60362e1cccbc0246a9432a1989b70a09f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56af2867bf39f9c32d7328feba3e23b266fe8602")]
 [assembly: System.Reflection.AssemblyProductAttribute("DAO_biblioteca_de_cases")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DAO_biblioteca_de_cases")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

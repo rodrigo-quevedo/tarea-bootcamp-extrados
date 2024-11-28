@@ -14,6 +14,15 @@ namespace DAO_biblioteca_de_cases.Entidades
         public string username { get; set; }
         public string password { get; set; }
 
+        public Usuario (string mail, string nombre, int edad, string username, string password)
+        {
+            this.mail = mail;
+            this.nombre = nombre;
+            this.edad = edad;
+            this.username = username;
+            this.password = password;
+        }
+
         public void mostrarDatos()
         {
             Console.WriteLine($"Mail: {this.mail}");
