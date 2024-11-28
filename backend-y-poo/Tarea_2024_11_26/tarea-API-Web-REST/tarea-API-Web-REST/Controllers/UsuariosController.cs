@@ -18,6 +18,8 @@ namespace tarea_API_Web_REST.Controllers
 
         UsuariosInputValidationService usuariosInputValidationService;
 
+        LogearUsuarioService logearUsuarioService;
+
         ExceptionHandler exHandler;
 
         public UsuariosController() {
@@ -28,6 +30,8 @@ namespace tarea_API_Web_REST.Controllers
             usuariosInputValidationService = new ();
 
             exHandler = new (this);
+
+            logearUsuarioService = new ();
         }
 
 
@@ -56,7 +60,7 @@ namespace tarea_API_Web_REST.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("registro")]
         public ActionResult<Usuario> AgregarUsuario(Usuario reqBody)//en el caso del request body, hay que leerlo como un objeto
         {
             Console.WriteLine($"POST en /usuarios: {DateTime.Now}");
@@ -81,6 +85,25 @@ namespace tarea_API_Web_REST.Controllers
             catch (Exception ex) { return exHandler.DefaultExceptionHandler(ex); }
         }
 
+        [HttpPost("login")]
+        public ActionResult<Usuario> LogearUsuario(Credenciales reqBody)//en el caso del request body, hay que leerlo como un objeto
+        {
+            try
+            {
+                //validar inputs
+                usuariosInputValidationService.validarCredencialesObj(reqBody);
+
+                //logear usuario
+                return logearUsuarioService.LogearUsuario(reqBody);
+            }
+            catch (InputValidationException inputEx) { return exHandler.InputValidationExceptionHandler(inputEx); }
+
+            catch (NotFoundException notFoundEx) { return exHandler.NotFoundExceptionHandler(notFoundEx); }
+
+            catch (InvalidCredentialsException invalidCredsEx) { return exHandler.InvalidCredentialsExceptionHandler(invalidCredsEx); }
+
+            catch (Exception ex) { return exHandler.DefaultExceptionHandler(ex); }
+        }
 
         [HttpPut]
         public ActionResult<Usuario> ActualizarUsuario(Usuario reqBody)

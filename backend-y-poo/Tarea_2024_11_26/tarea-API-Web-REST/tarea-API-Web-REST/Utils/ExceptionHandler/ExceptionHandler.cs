@@ -48,5 +48,15 @@ namespace tarea_API_Web_REST.Utils.ExceptionHandler
                 new { message = ex.Message }
             );
         }
+        public ActionResult InvalidCredentialsExceptionHandler (InvalidCredentialsException invalidCredsEx)
+        {
+            //creeria que es un error 401, ya que se intenta acceder a la info del usuario
+            Console.WriteLine(invalidCredsEx.Message);
+            return _controller.StatusCode(
+                StatusCodes.Status401Unauthorized,
+                new { message = invalidCredsEx.Message }
+            );
+        }
+
     }
 }

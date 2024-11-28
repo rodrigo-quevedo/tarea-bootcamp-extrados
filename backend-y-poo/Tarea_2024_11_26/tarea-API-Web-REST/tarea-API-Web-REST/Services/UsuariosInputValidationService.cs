@@ -49,9 +49,9 @@ namespace tarea_API_Web_REST.Services
 
             // username
             string username_pattern = @"^[a-zA-ZñÑ0-9 ]{4,50}$";
-            if (Regex.IsMatch(reqBody.nombre, nombre_pattern) == false)
+            if (Regex.IsMatch(reqBody.username, username_pattern) == false)
             {
-                throw new InputValidationException($"\n{reqBody.nombre} es un nombre de usuario inválido. " +
+                throw new InputValidationException($"\n{reqBody.username} es un nombre de usuario inválido. " +
                     $"\n1. Solo se permiten letras mayusculas, minusculas, numeros y espacios. " +
                     $"\n2. Debe tener un minimo de 4 y maximo de 50 caracteres." +
                     $"\n3. No se permiten caracteres especiales");
@@ -61,9 +61,9 @@ namespace tarea_API_Web_REST.Services
 
             // password
             string password_pattern = @"^[a-zA-ZñÑ0-9 ]{4,50}$";
-            if (Regex.IsMatch(reqBody.nombre, nombre_pattern) == false)
+            if (Regex.IsMatch(reqBody.password, password_pattern) == false)
             {
-                throw new InputValidationException($"\n{reqBody.nombre} es un nombre de usuario inválido. " +
+                throw new InputValidationException($"\n{reqBody.password} es un nombre de usuario inválido. " +
                     $"\n1. Solo se permiten letras mayusculas, minusculas, numeros y espacios. " +
                     $"\n2. Debe tener un minimo de 4 y maximo de 50 caracteres." +
                     $"\n3. No se permiten caracteres especiales");
@@ -71,6 +71,39 @@ namespace tarea_API_Web_REST.Services
 
 
 
+        }
+
+        public void validarCredencialesObj(Credenciales reqBody)
+        {
+            // mail
+            string mail_pattern = @"^[a-zA-ZñÑ0-9]{1,20}@gmail.com$";
+            if (Regex.IsMatch(reqBody.mail, mail_pattern) == false)
+            {
+                throw new InputValidationException($"\n{reqBody.mail} es un email inválido. " +
+                    $"\n1. No se permiten caracteres espaciales antes del '@'. " +
+                    $"\n2. Solo se permiten letras y numeros antes del '@'. " +
+                    $"\n3. Solo se permiten cuentas @gmail.com");
+            }
+
+            // username
+            string username_pattern = @"^[a-zA-ZñÑ0-9 ]{4,50}$";
+            if (Regex.IsMatch(reqBody.username, username_pattern) == false)
+            {
+                throw new InputValidationException($"\n{reqBody.username} es un nombre de usuario inválido. " +
+                    $"\n1. Solo se permiten letras mayusculas, minusculas, numeros y espacios. " +
+                    $"\n2. Debe tener un minimo de 4 y maximo de 50 caracteres." +
+                    $"\n3. No se permiten caracteres especiales");
+            }
+
+            // password
+            string password_pattern = @"^[a-zA-ZñÑ0-9 ]{4,50}$";
+            if (Regex.IsMatch(reqBody.password, password_pattern) == false)
+            {
+                throw new InputValidationException($"\n{reqBody.password} es un nombre de usuario inválido. " +
+                    $"\n1. Solo se permiten letras mayusculas, minusculas, numeros y espacios. " +
+                    $"\n2. Debe tener un minimo de 4 y maximo de 50 caracteres." +
+                    $"\n3. No se permiten caracteres especiales");
+            }
         }
     }
 }
