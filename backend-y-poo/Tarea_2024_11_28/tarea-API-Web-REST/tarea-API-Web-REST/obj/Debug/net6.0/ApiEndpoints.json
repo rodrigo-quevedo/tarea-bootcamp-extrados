@@ -1,0 +1,70 @@
+[
+  {
+    "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",
+    "Method": "BuscarUsuarioPorMail",
+    "RelativePath": "Usuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mail",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DAO_biblioteca_de_cases.Entidades.Usuario",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",
+    "Method": "LogearUsuario",
+    "RelativePath": "Usuarios/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reqBody",
+        "Type": "DAO_biblioteca_de_cases.Entidades.Credenciales",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",
+    "Method": "AgregarUsuario",
+    "RelativePath": "Usuarios/registro",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reqBody",
+        "Type": "DAO_biblioteca_de_cases.Entidades.Usuario",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DAO_biblioteca_de_cases.Entidades.Usuario",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]
