@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tarea-hashPassword")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56af2867bf39f9c32d7328feba3e23b266fe8602")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42e3fcd3aec738a7dbf5487f836b54fed5cb7a4c")]
 [assembly: System.Reflection.AssemblyProductAttribute("tarea-hashPassword")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tarea-hashPassword")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

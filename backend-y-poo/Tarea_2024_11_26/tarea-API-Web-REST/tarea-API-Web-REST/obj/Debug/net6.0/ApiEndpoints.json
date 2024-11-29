@@ -65,17 +65,7 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "DAO_biblioteca_de_cases.Entidades.Usuario",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",

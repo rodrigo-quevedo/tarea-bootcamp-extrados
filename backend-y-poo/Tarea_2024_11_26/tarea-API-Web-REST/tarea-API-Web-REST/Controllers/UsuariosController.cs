@@ -1,6 +1,7 @@
 ﻿using DAO_biblioteca_de_cases.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 using tarea_API_Web_REST.Services;
 using tarea_API_Web_REST.Utils.ExceptionHandler;
 using tarea_API_Web_REST.Utils.Exceptions;
@@ -22,6 +23,8 @@ namespace tarea_API_Web_REST.Controllers
 
         ExceptionHandler exHandler;
 
+        CrearJwtService crearJwtService;
+
         public UsuariosController() {
             buscarUsuarioByMailService = new ();
             crearUsuarioService = new ();
@@ -32,6 +35,7 @@ namespace tarea_API_Web_REST.Controllers
             exHandler = new (this);
 
             logearUsuarioService = new ();
+            crearJwtService = new ();
         }
 
 
@@ -86,15 +90,27 @@ namespace tarea_API_Web_REST.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult<Usuario> LogearUsuario(Credenciales reqBody)//en el caso del request body, hay que leerlo como un objeto
+        public ActionResult LogearUsuario(Credenciales reqBody)//en el caso del request body, hay que leerlo como un objeto
         {
             try
             {
                 //validar inputs
                 usuariosInputValidationService.validarCredencialesObj(reqBody);
 
-                //logear usuario
-                return logearUsuarioService.LogearUsuario(reqBody);
+                //logear usuario (corroborar credenciales)
+                Usuario usuarioLogeado = logearUsuarioService.LogearUsuario(reqBody);
+
+                //crear JWT
+                var jwt = crearJwtService.CrearJwt(usuarioLogeado);
+
+                //devolver JWT y datos del usuario
+                
+                return Ok(
+                    new {
+                        jwt = jwt,
+                        usuarioData = usuarioLogeado
+                    }
+                );
             }
             catch (InputValidationException inputEx) { return exHandler.InputValidationExceptionHandler(inputEx); }
 
