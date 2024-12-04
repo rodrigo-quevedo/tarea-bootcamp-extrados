@@ -9,11 +9,20 @@ namespace DAO_biblioteca_de_cases.DAOs
 {
     public class UsuarioDAO
     {
-
-        //singleton del objeto connection
-        private MySqlConnection connection = UsuarioSingletonConnection.Instance;
+        private MySqlConnection connection;
 
 
+        public UsuarioDAO(string connectionString)
+        {
+            //setear connection string
+            UsuarioSingletonConnection.connectionString = connectionString;
+            
+            //singleton del objeto connection
+            connection = UsuarioSingletonConnection.Instance;
+        }
+
+
+        //-------crud--------:
         //CREATE
         public void CrearUsuario(Usuario usuario)
         {

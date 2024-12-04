@@ -10,6 +10,7 @@ namespace DAO_biblioteca_de_cases.Singleton_Connections
 {
     public class UsuarioSingletonConnection
     {
+        public static string connectionString { get; set; }
         private static MySqlConnection _instance = null;
         public static MySqlConnection Instance
         {
@@ -17,21 +18,23 @@ namespace DAO_biblioteca_de_cases.Singleton_Connections
             {
                 if (_instance == null)
                 {
-                    new UsuarioSingletonConnection();
+                    new UsuarioSingletonConnection(connectionString);
                 }
 
                 return _instance;
             }
         }
 
-        private UsuarioSingletonConnection()
+        private UsuarioSingletonConnection(string connectionStringArg)
         {
             //connection string:
-            //"Server=localhost;Port=3306;Username=tarea_hashPassword_user;Password=123456;Database=tarea_hashPassword;"
+            //obtenerla del appsettings.json en el proyecto web
+            //(es decir, configurarla en el program.cs y pasarla al DAO como parámetro)
+            //(el DAO, a su vez, se lo pasa al SingletonConnection como parámetro)
 
             try
             {
-                _instance = new MySqlConnection("Server=localhost;Port=3306;Username=tarea_hashPassword_user;Password=123456;Database=tarea_hashPassword;");
+                _instance = new MySqlConnection(connectionStringArg);
                 _instance.Open();
 
 

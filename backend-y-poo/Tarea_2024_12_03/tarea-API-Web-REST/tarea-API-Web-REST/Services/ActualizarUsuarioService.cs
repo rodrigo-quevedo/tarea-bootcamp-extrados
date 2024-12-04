@@ -7,8 +7,8 @@ namespace tarea_API_Web_REST.Services
     public class ActualizarUsuarioService
     {
         UsuarioDAO usuarioDAO { get; set; }
-        public ActualizarUsuarioService() {
-            usuarioDAO = new UsuarioDAO();
+        public ActualizarUsuarioService(string connectionString) {
+            usuarioDAO = new UsuarioDAO(connectionString);
         }
 
         public Usuario ActualizarUsuario(Usuario usuario)

@@ -8,9 +8,9 @@ namespace tarea_API_Web_REST.Services
     public class LogearUsuarioService
     {
         UsuarioDAO usuarioDAO { get; set; }
-        public LogearUsuarioService()
+        public LogearUsuarioService(string connectionString)
         {
-            usuarioDAO = new UsuarioDAO();
+            usuarioDAO = new UsuarioDAO(connectionString);
         }
 
         public Usuario LogearUsuario(Credenciales reqBody)

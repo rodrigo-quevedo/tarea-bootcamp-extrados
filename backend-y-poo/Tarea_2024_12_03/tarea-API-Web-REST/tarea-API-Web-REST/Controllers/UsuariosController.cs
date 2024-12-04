@@ -24,14 +24,16 @@ namespace tarea_API_Web_REST.Controllers
         ExceptionHandler exHandler;
 
         private JwtConfiguration _jwtConfiguration;
+        private DatabaseConfiguration _databaseConfiguration;
 
-        public UsuariosController(IOptions<JwtConfiguration> jwtConfig) {
+        public UsuariosController(IOptions<JwtConfiguration> jwtConfig, IOptions<DatabaseConfiguration> dbConfig) {
             this._jwtConfiguration = jwtConfig.Value;
+            this._databaseConfiguration = dbConfig.Value;
 
-            buscarUsuarioByMailService = new ();
-            crearUsuarioService = new ();
-            actualizarUsuarioService = new ();
-            logearUsuarioService = new ();
+            buscarUsuarioByMailService = new (_databaseConfiguration.connection_string);
+            crearUsuarioService = new (_databaseConfiguration.connection_string);
+            actualizarUsuarioService = new (_databaseConfiguration.connection_string);
+            logearUsuarioService = new (_databaseConfiguration.connection_string);
             crearJwtService = new ();
             usuariosInputValidationService = new ();
             

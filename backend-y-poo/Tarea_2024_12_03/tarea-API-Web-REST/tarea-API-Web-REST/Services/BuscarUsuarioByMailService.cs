@@ -7,9 +7,9 @@ namespace tarea_API_Web_REST.Services
     public class BuscarUsuarioByMailService
     {
         UsuarioDAO usuarioDAO {  get; set; }
-        public BuscarUsuarioByMailService()
+        public BuscarUsuarioByMailService(string connectionString)
         {
-            usuarioDAO = new UsuarioDAO();
+            usuarioDAO = new UsuarioDAO(connectionString);
         }
 
 

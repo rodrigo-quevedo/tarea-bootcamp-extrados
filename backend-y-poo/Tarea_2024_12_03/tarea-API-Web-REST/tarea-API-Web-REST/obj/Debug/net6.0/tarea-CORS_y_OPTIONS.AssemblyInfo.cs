@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tarea-CORS_y_OPTIONS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ed36c122c528a53c6077b05c5d8483dbdbeea21")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a7122acb6c00284187c2472a6a12df4086f767b6")]
 [assembly: System.Reflection.AssemblyProductAttribute("tarea-CORS_y_OPTIONS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tarea-CORS_y_OPTIONS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

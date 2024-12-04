@@ -51,7 +51,7 @@ builder.Services.AddCors(
 );
 //patron OPTIONS
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("Jwt"));
-//builder.Services.Configure<DatabaseConfiguration>(builder.Configuration.GetSection("Database"));
+builder.Services.Configure<DatabaseConfiguration>(builder.Configuration.GetSection("Database"));
 
 var app = builder.Build();
 

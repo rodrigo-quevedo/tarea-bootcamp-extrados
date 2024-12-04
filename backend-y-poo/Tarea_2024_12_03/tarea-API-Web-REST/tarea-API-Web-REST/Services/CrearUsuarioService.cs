@@ -8,8 +8,8 @@ namespace tarea_API_Web_REST.Services
     public class CrearUsuarioService
     {
         UsuarioDAO usuarioDAO { get; set; }
-        public CrearUsuarioService() { 
-            usuarioDAO = new UsuarioDAO();
+        public CrearUsuarioService(string connectionString) { 
+            usuarioDAO = new UsuarioDAO(connectionString);
         }
 
         public Usuario CrearUsuario(Usuario usuario)
