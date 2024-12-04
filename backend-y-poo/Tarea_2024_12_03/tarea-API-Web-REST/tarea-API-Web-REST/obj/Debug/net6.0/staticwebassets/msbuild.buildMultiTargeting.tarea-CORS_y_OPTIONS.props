@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\tarea-CORS_y_OPTIONS.props" />
+</Project>
