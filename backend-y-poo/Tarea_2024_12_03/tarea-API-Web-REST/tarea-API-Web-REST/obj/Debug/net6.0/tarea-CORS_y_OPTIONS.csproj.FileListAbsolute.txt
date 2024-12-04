@@ -51,3 +51,5 @@ C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_12_0
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_12_03\tarea-API-Web-REST\tarea-API-Web-REST\obj\Debug\net6.0\tarea-CORS_y_OPTIONS.pdb
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_12_03\tarea-API-Web-REST\tarea-API-Web-REST\obj\Debug\net6.0\tarea-CORS_y_OPTIONS.genruntimeconfig.cache
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_12_03\tarea-API-Web-REST\tarea-API-Web-REST\obj\Debug\net6.0\ref\tarea-CORS_y_OPTIONS.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_12_03\tarea-API-Web-REST\tarea-API-Web-REST\bin\Debug\net6.0\Configuration.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\Tarea_2024_12_03\tarea-API-Web-REST\tarea-API-Web-REST\bin\Debug\net6.0\Configuration.pdb

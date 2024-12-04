@@ -1,4 +1,5 @@
-﻿using DAO_biblioteca_de_cases.Entidades;
+﻿using Configuration;
+using DAO_biblioteca_de_cases.Entidades;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -9,10 +10,11 @@ namespace tarea_API_Web_REST.Services
     public class CrearJwtService
     {
 
-        public string CrearJwt(Usuario usuarioValidado)
+        public string CrearJwt(Usuario usuarioValidado, JwtConfiguration jwtConfig)
         {
             //esta llavePrivada se deberia guardar en una variable de entorno
-            SymmetricSecurityKey llavePrivada = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("passwordpasswordpasswordpasswordpasswordpasswordpassword"));
+            SymmetricSecurityKey llavePrivada = 
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.secret));
 
 
             SigningCredentials configuracionFirmaJWT = new SigningCredentials(llavePrivada, SecurityAlgorithms.HmacSha256);
@@ -38,8 +40,8 @@ namespace tarea_API_Web_REST.Services
             //Header: saca el algoritmo de SigningCredentials
             //Payload: issuer, audience, expires, y todo lo que haya en claims
             SecurityToken securityToken = new JwtSecurityToken(
-                issuer: "http://localhost:5176",
-                audience : "http://localhost:5176",
+                issuer: jwtConfig.issuer,
+                audience : jwtConfig.audience,
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(120),
                 signingCredentials: configuracionFirmaJWT

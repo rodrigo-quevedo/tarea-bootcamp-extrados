@@ -1,6 +1,8 @@
-﻿using DAO_biblioteca_de_cases.Entidades;
+﻿using Configuration;
+using DAO_biblioteca_de_cases.Entidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using tarea_API_Web_REST.Services;
 using tarea_API_Web_REST.Utils.ExceptionHandler;
 using tarea_API_Web_REST.Utils.Exceptions;
@@ -15,26 +17,26 @@ namespace tarea_API_Web_REST.Controllers
         BuscarUsuarioByMailService buscarUsuarioByMailService;
         CrearUsuarioService crearUsuarioService;
         ActualizarUsuarioService actualizarUsuarioService;
-
-        UsuariosInputValidationService usuariosInputValidationService;
-
         LogearUsuarioService logearUsuarioService;
+        CrearJwtService crearJwtService;
+        UsuariosInputValidationService usuariosInputValidationService;
 
         ExceptionHandler exHandler;
 
-        CrearJwtService crearJwtService;
+        private JwtConfiguration _jwtConfiguration;
 
-        public UsuariosController() {
+        public UsuariosController(IOptions<JwtConfiguration> jwtConfig) {
+            this._jwtConfiguration = jwtConfig.Value;
+
             buscarUsuarioByMailService = new ();
             crearUsuarioService = new ();
             actualizarUsuarioService = new ();
-            
-            usuariosInputValidationService = new ();
-
-            exHandler = new (this);
-
             logearUsuarioService = new ();
             crearJwtService = new ();
+            usuariosInputValidationService = new ();
+            
+            exHandler = new (this);
+
         }
 
         //endpoints
@@ -100,7 +102,7 @@ namespace tarea_API_Web_REST.Controllers
                 Usuario usuarioLogeado = logearUsuarioService.LogearUsuario(reqBody);
 
                 //crear JWT
-                var jwt = crearJwtService.CrearJwt(usuarioLogeado);
+                var jwt = crearJwtService.CrearJwt(usuarioLogeado, _jwtConfiguration);
 
                 //devolver JWT y datos del usuario
                 

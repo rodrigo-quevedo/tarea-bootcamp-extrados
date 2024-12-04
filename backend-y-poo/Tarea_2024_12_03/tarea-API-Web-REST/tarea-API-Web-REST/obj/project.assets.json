@@ -402,10 +402,21 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
+      "Configuration/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Configuration.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Configuration.dll": {}
+        }
+      },
       "DAO_biblioteca_de_cases/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Configuration": "1.0.0",
           "Dapper": "2.1.35",
           "MySqlConnector": "2.4.0"
         },
@@ -1263,6 +1274,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Configuration/1.0.0": {
+      "type": "project",
+      "path": "../Configuration/Configuration.csproj",
+      "msbuildProject": "../Configuration/Configuration.csproj"
+    },
     "DAO_biblioteca_de_cases/1.0.0": {
       "type": "project",
       "path": "../DAO_biblioteca_de_cases/DAO_biblioteca_de_cases.csproj",
@@ -1271,6 +1287,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Configuration >= 1.0.0",
       "DAO_biblioteca_de_cases >= 1.0.0",
       "Isopoh.Cryptography.Argon2 >= 2.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.36",
@@ -1312,6 +1329,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\Configuration\\Configuration.csproj": {
+              "projectPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\Configuration\\Configuration.csproj"
+            },
             "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\DAO_biblioteca_de_cases\\DAO_biblioteca_de_cases.csproj": {
               "projectPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\DAO_biblioteca_de_cases\\DAO_biblioteca_de_cases.csproj"
             }

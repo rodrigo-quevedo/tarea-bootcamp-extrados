@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\DAO_biblioteca_de_cases\DAO_biblioteca_de_cases.csproj" />
   </ItemGroup>
 

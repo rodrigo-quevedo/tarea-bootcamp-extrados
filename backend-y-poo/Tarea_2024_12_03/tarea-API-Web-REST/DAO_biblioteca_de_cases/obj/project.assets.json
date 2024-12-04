@@ -103,6 +103,16 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "Configuration/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Configuration.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Configuration.dll": {}
+        }
       }
     }
   },
@@ -315,10 +325,16 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Configuration/1.0.0": {
+      "type": "project",
+      "path": "../Configuration/Configuration.csproj",
+      "msbuildProject": "../Configuration/Configuration.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Configuration >= 1.0.0",
       "Dapper >= 2.1.35",
       "MySqlConnector >= 2.4.0"
     ]
@@ -355,7 +371,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\Configuration\\Configuration.csproj": {
+              "projectPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\Configuration\\Configuration.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

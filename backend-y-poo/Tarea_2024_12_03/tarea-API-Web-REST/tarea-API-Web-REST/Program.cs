@@ -1,3 +1,4 @@
+using Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -14,24 +15,25 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+    options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
-            ValidIssuer = "http://localhost:5176",
+            ValidIssuer = builder.Configuration["Jwt:issuer"],
 
             ValidateAudience = true,
-            ValidAudience = "http://localhost:5176",
+            ValidAudience = builder.Configuration["Jwt:audience"],
 
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero,
 
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("passwordpasswordpasswordpasswordpasswordpasswordpassword"))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:secret"]))
         };
-    });
+    }
+);
 builder.Services.AddCors(
     options =>
     {
@@ -47,6 +49,9 @@ builder.Services.AddCors(
         );
     }
 );
+//patron OPTIONS
+builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("Jwt"));
+//builder.Services.Configure<DatabaseConfiguration>(builder.Configuration.GetSection("Database"));
 
 var app = builder.Build();
 

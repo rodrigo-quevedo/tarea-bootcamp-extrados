@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-jwtAuth.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_12_03\\tarea-api-web-rest\\tarea-api-web-rest\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-jwtAuth.csproj|solutionrelative:tarea-api-web-rest\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-jwtAuth.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_12_03\\tarea-api-web-rest\\tarea-api-web-rest\\services\\crearjwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-jwtAuth.csproj|solutionrelative:tarea-api-web-rest\\services\\crearjwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-jwtAuth.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_12_03\\tarea-api-web-rest\\tarea-api-web-rest\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-jwtAuth.csproj|solutionrelative:tarea-api-web-rest\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-CORS_y_OPTIONS.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_12_03\\tarea-api-web-rest\\tarea-api-web-rest\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-CORS_y_OPTIONS.csproj|solutionrelative:tarea-api-web-rest\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-CORS_y_OPTIONS.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_12_03\\tarea-api-web-rest\\tarea-api-web-rest\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-CORS_y_OPTIONS.csproj|solutionrelative:tarea-api-web-rest\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{144269FD-5DCE-4B1B-8753-EC9577D734CC}|Configuration\\Configuration.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_12_03\\tarea-api-web-rest\\configuration\\jwtconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{144269FD-5DCE-4B1B-8753-EC9577D734CC}|Configuration\\Configuration.csproj|solutionrelative:configuration\\jwtconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-CORS_y_OPTIONS.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_12_03\\tarea-api-web-rest\\tarea-api-web-rest\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-CORS_y_OPTIONS.csproj|solutionrelative:tarea-api-web-rest\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-CORS_y_OPTIONS.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\tarea_2024_12_03\\tarea-api-web-rest\\tarea-api-web-rest\\services\\crearjwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB896C17-6710-4E0B-ACB3-D3149159E850}|tarea-API-Web-REST\\tarea-CORS_y_OPTIONS.csproj|solutionrelative:tarea-api-web-rest\\services\\crearjwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,56 +30,69 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\tarea-API-Web-REST\\appsettings.json",
               "RelativeDocumentMoniker": "tarea-API-Web-REST\\appsettings.json",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\tarea-API-Web-REST\\appsettings.json",
               "RelativeToolTip": "tarea-API-Web-REST\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-04T05:49:52.861Z",
+              "WhenOpened": "2024-12-04T15:14:12.474Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "JwtConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\Configuration\\JwtConfiguration.cs",
+              "RelativeDocumentMoniker": "Configuration\\JwtConfiguration.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\Configuration\\JwtConfiguration.cs",
+              "RelativeToolTip": "Configuration\\JwtConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T14:56:34.608Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "CrearJwtService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\tarea-API-Web-REST\\Services\\CrearJwtService.cs",
               "RelativeDocumentMoniker": "tarea-API-Web-REST\\Services\\CrearJwtService.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\tarea-API-Web-REST\\Services\\CrearJwtService.cs",
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\CrearJwtService.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAYwCsAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAjwAwAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-29T22:59:11.728Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\tarea-API-Web-REST\\Program.cs",
               "RelativeDocumentMoniker": "tarea-API-Web-REST\\Program.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\tarea-API-Web-REST\\Program.cs",
               "RelativeToolTip": "tarea-API-Web-REST\\Program.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAACgAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADQAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-29T15:59:02.816Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UsuariosController.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "RelativeDocumentMoniker": "tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "RelativeToolTip": "tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAwwGgAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAArwBsAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-25T18:57:29.628Z",
               "EditorCaption": ""
