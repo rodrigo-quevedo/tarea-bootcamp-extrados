@@ -7,7 +7,7 @@ USE tarea_datetime;
 
 DROP USER IF EXISTS tarea_datetime_user;
 CREATE USER tarea_datetime_user IDENTIFIED BY '123456';
-
+	
 DROP TABLE IF EXISTS Usuarios;
 CREATE TABLE  Usuarios (
 	mail VARCHAR(50) PRIMARY KEY,
@@ -26,14 +26,15 @@ CREATE TABLE Libros (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	titulo VARCHAR(100) NOT NULL,
 	-- los DATETIME se deben insertar en UTC para que sean iguales
-	fecha_prestamo DATETIME NULL,
-	fecha_vencimiento DATETIME NULL,
-	-- Si hay fecha de prestamo, debe haber fecha vencimiento.
+	fechaHora_prestamo DATETIME NULL,
+	fechaHora_vencimiento DATETIME NULL,
+	username_prestatario VARCHAR(50) NULL,
+	-- Si hay fecha de prestamo, debe haber fecha vencimiento y username_prestatario al que se le presto.
 	-- Si no hay fecha prestamo, el libro esta disponible, por lo tanto tampoco tiene fecha de vencimiento
 	CHECK (
-		fecha_prestamo IS NULL AND fecha_vencimiento IS NULL
+		fechaHora_prestamo IS NULL AND fechaHora_vencimiento IS NULL AND username_prestatario IS NULL
 		OR
-		fecha_prestamo IS NOT NULL AND fecha_vencimiento IS NOT NULL
+		fechaHora_prestamo IS NOT NULL AND fechaHora_vencimiento IS NOT NULL AND username_prestatario IS NOT NULL
 	)
 );
 

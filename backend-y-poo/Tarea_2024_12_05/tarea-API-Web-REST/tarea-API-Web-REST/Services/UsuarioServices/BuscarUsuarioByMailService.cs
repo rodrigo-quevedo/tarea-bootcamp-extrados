@@ -2,11 +2,11 @@
 using DAO_biblioteca_de_cases.Entidades;
 using tarea_API_Web_REST.Utils.Exceptions;
 
-namespace tarea_API_Web_REST.Services
+namespace tarea_API_Web_REST.Services.UsuarioServices
 {
     public class BuscarUsuarioByMailService
     {
-        UsuarioDAO usuarioDAO {  get; set; }
+        UsuarioDAO usuarioDAO { get; set; }
         public BuscarUsuarioByMailService(string connectionString)
         {
             usuarioDAO = new UsuarioDAO(connectionString);
@@ -20,7 +20,7 @@ namespace tarea_API_Web_REST.Services
             if (usuarioEncontrado == null) throw new NotFoundException($"No se encontró al usuario con mail '{mail}'");
 
             usuarioEncontrado.mostrarDatos();
-          
+
             return usuarioEncontrado;
         }
 

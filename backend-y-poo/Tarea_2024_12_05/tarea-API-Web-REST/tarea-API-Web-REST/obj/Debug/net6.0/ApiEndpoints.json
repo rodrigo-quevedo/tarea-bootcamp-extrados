@@ -35,11 +35,42 @@
     "Parameters": [
       {
         "Name": "reqBody",
-        "Type": "DAO_biblioteca_de_cases.Entidades.Credenciales",
+        "Type": "tarea_API_Web_REST.Utils.RequestBodyParams.Credenciales",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",
+    "Method": "PrestarLibro",
+    "RelativePath": "Usuarios/prestar_libro",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "prestamo",
+        "Type": "tarea_API_Web_REST.Utils.RequestBodyParams.PrestamoLibro",
+        "IsRequired": true
+      },
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DAO_biblioteca_de_cases.Entidades.Libro",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",

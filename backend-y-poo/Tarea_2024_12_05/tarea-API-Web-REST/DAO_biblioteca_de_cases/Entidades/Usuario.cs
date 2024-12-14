@@ -13,14 +13,16 @@ namespace DAO_biblioteca_de_cases.Entidades
         public int edad {  get; set; }
         public string username { get; set; }
         public string password { get; set; }
+        public string role { get; set; }
 
-        public Usuario (string mail, string nombre, int edad, string username, string password)
+        public Usuario (string mail, string nombre, int edad, string username, string password, string role)
         {
             this.mail = mail;
             this.nombre = nombre;
             this.edad = edad;
             this.username = username;
             this.password = password;
+            this.role = role;
         }
 
         public void mostrarDatos()
@@ -30,6 +32,7 @@ namespace DAO_biblioteca_de_cases.Entidades
             Console.WriteLine($"Edad: {this.edad}");
             Console.WriteLine($"Username: {this.username}");
             Console.WriteLine($"Password: {this.password}");
+            Console.WriteLine($"Role: {this.role}");
         }
 
     }

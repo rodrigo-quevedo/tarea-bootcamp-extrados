@@ -58,5 +58,31 @@ namespace tarea_API_Web_REST.Utils.ExceptionHandler
             );
         }
 
+        public ActionResult NotAvaiableExceptionHandler(NotAvaiableException notAvaiableEx)
+        {
+            //Se trata de un recurso que no se puede acceder porque no está disponible.
+            //El servidor entiende la request del cliente (no hay errores de formato o de otro tipo)
+            //Sin embargo, hay un conflicto con el recurso, en este caso, no está disponible
+                //--> Por lo tanto, el status code debería ser 409 - Conflict
+            Console.WriteLine(notAvaiableEx.Message);
+            return _controller.StatusCode(
+                StatusCodes.Status409Conflict,
+                new { message = notAvaiableEx.Message }
+            );
+        }
+
+        public ActionResult SinPermisoExceptionHandler(SinPermisoException sinPermisoEx)
+        {
+            //El usuario intenta prestar un libro a otro usuario, pero eso no se puede.
+            //Solo esta permitido prestar al mismo usuario que esta logueado.
+            //Osea, el usuario logeado solo tiene permiso para prestarse a si mismo.
+            //No tiene permiso para prestar a los demas usuarios.
+            Console.WriteLine(sinPermisoEx.Message);
+            return _controller.StatusCode(
+                StatusCodes.Status403Forbidden,
+                new { message = sinPermisoEx.Message }
+            );
+        }
+
     }
 }

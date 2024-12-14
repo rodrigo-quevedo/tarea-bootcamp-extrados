@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tarea-datetime")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26b0c66814687d49b9f42172b231a24eaffc52df")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff8ea24e917b113dd343ecb83c7e065d6c50720a")]
 [assembly: System.Reflection.AssemblyProductAttribute("tarea-datetime")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tarea-datetime")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

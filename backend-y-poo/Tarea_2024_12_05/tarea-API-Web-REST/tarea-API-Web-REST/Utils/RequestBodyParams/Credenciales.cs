@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAO_biblioteca_de_cases.Entidades
+namespace tarea_API_Web_REST.Utils.RequestBodyParams
 {
     public class Credenciales
     {
@@ -14,9 +14,9 @@ namespace DAO_biblioteca_de_cases.Entidades
 
         public void mostrarDatos()
         {
-            Console.WriteLine($"Mail: {this.mail}");
-            Console.WriteLine($"Username: {this.username}");
-            Console.WriteLine($"Password: {this.password}");
+            Console.WriteLine($"Mail: {mail}");
+            Console.WriteLine($"Username: {username}");
+            Console.WriteLine($"Password: {password}");
         }
     }
 }

@@ -3,12 +3,13 @@ using DAO_biblioteca_de_cases.Entidades;
 using Isopoh.Cryptography.Argon2;
 using tarea_API_Web_REST.Utils.Exceptions;
 
-namespace tarea_API_Web_REST.Services
+namespace tarea_API_Web_REST.Services.UsuarioServices
 {
     public class CrearUsuarioService
     {
         UsuarioDAO usuarioDAO { get; set; }
-        public CrearUsuarioService(string connectionString) { 
+        public CrearUsuarioService(string connectionString)
+        {
             usuarioDAO = new UsuarioDAO(connectionString);
         }
 
@@ -16,8 +17,9 @@ namespace tarea_API_Web_REST.Services
         {
             //chequear que el usuario no existe
             Usuario usuarioEncontrado = usuarioDAO.BuscarUsuarioPorMail(usuario.mail);
-            
-            if (usuarioEncontrado != null) {
+
+            if (usuarioEncontrado != null)
+            {
                 Console.WriteLine("El usuario ya existe:");
                 usuarioEncontrado.mostrarDatos();
 
@@ -25,7 +27,7 @@ namespace tarea_API_Web_REST.Services
             }
 
             //hash password
-            
+
             var passwordHash = Argon2.Hash(usuario.password);
             Console.WriteLine($"password anterior: {usuario.password}");
             Console.WriteLine($"password nueva: {passwordHash}");
@@ -35,7 +37,8 @@ namespace tarea_API_Web_REST.Services
                 usuario.nombre,
                 usuario.edad,
                 usuario.username,
-                passwordHash
+                passwordHash,
+                usuario.role
             );
 
             //crear usuario
@@ -47,7 +50,7 @@ namespace tarea_API_Web_REST.Services
             if (usuarioCreado == null) throw new NotFoundException($"Error al crear: el usuario con mail '{usuario.mail}' no se encuentra en la Base de Datos.");
 
             usuarioCreado.mostrarDatos();
-            
+
             return usuarioCreado;
         }
     }

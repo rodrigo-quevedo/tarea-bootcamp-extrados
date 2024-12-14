@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace tarea_API_Web_REST.Services
+namespace tarea_API_Web_REST.Services.UsuarioServices
 {
     public class CrearJwtService
     {
@@ -13,12 +13,12 @@ namespace tarea_API_Web_REST.Services
         public string CrearJwt(Usuario usuarioValidado, JwtConfiguration jwtConfig)
         {
             //esta llavePrivada se deberia guardar en una variable de entorno
-            SymmetricSecurityKey llavePrivada = 
+            SymmetricSecurityKey llavePrivada =
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.secret));
 
 
             SigningCredentials configuracionFirmaJWT = new SigningCredentials(llavePrivada, SecurityAlgorithms.HmacSha256);
-            
+
             //Console.WriteLine($"llavePrivada: {llavePrivada}");
             //Console.WriteLine($"\nAlgorithm: {configuracionFirmaJWT.Algorithm}, " +
             //    $"\n Kid:{configuracionFirmaJWT.Kid}, " +
@@ -31,7 +31,8 @@ namespace tarea_API_Web_REST.Services
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Sid, usuarioValidado.username),//username como PK en vez de ID
-                new Claim(ClaimTypes.Name, usuarioValidado.nombre)
+                new Claim(ClaimTypes.Name, usuarioValidado.nombre),
+                new Claim(ClaimTypes.Role, usuarioValidado.role)
             };
 
 
@@ -41,7 +42,7 @@ namespace tarea_API_Web_REST.Services
             //Payload: issuer, audience, expires, y todo lo que haya en claims
             SecurityToken securityToken = new JwtSecurityToken(
                 issuer: jwtConfig.issuer,
-                audience : jwtConfig.audience,
+                audience: jwtConfig.audience,
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(120),
                 signingCredentials: configuracionFirmaJWT

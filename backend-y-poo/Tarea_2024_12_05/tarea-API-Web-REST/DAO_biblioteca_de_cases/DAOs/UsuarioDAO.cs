@@ -28,7 +28,7 @@ namespace DAO_biblioteca_de_cases.DAOs
         {
             //el DAO directamente pone la password hasheada en la DB, el hasheo lo tiene que hacer un service del controller
 
-            string query = "INSERT INTO Usuarios VALUES (@Mail , @Nombre, @Edad, @Username, @HashedPassword);";
+            string query = "INSERT INTO Usuarios VALUES (@Mail , @Nombre, @Edad, @Username, @HashedPassword, @role);";
 
             var rowsAffected = connection.Execute(query, new
             {
@@ -36,7 +36,8 @@ namespace DAO_biblioteca_de_cases.DAOs
                 Nombre = usuario.nombre,
                 Edad = usuario.edad,
                 Username = usuario.username,
-                HashedPassword = usuario.password
+                HashedPassword = usuario.password,
+                Role = usuario.role
             });
 
         }
@@ -53,12 +54,24 @@ namespace DAO_biblioteca_de_cases.DAOs
 
         }
 
+        //leer usuario por username (tambien es unique)
+        public Usuario BuscarUsuarioPorUsername(string username)
+        {
+            string querySelect = "SELECT * FROM Usuarios WHERE username=@Username";
+            return connection.QueryFirstOrDefault<Usuario>(querySelect, new
+            {
+                Username = username 
+            });
+
+        }
+
+
         //UPDATE
         public void ActualizarUsuario(Usuario usuario)
         {
             //el DAO directamente pone la password hasheada en la DB, el hasheo lo tiene que hacer un service del controller
 
-            string query = "UPDATE Usuarios SET Nombre = @Nombre, Edad = @Edad, username = @Username, password = @HashedPassword WHERE Mail=@Mail;";
+            string query = "UPDATE Usuarios SET Nombre = @Nombre, Edad = @Edad, username = @Username, password = @HashedPassword, role = @Role WHERE Mail=@Mail;";
 
             var rowsAffected = connection.Execute(query, new
             {
@@ -66,7 +79,8 @@ namespace DAO_biblioteca_de_cases.DAOs
                 Nombre = usuario.nombre,
                 Edad = usuario.edad,
                 Username = usuario.username,
-                HashedPassword = usuario.password
+                HashedPassword = usuario.password,
+                Role = usuario.role
             });
 
         }
