@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\tarea-cookies-refreshToken.props" />
+</Project>

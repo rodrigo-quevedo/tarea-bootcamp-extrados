@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tarea-cookies-refreshToken", "tarea-API-Web-REST\tarea-cookies-refreshToken.csproj", "{DB896C17-6710-4E0B-ACB3-D3149159E850}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAO_biblioteca_de_cases", "DAO_biblioteca_de_cases\DAO_biblioteca_de_cases.csproj", "{412584BD-768F-416F-B9CA-826E84E7C13E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration", "Configuration\Configuration.csproj", "{144269FD-5DCE-4B1B-8753-EC9577D734CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB896C17-6710-4E0B-ACB3-D3149159E850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB896C17-6710-4E0B-ACB3-D3149159E850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB896C17-6710-4E0B-ACB3-D3149159E850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB896C17-6710-4E0B-ACB3-D3149159E850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{412584BD-768F-416F-B9CA-826E84E7C13E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{412584BD-768F-416F-B9CA-826E84E7C13E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{412584BD-768F-416F-B9CA-826E84E7C13E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{412584BD-768F-416F-B9CA-826E84E7C13E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{144269FD-5DCE-4B1B-8753-EC9577D734CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{144269FD-5DCE-4B1B-8753-EC9577D734CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{144269FD-5DCE-4B1B-8753-EC9577D734CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{144269FD-5DCE-4B1B-8753-EC9577D734CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1BC52720-3634-436D-B1B7-B2E3FA7B0C25}
+	EndGlobalSection
+EndGlobal
