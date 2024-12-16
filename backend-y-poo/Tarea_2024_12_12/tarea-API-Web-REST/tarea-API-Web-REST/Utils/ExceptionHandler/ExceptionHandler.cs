@@ -84,5 +84,32 @@ namespace tarea_API_Web_REST.Utils.ExceptionHandler
             );
         }
 
+        public ActionResult InvalidRefreshTokenExceptionHandler(InvalidRefreshTokenException invalidRefreshTokenEx)
+        {
+            Console.WriteLine(invalidRefreshTokenEx.Message);
+
+            //eliminar cookies invalidas
+            _controller.Response.Cookies.Append("jwt", "", new CookieOptions
+            {
+                Expires = DateTime.Now,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                HttpOnly = false
+            });
+
+            _controller.Response.Cookies.Append("refreshToken", "", new CookieOptions
+            {
+                Expires = DateTime.Now,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                HttpOnly = false
+            });
+
+            return _controller.StatusCode(
+                StatusCodes.Status401Unauthorized,
+                new { message = invalidRefreshTokenEx.Message }
+            );
+        }
+
     }
 }

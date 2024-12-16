@@ -18,7 +18,10 @@ CREATE TABLE  Usuarios (
 	password VARCHAR(255) NOT NULL,
 	
 	role VARCHAR(20) NOT NULL,
-	CHECK (role IN ("usuario", "admin"))
+	CHECK (role IN ("usuario", "admin")),
+	
+	-- no estoy seguro del tamaño que puede llegar a tener el jwt, así que le dejo 255 de espacio
+	refresh_token VARCHAR(350) NULL
 );
 
 DROP TABLE IF EXISTS Libros;

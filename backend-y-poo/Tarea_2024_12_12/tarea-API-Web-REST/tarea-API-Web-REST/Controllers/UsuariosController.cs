@@ -3,6 +3,7 @@ using DAO_biblioteca_de_cases.Entidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using tarea_API_Web_REST.Services.Authorization;
 using tarea_API_Web_REST.Services.LibroServices;
 using tarea_API_Web_REST.Services.UsuarioServices;
 using tarea_API_Web_REST.Utils.ExceptionHandler;
@@ -28,6 +29,7 @@ namespace tarea_API_Web_REST.Controllers
         PrestarLibroService prestarLibroService;
         VerificarPrestatarioService verificarPrestatarioService;
         CrearRefreshTokenService crearRefreshTokenService;
+        AuthorizeCookieService authorizeCookieService;
 
         ExceptionHandler exHandler;
 
@@ -43,13 +45,14 @@ namespace tarea_API_Web_REST.Controllers
             crearUsuarioService = new (_databaseConfiguration.connection_string);
             actualizarUsuarioService = new (_databaseConfiguration.connection_string);
             logearUsuarioService = new (_databaseConfiguration.connection_string);
-            crearJwtService = new ();
+            crearJwtService = new (_jwtConfiguration);
             usuariosInputValidationService = new ();
             buscarLibroPorIdService = new (_databaseConfiguration.connection_string);
             verificarDisponibilidadService = new (_databaseConfiguration.connection_string);
             prestarLibroService = new (_databaseConfiguration.connection_string);
             verificarPrestatarioService = new (_jwtConfiguration);
-            crearRefreshTokenService = new ();
+            crearRefreshTokenService = new (_jwtConfiguration, _databaseConfiguration.connection_string);
+            authorizeCookieService = new(_jwtConfiguration, _databaseConfiguration.connection_string);
 
             exHandler = new (this);
 
@@ -118,27 +121,10 @@ namespace tarea_API_Web_REST.Controllers
                 Usuario usuarioValidado = logearUsuarioService.ValidarUsuario(reqBody);
 
                 //crear JWT
-                string jwt = crearJwtService.CrearJwt(usuarioValidado, _jwtConfiguration);
+                string jwt = crearJwtService.CrearJwt(usuarioValidado, Response.Cookies);
 
                 //crear refresh token
-                string refreshToken = crearRefreshTokenService.CrearRefreshToken(usuarioValidado, _jwtConfiguration);
-
-                //devolver una cookie con jwt y otra con refreshToken
-                Response.Cookies.Append("jwt", jwt, new CookieOptions { 
-                        HttpOnly = false, 
-                        SameSite = SameSiteMode.None,
-                        Secure = true,
-                        Expires = DateTime.Now.AddMinutes(5)
-                    }
-                );
-                Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions { 
-                        HttpOnly = true,
-                        SameSite = SameSiteMode.None,
-                        Secure = true,
-                        Expires= DateTime.Now.AddDays(120)
-                    }
-                );
-
+                string refreshToken = crearRefreshTokenService.CrearRefreshToken(usuarioValidado, Response.Cookies);
 
                 return Ok(
                     new { 
@@ -165,6 +151,9 @@ namespace tarea_API_Web_REST.Controllers
         {
             try
             {
+                //jwt y refreshToken cookie validation
+                string jwtUsername = authorizeCookieService.AuthorizeJWT(Request.Cookies, Response.Cookies);
+
                 // input validation:
                 usuariosInputValidationService.validarPrestamoObj(prestamo);
 
@@ -173,11 +162,10 @@ namespace tarea_API_Web_REST.Controllers
                 Libro libroEncontrado = buscarLibroPorIdService.BuscarLibro(prestamo.id);
 
                 // comprobar que el libro no está prestado:
-                //Libro libroDisponible = verificarDisponibilidadService.Verificar(libroEncontrado);
+                Libro libroDisponible = verificarDisponibilidadService.Verificar(libroEncontrado);
 
                 // comparar que el prestatario y el usuario logueado sean el mismo:
-                string jwt = Request.Cookies["jwt"];
-                verificarPrestatarioService.Verificar(prestamo.username_prestatario, jwt);
+                verificarPrestatarioService.Verificar(prestamo.username_prestatario, jwtUsername);
 
                 // parsear date (el string prestamo.fechaHora_prestamo ya fue validado en validarPrestamoObj() ):
                 DateTime fechaHora_prestamo = DateTime.Parse(prestamo.fechaHora_prestamo);
@@ -192,12 +180,38 @@ namespace tarea_API_Web_REST.Controllers
                 return Ok(libroPrestado);
 
             }
+            catch (InvalidRefreshTokenException invalidRefreshTokenEx) { return exHandler.InvalidRefreshTokenExceptionHandler(invalidRefreshTokenEx); }
             catch (InputValidationException inputEx) { return exHandler.InputValidationExceptionHandler(inputEx); }
             catch (NotFoundException notFoundEx) { return exHandler.NotFoundExceptionHandler(notFoundEx); }
             catch (SinPermisoException sinPermisoEx) { return exHandler.SinPermisoExceptionHandler(sinPermisoEx); }
             catch (Exception ex) { return exHandler.DefaultExceptionHandler(ex); }
 
+        }
 
+        [HttpGet("logout")]
+
+        public ActionResult LogoutUsuario()
+        {
+            Response.Cookies.Append("jwt", "", new CookieOptions
+            {
+                HttpOnly = false,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = DateTime.Now
+            });
+
+            Response.Cookies.Append("refreshToken", "", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = DateTime.Now
+            });
+
+            return Ok(new
+            {
+                message = "Usuario logged out."
+            });
         }
 
 
@@ -214,7 +228,7 @@ namespace tarea_API_Web_REST.Controllers
 
         //        //actualizar usuario (el service actualiza el usuario, luego lo busca y lo devuelve)
         //        return actualizarUsuarioService.ActualizarUsuario(reqBody);
-                
+
         //    }
         //    catch (InputValidationException inputEx) { return exHandler.InputValidationExceptionHandler(inputEx); }
 

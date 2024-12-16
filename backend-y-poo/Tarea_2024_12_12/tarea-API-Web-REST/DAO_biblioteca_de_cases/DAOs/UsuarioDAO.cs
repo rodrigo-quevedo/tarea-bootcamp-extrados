@@ -28,7 +28,9 @@ namespace DAO_biblioteca_de_cases.DAOs
         {
             //el DAO directamente pone la password hasheada en la DB, el hasheo lo tiene que hacer un service del controller
 
-            string query = "INSERT INTO Usuarios VALUES (@Mail , @Nombre, @Edad, @Username, @HashedPassword, @role);";
+            string query = "INSERT INTO Usuarios " +
+                "VALUES (@Mail , @Nombre, @Edad, " +
+                "@Username, @HashedPassword, @Role, @RefreshToken);";
 
             var rowsAffected = connection.Execute(query, new
             {
@@ -37,7 +39,8 @@ namespace DAO_biblioteca_de_cases.DAOs
                 Edad = usuario.edad,
                 Username = usuario.username,
                 HashedPassword = usuario.password,
-                Role = usuario.role
+                Role = usuario.role,
+                RefreshToken = usuario.refresh_token
             });
 
         }
@@ -65,6 +68,20 @@ namespace DAO_biblioteca_de_cases.DAOs
 
         }
 
+
+        //UPDATE (refreshtoken)
+        public void AsignarRefreshTokenByUsername(string username, string refreshToken)
+        {
+            string updateQuery = "UPDATE Usuarios SET refresh_token = @Refresh_token WHERE username = @Username";
+
+            connection.Execute(updateQuery, new
+            {
+                Refresh_token = refreshToken,
+                Username = username
+            });
+
+            return;
+        }
 
         //UPDATE
         public void ActualizarUsuario(Usuario usuario)

@@ -43,6 +43,16 @@
   },
   {
     "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",
+    "Method": "LogoutUsuario",
+    "RelativePath": "Usuarios/logout",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "tarea_API_Web_REST.Controllers.UsuariosController",
     "Method": "PrestarLibro",
     "RelativePath": "Usuarios/prestamo_libro",
     "HttpMethod": "POST",

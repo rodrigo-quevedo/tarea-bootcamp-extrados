@@ -38,7 +38,8 @@ namespace tarea_API_Web_REST.Services.UsuarioServices
                 usuario.edad,
                 usuario.username,
                 passwordHash,
-                usuario.role
+                usuario.role,
+                null
             );
 
             //crear usuario

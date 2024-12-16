@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tarea-cookies-refreshToken")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+610ad7d7a3ae4ce35ceec25c9f23addc3dbfb7bb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac86100277e6203c22ff5e570e19fea2963ba65e")]
 [assembly: System.Reflection.AssemblyProductAttribute("tarea-cookies-refreshToken")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tarea-cookies-refreshToken")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
