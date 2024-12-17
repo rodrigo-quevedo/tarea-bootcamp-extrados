@@ -153,6 +153,7 @@ namespace tarea_API_Web_REST.Controllers
             {
                 //jwt y refreshToken cookie validation
                 string jwtUsername = authorizeCookieService.AuthorizeJWT(Request.Cookies, Response.Cookies);
+                authorizeCookieService.AuthorizeRoles(new string[] {"usuario"}, Request.Cookies);
 
                 // input validation:
                 usuariosInputValidationService.validarPrestamoObj(prestamo);
@@ -181,9 +182,9 @@ namespace tarea_API_Web_REST.Controllers
 
             }
             catch (InvalidRefreshTokenException invalidRefreshTokenEx) { return exHandler.InvalidRefreshTokenExceptionHandler(invalidRefreshTokenEx); }
+            catch (SinPermisoException sinPermisoEx) { return exHandler.SinPermisoExceptionHandler(sinPermisoEx); }
             catch (InputValidationException inputEx) { return exHandler.InputValidationExceptionHandler(inputEx); }
             catch (NotFoundException notFoundEx) { return exHandler.NotFoundExceptionHandler(notFoundEx); }
-            catch (SinPermisoException sinPermisoEx) { return exHandler.SinPermisoExceptionHandler(sinPermisoEx); }
             catch (Exception ex) { return exHandler.DefaultExceptionHandler(ex); }
 
         }

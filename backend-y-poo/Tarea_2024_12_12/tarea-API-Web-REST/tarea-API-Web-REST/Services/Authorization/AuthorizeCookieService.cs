@@ -88,7 +88,7 @@ namespace tarea_API_Web_REST.Services.Authorization
             if (refreshToken == null) throw new InvalidRefreshTokenException("Token inválido o expirado. Logear usuario nuevamente.");
 
             //parse refreshToken:
-            JwtSecurityToken jwtSecToken = new JwtSecurityTokenHandler().ReadJwtToken(refreshToken);//ReadJwtToken() no hace validacion, pero no la necesito porque estoy comparando contra el que tengo en la base de datos
+            JwtSecurityToken jwtSecToken = jwtHandler.ReadJwtToken(refreshToken);//ReadJwtToken() no hace validacion, pero no la necesito porque estoy comparando contra el que tengo en la base de datos
             
             //obtener username dentro del refreshToken payload:
             Object username_logueado;
@@ -109,6 +109,34 @@ namespace tarea_API_Web_REST.Services.Authorization
 
         }
 
+        // se asume un jwt validado (usar este metodo SOLO despues de validar el jwt)
+        public void AuthorizeRoles(string[] Roles, IRequestCookieCollection cookies)
+        {
+            string jwt = cookies["jwt"];
+
+            //parse refreshToken:
+            JwtSecurityToken jwtSecToken = jwtHandler.ReadJwtToken(jwt);
+
+            //obtener Role dentro del refreshToken payload:
+            Object role_jwt;
+            jwtSecToken.Payload.TryGetValue(ClaimTypes.Role, out role_jwt);
+            Console.WriteLine($"Rol del username en jwt: {role_jwt.ToString()}");
+
+            Object username_jwt;
+            jwtSecToken.Payload.TryGetValue(ClaimTypes.Sid, out username_jwt);
+            Console.WriteLine($"Username en jwt: {username_jwt.ToString()}");
+
+            //comparar role del jwt con roles permitidos:
+            bool rolEncontrado = false;
+            foreach (string Role in Roles)
+            {
+                if (Role == role_jwt.ToString()) rolEncontrado = true;
+            }
+
+            if (!rolEncontrado) throw new SinPermisoException($"El usuario '{username_jwt}'con rol '{role_jwt}' no tiene permiso para hacer esta accion.");
+
+            return;
+        }
 
     }
 }
