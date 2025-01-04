@@ -35,7 +35,7 @@ CREATE TABLE organizadores(
 	
 	-- quién creó a este usuario
 	id_usuario_creador INT UNIQUE NOT NULL,
-	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id),
+	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id)
 	
 	-- esto necesita su propia tabla, y que cada fila (torneo) referencie al ID organizador como FK
 	-- en realidad tampoco necesita eso, basta con poner una columna "id_organizador" en la tabla Torneos.
@@ -59,6 +59,64 @@ CREATE TABLE jueces(
 		-- (ya que va a haber más de 1, conviene que "jueces de torneos" sea una tabla a la que "torneos" hace referencia con una id)
 		-- Esto puede cambiar más adelante. 
 		-- Lo que es seguro es que no va a acá porque sería duplicar información.
+	
+	-- quién creó a este usuario
+	id_usuario_creador INT UNIQUE NOT NULL,
+	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id)
+);
+
+
+DROP TABLE IF EXISTS jugadores;
+CREATE TABLE jugadores (
+	id_jugador INT PRIMARY KEY,
+	FOREIGN KEY (id_jugador) REFERENCES usuarios(id),
+
+	foto VARCHAR(200) NOT NULL, -- URL/path del archivo
+	
+	alias VARCHAR(25) NOT NULL,
+	
+	id_usuario_creador INT UNIQUE NOT NULL,
+	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id),
+	
+	-- Estos van en sus propia tabla:
+		-- cartas_coleccionadas
+		-- descalificaciones
+	
+	-- Esto se puede sacar de otras tablas ya existentes:
+		-- Juegos ganados
+		-- Juegos perdidos
+		-- Torneos ganados
+
+);
+
+DROP TABLE IF EXISTS series;
+CREATE TABLE series(
+	nombre VARCHAR(20) PRIMARY KEY,
+	fecha_salida DATETIME NOT NULL -- usar DateTime UTC (transformar datetime a UTC en el servidor)
+	
+	-- lista de cartas: SELECT * FROM cartas WHERE serie=(nombre de la serie)
+);
+
+DROP TABLE IF EXISTS cartas;
+CREATE TABLE cartas(
+	id INT PRIMARY KEY,
+	ataque INT NOT NULL,
+	defensa INT NOT NULL,
+	ilustracion VARCHAR(200) NOT NULL  -- URL/path del archivo
+	
+	serie INT NOT NULL,
+	FOREIGN KEY(serie) REFERENCES series(nombre);
+);
+
+
+-- Esta tabla implementa una relacion muchos a muchos, no se usa PK:
+DROP TABLE IF EXISTS cartas_coleccionadas;
+CREATE TABLE cartas_coleccionadas(
+	id_carta INT NOT NULL,
+	FOREIGN KEY (id_carta) REFERENCES cartas(id),
+	
+	id_usuario INT NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
 
