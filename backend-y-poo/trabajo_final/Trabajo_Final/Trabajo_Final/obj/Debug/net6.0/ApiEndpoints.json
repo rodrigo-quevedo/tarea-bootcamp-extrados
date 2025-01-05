@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
+    "Method": "LoginUser",
+    "RelativePath": "login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "credenciales",
+        "Type": "Trabajo_Final.DTO.CredencialesLoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

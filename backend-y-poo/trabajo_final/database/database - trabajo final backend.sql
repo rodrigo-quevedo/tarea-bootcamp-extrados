@@ -22,7 +22,9 @@ CREATE TABLE usuarios(
 	pais VARCHAR(30) NOT NULL,
 	
 	nombre_apellido VARCHAR(60) NOT NULL,
-	email VARCHAR(50) NOT NULL
+	email VARCHAR(30) UNIQUE NOT NULL,
+	
+	password VARCHAR(20) NOT NULL
 );
 
 -- Posiblemente 'admin' no necesite tabla (con los atributos de la tabla usuario puede hacer sus tareas)
@@ -182,7 +184,10 @@ CREATE TABLE mazos(
 	FOREIGN KEY(id_carta) REFERENCES cartas(id),
 	
 	id_torneo INT NOT NULL,
-	FOREIGN KEY(id_torneo) REFERENCES torneos(id)
+	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
+	
+	-- no puede haber cartas repetidas para un jugador de un torneo:
+	PRIMARY KEY(id_torneo, id_jugador, id_carta) 
 );
 
 -- relación muchos a muchos
@@ -221,15 +226,20 @@ CREATE TABLE juegos_de_fase(
 	
 	-- los 2 jugadores se asignan al crearse el juego
 	id_jugador_1 INT NOT NULL,
-	FOREIGN KEY(jugador_1) REFERENCES jugadores(id_jugador),
+	FOREIGN KEY(id_jugador_1) REFERENCES jugadores(id_jugador),
 	id_jugador_2 INT NOT NULL,
-	FOREIGN KEY(jugador_2) REFERENCES jugadores(id_jugador),
-	
+	FOREIGN KEY(id_jugador_2) REFERENCES jugadores(id_jugador),
+
 	id_ganador INT NULL,
-	FOREIGN KEY(ganador) REFERENCES jugadores(id_jugador),
-	CHECK(ganador IS NULL OR ganador = jugador_1 OR ganador = jugador_2),
+	FOREIGN KEY(id_ganador) REFERENCES jugadores(id_jugador),
+	CHECK(id_ganador IS NULL OR id_ganador = id_jugador_1 OR id_ganador = id_jugador_2),
 	
 	id_juez INT NOT NULL,
 	FOREIGN KEY(id_juez) REFERENCES jueces(id_juez)
 	
 );
+
+-- Hardcodear admin
+INSERT INTO usuarios(rol, pais, nombre_apellido, email, password)
+VALUES ('admin', 'Argentina -03:00', 'juan juanino', 'juanj@gmail.com', "adminpassword");
+
