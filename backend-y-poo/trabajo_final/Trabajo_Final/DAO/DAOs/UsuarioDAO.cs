@@ -1,15 +1,96 @@
-﻿using System;
+﻿using DAO.Connection;
+using DAO.Entidades;
+using Dapper;
+using MySqlConnector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DAO.DAOs
 {
     public class UsuarioDAO
     {
-        public UsuarioDAO() { 
-        
+        // Connection
+        private MySqlConnection connection;
+        public UsuarioDAO(string connectionString) { 
+            connection = new SingletonConnection(connectionString).Instance;
         }
+
+        // ------------------ CRUD ------------------ //
+
+        public int  CrearUsuario(Usuario usuario)
+        {
+            string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo) " +
+                "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo);";
+
+            return connection.Execute(insertQuery, new
+            {
+                Rol = usuario.Rol,
+                Pais = usuario.Pais,
+                Nombre_apellido = usuario.Nombre_apellido,
+                Email = usuario.Email,
+                Password = usuario.Password, //recibe password YA ENCRIPTADA
+                Activo = usuario.Activo
+            });
+
+           
+        }
+
+
+        public Usuario BuscarUsuarios(Usuario usuario)
+        {
+            return null;
+        }
+
+        public Usuario BuscarUnUsuario(Usuario usuario) // Búsqueda por id, email, rol (este ultimo para Verificar_Existencia_Admin)
+        {
+            string selectQuery;
+
+            if (usuario.Id != default)
+            {
+                selectQuery = "SELECT * FROM usuarios WHERE id=@Id AND activo=@Activo;";
+                return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
+                {
+                    Id = usuario.Id,
+                    Activo = usuario.Activo
+                });
+            }
+
+            else if (usuario.Email != default)
+            {
+                selectQuery = "SELECT * FROM usuarios WHERE email=@Email AND activo=@Activo;";
+                return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
+                {
+                    Email = usuario.Email,
+                    Activo = usuario.Activo
+                });
+            }
+
+            else if (usuario.Rol != default)
+            {
+                selectQuery = "SELECT * FROM usuarios WHERE rol=@rol AND activo=@activo;";
+                return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
+                {
+                    rol = usuario.Rol,
+                    activo = usuario.Activo
+                });
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+
+
+
+
+
+
+
+
     }
 }

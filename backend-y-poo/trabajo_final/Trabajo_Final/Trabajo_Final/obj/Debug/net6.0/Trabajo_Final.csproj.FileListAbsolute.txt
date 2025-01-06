@@ -31,3 +31,13 @@ C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\T
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\obj\Debug\net6.0\Trabajo_Final.pdb
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\obj\Debug\net6.0\Trabajo_Final.genruntimeconfig.cache
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\obj\Debug\net6.0\ref\Trabajo_Final.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\Dapper.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\MySqlConnector.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\DAO.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\DAO.pdb
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\Isopoh.Cryptography.Argon2.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\Isopoh.Cryptography.Blake2b.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\Isopoh.Cryptography.SecureArray.dll

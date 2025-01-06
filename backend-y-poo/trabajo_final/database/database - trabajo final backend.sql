@@ -18,7 +18,7 @@ CREATE TABLE usuarios(
 	nombre_apellido VARCHAR(60) NOT NULL,
 	email VARCHAR(30) UNIQUE NOT NULL,
 	
-	password VARCHAR(20) NOT NULL,
+	password VARCHAR(255) NOT NULL,
 	
 	-- para borrado logico
 	activo BOOL NOT NULL
@@ -247,8 +247,18 @@ CREATE TABLE juegos_de_fase(
 	
 );
 
+
+
+
+-- Connection string (formato para MySQLConnector -> https://mysqlconnector.net/connection-options/): 
+-- "Server=localhost;Port=3306;Username=trabajo_final_backend_user;Password=123456;Database=trabajo_final_backend;"
+DROP USER IF EXISTS trabajo_final_backend_user;
+CREATE USER trabajo_final_backend_user IDENTIFIED BY '123456';
+GRANT SELECT, INSERT, UPDATE ON trabajo_final_backend.* TO trabajo_final_backend_user;
+
+
 -- Hardcodear admin
 -- INSERT INTO usuarios(rol, pais, nombre_apellido, email, password)
--- VALUES ('admin', 'Argentina -03:00', 'juan juanino', 'juanj@gmail.com', "adminpassword");
+-- VALUES ('admin', 'Argentina -03:00', 'juan gonzales', 'juangonzales@gmail.com', "adminpassword");
 
 
