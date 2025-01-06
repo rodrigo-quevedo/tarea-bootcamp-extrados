@@ -21,7 +21,7 @@ namespace Trabajo_Final.Controllers
             //validar password
                     //(no se como hacer para hashear la password del primer admin, que en teoria va hardcodeado).
                         //Capaz lo mejor es armar una funcion en Program.cs que haga eso
-
+            
 
 
         } 

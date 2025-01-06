@@ -4,7 +4,7 @@
     {
         public CrearPrimerAdmin()
         { 
-            //sacar datos con patron OPTIONS
+            
 
         
         }
