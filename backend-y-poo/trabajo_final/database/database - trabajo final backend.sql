@@ -22,23 +22,14 @@ CREATE TABLE usuarios(
 	
 	-- para borrado logico
 	activo BOOL NOT NULL
+	
+	-- usuario_creador: admite NULL porque jugador se puede auto-registrar
+	id_usuario_creador INT NULL,
+	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id)
 );
 
 -- Posiblemente 'admin' no necesite tabla (con los atributos de la tabla usuario puede hacer sus tareas)
-
-
-DROP TABLE IF EXISTS organizadores;
-CREATE TABLE organizadores(
-	id_organizador INT PRIMARY KEY,
-	FOREIGN KEY(id_organizador) REFERENCES usuarios(id),
-	
-	-- quién creó a este usuario
-	id_usuario_creador INT UNIQUE NOT NULL,
-	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id)
-	
-	-- torneos_organizados: basta con poner una columna "id_organizador" en la tabla Torneos.
-	-- Para obtener los torneos organizados, hay que hacer SELECT * FROM torneos WHERE id_organizador=(el id del organizador del que se quiera obtener los torneos organizados)
-);
+-- Lo mismo pasa con 'organizador'
 
 DROP TABLE IF EXISTS jueces;
 CREATE TABLE jueces(
@@ -49,16 +40,7 @@ CREATE TABLE jueces(
 	-- el servidor lee esa URL o path y busca el archivo en el OS
 	foto VARCHAR(200) NOT NULL,
 	
-	alias VARCHAR(25) NOT NULL,
-	
-	-- Torneos en que partició: pueden estar en una tabla "torneos" o "jueces de torneos"
-		-- (ya que va a haber más de 1, conviene que "jueces de torneos" sea una tabla a la que "torneos" hace referencia con una id)
-		-- Esto puede cambiar más adelante. 
-		-- Lo que es seguro es que no va a acá porque sería duplicar información.
-	
-	-- quién creó a este usuario
-	id_usuario_creador INT UNIQUE NOT NULL,
-	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id)
+	alias VARCHAR(25) NOT NULL
 );
 
 
@@ -70,9 +52,6 @@ CREATE TABLE jugadores (
 	foto VARCHAR(200) NOT NULL, -- URL/path del archivo
 	
 	alias VARCHAR(25) NOT NULL,
-	
-	id_usuario_creador INT UNIQUE NOT NULL,
-	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id)
 	
 	-- Estos van en sus propia tabla:
 		-- cartas_coleccionadas
@@ -99,13 +78,22 @@ CREATE TABLE cartas(
 	ataque INT NOT NULL,
 	defensa INT NOT NULL,
 	ilustracion VARCHAR(200) NOT NULL,  -- URL/path del archivo
-	
-	serie VARCHAR(20) NOT NULL,
-	FOREIGN KEY(serie) REFERENCES series(nombre)
 );
 
 
--- Esta tabla implementa una relacion muchos a muchos, no se usa PK:
+DROP TABLE IF EXISTS series_de_cartas;
+CREATE TABLE series_de_cartas(
+	nombre_serie INT NOT NULL,
+	FOREIGN KEY(nombre_serie) REFERENCES series(nombre),
+	
+	id_carta INT NOT NULL,
+	FOREIGN KEY(id_carta) REFERENCES cartas(id),
+	
+	PRIMARY KEY(nombre_serie, id_carta)
+);
+
+
+-- Esta tabla implementa una relacion muchos a muchos, se usa PK de 2 columnas:
 DROP TABLE IF EXISTS cartas_coleccionadas;
 CREATE TABLE cartas_coleccionadas(
 	id_carta INT NOT NULL,
@@ -121,25 +109,26 @@ DROP TABLE IF EXISTS torneos;
 CREATE TABLE torneos(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	
-	hora_inicio VARCHAR(20) NOT NULL,
-	hora_fin VARCHAR(20) NOT NULL,
-	dia_inicio VARCHAR(20) NOT NULL,
-	dia_fin VARCHAR(20) NOT NULL,
-	-- ultima fase se calcula con lo de arriba (ya viene calculado desde el server)
-	numero_ultima_fase INT NOT NULL,
+	-- inicio y fin: cada torneo se realiza en el mismo dia, por lo que
+	-- las horas disponibles para los juegos se calculan con horaIncio - horaFin
+	fecha_hora_inicio DATETIME NOT NULL,	
+	fecha_hora_fin DATETIME NOT NULL,	
+	
+	-- rondas: se calcula con lo de arriba (ya viene calculado desde el server)
+	cantidad_rondas INT NOT NULL,
 
 	pais VARCHAR(30) NOT NULL,
 	
 	id_organizador INT NOT NULL,
-	FOREIGN KEY(id_organizador) REFERENCES organizadores(id_organizador),
+	FOREIGN KEY(id_organizador) REFERENCES organizadores(id_usuario),
 	
 	id_ganador INT NULL,
 	FOREIGN KEY(id_ganador) REFERENCES jugadores(id_jugador)
 	
-	-- para obtener la fase actual: 
-	-- SELECT numero_fase FROM fases_torneo 
+	-- Ronda actual del torneo: 
+	-- SELECT numero_ronda FROM juegos_de_ronda
 		-- WHERE id_torneo=(id torneo) 
-		-- ORDER BY numero_fase DESC
+		-- ORDER BY numero_ronda DESC
 		-- LIMIT 1;
 );
 
@@ -152,7 +141,9 @@ CREATE TABLE jugadores_a_inscribir(
 	FOREIGN KEY(id_jugador) REFERENCES jugadores(id_jugador),
 	
 	id_torneo INT NOT NULL,
-	FOREIGN KEY(id_torneo) REFERENCES torneos(id)
+	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
+	
+	PRIMARY KEY(id_jugador, id_torneo)
 );
 
 
@@ -187,46 +178,39 @@ CREATE TABLE mazos(
 	PRIMARY KEY(id_torneo, id_jugador, id_carta) 
 );
 
--- relación muchos a muchos
+
 DROP TABLE IF EXISTS series_habilitadas;
 CREATE TABLE series_habilitadas(
-	serie VARCHAR(20) NOT NULL,
-	FOREIGN KEY(serie) REFERENCES series(nombre),
+	nombre_serie VARCHAR(20) NOT NULL,
+	FOREIGN KEY(nombre_serie) REFERENCES series(nombre),
 	
 	id_torneo INT NOT NULL,
 	FOREIGN KEY(id_torneo) REFERENCES torneos(id)
 );
 
--- jueces --
--- relacion muchos a muchos
+
 DROP TABLE IF EXISTS jueces_torneo;
 CREATE TABLE jueces_torneo (
 	id_torneo INT NOT NULL,
 	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
 	
 	id_juez INT NOT NULL,
-	FOREIGN KEY(id_juez) REFERENCES jueces(id_juez)
+	FOREIGN KEY(id_juez) REFERENCES jueces(id_juez),
+	
+	PRIMARY KEY (id_torneo, id_juez)
 );
 
 
--- FASES Y JUEGOS -- 
+-- RONDAS Y JUEGOS -- 
 
-DROP TABLE IF EXISTS fases_torneo;
-CREATE TABLE fases_torneo(
+DROP TABLE IF EXISTS juegos_de_ronda;
+CREATE TABLE juegos_de_ronda(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 
-	numero_fase INT NOT NULL,
-
+	numero_ronda INT NOT NULL,
+	
 	id_torneo INT NOT NULL,
-	FOREIGN KEY(id_torneo) REFERENCES torneos(id)
-);
-
-DROP TABLE IF EXISTS juegos_de_fase;
-CREATE TABLE juegos_de_fase(
-	id INT PRIMARY KEY AUTO_INCREMENT,
-
-	id_fase INT NOT NULL,
-	FOREIGN KEY(id_fase) REFERENCES fases_torneo(id),
+	FOREIGN KEY (id_torneo) REFERENCES torneos(id),
 	
 	-- calcular datetime inicio y fin en el server (duracion 30min)
 	fecha_hora_inicio DATETIME NOT NULL,
@@ -242,10 +226,18 @@ CREATE TABLE juegos_de_fase(
 	FOREIGN KEY(id_ganador) REFERENCES jugadores(id_jugador),
 	CHECK(id_ganador IS NULL OR id_ganador = id_jugador_1 OR id_ganador = id_jugador_2),
 	
+	id_descalificado INT NULL,
+	FOREIGN KEY (id_descalificado) REFERENCES jugadores(id_jugador),
+	-- Obtener descalificaciones de un usuario:
+		-- SELECT * from juegos_de_ronda
+		-- WHERE id_descalificado = (id del usuario);
+	
+	
 	id_juez INT NOT NULL,
 	FOREIGN KEY(id_juez) REFERENCES jueces(id_juez)
 	
 );
+
 
 
 
