@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Configuration;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Trabajo_Final.DTO;
+using Trabajo_Final.Services.UsuarioServices;
 
 namespace Trabajo_Final.Controllers
 {
@@ -8,20 +11,29 @@ namespace Trabajo_Final.Controllers
     [Route("[controller]")]
     public class UsuariosController : ControllerBase
     {
+        // services
+        LogearUsuarioService logearUsuarioService;
 
-        [HttpPost]
+
+        public UsuariosController(IOptions<Primer_AdminConfiguration> options)
+        {
+            Console.WriteLine($"Adentro de Controller, options: {options.Value.Nombre_apellido}");
+            Console.WriteLine($"Adentro de Controller, options: {options.Value.Email}");
+        } 
+
+
+
+
+       [HttpPost]
         [Route("/login")]
 
         public ActionResult LoginUser(CredencialesLoginDTO credenciales)
         {
-            //validacion de inputs en el DTO con DataAnnotations
+        //validacion de inputs en el DTO con DataAnnotations
 
-            //verificar que email exista
+           //logear usuario service
 
-            //validar password
-            //(no se como hacer para hashear la password del primer admin, que en teoria va hardcodeado).
-            //Capaz lo mejor es armar una funcion en Program.cs que haga eso
-            return Ok();
+           return Ok();
 
 
         } 

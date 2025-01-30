@@ -15,9 +15,9 @@ namespace DAO.Entidades
         public string Email {  get; set; }
         public string Password { get; set; }
         public bool Activo { get; set; } //borrado logico (Activo = false)
-
+        public int? Id_usuario_creador {  get; set; } 
     
-        public Usuario(int id, string rol, string pais, string nombre_apellido, string email, string password, bool activo) { 
+        public Usuario(int id, string rol, string pais, string nombre_apellido, string email, string password, bool activo, int? id_usuario_creador) { 
             this.Id = id;
             this.Rol = rol;
             this.Pais = pais;
@@ -25,6 +25,7 @@ namespace DAO.Entidades
             this.Email = email;
             this.Password = password;
             this.Activo = activo;
+            this.Id_usuario_creador = id_usuario_creador;
         }
     }
 }

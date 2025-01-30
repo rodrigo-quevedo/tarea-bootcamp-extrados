@@ -1,4 +1,5 @@
 ﻿using DAO.Connection;
+using DAO.DAOs.DI;
 using DAO.Entidades;
 using Dapper;
 using MySqlConnector;
@@ -11,11 +12,14 @@ using System.Threading.Tasks;
 
 namespace DAO.DAOs
 {
-    public class UsuarioDAO
+    public class UsuarioDAO : IUsuarioDAO
     {
         // Connection
-        private MySqlConnection connection;
-        public UsuarioDAO(string connectionString) { 
+        private MySqlConnection connection { get; set; }
+        
+
+        public UsuarioDAO(string connectionString)
+        {
             connection = new SingletonConnection(connectionString).Instance;
         }
 

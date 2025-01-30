@@ -21,7 +21,7 @@ CREATE TABLE usuarios(
 	password VARCHAR(255) NOT NULL,
 	
 	-- para borrado logico
-	activo BOOL NOT NULL
+	activo BOOL NOT NULL,
 	
 	-- usuario_creador: admite NULL porque jugador se puede auto-registrar
 	id_usuario_creador INT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE jugadores (
 
 	foto VARCHAR(200) NOT NULL, -- URL/path del archivo
 	
-	alias VARCHAR(25) NOT NULL,
+	alias VARCHAR(25) NOT NULL
 	
 	-- Estos van en sus propia tabla:
 		-- cartas_coleccionadas
@@ -77,13 +77,13 @@ CREATE TABLE cartas(
 	id INT PRIMARY KEY,
 	ataque INT NOT NULL,
 	defensa INT NOT NULL,
-	ilustracion VARCHAR(200) NOT NULL,  -- URL/path del archivo
+	ilustracion VARCHAR(200) NOT NULL  -- URL/path del archivo
 );
 
 
 DROP TABLE IF EXISTS series_de_cartas;
 CREATE TABLE series_de_cartas(
-	nombre_serie INT NOT NULL,
+	nombre_serie VARCHAR(20) NOT NULL,
 	FOREIGN KEY(nombre_serie) REFERENCES series(nombre),
 	
 	id_carta INT NOT NULL,
@@ -119,8 +119,11 @@ CREATE TABLE torneos(
 
 	pais VARCHAR(30) NOT NULL,
 	
+	fase VARCHAR(12) NOT NULL,
+	CHECK (fase IN ('registro', 'torneo', 'finalizado')),
+	
 	id_organizador INT NOT NULL,
-	FOREIGN KEY(id_organizador) REFERENCES organizadores(id_usuario),
+	FOREIGN KEY(id_organizador) REFERENCES usuarios(id),
 	
 	id_ganador INT NULL,
 	FOREIGN KEY(id_ganador) REFERENCES jugadores(id_jugador)
