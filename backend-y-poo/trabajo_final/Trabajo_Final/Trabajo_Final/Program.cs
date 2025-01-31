@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Trabajo_Final.Services.UsuarioServices.Login;
+using Trabajo_Final.Services.UsuarioServices.Registro;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
 
 
@@ -36,6 +37,7 @@ builder.Services.AddSingleton<IVerificarExistenciaAdmin, VerificarExistenciaAdmi
 
 //services
 builder.Services.AddScoped<ILogearUsuarioService, LogearUsuarioService>();
+builder.Services.AddScoped<IJugadorAutoregistroService, JugadorAutoregistroService>();
 
 
 

@@ -83,10 +83,11 @@ namespace DAO.DAOs
                 });
             }
 
-            else
-            {
-                return null;
-            }
+
+            //si no se cumple ninguno de esos parámetros, devuelve null
+            Console.WriteLine("No se pasó ningún id, email o rol para la búsqueda, se devolverá null");
+            return null;
+            
         }
 
 
