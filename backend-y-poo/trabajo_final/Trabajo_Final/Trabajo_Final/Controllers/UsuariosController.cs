@@ -1,9 +1,11 @@
 ﻿using Configuration;
+using DAO.DAOs.DI;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Trabajo_Final.DTO;
 using Trabajo_Final.Services.UsuarioServices;
+using Trabajo_Final.utils.Verificar_Existencia_Admin;
 
 namespace Trabajo_Final.Controllers
 {
@@ -15,10 +17,13 @@ namespace Trabajo_Final.Controllers
         LogearUsuarioService logearUsuarioService;
 
 
-        public UsuariosController(IOptions<Primer_AdminConfiguration> options)
+
+        public UsuariosController(
+            IVerificarExistenciaAdmin verificarAdmin //Cuando se crea el controller, se hace una verificación automática.
+        )
         {
-            Console.WriteLine($"Adentro de Controller, options: {options.Value.Nombre_apellido}");
-            Console.WriteLine($"Adentro de Controller, options: {options.Value.Email}");
+
+
         } 
 
 
@@ -29,9 +34,11 @@ namespace Trabajo_Final.Controllers
 
         public ActionResult LoginUser(CredencialesLoginDTO credenciales)
         {
-        //validacion de inputs en el DTO con DataAnnotations
+            //validacion de inputs en el DTO con DataAnnotations
 
-           //logear usuario service
+            //logear usuario service
+            Console.WriteLine("POST /login");
+
 
            return Ok();
 

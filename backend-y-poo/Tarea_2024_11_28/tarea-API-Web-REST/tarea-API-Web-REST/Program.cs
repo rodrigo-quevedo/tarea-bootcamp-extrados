@@ -26,6 +26,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = "http://localhost:5176",
 
             ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero,
 
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("passwordpasswordpasswordpasswordpasswordpasswordpassword"))

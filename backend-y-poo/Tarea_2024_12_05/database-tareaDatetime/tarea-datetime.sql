@@ -18,7 +18,9 @@ CREATE TABLE  Usuarios (
 	password VARCHAR(255) NOT NULL,
 	
 	role VARCHAR(20) NOT NULL,
-	CHECK (role IN ("usuario", "admin"))
+	CHECK (role IN ("usuario", "admin")),
+	
+	refresh_token VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS Libros;
@@ -37,6 +39,7 @@ CREATE TABLE Libros (
 		fechaHora_prestamo IS NOT NULL AND fechaHora_vencimiento IS NOT NULL AND username_prestatario IS NOT NULL
 	)
 );
+
 
 GRANT INSERT, SELECT, UPDATE, DELETE
 ON tarea_datetime.Usuarios

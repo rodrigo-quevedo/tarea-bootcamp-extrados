@@ -61,13 +61,16 @@ namespace tarea_API_Web_REST.Controllers
         //endpoints
 
         [HttpGet] //http://localhost:5176/usuarios?mail=****@gmail.com
-        [Authorize]
+        //[Authorize]
         public ActionResult<Usuario> BuscarUsuarioPorMail(string mail)
         {
             Console.WriteLine($"GET en /usuarios: {DateTime.Now}");
 
             try
             {
+                //jwt y refreshToken cookie validation
+                string jwtUsername = authorizeCookieService.AuthorizeJWT(Request.Cookies, Response.Cookies);
+
                 //validacion de input
                 usuariosInputValidationService.validarMail(mail);
 

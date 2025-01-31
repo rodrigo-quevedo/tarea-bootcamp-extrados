@@ -5,26 +5,23 @@ using Isopoh.Cryptography.Argon2;
 using Configuration;
 using Microsoft.Extensions.Options;
 using DAO.DAOs.DI;
+using Configuration.DI;
 
 namespace Trabajo_Final.utils.Verificar_Existencia_Admin
 {
-    public class VerificarExistenciaAdmin
+    public class VerificarExistenciaAdmin : IVerificarExistenciaAdmin
     {
         // cargar DAO y connectionString
-
-        //private IUsuarioDAO usuarioDAO;
         private IUsuarioDAO usuarioDAO;
-        
+        private IPrimer_AdminConfiguration _primerAdminConf;
+
         private Usuario nuevoAdmin;
-        private Primer_AdminConfiguration _primerAdminConf;
-
-        //public VerificarExistenciaAdmin(IOptions<Primer_AdminConfiguration> options, IUsuarioDAO usuarioDaoConf) 
-        public VerificarExistenciaAdmin(IOptions<Primer_AdminConfiguration> options)
+        public VerificarExistenciaAdmin(IPrimer_AdminConfiguration injectedAdminData, IUsuarioDAO DI_usuarioDAO)
         {
-            Console.WriteLine("Adentro de VerificarExistenciaAdmin");
+            //Console.WriteLine("Adentro de VerificarExistenciaAdmin");
 
-            Console.WriteLine($"options: {options}");
-            _primerAdminConf = options.Value;
+            //Console.WriteLine($"injectedAdminData: {injectedAdminData}");
+            _primerAdminConf = injectedAdminData;
 
             nuevoAdmin = new Usuario(
                 0,
@@ -37,16 +34,15 @@ namespace Trabajo_Final.utils.Verificar_Existencia_Admin
                 null
             );
 
-            
-        }
+            //Console.WriteLine("Inyeccion de DAO ejecutandose...");
+            usuarioDAO = DI_usuarioDAO;
 
 
-        public VerificarExistenciaAdmin()
-        {
-            Console.WriteLine($"Mi usuarioDAO: {usuarioDAO}");
+            Usuario busqueda = new Usuario(0, Roles.ADMIN, null, null, null, null, true, null);
+            //Console.WriteLine(busqueda);
 
             // verificar si existe admin
-            Usuario adminExistente = usuarioDAO.BuscarUnUsuario(new Usuario(0, Roles.ADMIN, null, null, null, null, true, null));
+            Usuario adminExistente = usuarioDAO.BuscarUnUsuario(busqueda);
             if (adminExistente != null)
             {
                 Console.WriteLine("Existe al menos un admin en la base de datos:");
@@ -71,7 +67,7 @@ namespace Trabajo_Final.utils.Verificar_Existencia_Admin
             if (rowInserts == 1) { Console.WriteLine("Se creo un admin."); }
 
             //mostrarlo
-            Usuario adminCreado = usuarioDAO.BuscarUnUsuario(new Usuario(0, Roles.ADMIN, null, null, null, null, true));
+            Usuario adminCreado = usuarioDAO.BuscarUnUsuario(new Usuario(0, Roles.ADMIN, null, null, null, null, true, null));
             if (adminCreado.Id != null)
             {
                 Console.WriteLine(
@@ -84,18 +80,9 @@ namespace Trabajo_Final.utils.Verificar_Existencia_Admin
                 );
                 return;
             }
-
         }
 
-        public VerificarExistenciaAdmin(IUsuarioDAO DI_usuarioDAO)
-        {
-            usuarioDAO = DI_usuarioDAO;
-        }
 
-       
-
-
-
-
+        
     }
 }

@@ -41,7 +41,7 @@ namespace tarea_API_Web_REST.Services
                 issuer: "http://localhost:5176",
                 audience : "http://localhost:5176",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddMinutes(1),
                 signingCredentials: configuracionFirmaJWT
             );
 

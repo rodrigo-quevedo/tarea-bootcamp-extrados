@@ -51,8 +51,7 @@
               "ViewState": "AgIAAGsAAAAAAAAAAAAqwIgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-15T23:59:04.944Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -62,7 +61,7 @@
               "RelativeDocumentMoniker": "tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_12\\tarea-API-Web-REST\\tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "RelativeToolTip": "tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAAJEAAAAAAAAAAAAkwJsAAABNAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAwFAAAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-12T20:35:49.648Z",
               "IsPinned": true,
@@ -114,8 +113,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Program.cs",
               "ViewState": "AgIAADMAAAAAAAAAAAAAAEEAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T16:44:11.634Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-16T16:44:11.634Z"
             },
             {
               "$type": "Document",

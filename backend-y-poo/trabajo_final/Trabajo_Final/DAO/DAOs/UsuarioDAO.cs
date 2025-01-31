@@ -53,7 +53,7 @@ namespace DAO.DAOs
         {
             string selectQuery;
 
-            if (usuario.Id != default)
+            if (usuario.Id != default) //default de int es 0
             {
                 selectQuery = "SELECT * FROM usuarios WHERE id=@Id AND activo=@Activo;";
                 return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
@@ -63,7 +63,7 @@ namespace DAO.DAOs
                 });
             }
 
-            else if (usuario.Email != default)
+            else if (usuario.Email != default) //default de string es null
             {
                 selectQuery = "SELECT * FROM usuarios WHERE email=@Email AND activo=@Activo;";
                 return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
@@ -73,7 +73,7 @@ namespace DAO.DAOs
                 });
             }
 
-            else if (usuario.Rol != default)
+            else if (usuario.Rol != default) //default de string es null
             {
                 selectQuery = "SELECT * FROM usuarios WHERE rol=@rol AND activo=@activo;";
                 return connection.QueryFirstOrDefault<Usuario>(selectQuery, new

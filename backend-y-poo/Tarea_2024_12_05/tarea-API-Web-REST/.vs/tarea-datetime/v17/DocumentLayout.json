@@ -52,7 +52,7 @@
               "RelativeDocumentMoniker": "tarea-API-Web-REST\\Services\\LibroServices\\VerificarDisponibilidadService.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_05\\tarea-API-Web-REST\\tarea-API-Web-REST\\Services\\LibroServices\\VerificarDisponibilidadService.cs",
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\LibroServices\\VerificarDisponibilidadService.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAiwBgAAACnAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAiwBkAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-14T06:48:06.056Z",
               "EditorCaption": ""
@@ -67,8 +67,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Utils\\ExceptionHandler\\ExceptionHandler.cs",
               "ViewState": "AgIAAEwAAAAAAAAAAAAkwEoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T06:30:55.013Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T06:30:55.013Z"
             },
             {
               "$type": "Document",
@@ -80,8 +79,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Utils\\Exceptions\\SinPermisoException.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T06:28:47.566Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T06:28:47.566Z"
             },
             {
               "$type": "Document",
@@ -93,8 +91,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\UsuarioServices\\CrearJwtService.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAgwCAAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T05:55:43.242Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T05:55:43.242Z"
             },
             {
               "$type": "Document",
@@ -106,8 +103,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\LibroServices\\VerificarPrestatarioService.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAqwBcAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T05:30:17.525Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T05:30:17.525Z"
             },
             {
               "$type": "Document",
@@ -119,8 +115,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Utils\\RequestBodyParams\\PrestamoLibro.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T04:01:06.104Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T04:01:06.104Z"
             },
             {
               "$type": "Document",
@@ -132,8 +127,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\UsuarioServices\\UsuariosInputValidationService.cs",
               "ViewState": "AgIAAIAAAAAAAAAAAAAqwIwAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T03:10:36.89Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T03:10:36.89Z"
             },
             {
               "$type": "Document",
@@ -145,8 +139,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "ViewState": "AgIAAJIAAAAAAAAAAAAqwJsAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-12T20:35:49.648Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-12T20:35:49.648Z"
             }
           ]
         }

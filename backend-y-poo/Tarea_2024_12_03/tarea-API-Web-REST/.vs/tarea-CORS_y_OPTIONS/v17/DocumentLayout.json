@@ -54,8 +54,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\LogearUsuarioService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T20:14:04.557Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T20:14:04.557Z"
             },
             {
               "$type": "Document",
@@ -67,8 +66,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\CrearUsuarioService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T20:13:46.705Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T20:13:46.705Z"
             },
             {
               "$type": "Document",
@@ -80,8 +78,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\ActualizarUsuarioService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T20:12:25.533Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T20:12:25.533Z"
             },
             {
               "$type": "Document",
@@ -93,8 +90,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\BuscarUsuarioByMailService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T20:07:29.479Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T20:07:29.479Z"
             },
             {
               "$type": "Document",
@@ -106,8 +102,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAACDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-04T15:14:12.474Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T15:14:12.474Z"
             },
             {
               "$type": "Document",
@@ -119,8 +114,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Services\\CrearJwtService.cs",
               "ViewState": "AgIAACQAAAAAAAAAAADgvwwAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T22:59:11.728Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-29T22:59:11.728Z"
             },
             {
               "$type": "Document",
@@ -132,8 +126,7 @@
               "RelativeToolTip": "tarea-API-Web-REST\\Program.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAAAADUAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T15:59:02.816Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-29T15:59:02.816Z"
             },
             {
               "$type": "Document",
@@ -143,7 +136,7 @@
               "RelativeDocumentMoniker": "tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\Tarea_2024_12_03\\tarea-API-Web-REST\\tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
               "RelativeToolTip": "tarea-API-Web-REST\\Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAiwCcAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAiwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-25T18:57:29.628Z",
               "EditorCaption": ""
