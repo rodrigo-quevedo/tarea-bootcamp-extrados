@@ -81,7 +81,7 @@ namespace Trabajo_Final.Controllers
             //si no está logeado, hacer autoregistro de jugador
             if (!usuarioLogueado)
             {
-                if (datos.rol != Roles.JUGADOR) { throw new SinPermisoException($"Intentó registrar un {datos.rol}, pero no esta logeado. Debe logearse como admin u organizador para registrar usuarios."); }
+                if (datos.rol != Roles.JUGADOR) { throw new SinPermisoException($"Se intentó registrar un [{datos.rol}], pero no esta logeado. Realize el login como admin u organizador e intente nuevamente. (O puede crear un usuario con rol [jugador] sin logearse. ADVERTENCIA: Solo se permite 1 rol por cuenta,es decir, por email)."); }
 
                 Usuario usuarioRegistrado = jugadorAutoregistroService.AutoregistroJugador(datos);
 
@@ -90,8 +90,10 @@ namespace Trabajo_Final.Controllers
             }
 
 
-            //si está logeado, registrar otro usuario
-            
+            //si está logeado, registrar a otro usuario
+            //si admin, puede crear cualquier cosa
+
+            //si organizador, chequear juez
             
 
 
