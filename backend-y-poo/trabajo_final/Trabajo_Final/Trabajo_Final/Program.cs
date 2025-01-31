@@ -2,6 +2,10 @@ using Configuration;
 using Configuration.DI;
 using DAO.DAOs;
 using DAO.DAOs.DI;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Trabajo_Final.Services.UsuarioServices.Login;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
 
 
@@ -30,6 +34,9 @@ builder.Services.AddSingleton<IPrimer_AdminConfiguration>(
 );
 builder.Services.AddSingleton<IVerificarExistenciaAdmin, VerificarExistenciaAdmin>();
 
+//services
+builder.Services.AddScoped<ILogearUsuarioService, LogearUsuarioService>();
+
 
 
 
@@ -37,6 +44,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+
+
 // Build
 var app = builder.Build();
 
