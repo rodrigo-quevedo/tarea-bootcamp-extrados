@@ -1,9 +1,11 @@
 ﻿using Configuration;
 using DAO.DAOs.DI;
 using DAO.Entidades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 using Trabajo_Final.DTO;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
@@ -59,18 +61,26 @@ namespace Trabajo_Final.Controllers
             Console.WriteLine("POST /login");
 
             //Primero, verificar que no esté logeado
-            if (Request.Cookies["jwt"] != null || Request.Cookies["refreshToken"] != null)
+            string authorizationHeaderValue = Request.Headers["Authorization"].ToString();
+
+            if (
+                (authorizationHeaderValue != default  && authorizationHeaderValue != "" )
+                || 
+                Request.Cookies["refreshToken"] != null
+            )
             {
                 throw new SinPermisoException("Ya está logeado. Cierre su sesión actual para poder loguearse (ir a /logout).");
             }
 
 
-            //logear usuario service
+            //Verificar credenciales
             Usuario usuarioVerificado = logearUsuarioService.LogearUsuario(credenciales);
 
-            //crear jwt
-            crearJwtService.CrearJwt(usuarioVerificado, Response.Cookies);
-            //(no hace falta verificar, los metodos internos tiran Exceptions si fallan)
+            //Crear jwt
+            string jwt = crearJwtService.CrearJwt(usuarioVerificado, Response.Cookies);
+
+            //Respuesta servidor
+            Response.Headers.Authorization = new StringValues($"Bearer {jwt}");
 
             return Ok(new { message = $"Usuario {usuarioVerificado.Email} logeado con éxito."});
 
@@ -119,5 +129,19 @@ namespace Trabajo_Final.Controllers
 
 
         }
+
+        //[HttpPost]
+        //[Route("/logout")]
+
+
+        //[HttpGet]
+        //[Route("/datos")]
+        //[Authorize]
+        //public ActionResult mostrarDatosUsuario() 
+        //{
+        //    Console.WriteLine("GET /datos");
+
+        //    return Ok();
+        //}
     }
 }

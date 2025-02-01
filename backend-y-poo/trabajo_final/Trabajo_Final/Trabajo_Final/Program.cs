@@ -2,6 +2,7 @@ using Configuration;
 using Configuration.DI;
 using DAO.DAOs;
 using DAO.DAOs.DI;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -58,24 +59,57 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //jwt auth
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
-    options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    Console.WriteLine("dentro de addAuthentication");
+
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.TokenValidationParameters = new TokenValidationParameters
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["Jwt:issuer"],
+
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:audience"],
+
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:jwt_secret"]))
+    };
+
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
         {
-            ValidateIssuer = true,
-            ValidIssuer = builder.Configuration["Jwt:issuer"],
+            Console.WriteLine("Jwt recibida");
+            return Task.CompletedTask;
+        },
 
-            ValidateAudience = true,
-            ValidAudience = builder.Configuration["Jwt:audience"],
+        OnChallenge = context =>
+        {
+            Console.WriteLine("JWT Authentication challenge.");
+            return Task.CompletedTask;
+        },
 
-            ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero,
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine("Auth Failed");
+            return Task.CompletedTask;
+        },
 
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:jwt_secret"]))
-        };
-    }
+        OnForbidden = context =>
+        {
+            Console.WriteLine("Auth OnForbidden");
+            return Task.CompletedTask;
+        }
+
+
+    };
+
+}
 );
 
 
@@ -112,6 +146,9 @@ app.UseExceptionHandler(exceptionHandlerApp => {
 
         //guarda, el .WriteAsync es incompatible con el .WriteAsJsonAsync<> 
         //await context.Response.WriteAsync($" Path: {exceptionHandlerPathFeature?.Path}.");
+
+
+
 
 
         //exception por default

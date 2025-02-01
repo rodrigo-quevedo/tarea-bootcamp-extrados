@@ -1,6 +1,16 @@
 [
   {
     "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
+    "Method": "mostrarDatosUsuario",
+    "RelativePath": "datos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
     "Method": "LoginUser",
     "RelativePath": "login",
     "HttpMethod": "POST",

@@ -1,0 +1,12 @@
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\bin\Debug\net6.0\Configuration.deps.json
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\bin\Debug\net6.0\Configuration.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\bin\Debug\net6.0\Configuration.pdb
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\obj\Debug\net6.0\Configuration.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\obj\Debug\net6.0\Configuration.AssemblyInfoInputs.cache
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\obj\Debug\net6.0\Configuration.AssemblyInfo.cs
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\obj\Debug\net6.0\Configuration.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\obj\Debug\net6.0\Configuration.sourcelink.json
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\obj\Debug\net6.0\Configuration.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\obj\Debug\net6.0\refint\Configuration.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\obj\Debug\net6.0\Configuration.pdb
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Configuration\obj\Debug\net6.0\ref\Configuration.dll
