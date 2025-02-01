@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Trabajo_Final.DTO;
+using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
 using Trabajo_Final.Services.UsuarioServices.Registro;
 using Trabajo_Final.utils.Constantes;
@@ -19,7 +20,11 @@ namespace Trabajo_Final.Controllers
     {
         // services
         private ILogearUsuarioService logearUsuarioService;
+        private ICrearJwtService crearJwtService;
+        
         private IJugadorAutoregistroService jugadorAutoregistroService;
+
+
         //private IRegistrarUsuarioService registrarUsuarioService;
 
 
@@ -28,15 +33,19 @@ namespace Trabajo_Final.Controllers
             IVerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
             
             ILogearUsuarioService login,
+            ICrearJwtService jwt,
+
             IJugadorAutoregistroService autoregistro
             //IRegistrarUsuarioService registrar,
         )
         {
             logearUsuarioService = login;
+            crearJwtService = jwt;
+
             jugadorAutoregistroService = autoregistro;
             //registrarUsuarioService = registrar;
 
-        } 
+        }
 
 
 
@@ -49,13 +58,21 @@ namespace Trabajo_Final.Controllers
         {
             Console.WriteLine("POST /login");
 
+            //Primero, verificar que no esté logeado
+            if (Request.Cookies["jwt"] != null || Request.Cookies["refreshToken"] != null)
+            {
+                throw new SinPermisoException("Ya está logeado. Cierre su sesión actual para poder loguearse (ir a /logout).");
+            }
+
+
             //logear usuario service
-            Usuario usuarioLogeado = logearUsuarioService.LogearUsuario(credenciales);
+            Usuario usuarioVerificado = logearUsuarioService.LogearUsuario(credenciales);
 
+            //crear jwt
+            crearJwtService.CrearJwt(usuarioVerificado, Response.Cookies);
+            //(no hace falta verificar, los metodos internos tiran Exceptions si fallan)
 
-
-           return Ok();
-
+            return Ok(new { message = $"Usuario {usuarioVerificado.Email} logeado con éxito."});
 
         }
 

@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Net.Mime;
 using System.Text;
 using Trabajo_Final.DTO;
+using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
 using Trabajo_Final.Services.UsuarioServices.Registro;
 using Trabajo_Final.utils.Exceptions.Exceptions;
@@ -18,12 +19,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Servicios, patron OPTIONS e Inyeccion de Dependencias
-builder.Services.Configure<DBConfiguration>(
-    builder.Configuration.GetSection("DB:general_connection_string"));
-builder.Services.Configure<Primer_AdminConfiguration>(
-    builder.Configuration.GetSection("DB:Primer_Admin"));
-
+// Servicios (auto-inyeccion de dependencias)
 
 builder.Services.AddSingleton<IUsuarioDAO>(
     new UsuarioDAO(builder.Configuration.GetSection(
@@ -39,12 +35,20 @@ builder.Services.AddSingleton<IPrimer_AdminConfiguration>(
         builder.Configuration.GetSection("DB:Primer_Admin:Password").Value
     )
 );
+builder.Services.AddSingleton<IJwtConfiguration>(
+    new JwtConfiguration(
+        builder.Configuration.GetSection("Jwt:jwt_secret").Value,
+        builder.Configuration.GetSection("Jwt:refreshToken_secret").Value,
+        builder.Configuration.GetSection("Jwt:issuer").Value,
+        builder.Configuration.GetSection("Jwt:audience").Value
+    )
+);
 builder.Services.AddSingleton<IVerificarExistenciaAdmin, VerificarExistenciaAdmin>();
 
 //services
 builder.Services.AddScoped<ILogearUsuarioService, LogearUsuarioService>();
 builder.Services.AddScoped<IJugadorAutoregistroService, JugadorAutoregistroService>();
-
+builder.Services.AddScoped<ICrearJwtService, CrearJwtService>();
 
 
 
@@ -53,6 +57,26 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//jwt auth
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+    options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Jwt:issuer"],
+
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:audience"],
+
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero,
+
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:jwt_secret"]))
+        };
+    }
+);
 
 
 
@@ -105,6 +129,7 @@ app.UseExceptionHandler(exceptionHandlerApp => {
     });
 });
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
