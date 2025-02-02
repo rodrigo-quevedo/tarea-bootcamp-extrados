@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "b7bf1041-a4af-4952-a299-bb17b6f3cfc0",
+		"name": "Trabajo final (Bootcamp Extrados)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34676059"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let value = pm.response.headers.get(\"Authorization\")\r",
+							"let actualizarToken = pm.response.headers.get(\"X-Actualizar-Token\")\r",
+							"\r",
+							"pm.environment.set(\"JwtBearer_Value\", value)\r",
+							"\r",
+							"\r",
+							"\r",
+							"if (actualizarToken != \"\" && actualizarToken != null){\r",
+							"    pm.environment.set(\"response_headers\", pm.response.headers.toString())//ok\r",
+							"    // pm.environment.set(\"request_url\", pm.request.url.toString())//ok\r",
+							"    // pm.environment.set(\"request_method\", pm.request.method.toString())//ok\r",
+							"    // pm.environment.set(\"request_body\", pm.request.body.toString())\r",
+							"\r",
+							"    // pm.sendRequest(pm.request.url.toString(), {\r",
+							"    //     method: pm.request.method.toString(),\r",
+							"    //     headers: {\r",
+							"    //         \"X-My-Custom-Header\": \"alsdfjksdfj\"\r",
+							"    //     },\r",
+							"    //     body: pm.request.body  \r",
+							"    // })\r",
+							"    // pm.sendRequest({\r",
+							"    //     url: pm.request.url.toString(),\r",
+							"    //     method: pm.request.method.toString(),\r",
+							"    //     headers: pm.request.headers.toString(),\r",
+							"    //     body: pm.request.body.toJSON()\r",
+							"    // })\r",
+							"    // pm.execution.setNextRequest(\"refreshToken_request\");\r",
+							"}\r",
+							"\r",
+							"//test guardado\r",
+							"// pm.test(\"Bearer JWT guardado\", function () {\r",
+							"//   pm.expect(pm.environment.get(\"JwtBearer_Value\")).to.be.a('string');\r",
+							"//   pm.expect(pm.environment.get(\"JwtBearer_Value\")).to.not.be.empty;\r",
+							"// });"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{JwtBearer_Value}}",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3099",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"jugador@gmail.com\",\r\n    \"password\": \"jugador\",\r\n    \"confirmPassword\": \"jugador\",\r\n    \"pais\": \"lasjfd\",\r\n    \"nombre_apellido\": \"lsakdjflksdf\",\r\n    \"rol\": \"jugador\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5156/datos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5156",
+					"path": [
+						"datos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refreshToken_request",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{JwtBearer_Value}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5156/datos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5156",
+					"path": [
+						"datos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
