@@ -27,6 +27,16 @@
   },
   {
     "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
+    "Method": "LogoutUser",
+    "RelativePath": "logout",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
     "Method": "RegistrarUser",
     "RelativePath": "registro",
     "HttpMethod": "POST",

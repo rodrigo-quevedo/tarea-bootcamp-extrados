@@ -60,7 +60,7 @@ namespace Trabajo_Final.Controllers
         {
             Console.WriteLine("POST /login");
 
-            //Primero, verificar que no esté logeado
+            //Verificar que no esté logeado
             string authorizationHeaderValue = Request.Headers["Authorization"].ToString();
 
             if (
@@ -69,7 +69,7 @@ namespace Trabajo_Final.Controllers
                 Request.Cookies["refreshToken"] != null
             )
             {
-                throw new SinPermisoException("Ya está logeado. Cierre su sesión actual para poder loguearse (ir a /logout).");
+                throw new AlreadyLoggedInException("Ya está logeado. Cierre su sesión actual para poder loguearse (ir a /logout).");
             }
 
 
@@ -80,6 +80,7 @@ namespace Trabajo_Final.Controllers
             string jwt = crearJwtService.CrearJwt(usuarioVerificado, Response.Cookies);
 
             //Respuesta servidor
+            this.HttpContext.Items["Authorization_value"] = $"Bearer {jwt}"; //fix para Exceptions
             Response.Headers.Authorization = new StringValues($"Bearer {jwt}");
 
             return Ok(new { message = $"Usuario {usuarioVerificado.Email} logeado con éxito."});
@@ -130,18 +131,34 @@ namespace Trabajo_Final.Controllers
 
         }
 
-        //[HttpPost]
-        //[Route("/logout")]
+        [HttpGet]
+        [Route("/logout")]
+        public ActionResult LogoutUser()
+        {
+            //fix para Exceptions
+            this.HttpContext.Items["Authorization_value"] = "";
+
+            Response.Headers.Authorization = "";
+            Response.Cookies.Append("refreshToken", "", new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+                Expires = DateTime.Now
+            });
+            return Ok(new { message = "Sesión cerrada con éxito." });
+        }
 
 
-        //[HttpGet]
-        //[Route("/datos")]
-        //[Authorize]
-        //public ActionResult mostrarDatosUsuario() 
-        //{
-        //    Console.WriteLine("GET /datos");
+        //test authorize
+        [HttpGet]
+        [Route("/datos")]
+        [Authorize]
+        public ActionResult mostrarDatosUsuario()
+        {
+            Console.WriteLine("GET /datos");
 
-        //    return Ok();
-        //}
+            return Ok(new {message="[autorización con éxito]"});
+        }
     }
 }

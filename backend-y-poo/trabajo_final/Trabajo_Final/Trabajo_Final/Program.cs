@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using System.Net.Mime;
 using System.Text;
@@ -85,26 +86,68 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         OnMessageReceived = context =>
         {
             Console.WriteLine("Jwt recibida");
-            return Task.CompletedTask;
-        },
 
-        OnChallenge = context =>
-        {
-            Console.WriteLine("JWT Authentication challenge.");
-            return Task.CompletedTask;
-        },
+            //Por defecto mando de vuelta el header (así es más fácil de configurar el front)
+            string value = context.Request.Headers.Authorization.ToString();
+            context.Response.Headers.Authorization = new StringValues(value);
+            //fix para Exceptions
+            context.HttpContext.Items["Authorization_value"] = value;
 
-        OnAuthenticationFailed = context =>
-        {
-            Console.WriteLine("Auth Failed");
-            return Task.CompletedTask;
-        },
-
-        OnForbidden = context =>
-        {
-            Console.WriteLine("Auth OnForbidden");
             return Task.CompletedTask;
         }
+        //,
+
+        //OnChallenge = context =>
+        //{
+        //    Console.WriteLine("JWT Authentication challenge.");
+
+        //    //Por defecto mando de vuelta el header (así es más fácil de configurar el front)
+        //    string value = context.Request.Headers.Authorization.ToString();
+        //    context.Response.Headers.Authorization = new StringValues(value);
+        //    //fix para Exceptions
+        //    context.HttpContext.Items["Authorization_value"] = value;
+
+        //    return Task.CompletedTask;
+        //},
+
+        //OnTokenValidated = context =>
+        //{
+        //    Console.WriteLine("Token valido");
+
+        //    //Por defecto mando de vuelta el header (así es más fácil de configurar el front)
+        //    string value = context.Request.Headers.Authorization.ToString();
+        //    context.Response.Headers.Authorization = new StringValues(value);
+        //    //fix para Exceptions
+        //    context.HttpContext.Items["Authorization_value"] = value;
+
+        //    return Task.CompletedTask;
+        //},
+
+        //OnAuthenticationFailed = context =>
+        //{
+        //    Console.WriteLine("Auth Failed");
+
+        //    //Por defecto mando de vuelta el header (así es más fácil de configurar el front)
+        //    string value = context.Request.Headers.Authorization.ToString();
+        //    context.Response.Headers.Authorization = new StringValues(value);
+        //    //fix para Exceptions
+        //    context.HttpContext.Items["Authorization_value"] = value;
+
+        //    return Task.CompletedTask;
+        //},
+
+        //OnForbidden = context =>
+        //{
+        //    Console.WriteLine("Auth OnForbidden");
+
+        //    //Por defecto mando de vuelta el header (así es más fácil de configurar el front)
+        //    string value = context.Request.Headers.Authorization.ToString();
+        //    context.Response.Headers.Authorization = new StringValues(value);
+        //    //fix para Exceptions
+        //    context.HttpContext.Items["Authorization_value"] = value;
+
+        //    return Task.CompletedTask;
+        //}
 
 
     };
@@ -128,8 +171,14 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler(exceptionHandlerApp => {
     exceptionHandlerApp.Run(async context => {
         //HTTP headers
-        context.Response.ContentType = MediaTypeNames.Application.Json;// "application/json"
+        context.Response.ContentType = MediaTypeNames.Application.Json;
 
+        //Esto es un fix para que las Exceptions no me sobreescriban el Authorization header
+        //Esta API siempre envía el Authorization header actualizado en sus Response,
+        //de esta forma el frontend solo tiene que actualizar el Authorization header con lo que le llega del servidor
+        string authorization_value = "";
+        if (context.Items.TryGetValue("Authorization_value", out var value)) authorization_value = value as string;
+        context.Response.Headers.Authorization = new StringValues(authorization_value);
 
         //HTTP body
         var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
@@ -142,7 +191,10 @@ app.UseExceptionHandler(exceptionHandlerApp => {
         else if (exceptionHandlerPathFeature?.Error.GetType().Name == typeof(NotFoundException).Name) context.Response.StatusCode = StatusCodes.Status404NotFound;
         else if (exceptionHandlerPathFeature?.Error.GetType().Name == typeof(AlreadyExistsException).Name) context.Response.StatusCode = StatusCodes.Status422UnprocessableEntity;
         else if (exceptionHandlerPathFeature?.Error.GetType().Name == typeof(SinPermisoException).Name) context.Response.StatusCode = StatusCodes.Status403Forbidden;
+        else if (exceptionHandlerPathFeature?.Error.GetType().Name == typeof(AlreadyLoggedInException).Name) context.Response.StatusCode = StatusCodes.Status403Forbidden;
         else { context.Response.StatusCode = StatusCodes.Status500InternalServerError; }
+
+
 
         //guarda, el .WriteAsync es incompatible con el .WriteAsJsonAsync<> 
         //await context.Response.WriteAsync($" Path: {exceptionHandlerPathFeature?.Path}.");
