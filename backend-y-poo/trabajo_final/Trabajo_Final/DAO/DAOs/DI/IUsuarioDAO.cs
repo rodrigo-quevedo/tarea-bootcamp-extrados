@@ -13,5 +13,8 @@ namespace DAO.DAOs.DI
         public int CrearUsuario(Usuario usuario);
 
         public Usuario BuscarUnUsuario(Usuario usuario);
+
+        public int AsignarRefreshTokenById(int id, string refreshToken);
+
     }
 }

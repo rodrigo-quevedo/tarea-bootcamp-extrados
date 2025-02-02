@@ -25,7 +25,9 @@ CREATE TABLE usuarios(
 	
 	-- usuario_creador: admite NULL porque jugador se puede auto-registrar
 	id_usuario_creador INT NULL,
-	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id)
+	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id),
+	
+	refresh_token VARCHAR(300) NULL
 );
 
 -- Posiblemente 'admin' no necesite tabla (con los atributos de la tabla usuario puede hacer sus tareas)

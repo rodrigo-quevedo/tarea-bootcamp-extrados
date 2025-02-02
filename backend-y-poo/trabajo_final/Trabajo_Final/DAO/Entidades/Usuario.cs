@@ -16,8 +16,9 @@ namespace DAO.Entidades
         public string Password { get; set; }
         public bool Activo { get; set; } //borrado logico (Activo = false)
         public int? Id_usuario_creador {  get; set; } 
+        public string Refresh_token {  get; set; }
     
-        public Usuario(int id, string rol, string pais, string nombre_apellido, string email, string password, bool activo, int? id_usuario_creador) { 
+        public Usuario(int id, string rol, string pais, string nombre_apellido, string email, string password, bool activo, int? id_usuario_creador, string refresh_token) { 
             this.Id = id;
             this.Rol = rol;
             this.Pais = pais;
@@ -26,6 +27,27 @@ namespace DAO.Entidades
             this.Password = password;
             this.Activo = activo;
             this.Id_usuario_creador = id_usuario_creador;
+            this.Refresh_token = refresh_token;
+        }
+
+        //compatible hacia atras (algunos services ya están implementados con Usuarios sin refresh_token)
+        public Usuario(int id, string rol, string pais, string nombre_apellido, string email, string password, bool activo, int? id_usuario_creador)
+        {
+            this.Id = id;
+            this.Rol = rol;
+            this.Pais = pais;
+            this.Nombre_apellido = nombre_apellido;
+            this.Email = email;
+            this.Password = password;
+            this.Activo = activo;
+            this.Id_usuario_creador = id_usuario_creador;
+        }
+
+        //busqueda por id
+        public Usuario (int id, bool activo)
+        {
+            this.Id = id;
+            this.Activo = activo;
         }
     }
 }

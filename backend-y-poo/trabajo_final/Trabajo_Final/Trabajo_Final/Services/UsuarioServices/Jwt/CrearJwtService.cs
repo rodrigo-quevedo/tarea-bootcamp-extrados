@@ -16,9 +16,10 @@ namespace Trabajo_Final.Services.UsuarioServices.Jwt
             jwtConfig = jwtConfiguration;
         }
 
+        
 
 
-        public string CrearJwt(Usuario usuarioValidado, IResponseCookies resCookies)
+        public string CrearJwt(Usuario usuarioValidado)
         {
             //jwt private key
             SymmetricSecurityKey llavePrivada =

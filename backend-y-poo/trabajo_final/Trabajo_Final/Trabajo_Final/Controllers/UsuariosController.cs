@@ -9,6 +9,7 @@ using Microsoft.Extensions.Primitives;
 using Trabajo_Final.DTO;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
+using Trabajo_Final.Services.UsuarioServices.RefreshToken;
 using Trabajo_Final.Services.UsuarioServices.Registro;
 using Trabajo_Final.utils.Constantes;
 using Trabajo_Final.utils.Exceptions.Exceptions;
@@ -23,6 +24,7 @@ namespace Trabajo_Final.Controllers
         // services
         private ILogearUsuarioService logearUsuarioService;
         private ICrearJwtService crearJwtService;
+        private ICrearRefreshTokenService crearRefreshTokenService;
         
         private IJugadorAutoregistroService jugadorAutoregistroService;
 
@@ -36,6 +38,7 @@ namespace Trabajo_Final.Controllers
             
             ILogearUsuarioService login,
             ICrearJwtService jwt,
+            ICrearRefreshTokenService  refreshToken,
 
             IJugadorAutoregistroService autoregistro
             //IRegistrarUsuarioService registrar,
@@ -43,6 +46,7 @@ namespace Trabajo_Final.Controllers
         {
             logearUsuarioService = login;
             crearJwtService = jwt;
+            crearRefreshTokenService = refreshToken;
 
             jugadorAutoregistroService = autoregistro;
             //registrarUsuarioService = registrar;
@@ -66,7 +70,7 @@ namespace Trabajo_Final.Controllers
             if (
                 (authorizationHeaderValue != default  && authorizationHeaderValue != "" )
                 || 
-                Request.Cookies["refreshToken"] != null
+                (Request.Cookies["refreshToken"] != null && Request.Cookies["refreshToken"] != "")
             )
             {
                 throw new AlreadyLoggedInException("Ya está logeado. Cierre su sesión actual para poder loguearse (ir a /logout).");
@@ -76,12 +80,25 @@ namespace Trabajo_Final.Controllers
             //Verificar credenciales
             Usuario usuarioVerificado = logearUsuarioService.LogearUsuario(credenciales);
 
-            //Crear jwt
-            string jwt = crearJwtService.CrearJwt(usuarioVerificado, Response.Cookies);
+            //Crear jwt y refresh token
+            string jwt = crearJwtService.CrearJwt(usuarioVerificado);
+            string refreshToken = crearRefreshTokenService.CrearRefreshToken(usuarioVerificado);
 
             //Respuesta servidor
             this.HttpContext.Items["Authorization_value"] = $"Bearer {jwt}"; //fix para Exceptions
+            
             Response.Headers.Authorization = new StringValues($"Bearer {jwt}");
+
+            Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+                Expires = DateTime.Now.AddDays(120)
+            });
+            this.HttpContext.Items["RefreshToken_value"] = refreshToken; //fix para Exceptions
+
+            throw new Exception();
 
             return Ok(new { message = $"Usuario {usuarioVerificado.Email} logeado con éxito."});
 
@@ -135,9 +152,6 @@ namespace Trabajo_Final.Controllers
         [Route("/logout")]
         public ActionResult LogoutUser()
         {
-            //fix para Exceptions
-            this.HttpContext.Items["Authorization_value"] = "";
-
             Response.Headers.Authorization = "";
             Response.Cookies.Append("refreshToken", "", new CookieOptions
             {
@@ -146,6 +160,12 @@ namespace Trabajo_Final.Controllers
                 Secure = true,
                 Expires = DateTime.Now
             });
+
+            //fix para Exceptions
+            this.HttpContext.Items["Authorization_value"] = "";
+            this.HttpContext.Items["RefreshToken_value"] = "";
+            
+            throw new Exception();
             return Ok(new { message = "Sesión cerrada con éxito." });
         }
 

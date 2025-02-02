@@ -43,12 +43,13 @@ namespace DAO.DAOs
            
         }
 
-
+        //READ
         public Usuario BuscarUsuarios(Usuario usuario)
         {
             return null;
         }
 
+        //READ
         public Usuario BuscarUnUsuario(Usuario usuario) // Búsqueda por id, email, rol (este ultimo para Verificar_Existencia_Admin)
         {
             string selectQuery;
@@ -92,6 +93,18 @@ namespace DAO.DAOs
 
 
 
+        //UPDATE (refreshtoken)
+        public int AsignarRefreshTokenById(int id, string refreshToken)
+        {
+            string updateQuery = "UPDATE Usuarios SET refresh_token = @Refresh_token WHERE id = @Id";
+
+            return connection.Execute(updateQuery, new
+            {
+                Refresh_token = refreshToken,
+                Id = id
+            });
+
+        }
 
 
 
