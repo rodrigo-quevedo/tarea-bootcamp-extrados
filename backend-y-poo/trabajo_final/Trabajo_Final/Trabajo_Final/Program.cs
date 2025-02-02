@@ -228,7 +228,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 }
 );
 
-
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddDefaultPolicy(
+            policy =>
+            {
+                //Obligatorio usar 'Origin' en las requests
+                policy.WithOrigins("*");
+            }
+        );
+    }
+);
 
 // Build
 var app = builder.Build();
@@ -311,6 +322,7 @@ app.UseExceptionHandler(exceptionHandlerApp => {
     });
 });
 
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 
