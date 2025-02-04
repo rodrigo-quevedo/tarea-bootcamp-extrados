@@ -54,10 +54,11 @@ builder.Services.AddSingleton<IJwtConfiguration>(
 builder.Services.AddSingleton<IVerificarExistenciaAdmin, VerificarExistenciaAdmin>();
 
 //services
-builder.Services.AddScoped<ILogearUsuarioService, LogearUsuarioService>();
-builder.Services.AddScoped<IJugadorAutoregistroService, JugadorAutoregistroService>();
 builder.Services.AddScoped<ICrearJwtService, CrearJwtService>();
 builder.Services.AddScoped<ICrearRefreshTokenService, CrearRefreshTokenService>();
+builder.Services.AddScoped<IRegistroUsuarioService, RegistroUsuarioService>();
+builder.Services.AddScoped<IValidarRegistroUsuarioService, ValidarRegistroUsuarioService>();
+builder.Services.AddScoped<ILogearUsuarioService, LogearUsuarioService>();
 
 
 
@@ -160,6 +161,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //buscar usuario con el username del refreshToken en la base de datos:
             UsuarioDAO usuarioDAO = new UsuarioDAO(builder.Configuration.GetSection("DB:general_connection_string").Value);
             Usuario usuarioEncontrado = usuarioDAO.BuscarUnUsuario(new Usuario(id_usuario, true));
+            if (usuarioEncontrado == null) throw new InvalidRefreshTokenException("Token inválido. Logear usuario nuevamente.");
             Console.WriteLine($"usuario encontrado para comparar refreshToken: {usuarioEncontrado.Id}|{usuarioEncontrado.Email}|{usuarioEncontrado.Nombre_apellido}|{usuarioEncontrado.Pais}|{usuarioEncontrado.Refresh_token}|{usuarioEncontrado.Id_usuario_creador}");
 
             //validacion guard-> comprarar refreshToken de la base de datos contra el de la cookie:
@@ -213,10 +215,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //solicitar nueva request
             //-->si el front usa fetch, simplemente hay que volver a hacer un fetch cargando los mismos headers y body
             //-->ese segundo fetch si o si va a ser valido, ya que tiene los tokens correctos (recien traidos del servidor)
-            context.Response.Headers["X-Actualizar-Token"] = "aca se puede " +
-                "poner cualquier valor, total en el front se hace" +
-                "un (X-Actualizar-Token !== null && X-Actualizar-Token !== '')";
-            context.HttpContext.Items["X-Actualizar-Token_value"] = "slfdjk";//fix para Exceptions
+            context.Response.Headers["X-Actualizar-Token"] = "cualquier valor";//aca se puede poner cualquier valor, total en el front se hace un (X-Actualizar-Token !== null && X-Actualizar-Token !== '')
+            context.HttpContext.Items["X-Actualizar-Token_value"] = "asdfjlks";//fix para Exceptions
 
 
             return Task.CompletedTask;
@@ -304,6 +304,83 @@ app.UseExceptionHandler(exceptionHandlerApp => {
         //await context.Response.WriteAsync($" Path: {exceptionHandlerPathFeature?.Path}.");
 
 
+        //Authorization jwt expirados
+        if (exceptionHandlerPathFeature?.Error.GetType().Name == typeof(SecurityTokenExpiredException).Name)
+        {
+            //comprobar refreshToken
+            string refreshToken = context.Request.Cookies["refreshToken"];
+
+            if (refreshToken == null || refreshToken == "")
+            {
+                context.Response.Headers.Authorization = "";
+                context.Response.Cookies.Append("refreshToken", "", new CookieOptions
+                {
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.None,
+                    Secure = true,
+                    Expires = DateTime.Now
+                });
+                throw new InvalidRefreshTokenException("Token inválido. Logear usuario nuevamente.");
+            }
+
+            //hay refreshToken -> verificar si es valido
+            JwtSecurityTokenHandler jwtHandler = new();
+
+            //parse refreshToken y verificar formato jwt del refreshToken:
+            JwtSecurityToken jwtSecToken;
+            try { jwtSecToken = jwtHandler.ReadJwtToken(refreshToken); }
+            catch (Exception ex)
+            {
+                context.Response.Headers.Authorization = "";
+                context.Response.Cookies.Append("refreshToken", "", new CookieOptions
+                {
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.None,
+                    Secure = true,
+                    Expires = DateTime.Now
+                });
+                throw new InvalidRefreshTokenException("Token inválido. Logear usuario nuevamente.");
+            }
+
+            //obtener username dentro del refreshToken payload:
+            Object id_usuario_out;
+            int id_usuario = 0;
+            jwtSecToken.Payload.TryGetValue(ClaimTypes.Sid, out id_usuario_out);
+            Int32.TryParse(id_usuario_out?.ToString(), out id_usuario);
+            Console.WriteLine($"ID del usuario de la refreshToken: {id_usuario}");
+
+            //buscar usuario con el username del refreshToken en la base de datos:
+            UsuarioDAO usuarioDAO = new UsuarioDAO(builder.Configuration.GetSection("DB:general_connection_string").Value);
+            Usuario usuarioEncontrado = usuarioDAO.BuscarUnUsuario(new Usuario(id_usuario, true));
+            if (usuarioEncontrado == null) throw new InvalidRefreshTokenException("RefreshToken inválido. Logear usuario nuevamente.");
+            Console.WriteLine($"usuario encontrado para comparar refreshToken: {usuarioEncontrado.Id}|{usuarioEncontrado.Email}|{usuarioEncontrado.Nombre_apellido}|{usuarioEncontrado.Pais}|{usuarioEncontrado.Refresh_token}|{usuarioEncontrado.Id_usuario_creador}");
+
+            //validacion guard-> comprarar refreshToken de la base de datos contra el de la cookie:
+            if (usuarioEncontrado.Refresh_token != refreshToken)
+            {
+                context.Response.Headers.Authorization = "";
+                context.Response.Cookies.Append("refreshToken", "", new CookieOptions
+                {
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.None,
+                    Secure = true,
+                    Expires = DateTime.Now
+                });
+                throw new InvalidRefreshTokenException("RefreshToken inválido. Logear usuario nuevamente.");
+            }
+
+            //si es valido, crear un jwt
+            string jwtCreado = new CrearJwtService(new JwtConfiguration(
+                builder.Configuration.GetSection("Jwt:jwt_secret").Value,
+                builder.Configuration.GetSection("Jwt:refreshToken_secret").Value,
+                builder.Configuration.GetSection("Jwt:issuer").Value,
+                builder.Configuration.GetSection("Jwt:audience").Value
+            ))
+            .CrearJwt(usuarioEncontrado);
+
+            //actualizar Authorization 
+            context.Response.Headers.Authorization = new StringValues($"Bearer {jwtCreado}");
+        }
 
 
 

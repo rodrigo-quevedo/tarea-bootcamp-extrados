@@ -1,4 +1,5 @@
 ﻿using Configuration;
+using Configuration.DI;
 using DAO.DAOs.DI;
 using DAO.Entidades;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Trabajo_Final.DTO;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
@@ -25,8 +33,10 @@ namespace Trabajo_Final.Controllers
         private ILogearUsuarioService logearUsuarioService;
         private ICrearJwtService crearJwtService;
         private ICrearRefreshTokenService crearRefreshTokenService;
+        private IJwtConfiguration jwtConfiguration;
         
-        private IJugadorAutoregistroService jugadorAutoregistroService;
+        private IRegistroUsuarioService registroUsuarioService;
+        private IValidarRegistroUsuarioService validarRegistroService;
 
 
         //private IRegistrarUsuarioService registrarUsuarioService;
@@ -39,17 +49,19 @@ namespace Trabajo_Final.Controllers
             ILogearUsuarioService login,
             ICrearJwtService jwt,
             ICrearRefreshTokenService  refreshToken,
+            IJwtConfiguration jwtConfig,
 
-            IJugadorAutoregistroService autoregistro
-            //IRegistrarUsuarioService registrar,
+            IRegistroUsuarioService registro,
+            IValidarRegistroUsuarioService validarRegistro
         )
         {
             logearUsuarioService = login;
             crearJwtService = jwt;
             crearRefreshTokenService = refreshToken;
+            jwtConfiguration = jwtConfig;
 
-            jugadorAutoregistroService = autoregistro;
-            //registrarUsuarioService = registrar;
+            registroUsuarioService = registro;
+            validarRegistroService = validarRegistro;
 
         }
 
@@ -68,7 +80,7 @@ namespace Trabajo_Final.Controllers
             string authorizationHeaderValue = Request.Headers["Authorization"].ToString();
 
             if (
-                (authorizationHeaderValue != default  && authorizationHeaderValue != "" )
+                (authorizationHeaderValue != null  && authorizationHeaderValue != "" )
                 || 
                 (Request.Cookies["refreshToken"] != null && Request.Cookies["refreshToken"] != "")
             )
@@ -98,7 +110,6 @@ namespace Trabajo_Final.Controllers
             });
             this.HttpContext.Items["RefreshToken_value"] = refreshToken; //fix para Exceptions
 
-            throw new Exception();
 
             return Ok(new { message = $"Usuario {usuarioVerificado.Email} logeado con éxito."});
 
@@ -108,43 +119,45 @@ namespace Trabajo_Final.Controllers
         [Route("/registro")]
 
         //validacion de inputs en el DTO con DataAnnotations
-        
+
         //Consideraciones: (Rol usuario -> rol que puede registrar)
         //admin -> admin, organizador, juez, jugador
         //organizador -> juez
         //juez -> ninguno
         //jugador -> ninguno
         //usuario no logeado -> jugador
-        public ActionResult RegistrarUser(DatosRegistroDTO datos)
+        public ActionResult RegistrarUser(DatosRegistroDTO datosUsuarioARegistrar)
         {
             Console.WriteLine("POST /registro");
 
-            //verificar si usuario esta logeado
-            string jwt;
-            bool usuarioLogueado = Request.Cookies.TryGetValue("jwt", out jwt);
-
-            //si no está logeado, hacer autoregistro de jugador
-            if (!usuarioLogueado)
+            //si usuario no está logeado, hacer autoregistro de JUGADOR:
+            string authorizationHeaderValue = Request.Headers["Authorization"].ToString();
+            
+            if (
+                (authorizationHeaderValue == null || authorizationHeaderValue == "")
+                &&
+                (Request.Cookies["refreshToken"] == null || Request.Cookies["refreshToken"] == "")
+            )
             {
-                if (datos.rol != Roles.JUGADOR) { throw new SinPermisoException($"Se intentó registrar un [{datos.rol}], pero no esta logeado. Realize el login como admin u organizador e intente nuevamente. (O puede crear un usuario con rol [jugador] sin logearse. ADVERTENCIA: Solo se permite 1 rol por cuenta,es decir, por email)."); }
+                if (datosUsuarioARegistrar.rol != Roles.JUGADOR) { throw new SinPermisoException($"Se intentó registrar un [{datosUsuarioARegistrar.rol}], pero no esta logeado. Realize el login como admin u organizador e intente nuevamente. (O puede crear un usuario con rol [jugador] sin logearse. ADVERTENCIA: Solo se permite 1 rol por cuenta,es decir, por email)."); }
 
-                Usuario usuarioRegistrado = jugadorAutoregistroService.AutoregistroJugador(datos);
-
-
-                return Ok(new { message = $"Usuario '{usuarioRegistrado.Email}' registrado con éxito." });
+                Usuario usuarioAutoregistrado = registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar);   
+                return Ok(new { message = $"Usuario '{usuarioAutoregistrado.Email}' se autoregistró con éxito." });
             }
 
 
-            //si está logeado, registrar a otro usuario
-            //si admin, puede crear cualquier cosa
+            //Si está logeado, registrar a otro usuario:
 
-            //si organizador, chequear juez
+            //-->Parsear header y obtener jwt
+            string jwt = authorizationHeaderValue.Replace("Bearer ", "");
+
+            //-->Verificar que usuario logeado tenga rol ADMIN u ORGANIZADOR (si es ORGANIZADOR, que solo pueda crear un JUEZ)
+            Usuario usuarioRegistrado = validarRegistroService.ValidarRegistroUsuario(datosUsuarioARegistrar, jwt);
+            if (usuarioRegistrado != null) return Ok(new { message = $"Usuario '{usuarioRegistrado.Email}' registrado con éxito." });
             
 
-
-
-            return Ok();
-
+            //Cualquier otro caso significa que no se tiene el permiso necesario:
+            throw new SinPermisoException($"Intentó registrar un [{datosUsuarioARegistrar.rol}], pero no tiene el rol requerido. Realize el login como admin u organizador e intente nuevamente. (O puede crear un usuario con rol [jugador] sin logearse. ADVERTENCIA: Solo se permite 1 rol por cuenta,es decir, por email).");
 
         }
 
@@ -165,7 +178,6 @@ namespace Trabajo_Final.Controllers
             this.HttpContext.Items["Authorization_value"] = "";
             this.HttpContext.Items["RefreshToken_value"] = "";
             
-            throw new Exception();
             return Ok(new { message = "Sesión cerrada con éxito." });
         }
 

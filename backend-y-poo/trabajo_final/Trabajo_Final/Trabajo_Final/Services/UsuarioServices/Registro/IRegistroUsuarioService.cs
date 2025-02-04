@@ -3,8 +3,8 @@ using Trabajo_Final.DTO;
 
 namespace Trabajo_Final.Services.UsuarioServices.Registro
 {
-    public interface IJugadorAutoregistroService
+    public interface IRegistroUsuarioService
     {
-        public Usuario AutoregistroJugador(DatosRegistroDTO datos);
+        public Usuario RegistrarUsuario(DatosRegistroDTO datos);
     }
 }

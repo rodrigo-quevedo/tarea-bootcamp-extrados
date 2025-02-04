@@ -44,7 +44,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "datos",
+        "Name": "datosUsuarioARegistrar",
         "Type": "Trabajo_Final.DTO.DatosRegistroDTO",
         "IsRequired": true
       }

@@ -49,6 +49,13 @@ namespace DAO.Entidades
             this.Id = id;
             this.Activo = activo;
         }
+
+        //busqueda por email
+        public Usuario(string email, bool activo)
+        {
+            this.Email=email;
+            this.Activo = activo;
+        }
     }
 }
 
