@@ -1,6 +1,6 @@
 ﻿namespace Trabajo_Final.utils.Exceptions.Exceptions
 {
-    public class InvalidRefreshTokenException : Exception
+    public class InvalidRefreshTokenException : MiExceptionBase
     {
         public InvalidRefreshTokenException()
         {

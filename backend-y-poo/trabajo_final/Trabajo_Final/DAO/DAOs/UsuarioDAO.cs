@@ -43,6 +43,25 @@ namespace DAO.DAOs
            
         }
 
+        public int CrearUsuario(Usuario usuario, int id_usuario_creador)
+        {
+            string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo, id_usuario_creador) " +
+                "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo, @Id_usuario_creador);";
+
+            return connection.Execute(insertQuery, new
+            {
+                Rol = usuario.Rol,
+                Pais = usuario.Pais,
+                Nombre_apellido = usuario.Nombre_apellido,
+                Email = usuario.Email,
+                Password = usuario.Password, //recibe password YA ENCRIPTADA
+                Activo = usuario.Activo,
+                Id_usuario_creador = id_usuario_creador
+            });
+
+
+        }
+
         //READ
         public Usuario BuscarUsuarios(Usuario usuario)
         {

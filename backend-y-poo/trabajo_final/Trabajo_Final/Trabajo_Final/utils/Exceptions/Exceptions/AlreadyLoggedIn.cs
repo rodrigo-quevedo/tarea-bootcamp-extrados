@@ -1,6 +1,6 @@
 ﻿namespace Trabajo_Final.utils.Exceptions.Exceptions
 {
-    public class AlreadyLoggedInException : Exception
+    public class AlreadyLoggedInException : MiExceptionBase
     {
         public AlreadyLoggedInException()
         {

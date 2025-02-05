@@ -244,6 +244,7 @@ CREATE TABLE juegos_de_ronda(
 );
 
 
+-- TODO: tabla descalificaciones, tabla refreshToken
 
 
 

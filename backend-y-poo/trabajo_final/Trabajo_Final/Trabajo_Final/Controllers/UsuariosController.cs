@@ -71,22 +71,16 @@ namespace Trabajo_Final.Controllers
         [HttpPost]
         [Route("/login")]
 
-        //validacion de inputs en el DTO con DataAnnotations
         public ActionResult LoginUser(CredencialesLoginDTO credenciales)
         {
             Console.WriteLine("POST /login");
 
             //Verificar que no esté logeado
             string authorizationHeaderValue = Request.Headers["Authorization"].ToString();
-
-            if (
-                (authorizationHeaderValue != null  && authorizationHeaderValue != "" )
-                || 
-                (Request.Cookies["refreshToken"] != null && Request.Cookies["refreshToken"] != "")
-            )
-            {
+            
+            if (authorizationHeaderValue != null  && authorizationHeaderValue != "" )
                 throw new AlreadyLoggedInException("Ya está logeado. Cierre su sesión actual para poder loguearse (ir a /logout).");
-            }
+            
 
 
             //Verificar credenciales
@@ -97,9 +91,6 @@ namespace Trabajo_Final.Controllers
             string refreshToken = crearRefreshTokenService.CrearRefreshToken(usuarioVerificado);
 
             //Respuesta servidor
-            this.HttpContext.Items["Authorization_value"] = $"Bearer {jwt}"; //fix para Exceptions
-            
-            Response.Headers.Authorization = new StringValues($"Bearer {jwt}");
 
             Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
             {
@@ -108,10 +99,11 @@ namespace Trabajo_Final.Controllers
                 Secure = true,
                 Expires = DateTime.Now.AddDays(120)
             });
-            this.HttpContext.Items["RefreshToken_value"] = refreshToken; //fix para Exceptions
 
-
-            return Ok(new { message = $"Usuario {usuarioVerificado.Email} logeado con éxito."});
+            return Ok(new { 
+                message = $"Usuario {usuarioVerificado.Email} logeado con éxito.",
+                jwt= jwt
+            });
 
         }
 
@@ -133,11 +125,7 @@ namespace Trabajo_Final.Controllers
             //si usuario no está logeado, hacer autoregistro de JUGADOR:
             string authorizationHeaderValue = Request.Headers["Authorization"].ToString();
             
-            if (
-                (authorizationHeaderValue == null || authorizationHeaderValue == "")
-                &&
-                (Request.Cookies["refreshToken"] == null || Request.Cookies["refreshToken"] == "")
-            )
+            if ( authorizationHeaderValue == null || authorizationHeaderValue == "")
             {
                 if (datosUsuarioARegistrar.rol != Roles.JUGADOR) { throw new SinPermisoException($"Se intentó registrar un [{datosUsuarioARegistrar.rol}], pero no esta logeado. Realize el login como admin u organizador e intente nuevamente. (O puede crear un usuario con rol [jugador] sin logearse. ADVERTENCIA: Solo se permite 1 rol por cuenta,es decir, por email)."); }
 
@@ -165,6 +153,9 @@ namespace Trabajo_Final.Controllers
         [Route("/logout")]
         public ActionResult LogoutUser()
         {
+            
+
+
             Response.Headers.Authorization = "";
             Response.Cookies.Append("refreshToken", "", new CookieOptions
             {
@@ -174,23 +165,34 @@ namespace Trabajo_Final.Controllers
                 Expires = DateTime.Now
             });
 
-            //fix para Exceptions
-            this.HttpContext.Items["Authorization_value"] = "";
-            this.HttpContext.Items["RefreshToken_value"] = "";
             
             return Ok(new { message = "Sesión cerrada con éxito." });
         }
 
 
         //test authorize
-        [HttpGet]
-        [Route("/datos")]
-        [Authorize]
-        public ActionResult mostrarDatosUsuario()
-        {
-            Console.WriteLine("GET /datos");
+        //[HttpGet]
+        //[Route("/datos")]
+        //[Authorize]
+        //public ActionResult mostrarDatosUsuario()
+        //{
+        //    Console.WriteLine("GET /datos");
 
-            return Ok(new {message="[autorización con éxito]"});
+        //    return Ok(new {message="[autorización con éxito]"});
+        //}
+
+
+        //crear torneo (organizador)
+        [HttpGet]
+        [Route("/torneo")]
+        [Authorize(Roles = Roles.ORGANIZADOR)]
+        public ActionResult crearTorneo()
+        {
+            //Console.WriteLine(User.Claims.ToString());
+
+
+            return Ok(new {rol_del_usuario = User.FindFirst(ClaimTypes.Role).Value});
         }
+
     }
 }

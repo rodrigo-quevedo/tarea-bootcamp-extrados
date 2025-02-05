@@ -1,6 +1,6 @@
 ﻿namespace Trabajo_Final.utils.Exceptions.Exceptions
 {
-    public class InvalidCredentialsException : Exception
+    public class InvalidCredentialsException : MiExceptionBase
     {
         public InvalidCredentialsException()
         {

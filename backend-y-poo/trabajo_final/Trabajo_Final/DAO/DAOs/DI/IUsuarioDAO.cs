@@ -11,6 +11,7 @@ namespace DAO.DAOs.DI
     {
 
         public int CrearUsuario(Usuario usuario);
+        public int CrearUsuario(Usuario usuario, int id_usuario_creador);
 
         public Usuario BuscarUnUsuario(Usuario usuario);
 

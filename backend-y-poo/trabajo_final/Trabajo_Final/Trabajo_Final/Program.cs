@@ -260,25 +260,25 @@ app.UseExceptionHandler(exceptionHandlerApp => {
         //Esto es un fix para que las Exceptions no me sobreescriban el Authorization header
         //Esta API siempre envía el Authorization header actualizado en sus Response,
         //de esta forma el frontend solo tiene que actualizar el Authorization header con lo que le llega del servidor
-        string authorization_value = "";
-        if (context.Items.TryGetValue("Authorization_value", out var auth_outObj)) authorization_value = auth_outObj as string;
-        context.Response.Headers.Authorization = new StringValues(authorization_value);
+        //string authorization_value = "";
+        //if (context.Items.TryGetValue("Authorization_value", out var auth_outObj)) authorization_value = auth_outObj as string;
+        //context.Response.Headers.Authorization = new StringValues(authorization_value);
 
-        //fix para refreshToken
-        string refreshToken_value = "";
-        if (context.Items.TryGetValue("RefreshToken_value", out var refreshToken_outObj)) refreshToken_value = refreshToken_outObj as string;
-        context.Response.Cookies.Append("refreshToken", refreshToken_value, new CookieOptions
-        {
-            HttpOnly = true,
-            SameSite = SameSiteMode.None,
-            Secure = true,
-            Expires = DateTime.Now.AddDays(120)
-        });
+        ////fix para refreshToken
+        //string refreshToken_value = "";
+        //if (context.Items.TryGetValue("RefreshToken_value", out var refreshToken_outObj)) refreshToken_value = refreshToken_outObj as string;
+        //context.Response.Cookies.Append("refreshToken", refreshToken_value, new CookieOptions
+        //{
+        //    HttpOnly = true,
+        //    SameSite = SameSiteMode.None,
+        //    Secure = true,
+        //    Expires = DateTime.Now.AddDays(120)
+        //});
 
-        //fix para X-Actualizar-Token (este header pide re-hacer la request con el token actualizado)
-        string actualizar_value = "";
-        if (context.Items.TryGetValue("X-Actualizar-Token_value", out var actualizar_outObj)) actualizar_value = actualizar_outObj as string;
-        context.Response.Headers["X-Actualizar-Token_value"] = new StringValues(actualizar_value);
+        ////fix para X-Actualizar-Token (este header pide re-hacer la request con el token actualizado)
+        //string actualizar_value = "";
+        //if (context.Items.TryGetValue("X-Actualizar-Token_value", out var actualizar_outObj)) actualizar_value = actualizar_outObj as string;
+        //context.Response.Headers["X-Actualizar-Token_value"] = new StringValues(actualizar_value);
 
 
 
@@ -305,82 +305,82 @@ app.UseExceptionHandler(exceptionHandlerApp => {
 
 
         //Authorization jwt expirados
-        if (exceptionHandlerPathFeature?.Error.GetType().Name == typeof(SecurityTokenExpiredException).Name)
-        {
-            //comprobar refreshToken
-            string refreshToken = context.Request.Cookies["refreshToken"];
+        //if (exceptionHandlerPathFeature?.Error.GetType().Name == typeof(SecurityTokenExpiredException).Name)
+        //{
+        //    //comprobar refreshToken
+        //    string refreshToken = context.Request.Cookies["refreshToken"];
 
-            if (refreshToken == null || refreshToken == "")
-            {
-                context.Response.Headers.Authorization = "";
-                context.Response.Cookies.Append("refreshToken", "", new CookieOptions
-                {
-                    HttpOnly = true,
-                    SameSite = SameSiteMode.None,
-                    Secure = true,
-                    Expires = DateTime.Now
-                });
-                throw new InvalidRefreshTokenException("Token inválido. Logear usuario nuevamente.");
-            }
+        //    if (refreshToken == null || refreshToken == "")
+        //    {
+        //        context.Response.Headers.Authorization = "";
+        //        context.Response.Cookies.Append("refreshToken", "", new CookieOptions
+        //        {
+        //            HttpOnly = true,
+        //            SameSite = SameSiteMode.None,
+        //            Secure = true,
+        //            Expires = DateTime.Now
+        //        });
+        //        throw new InvalidRefreshTokenException("Token inválido. Logear usuario nuevamente.");
+        //    }
 
-            //hay refreshToken -> verificar si es valido
-            JwtSecurityTokenHandler jwtHandler = new();
+        //    //hay refreshToken -> verificar si es valido
+        //    JwtSecurityTokenHandler jwtHandler = new();
 
-            //parse refreshToken y verificar formato jwt del refreshToken:
-            JwtSecurityToken jwtSecToken;
-            try { jwtSecToken = jwtHandler.ReadJwtToken(refreshToken); }
-            catch (Exception ex)
-            {
-                context.Response.Headers.Authorization = "";
-                context.Response.Cookies.Append("refreshToken", "", new CookieOptions
-                {
-                    HttpOnly = true,
-                    SameSite = SameSiteMode.None,
-                    Secure = true,
-                    Expires = DateTime.Now
-                });
-                throw new InvalidRefreshTokenException("Token inválido. Logear usuario nuevamente.");
-            }
+        //    //parse refreshToken y verificar formato jwt del refreshToken:
+        //    JwtSecurityToken jwtSecToken;
+        //    try { jwtSecToken = jwtHandler.ReadJwtToken(refreshToken); }
+        //    catch (Exception ex)
+        //    {
+        //        context.Response.Headers.Authorization = "";
+        //        context.Response.Cookies.Append("refreshToken", "", new CookieOptions
+        //        {
+        //            HttpOnly = true,
+        //            SameSite = SameSiteMode.None,
+        //            Secure = true,
+        //            Expires = DateTime.Now
+        //        });
+        //        throw new InvalidRefreshTokenException("Token inválido. Logear usuario nuevamente.");
+        //    }
 
-            //obtener username dentro del refreshToken payload:
-            Object id_usuario_out;
-            int id_usuario = 0;
-            jwtSecToken.Payload.TryGetValue(ClaimTypes.Sid, out id_usuario_out);
-            Int32.TryParse(id_usuario_out?.ToString(), out id_usuario);
-            Console.WriteLine($"ID del usuario de la refreshToken: {id_usuario}");
+        //    //obtener username dentro del refreshToken payload:
+        //    Object id_usuario_out;
+        //    int id_usuario = 0;
+        //    jwtSecToken.Payload.TryGetValue(ClaimTypes.Sid, out id_usuario_out);
+        //    Int32.TryParse(id_usuario_out?.ToString(), out id_usuario);
+        //    Console.WriteLine($"ID del usuario de la refreshToken: {id_usuario}");
 
-            //buscar usuario con el username del refreshToken en la base de datos:
-            UsuarioDAO usuarioDAO = new UsuarioDAO(builder.Configuration.GetSection("DB:general_connection_string").Value);
-            Usuario usuarioEncontrado = usuarioDAO.BuscarUnUsuario(new Usuario(id_usuario, true));
-            if (usuarioEncontrado == null) throw new InvalidRefreshTokenException("RefreshToken inválido. Logear usuario nuevamente.");
-            Console.WriteLine($"usuario encontrado para comparar refreshToken: {usuarioEncontrado.Id}|{usuarioEncontrado.Email}|{usuarioEncontrado.Nombre_apellido}|{usuarioEncontrado.Pais}|{usuarioEncontrado.Refresh_token}|{usuarioEncontrado.Id_usuario_creador}");
+        //    //buscar usuario con el username del refreshToken en la base de datos:
+        //    UsuarioDAO usuarioDAO = new UsuarioDAO(builder.Configuration.GetSection("DB:general_connection_string").Value);
+        //    Usuario usuarioEncontrado = usuarioDAO.BuscarUnUsuario(new Usuario(id_usuario, true));
+        //    if (usuarioEncontrado == null) throw new InvalidRefreshTokenException("RefreshToken inválido. Logear usuario nuevamente.");
+        //    Console.WriteLine($"usuario encontrado para comparar refreshToken: {usuarioEncontrado.Id}|{usuarioEncontrado.Email}|{usuarioEncontrado.Nombre_apellido}|{usuarioEncontrado.Pais}|{usuarioEncontrado.Refresh_token}|{usuarioEncontrado.Id_usuario_creador}");
 
-            //validacion guard-> comprarar refreshToken de la base de datos contra el de la cookie:
-            if (usuarioEncontrado.Refresh_token != refreshToken)
-            {
-                context.Response.Headers.Authorization = "";
-                context.Response.Cookies.Append("refreshToken", "", new CookieOptions
-                {
-                    HttpOnly = true,
-                    SameSite = SameSiteMode.None,
-                    Secure = true,
-                    Expires = DateTime.Now
-                });
-                throw new InvalidRefreshTokenException("RefreshToken inválido. Logear usuario nuevamente.");
-            }
+        //    //validacion guard-> comprarar refreshToken de la base de datos contra el de la cookie:
+        //    if (usuarioEncontrado.Refresh_token != refreshToken)
+        //    {
+        //        context.Response.Headers.Authorization = "";
+        //        context.Response.Cookies.Append("refreshToken", "", new CookieOptions
+        //        {
+        //            HttpOnly = true,
+        //            SameSite = SameSiteMode.None,
+        //            Secure = true,
+        //            Expires = DateTime.Now
+        //        });
+        //        throw new InvalidRefreshTokenException("RefreshToken inválido. Logear usuario nuevamente.");
+        //    }
 
-            //si es valido, crear un jwt
-            string jwtCreado = new CrearJwtService(new JwtConfiguration(
-                builder.Configuration.GetSection("Jwt:jwt_secret").Value,
-                builder.Configuration.GetSection("Jwt:refreshToken_secret").Value,
-                builder.Configuration.GetSection("Jwt:issuer").Value,
-                builder.Configuration.GetSection("Jwt:audience").Value
-            ))
-            .CrearJwt(usuarioEncontrado);
+        //    //si es valido, crear un jwt
+        //    string jwtCreado = new CrearJwtService(new JwtConfiguration(
+        //        builder.Configuration.GetSection("Jwt:jwt_secret").Value,
+        //        builder.Configuration.GetSection("Jwt:refreshToken_secret").Value,
+        //        builder.Configuration.GetSection("Jwt:issuer").Value,
+        //        builder.Configuration.GetSection("Jwt:audience").Value
+        //    ))
+        //    .CrearJwt(usuarioEncontrado);
 
-            //actualizar Authorization 
-            context.Response.Headers.Authorization = new StringValues($"Bearer {jwtCreado}");
-        }
+        //    //actualizar Authorization 
+        //    context.Response.Headers.Authorization = new StringValues($"Bearer {jwtCreado}");
+        //}
 
 
 

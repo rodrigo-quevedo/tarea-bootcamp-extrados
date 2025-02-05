@@ -1,8 +1,8 @@
 [
   {
     "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
-    "Method": "mostrarDatosUsuario",
-    "RelativePath": "datos",
+    "Method": "crearTorneo",
+    "RelativePath": "coleccion",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

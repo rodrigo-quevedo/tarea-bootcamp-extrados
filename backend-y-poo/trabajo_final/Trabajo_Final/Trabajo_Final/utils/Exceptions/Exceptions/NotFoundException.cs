@@ -1,6 +1,6 @@
 ﻿namespace Trabajo_Final.utils.Exceptions.Exceptions
 {
-    public class NotFoundException : Exception
+    public class NotFoundException : MiExceptionBase
     {
         public NotFoundException()
         {

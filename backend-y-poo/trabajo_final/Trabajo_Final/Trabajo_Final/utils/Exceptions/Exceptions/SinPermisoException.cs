@@ -1,6 +1,6 @@
 ﻿namespace Trabajo_Final.utils.Exceptions.Exceptions
 {
-    public class SinPermisoException : Exception
+    public class SinPermisoException : MiExceptionBase
     {
         public SinPermisoException()
         {

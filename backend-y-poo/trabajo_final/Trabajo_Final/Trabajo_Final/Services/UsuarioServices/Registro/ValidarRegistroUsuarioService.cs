@@ -59,11 +59,17 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
             if (rol_verificado == Roles.JUEZ || rol_verificado == Roles.JUGADOR)
                 throw new SinPermisoException($"Intentó registrar un [{datosUsuarioARegistrar.rol}], pero no tiene el rol requerido. Realize el login como admin u organizador e intente nuevamente. (O puede crear un usuario con rol [jugador] sin logearse. ADVERTENCIA: Solo se permite 1 rol por cuenta,es decir, por email).");
 
+            //-->obtener ClaimTypes.sid
+            Claim claim_sid_verificado = jwt_claims.FindFirst(ClaimTypes.Sid);
+            int id_usuario_creador = 0;
+            Int32.TryParse(claim_sid_verificado.Value, out id_usuario_creador);
+            //Console.WriteLine(id_usuario_creador);
+
 
             //rol = admin: puede crear cualquier cosa
             if (rol_verificado == Roles.ADMIN)
             {
-                return registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar);
+                return registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar, id_usuario_creador);
 
                 
             }
@@ -72,7 +78,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
             //rol = organizador: chequear datos.rol = juez
             if (rol_verificado == Roles.ORGANIZADOR && datosUsuarioARegistrar.rol == Roles.JUEZ)
             {
-                return registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar);
+                return registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar, id_usuario_creador);
             }
 
             return null;
