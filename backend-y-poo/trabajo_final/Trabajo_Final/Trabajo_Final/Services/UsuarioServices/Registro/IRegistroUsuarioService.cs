@@ -6,9 +6,11 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
 {
     public interface IRegistroUsuarioService
     {
-        public Usuario RegistrarUsuario(DatosRegistroDTO datos);
-        public Usuario RegistrarUsuario(DatosRegistroDTO datos, int id_usuario_creador);
+        //autoregistro de jugadores:
+        public bool RegistrarUsuario(DatosRegistroDTO datos);
 
-        public Usuario RegistrarUsuario(DatosRegistroDTO datos, ClaimsPrincipal claims_usuario_creador);
+
+        //usuario logeado registra a otro jugador:
+        public bool RegistrarUsuario(DatosRegistroDTO datos, int id_usuario_creador);
     }
 }

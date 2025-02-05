@@ -80,8 +80,6 @@ namespace Trabajo_Final.Controllers
             
             if (authorizationHeaderValue != null  && authorizationHeaderValue != "" )
                 throw new AlreadyLoggedInException("Ya está logeado. Cierre su sesión actual para poder loguearse (ir a /logout).");
-            
-
 
             //Verificar credenciales
             Usuario usuarioVerificado = logearUsuarioService.LogearUsuario(credenciales);
@@ -90,8 +88,10 @@ namespace Trabajo_Final.Controllers
             string jwt = crearJwtService.CrearJwt(usuarioVerificado);
             string refreshToken = crearRefreshTokenService.CrearRefreshToken(usuarioVerificado);
 
-            //Respuesta servidor
+        //Respuesta servidor:
 
+            //Para cada dispositivo nuevo, se va a crear un nuevo refreshToken.
+            //Si ya hay una cookie refreshToken (mismo dispositivo), se va a sobreescribir
             Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
             {
                 HttpOnly = true,
@@ -102,52 +102,69 @@ namespace Trabajo_Final.Controllers
 
             return Ok(new { 
                 message = $"Usuario {usuarioVerificado.Email} logeado con éxito.",
-                jwt= jwt
+                jwt = jwt
             });
 
         }
 
-        [HttpPost]
-        [Route("/registro")]
-
-        //validacion de inputs en el DTO con DataAnnotations
-
-        //Consideraciones: (Rol usuario -> rol que puede registrar)
+        //Consideraciones al registrar usuarios: (Rol usuario -> rol que puede registrar)
         //admin -> admin, organizador, juez, jugador
         //organizador -> juez
         //juez -> ninguno
         //jugador -> ninguno
         //usuario no logeado -> jugador
-        public ActionResult RegistrarUser(DatosRegistroDTO datosUsuarioARegistrar)
+
+
+        //Si usuario no está logeado, hacer autoregistro de JUGADOR:
+        [HttpPost]
+        [Route("/registro")]
+        public ActionResult AutoRegistrarJugador(DatosRegistroDTO datosUsuarioARegistrar)
         {
             Console.WriteLine("POST /registro");
 
-            //si usuario no está logeado, hacer autoregistro de JUGADOR:
             string authorizationHeaderValue = Request.Headers["Authorization"].ToString();
             
-            if ( authorizationHeaderValue == null || authorizationHeaderValue == "")
-            {
-                if (datosUsuarioARegistrar.rol != Roles.JUGADOR) { throw new SinPermisoException($"Se intentó registrar un [{datosUsuarioARegistrar.rol}], pero no esta logeado. Realize el login como admin u organizador e intente nuevamente. (O puede crear un usuario con rol [jugador] sin logearse. ADVERTENCIA: Solo se permite 1 rol por cuenta,es decir, por email)."); }
+            if (authorizationHeaderValue != null && authorizationHeaderValue != "")
+                throw new SinPermisoException($"Debe cerrar sesión para registrarse como jugador.");
 
-                Usuario usuarioAutoregistrado = registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar);   
-                return Ok(new { message = $"Usuario '{usuarioAutoregistrado.Email}' se autoregistró con éxito." });
-            }
-
-
-            //Si está logeado, registrar a otro usuario:
-
-            //-->Parsear header y obtener jwt
-            string jwt = authorizationHeaderValue.Replace("Bearer ", "");
-
-            //-->Verificar que usuario logeado tenga rol ADMIN u ORGANIZADOR (si es ORGANIZADOR, que solo pueda crear un JUEZ)
-            Usuario usuarioRegistrado = validarRegistroService.ValidarRegistroUsuario(datosUsuarioARegistrar, jwt);
-            if (usuarioRegistrado != null) return Ok(new { message = $"Usuario '{usuarioRegistrado.Email}' registrado con éxito." });
+            if (datosUsuarioARegistrar.rol != Roles.JUGADOR)
+                throw new SinPermisoException("Solo se crean usuarios con rol JUGADOR en /registro");
+       
             
-
-            //Cualquier otro caso significa que no se tiene el permiso necesario:
-            throw new SinPermisoException($"Intentó registrar un [{datosUsuarioARegistrar.rol}], pero no tiene el rol requerido. Realize el login como admin u organizador e intente nuevamente. (O puede crear un usuario con rol [jugador] sin logearse. ADVERTENCIA: Solo se permite 1 rol por cuenta,es decir, por email).");
-
+            registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar);   
+                
+            return Ok(new { message = $"Usuario [{datosUsuarioARegistrar.email}] se autoregistró con éxito." });
         }
+
+
+        //Si está logeado, registrar a otro usuario:
+        [HttpPost]
+        [Route("/crear")]
+        [Authorize(Roles = $"{Roles.ADMIN},{Roles.ORGANIZADOR}")] 
+        public ActionResult RegistrarUsuario(DatosRegistroDTO datosUsuarioARegistrar)
+        {
+            //validar permiso del usuario logeado (solo falta verificar que organizador crea juez, ya que admin puede crear todo)
+            string rol_usuario_creador = User.FindFirst(ClaimTypes.Role).Value;
+
+            if (
+                rol_usuario_creador == Roles.ORGANIZADOR 
+                &&
+                datosUsuarioARegistrar.rol != Roles.JUEZ
+            )
+                throw new SinPermisoException($"Intentó crear un '{datosUsuarioARegistrar.rol}' pero no tiene permisos. Está logeado como Organizador y solo puede crear usuarios con rol JUEZ.")
+
+
+            //registrar            
+            string id_string = User.FindFirst(ClaimTypes.Sid).Value;
+            Int32.TryParse(id_string, out int id_usuario_creador);
+
+            registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar, id_usuario_creador);
+
+            return Ok(new { message = $"Usuario [{datosUsuarioARegistrar.email}] se registró con éxito." });
+        }
+
+
+
 
         [HttpGet]
         [Route("/logout")]

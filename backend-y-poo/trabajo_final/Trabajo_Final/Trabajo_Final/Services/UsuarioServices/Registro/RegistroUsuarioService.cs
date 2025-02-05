@@ -1,6 +1,7 @@
 ﻿using DAO.DAOs.DI;
 using DAO.Entidades;
 using Isopoh.Cryptography.Argon2;
+using System.Security.Claims;
 using Trabajo_Final.DTO;
 using Trabajo_Final.utils.Constantes;
 using Trabajo_Final.utils.Exceptions.Exceptions;
@@ -17,17 +18,8 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
 
 
         //inputs ya vienen validados desde el DTO
-        public Usuario RegistrarUsuario(DatosRegistroDTO datos)
+        public bool RegistrarUsuario(DatosRegistroDTO datos)
         {
-            //verificar si el mail ya está usado
-            Usuario busqueda = new Usuario(datos.email, true);
-            
-            Usuario usuarioConMailExistente = usuarioDAO.BuscarUnUsuario(busqueda);
-            
-            if (usuarioConMailExistente != null) { throw new AlreadyExistsException($"El usuario con mail [{datos.email}] ya existe."); }
-
-
-            //registrar usuario
             string hashedPassword = Argon2.Hash( datos.password );
             Usuario nuevoUsuario = new Usuario(
                 0, 
@@ -41,29 +33,18 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
                 null
             );
 
-            int rows = usuarioDAO.CrearUsuario(nuevoUsuario);
-            if (rows == 0) throw new Exception($"No se pudo crear el usuario [{nuevoUsuario.Email}].");
+            //aca se puede hacer catch y tirar una custom exception segun el resultado
+            //(ej. falló el INSERT por mail repetido o falló INSERT por network error)
+            int filasDeTablaAfectadas = usuarioDAO.CrearUsuario(nuevoUsuario);
+            if (filasDeTablaAfectadas == 0) throw new Exception($"No se pudo crear el usuario [{nuevoUsuario.Email}].");
+            
             Console.WriteLine($"Se registró al usuario [{nuevoUsuario.Email}] con éxito.");
 
-
-            //buscar jugador creado y retornarlo
-            Usuario nuevoJugadorCreado = usuarioDAO.BuscarUnUsuario(busqueda);
-            if (nuevoJugadorCreado == null) { throw new NotFoundException($"No se encontró el usuario con mail {busqueda.Email}, pero fue registrado con éxito."); }
-
-            return nuevoJugadorCreado;
+            return true;
         }
 
-        public Usuario RegistrarUsuario(DatosRegistroDTO datos, int id_usuario_creador)
+        public bool RegistrarUsuario(DatosRegistroDTO datos, int id_usuario_creador)
         {
-            //verificar si el mail ya está usado
-            Usuario busqueda = new Usuario(datos.email, true);
-
-            Usuario usuarioConMailExistente = usuarioDAO.BuscarUnUsuario(busqueda);
-
-            if (usuarioConMailExistente != null) { throw new AlreadyExistsException($"El usuario con mail [{datos.email}] ya existe."); }
-
-
-            //registrar usuario
             string hashedPassword = Argon2.Hash(datos.password);
             Usuario nuevoUsuario = new Usuario(
                 0,
@@ -77,16 +58,19 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
                 null
             );
 
-            int rows = usuarioDAO.CrearUsuario(nuevoUsuario, id_usuario_creador);
-            if (rows == 0) throw new Exception($"No se pudo crear el usuario [{nuevoUsuario.Email}].");
+            int filasDeTablaAfectadas = usuarioDAO.CrearUsuario(nuevoUsuario, id_usuario_creador);
+            if (filasDeTablaAfectadas == 0) throw new Exception($"No se pudo crear el usuario [{nuevoUsuario.Email}].");
+            
             Console.WriteLine($"Se registró al usuario [{nuevoUsuario.Email}] con éxito.");
 
-
-            //buscar jugador creado y retornarlo
-            Usuario nuevoJugadorCreado = usuarioDAO.BuscarUnUsuario(busqueda);
-            if (nuevoJugadorCreado == null) { throw new NotFoundException($"No se encontró el usuario con mail {busqueda.Email}, pero fue registrado con éxito."); }
-
-            return nuevoJugadorCreado;
+            return true;
         }
+
+
+        public bool RegistrarUsuario(DatosRegistroDTO datos, int id_usuario_creador, string rol_usuario_creador)
+        {
+            return true;
+        }
+
     }
 }
