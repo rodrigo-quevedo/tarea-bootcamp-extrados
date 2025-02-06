@@ -17,7 +17,9 @@ using System.Text;
 using Trabajo_Final.DTO;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
-using Trabajo_Final.Services.UsuarioServices.RefreshToken;
+using Trabajo_Final.Services.UsuarioServices.RefreshToken.Crear;
+using Trabajo_Final.Services.UsuarioServices.RefreshToken.Desactivar;
+using Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar;
 using Trabajo_Final.Services.UsuarioServices.Registro;
 using Trabajo_Final.utils.Constantes;
 using Trabajo_Final.utils.Exceptions.Exceptions;
@@ -31,9 +33,13 @@ namespace Trabajo_Final.Controllers
     {
         // services
         private ILogearUsuarioService logearUsuarioService;
+
         private ICrearJwtService crearJwtService;
         private ICrearRefreshTokenService crearRefreshTokenService;
         private IJwtConfiguration jwtConfiguration;
+        private IDesactivarRefreshTokenService desactivarRefreshTokenService;
+        
+        private IActualizarJWTService actualizarJWTService;
         
         private IRegistroUsuarioService registroUsuarioService;
         private IValidarRegistroUsuarioService validarRegistroService;
@@ -47,18 +53,24 @@ namespace Trabajo_Final.Controllers
             IVerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
             
             ILogearUsuarioService login,
+
             ICrearJwtService jwt,
             ICrearRefreshTokenService  refreshToken,
             IJwtConfiguration jwtConfig,
+            IDesactivarRefreshTokenService desactivarRefreshToken,
+            IActualizarJWTService actualizarJWT,
 
             IRegistroUsuarioService registro,
             IValidarRegistroUsuarioService validarRegistro
         )
         {
             logearUsuarioService = login;
+
             crearJwtService = jwt;
             crearRefreshTokenService = refreshToken;
             jwtConfiguration = jwtConfig;
+            desactivarRefreshTokenService = desactivarRefreshToken;
+            actualizarJWTService = actualizarJWT;
 
             registroUsuarioService = registro;
             validarRegistroService = validarRegistro;
@@ -70,7 +82,6 @@ namespace Trabajo_Final.Controllers
 
         [HttpPost]
         [Route("/login")]
-
         public ActionResult LoginUser(CredencialesLoginDTO credenciales)
         {
             Console.WriteLine("POST /login");
@@ -87,6 +98,11 @@ namespace Trabajo_Final.Controllers
             //Crear jwt y refresh token
             string jwt = crearJwtService.CrearJwt(usuarioVerificado);
             string refreshToken = crearRefreshTokenService.CrearRefreshToken(usuarioVerificado);
+
+            //Si actualmente el usuario tiene un refreshToken, desactivarlo en DB
+            string refreshTokenExistente = Request.Cookies["refreshToken"];
+            desactivarRefreshTokenService.DesactivarRefreshToken(usuarioVerificado.Id, refreshTokenExistente);
+
 
         //Respuesta servidor:
 
@@ -106,6 +122,25 @@ namespace Trabajo_Final.Controllers
             });
 
         }
+
+        [HttpGet]
+        [Route("/refresh")]
+        public ActionResult RefreshToken()
+        {
+            string refreshToken = Request.Cookies["refreshToken"];
+            if (refreshToken == null || refreshToken == "") throw new SinPermisoException("No puede actualizar el token porque no está logeado.");
+
+            string jwtActualizado = actualizarJWTService.ActualizarJWT(refreshToken);
+            
+            
+            return Ok(new
+            {
+                message = "Se actualizó el token correctamente.",
+                jwt = jwtActualizado
+            });
+        }
+
+
 
         //Consideraciones al registrar usuarios: (Rol usuario -> rol que puede registrar)
         //admin -> admin, organizador, juez, jugador
@@ -147,11 +182,11 @@ namespace Trabajo_Final.Controllers
             string rol_usuario_creador = User.FindFirst(ClaimTypes.Role).Value;
 
             if (
-                rol_usuario_creador == Roles.ORGANIZADOR 
+                rol_usuario_creador == Roles.ORGANIZADOR
                 &&
                 datosUsuarioARegistrar.rol != Roles.JUEZ
             )
-                throw new SinPermisoException($"Intentó crear un '{datosUsuarioARegistrar.rol}' pero no tiene permisos. Está logeado como Organizador y solo puede crear usuarios con rol JUEZ.")
+                throw new SinPermisoException($"Intentó crear un '{datosUsuarioARegistrar.rol}' pero no tiene permisos. Está logeado como Organizador y solo puede crear usuarios con rol JUEZ.");
 
 
             //registrar            
@@ -165,14 +200,21 @@ namespace Trabajo_Final.Controllers
 
 
 
-
         [HttpGet]
         [Route("/logout")]
+        [Authorize]
         public ActionResult LogoutUser()
         {
-            
+            //Desactivar refreshToken en db (borrado logico):
+            string id_usuario_string = User.FindFirst(ClaimTypes.Sid).Value;
+            Int32.TryParse(id_usuario_string, out int id_usuario);
+
+            string refreshToken = Request.Cookies["refreshToken"];
+
+            desactivarRefreshTokenService.DesactivarRefreshToken(id_usuario, refreshToken);
 
 
+            //Server response:
             Response.Headers.Authorization = "";
             Response.Cookies.Append("refreshToken", "", new CookieOptions
             {

@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Trabajo_Final.Services.UsuarioServices.RefreshToken
+namespace Trabajo_Final.Services.UsuarioServices.RefreshToken.Crear
 {
     public class CrearRefreshTokenService : ICrearRefreshTokenService
     {
@@ -48,7 +48,7 @@ namespace Trabajo_Final.Services.UsuarioServices.RefreshToken
             Console.WriteLine($"refresh token creado para usuario '{usuarioValidado.Email}'");
 
             //guardar refresh token en db
-            usuarioDAO.AsignarRefreshTokenById(usuarioValidado.Id, refreshToken);
+            usuarioDAO.GuardarRefreshToken(usuarioValidado.Id, refreshToken);
 
             //devolver refreshToken string
             return refreshToken;

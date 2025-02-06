@@ -75,7 +75,9 @@ namespace DAO.DAOs
 
             if (usuario.Id != default) //default de int es 0
             {
-                selectQuery = "SELECT * FROM usuarios WHERE id=@Id AND activo=@Activo;";
+                selectQuery = "SELECT * FROM usuarios " +
+                              "WHERE id=@Id AND activo=@Activo;";
+
                 return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
                 {
                     Id = usuario.Id,
@@ -85,7 +87,9 @@ namespace DAO.DAOs
 
             else if (usuario.Email != default) //default de string es null
             {
-                selectQuery = "SELECT * FROM usuarios WHERE email=@Email AND activo=@Activo;";
+                selectQuery = "SELECT * FROM usuarios " +
+                              "WHERE email=@Email AND activo=@Activo;";
+
                 return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
                 {
                     Email = usuario.Email,
@@ -95,7 +99,9 @@ namespace DAO.DAOs
 
             else if (usuario.Rol != default) //default de string es null
             {
-                selectQuery = "SELECT * FROM usuarios WHERE rol=@rol AND activo=@activo;";
+                selectQuery = "SELECT * FROM usuarios " +
+                              "WHERE rol=@rol AND activo=@activo;";
+
                 return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
                 {
                     rol = usuario.Rol,
@@ -112,21 +118,52 @@ namespace DAO.DAOs
 
 
 
-        //UPDATE (refreshtoken)
-        public int AsignarRefreshTokenById(int id, string refreshToken)
+        //INSERT (refreshtoken)
+        public int GuardarRefreshToken(int id, string refreshToken)
         {
-            string updateQuery = "UPDATE Usuarios SET refresh_token = @Refresh_token WHERE id = @Id";
+            string insertQuery = "INSERT INTO refresh_tokens VALUES " +
+                                 "(@Id, @Refresh_token, @Token_activo);";
 
-            return connection.Execute(updateQuery, new
+            return connection.Execute(insertQuery, new
             {
+                Id = id,
                 Refresh_token = refreshToken,
-                Id = id
+                Token_activo = true
             });
 
         }
 
+        //UPDATE (refreshToken): borrado logico
 
+        public int BorradoLogicoRefreshToken(int id, string refreshToken)
+        {
+            string updateQuery = "UPDATE refresh_tokens " +
+                                 "SET token_activo = @Token_activo" +
+                                 "WHERE id = @Id AND refresh_token = @Refresh_token;";
 
+            return connection.Execute(updateQuery, new
+            {
+                Id = id,
+                Refresh_token = refreshToken,
+                Token_activo = false
+            });
+        }
+
+        public Refresh_Token BuscarRefreshToken(string refreshToken, bool activo)
+        {
+            //No hace falta buscar por id_usuario ya que está incluido en el JWT.
+            //-> Para cada id_usuario y TIMESTAMP habrá un JWT único.
+
+            string selectQuery = "SELECT * FROM refresh_tokens" +
+                                 "WHERE refresh_token = @RefreshToken" +
+                                 "AND activo = @Activo";
+
+            return connection.QueryFirstOrDefault<Refresh_Token>(selectQuery, new
+            {
+                RefreshToken = refreshToken,
+                Activo = activo
+            });
+        }
 
 
     }

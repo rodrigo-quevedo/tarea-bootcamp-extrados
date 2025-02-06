@@ -25,9 +25,19 @@ CREATE TABLE usuarios(
 	
 	-- usuario_creador: admite NULL porque jugador se puede auto-registrar
 	id_usuario_creador INT NULL,
-	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id),
+	FOREIGN KEY(id_usuario_creador) REFERENCES usuarios(id)
 	
-	refresh_token VARCHAR(300) NULL
+	-- refresh_token VARCHAR(300) NULL -->esto no permite multiples dispositivos
+);
+
+DROP TABLE IF EXISTS refresh_tokens;
+CREATE TABLE refresh_tokens (
+	refresh_token VARCHAR(300) PRIMARY KEY,
+	
+	id_usuario INT NOT NULL,
+	FOREIGN KEY(id_usuario) REFERENCES usuarios(id),
+
+	token_activo BOOL NOT NULL -- borrado logico
 );
 
 -- Posiblemente 'admin' no necesite tabla (con los atributos de la tabla usuario puede hacer sus tareas)
@@ -243,8 +253,6 @@ CREATE TABLE juegos_de_ronda(
 	
 );
 
-
--- TODO: tabla descalificaciones, tabla refreshToken
 
 
 
