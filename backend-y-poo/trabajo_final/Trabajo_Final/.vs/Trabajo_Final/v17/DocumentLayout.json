@@ -15,6 +15,10 @@
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\usuarioservices\\refreshtoken\\actualizarjwt\\actualizarjwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\usuarioservices\\refreshtoken\\actualizarjwt\\iactualizarjwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\usuarioservices\\refreshtoken\\actualizarjwt\\iactualizarjwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,10 +35,6 @@
       "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\entidades\\refresh_token.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\usuarioservices\\refreshtoken\\crear\\icrearrefreshtokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\usuarioservices\\refreshtoken\\crear\\icrearrefreshtokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -49,30 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\usuarioservices\\registro\\validarregistrousuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\usuarioservices\\registro\\validarregistrousuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\utils\\exceptions\\exceptions\\miexceptionbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\utils\\exceptions\\exceptions\\miexceptionbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\utils\\exceptions\\exceptions\\invalidcredentialsexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\utils\\exceptions\\exceptions\\invalidcredentialsexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\utils\\exceptions\\exceptions\\sinpermisoexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\utils\\exceptions\\exceptions\\sinpermisoexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\utils\\exceptions\\exceptions\\notfoundexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\utils\\exceptions\\exceptions\\notfoundexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\utils\\exceptions\\exceptions\\invalidrefreshtokenexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\utils\\exceptions\\exceptions\\invalidrefreshtokenexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\utils\\exceptions\\exceptions\\alreadyloggedin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\utils\\exceptions\\exceptions\\alreadyloggedin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -116,7 +92,7 @@
               "RelativeDocumentMoniker": "Trabajo_Final\\Program.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Program.cs",
               "RelativeToolTip": "Trabajo_Final\\Program.cs",
-              "ViewState": "AgIAAGQAAAAAAAAAAAAowIoAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAswIMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-06T19:55:46.188Z",
               "IsPinned": true,
@@ -130,7 +106,7 @@
               "RelativeDocumentMoniker": "Trabajo_Final\\Controllers\\UsuariosController.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Controllers\\UsuariosController.cs",
               "RelativeToolTip": "Trabajo_Final\\Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAAGUAAAAAAAAAAAAgwIUAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAIwMcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-04T00:44:18.313Z",
               "IsPinned": true,
@@ -144,14 +120,27 @@
               "RelativeDocumentMoniker": "Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\ActualizarJWT\\ActualizarJWTService.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\ActualizarJWT\\ActualizarJWTService.cs",
               "RelativeToolTip": "Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\ActualizarJWT\\ActualizarJWTService.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAAACEAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAkwBwAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T20:33:33.959Z",
+              "WhenOpened": "2025-02-07T23:51:50.417Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "UsuarioDAO.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\UsuarioDAO.cs",
+              "RelativeDocumentMoniker": "DAO\\DAOs\\UsuarioDAO.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\UsuarioDAO.cs",
+              "RelativeToolTip": "DAO\\DAOs\\UsuarioDAO.cs",
+              "ViewState": "AgIAAJMAAAAAAAAAAAAIwJ4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T16:02:45.852Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "IActualizarJWTService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\ActualizarJWT\\IActualizarJWTService.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\ActualizarJWT\\IActualizarJWTService.cs",
@@ -164,7 +153,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Refresh_Token.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\Entidades\\Refresh_Token.cs",
               "RelativeDocumentMoniker": "DAO\\Entidades\\Refresh_Token.cs",
@@ -172,12 +161,11 @@
               "RelativeToolTip": "DAO\\Entidades\\Refresh_Token.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T16:44:31.823Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-06T16:44:31.823Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "CrearRefreshTokenService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\Crear\\CrearRefreshTokenService.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\Crear\\CrearRefreshTokenService.cs",
@@ -185,12 +173,11 @@
               "RelativeToolTip": "Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\Crear\\CrearRefreshTokenService.cs",
               "ViewState": "AgIAACMAAAAAAAAAAAAgwDIAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-05T21:52:25.98Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-05T21:52:25.98Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "DesactivarRefreshTokenService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\Desactivar\\DesactivarRefreshTokenService.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\Desactivar\\DesactivarRefreshTokenService.cs",
@@ -198,21 +185,7 @@
               "RelativeToolTip": "Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\Desactivar\\DesactivarRefreshTokenService.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAqwBQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T01:01:26.698Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UsuarioDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\UsuarioDAO.cs",
-              "RelativeDocumentMoniker": "DAO\\DAOs\\UsuarioDAO.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\UsuarioDAO.cs",
-              "RelativeToolTip": "DAO\\DAOs\\UsuarioDAO.cs",
-              "ViewState": "AgIAAJEAAAAAAAAAAAAAAJ4AAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T16:02:45.852Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-06T01:01:26.698Z"
             },
             {
               "$type": "Document",
@@ -224,8 +197,7 @@
               "RelativeToolTip": "Trabajo_Final\\Services\\UsuarioServices\\RefreshToken\\Crear\\ICrearRefreshTokenService.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAIwA0AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T03:03:10.511Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-02T03:03:10.511Z"
             },
             {
               "$type": "Document",
@@ -266,78 +238,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "MiExceptionBase.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\MiExceptionBase.cs",
-              "RelativeDocumentMoniker": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\MiExceptionBase.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\MiExceptionBase.cs",
-              "RelativeToolTip": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\MiExceptionBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T20:51:54.687Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "InvalidCredentialsException.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\InvalidCredentialsException.cs",
-              "RelativeDocumentMoniker": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\InvalidCredentialsException.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\InvalidCredentialsException.cs",
-              "RelativeToolTip": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\InvalidCredentialsException.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T17:37:03.476Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "SinPermisoException.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\SinPermisoException.cs",
-              "RelativeDocumentMoniker": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\SinPermisoException.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\SinPermisoException.cs",
-              "RelativeToolTip": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\SinPermisoException.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T17:37:29.66Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "NotFoundException.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\NotFoundException.cs",
-              "RelativeDocumentMoniker": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\NotFoundException.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\NotFoundException.cs",
-              "RelativeToolTip": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\NotFoundException.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T17:37:24.597Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "InvalidRefreshTokenException.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\InvalidRefreshTokenException.cs",
-              "RelativeDocumentMoniker": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\InvalidRefreshTokenException.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\InvalidRefreshTokenException.cs",
-              "RelativeToolTip": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\InvalidRefreshTokenException.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T20:52:42.277Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "AlreadyLoggedIn.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\AlreadyLoggedIn.cs",
-              "RelativeDocumentMoniker": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\AlreadyLoggedIn.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\utils\\Exceptions\\Exceptions\\AlreadyLoggedIn.cs",
-              "RelativeToolTip": "Trabajo_Final\\utils\\Exceptions\\Exceptions\\AlreadyLoggedIn.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-01T23:45:21.655Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\appsettings.json",
               "RelativeDocumentMoniker": "Trabajo_Final\\appsettings.json",
@@ -349,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 13,
               "Title": "DatosTorneoDTO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\DatosTorneoDTO.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\DatosTorneoDTO.cs",
@@ -361,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 14,
               "Title": "ICrearJwtService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\UsuarioServices\\Jwt\\ICrearJwtService.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Services\\UsuarioServices\\Jwt\\ICrearJwtService.cs",
@@ -373,7 +273,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 15,
               "Title": "Primer_AdminConfiguration.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Configuration\\Primer_AdminConfiguration.cs",
               "RelativeDocumentMoniker": "Configuration\\Primer_AdminConfiguration.cs",
@@ -385,7 +285,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 16,
               "Title": "IPrimer_AdminConfiguration.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Configuration\\DI\\IPrimer_AdminConfiguration.cs",
               "RelativeDocumentMoniker": "Configuration\\DI\\IPrimer_AdminConfiguration.cs",
@@ -397,7 +297,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 17,
               "Title": "SingletonConnection.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\Connection\\SingletonConnection.cs",
               "RelativeDocumentMoniker": "DAO\\Connection\\SingletonConnection.cs",

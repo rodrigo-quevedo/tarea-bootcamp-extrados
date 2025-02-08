@@ -18,20 +18,25 @@ namespace Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar
 
         public string ActualizarJWT(string refreshToken)
         {
-            Refresh_Token refreshTokenEncontrado = usuarioDAO.BuscarRefreshToken(refreshToken, true);
-            if (refreshTokenEncontrado == null) throw new NotFoundException("Su sesión no está activa.");
-            Console.WriteLine($"No se encontró refreshToken para el refreshToken: {refreshToken}.");
-
             //Por definición, si el refreshToken del usuario está en la DB, es válido.
             //Y el usuario que está asociado a ese refreshToken también es válido.
-
+    
+            Refresh_Token refreshTokenEncontrado = usuarioDAO.BuscarRefreshToken(refreshToken, true);
+            if (refreshTokenEncontrado == null)
+            {
+                Console.WriteLine($"No se encontró el refreshToken: {refreshToken}");
+                throw new NotFoundException("Su sesión no está activa. Inicie sesión nuevamente.");
+            }
 
             Usuario busqueda = new Usuario(refreshTokenEncontrado.id_usuario, true);
             Usuario usuarioEncontrado = usuarioDAO.BuscarUnUsuario(busqueda);
+            if (usuarioEncontrado == null) throw new Exception($"No se pudo obtener el usuario id [{refreshTokenEncontrado.id_usuario}] en la base de datos.");
 
             string jwt = crearJwtService.CrearJwt(usuarioEncontrado);
 
             return jwt;
         }
+
+
     }
 }
