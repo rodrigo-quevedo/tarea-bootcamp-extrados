@@ -14,3 +14,5 @@ C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\T
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\DAO\bin\Debug\net6.0\Configuration.dll
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\DAO\bin\Debug\net6.0\Configuration.pdb
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\DAO\obj\Debug\net6.0\DAO.csproj.Up2Date
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\DAO\bin\Debug\net6.0\Custom Http Exceptions.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\DAO\bin\Debug\net6.0\Custom Http Exceptions.pdb

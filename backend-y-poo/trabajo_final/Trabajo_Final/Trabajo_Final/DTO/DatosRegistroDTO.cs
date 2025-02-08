@@ -22,8 +22,8 @@ namespace Trabajo_Final.DTO
 
 
         [Required(ErrorMessage = "Campo 'pais' es obligatorio.")]
-        [RegularExpression(@"^[a-zA-Z ]{2,30}$", 
-            ErrorMessage = "Campo 'pais' solo permite letras y numeros y espacio ( ). Entre 2 y 30 caracteres. ")]
+        [RegularExpression(@"^[a-zA-Z +-:]{2,30}$", 
+            ErrorMessage = "Campo 'pais' solo permite letras, numeros, espacio ( ), +, -, y los dos puntos (:). Entre 2 y 30 caracteres. ")]
         public string pais { get; set; }
 
 

@@ -17,6 +17,7 @@ using System.Text;
 using Trabajo_Final.DTO;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
+using Trabajo_Final.Services.UsuarioServices.RefreshToken.AsignarRefreshToken;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Crear;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Desactivar;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar;
@@ -32,17 +33,19 @@ namespace Trabajo_Final.Controllers
     public class UsuariosController : ControllerBase
     {
         // services
+        private IJwtConfiguration jwtConfiguration;
+        
+        private ICrearJwtService crearJwtService;
+        
         private ILogearUsuarioService logearUsuarioService;
 
-        private ICrearJwtService crearJwtService;
+        private IActualizarJWTService actualizarJWTService;
+        private IAsignarRefreshTokenService asignarRefreshTokenService;
         private ICrearRefreshTokenService crearRefreshTokenService;
-        private IJwtConfiguration jwtConfiguration;
         private IDesactivarRefreshTokenService desactivarRefreshTokenService;
         
-        private IActualizarJWTService actualizarJWTService;
         
         private IRegistroUsuarioService registroUsuarioService;
-        private IValidarRegistroUsuarioService validarRegistroService;
 
 
         //private IRegistrarUsuarioService registrarUsuarioService;
@@ -51,29 +54,33 @@ namespace Trabajo_Final.Controllers
 
         public UsuariosController(
             IVerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
+
+            IJwtConfiguration jwtConfig,
             
+            ICrearJwtService jwt,
+
             ILogearUsuarioService login,
 
-            ICrearJwtService jwt,
-            ICrearRefreshTokenService  refreshToken,
-            IJwtConfiguration jwtConfig,
-            IDesactivarRefreshTokenService desactivarRefreshToken,
             IActualizarJWTService actualizarJWT,
+            IAsignarRefreshTokenService asignarRefreshToken,
+            ICrearRefreshTokenService  refreshToken,
+            IDesactivarRefreshTokenService desactivarRefreshToken,
 
-            IRegistroUsuarioService registro,
-            IValidarRegistroUsuarioService validarRegistro
+            IRegistroUsuarioService registro
         )
         {
-            logearUsuarioService = login;
-
-            crearJwtService = jwt;
-            crearRefreshTokenService = refreshToken;
             jwtConfiguration = jwtConfig;
-            desactivarRefreshTokenService = desactivarRefreshToken;
+            
+            crearJwtService = jwt;
+
+            logearUsuarioService = login;
+            
             actualizarJWTService = actualizarJWT;
+            asignarRefreshTokenService = asignarRefreshToken;
+            crearRefreshTokenService = refreshToken;
+            desactivarRefreshTokenService = desactivarRefreshToken;
 
             registroUsuarioService = registro;
-            validarRegistroService = validarRegistro;
 
         }
 
@@ -95,14 +102,18 @@ namespace Trabajo_Final.Controllers
             //Verificar credenciales
             Usuario usuarioVerificado = logearUsuarioService.LogearUsuario(credenciales);
 
+            //Si actualmente el usuario tiene un refreshToken, se intentará desactivarlo en DB
+            //(si falla sigue de largo)
+            string refreshTokenExistente = Request.Cookies["refreshToken"];
+            desactivarRefreshTokenService.DesactivarRefreshToken(usuarioVerificado.Id, refreshTokenExistente);
+            
             //Crear jwt y refresh token
             string jwt = crearJwtService.CrearJwt(usuarioVerificado);
             string refreshToken = crearRefreshTokenService.CrearRefreshToken(usuarioVerificado);
 
-            //Si actualmente el usuario tiene un refreshToken, desactivarlo en DB
-            string refreshTokenExistente = Request.Cookies["refreshToken"];
-            desactivarRefreshTokenService.DesactivarRefreshToken(usuarioVerificado.Id, refreshTokenExistente);
-
+            //Asignar refresh token en db
+            asignarRefreshTokenService.AsignarRefreshToken(usuarioVerificado, refreshToken);
+            
 
         //Respuesta servidor:
 
@@ -178,11 +189,10 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = $"{Roles.ADMIN},{Roles.ORGANIZADOR}")] 
         public ActionResult RegistrarUsuario(DatosRegistroDTO datosUsuarioARegistrar)
         {
-            //validar permiso del usuario logeado (solo falta verificar que organizador crea juez, ya que admin puede crear todo)
+            //verificar que organizador crea juez, ya que admin puede crear todo
             string rol_usuario_creador = User.FindFirst(ClaimTypes.Role).Value;
 
-            if (
-                rol_usuario_creador == Roles.ORGANIZADOR
+            if (rol_usuario_creador == Roles.ORGANIZADOR
                 &&
                 datosUsuarioARegistrar.rol != Roles.JUEZ
             )
@@ -215,7 +225,7 @@ namespace Trabajo_Final.Controllers
 
 
             //Server response:
-            Response.Headers.Authorization = "";
+            
             Response.Cookies.Append("refreshToken", "", new CookieOptions
             {
                 HttpOnly = true,
@@ -225,7 +235,10 @@ namespace Trabajo_Final.Controllers
             });
 
             
-            return Ok(new { message = "Sesión cerrada con éxito." });
+            return Ok(new { 
+                message = "Sesión cerrada con éxito.",
+                deleteJWT = true
+            });
         }
 
 

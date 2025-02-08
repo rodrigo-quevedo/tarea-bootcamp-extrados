@@ -18,7 +18,10 @@ using System.Text;
 using Trabajo_Final.DTO;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
+using Trabajo_Final.Services.UsuarioServices.RefreshToken.AsignarRefreshToken;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Crear;
+using Trabajo_Final.Services.UsuarioServices.RefreshToken.Desactivar;
+using Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar;
 using Trabajo_Final.Services.UsuarioServices.Registro;
 using Trabajo_Final.utils.Exceptions.BaseException;
 using Trabajo_Final.utils.Exceptions.Exceptions;
@@ -56,11 +59,15 @@ builder.Services.AddSingleton<IVerificarExistenciaAdmin, VerificarExistenciaAdmi
 
 //services
 builder.Services.AddScoped<ICrearJwtService, CrearJwtService>();
-builder.Services.AddScoped<ICrearRefreshTokenService, CrearRefreshTokenService>();
-builder.Services.AddScoped<IRegistroUsuarioService, RegistroUsuarioService>();
-builder.Services.AddScoped<IValidarRegistroUsuarioService, ValidarRegistroUsuarioService>();
+
 builder.Services.AddScoped<ILogearUsuarioService, LogearUsuarioService>();
 
+builder.Services.AddScoped<IActualizarJWTService, ActualizarJWTService>();
+builder.Services.AddScoped<IAsignarRefreshTokenService, AsignarRefreshTokenService>();
+builder.Services.AddScoped<ICrearRefreshTokenService, CrearRefreshTokenService>();
+builder.Services.AddScoped<IDesactivarRefreshTokenService, DesactivarRefreshTokenService>();
+
+builder.Services.AddScoped<IRegistroUsuarioService, RegistroUsuarioService>();
 
 
 builder.Services.AddControllers();

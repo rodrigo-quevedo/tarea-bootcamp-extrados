@@ -47,8 +47,7 @@ namespace Trabajo_Final.Services.UsuarioServices.RefreshToken.Crear
             string refreshToken = new JwtSecurityTokenHandler().WriteToken(securityToken);
             Console.WriteLine($"refresh token creado para usuario '{usuarioValidado.Email}'");
 
-            //guardar refresh token en db
-            usuarioDAO.GuardarRefreshToken(usuarioValidado.Id, refreshToken);
+
 
             //devolver refreshToken string
             return refreshToken;

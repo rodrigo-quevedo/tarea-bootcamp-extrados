@@ -5,9 +5,11 @@ using Dapper;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trabajo_Final.utils.Exceptions.Exceptions;
 
 
 namespace DAO.DAOs
@@ -25,39 +27,62 @@ namespace DAO.DAOs
 
         // ------------------ CRUD ------------------ //
 
-        public int  CrearUsuario(Usuario usuario)
+        public async Task<int> CrearUsuario(Usuario usuario)
         {
             string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo) " +
                 "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo);";
 
-            return connection.Execute(insertQuery, new
+            try { 
+                return await connection.ExecuteAsync(insertQuery, new
+                {
+                    Rol = usuario.Rol,
+                    Pais = usuario.Pais,
+                    Nombre_apellido = usuario.Nombre_apellido,
+                    Email = usuario.Email,
+                    Password = usuario.Password, //recibe password YA ENCRIPTADA
+                    Activo = usuario.Activo
+                });
+            }
+            catch (MySqlException e)
             {
-                Rol = usuario.Rol,
-                Pais = usuario.Pais,
-                Nombre_apellido = usuario.Nombre_apellido,
-                Email = usuario.Email,
-                Password = usuario.Password, //recibe password YA ENCRIPTADA
-                Activo = usuario.Activo
-            });
+                if (e.Message.Contains("Duplicate entry")
+                    &&
+                    e.Message.Contains("for key 'usuarios.email'")
+                )
+                    throw new AlreadyExistsException($"El usuario con mail [{usuario.Email}] ya existe.");
 
-           
+                throw e;
+            }
+
         }
 
-        public int CrearUsuario(Usuario usuario, int id_usuario_creador)
+        public async Task<int> CrearUsuario(Usuario usuario, int id_usuario_creador)
         {
             string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo, id_usuario_creador) " +
                 "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo, @Id_usuario_creador);";
 
-            return connection.Execute(insertQuery, new
+            try
             {
-                Rol = usuario.Rol,
-                Pais = usuario.Pais,
-                Nombre_apellido = usuario.Nombre_apellido,
-                Email = usuario.Email,
-                Password = usuario.Password, //recibe password YA ENCRIPTADA
-                Activo = usuario.Activo,
-                Id_usuario_creador = id_usuario_creador
-            });
+                return await connection.ExecuteAsync(insertQuery, new
+                {
+                    Rol = usuario.Rol,
+                    Pais = usuario.Pais,
+                    Nombre_apellido = usuario.Nombre_apellido,
+                    Email = usuario.Email,
+                    Password = usuario.Password, //recibe password YA ENCRIPTADA
+                    Activo = usuario.Activo,
+                    Id_usuario_creador = id_usuario_creador
+                });
+            }
+            catch(MySqlException e) {
+                if (e.Message.Contains("Duplicate entry")
+                    &&
+                    e.Message.Contains("for key 'usuarios.email'")
+                )
+                    throw new AlreadyExistsException($"El usuario con mail [{usuario.Email}] ya existe."); 
+                   
+                throw e;
+            }
 
 
         }
@@ -69,7 +94,7 @@ namespace DAO.DAOs
         }
 
         //READ
-        public Usuario BuscarUnUsuario(Usuario usuario) // Búsqueda por id, email, rol (este ultimo para Verificar_Existencia_Admin)
+        public async Task<Usuario> BuscarUnUsuario(Usuario usuario) // Búsqueda por id, email, rol (este ultimo para Verificar_Existencia_Admin)
         {
             string selectQuery;
 
@@ -78,7 +103,7 @@ namespace DAO.DAOs
                 selectQuery = "SELECT * FROM usuarios " +
                               "WHERE id=@Id AND activo=@Activo;";
 
-                return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
+                return await connection.QueryFirstOrDefaultAsync<Usuario>(selectQuery, new
                 {
                     Id = usuario.Id,
                     Activo = usuario.Activo
@@ -90,7 +115,7 @@ namespace DAO.DAOs
                 selectQuery = "SELECT * FROM usuarios " +
                               "WHERE email=@Email AND activo=@Activo;";
 
-                return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
+                return await connection.QueryFirstOrDefaultAsync<Usuario>(selectQuery, new
                 {
                     Email = usuario.Email,
                     Activo = usuario.Activo
@@ -102,7 +127,7 @@ namespace DAO.DAOs
                 selectQuery = "SELECT * FROM usuarios " +
                               "WHERE rol=@rol AND activo=@activo;";
 
-                return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
+                return await connection.QueryFirstOrDefaultAsync<Usuario>(selectQuery, new
                 {
                     rol = usuario.Rol,
                     activo = usuario.Activo
@@ -119,15 +144,15 @@ namespace DAO.DAOs
 
 
         //INSERT (refreshtoken)
-        public int GuardarRefreshToken(int id, string refreshToken)
+        public async Task<int> GuardarRefreshToken(int id, string refreshToken)
         {
-            string insertQuery = "INSERT INTO refresh_tokens VALUES " +
-                                 "(@Id, @Refresh_token, @Token_activo);";
+            string insertQuery = "INSERT INTO refresh_tokens(refresh_token, id_usuario, token_activo)  " +
+                                 "VALUES (@Refresh_token, @Id, @Token_activo);";
 
-            return connection.Execute(insertQuery, new
+            return await connection.ExecuteAsync(insertQuery, new
             {
-                Id = id,
                 Refresh_token = refreshToken,
+                Id = id,
                 Token_activo = true
             });
 
@@ -135,13 +160,13 @@ namespace DAO.DAOs
 
         //UPDATE (refreshToken): borrado logico
 
-        public int BorradoLogicoRefreshToken(int id, string refreshToken)
+        public async Task<int> BorradoLogicoRefreshToken(int id, string refreshToken)
         {
             string updateQuery = "UPDATE refresh_tokens " +
-                                 "SET token_activo = @Token_activo" +
-                                 "WHERE id = @Id AND refresh_token = @Refresh_token;";
+                                 "SET token_activo = @Token_activo " +
+                                 "WHERE id_usuario = @Id AND refresh_token = @Refresh_token;";
 
-            return connection.Execute(updateQuery, new
+            return await connection.ExecuteAsync(updateQuery, new
             {
                 Id = id,
                 Refresh_token = refreshToken,
@@ -149,16 +174,16 @@ namespace DAO.DAOs
             });
         }
 
-        public Refresh_Token BuscarRefreshToken(string refreshToken, bool activo)
+        public async Task<Refresh_Token> BuscarRefreshToken(string refreshToken, bool activo)
         {
             //No hace falta buscar por id_usuario ya que está incluido en el JWT.
             //-> Para cada id_usuario y TIMESTAMP habrá un JWT único.
 
-            string selectQuery = "SELECT * FROM refresh_tokens" +
-                                 "WHERE refresh_token = @RefreshToken" +
-                                 "AND activo = @Activo";
+            string selectQuery = "SELECT * FROM refresh_tokens " +
+                                 " WHERE refresh_token = @RefreshToken " +
+                                 " AND token_activo = @Activo ";
 
-            return connection.QueryFirstOrDefault<Refresh_Token>(selectQuery, new
+            return await connection.QueryFirstOrDefaultAsync<Refresh_Token>(selectQuery, new
             {
                 RefreshToken = refreshToken,
                 Activo = activo

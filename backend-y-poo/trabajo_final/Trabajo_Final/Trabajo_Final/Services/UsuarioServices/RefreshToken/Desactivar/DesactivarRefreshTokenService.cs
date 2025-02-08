@@ -18,7 +18,7 @@ namespace Trabajo_Final.Services.UsuarioServices.RefreshToken.Desactivar
             if (refreshToken == null || refreshToken == "") return true;
 
             int filasDeTablaAfectadas = usuarioDAO.BorradoLogicoRefreshToken(id, refreshToken);
-            if (filasDeTablaAfectadas == 0) throw new Exception("Se intentó crear una nueva sesión pero no se pudo cerrar la anterior.");//error 500
+            if (filasDeTablaAfectadas == 0) Console.WriteLine($"Se intentó crear una nueva sesión pero no se pudo cerrar la anterior. Refresh token: {refreshToken}");
 
             return true;
 

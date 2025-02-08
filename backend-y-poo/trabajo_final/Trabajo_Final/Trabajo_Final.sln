@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trabajo_Final", "Trabajo_Fi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAO", "DAO\DAO.csproj", "{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{FD99BCAD-7153-43E2-922D-A1A1B83F2E31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration", "Configuration\Configuration.csproj", "{FD99BCAD-7153-43E2-922D-A1A1B83F2E31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom Http Exceptions", "Custom Exceptions\Custom Http Exceptions.csproj", "{7E451F47-7C85-4602-AADD-D4E59B29933F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{FD99BCAD-7153-43E2-922D-A1A1B83F2E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD99BCAD-7153-43E2-922D-A1A1B83F2E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD99BCAD-7153-43E2-922D-A1A1B83F2E31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E451F47-7C85-4602-AADD-D4E59B29933F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E451F47-7C85-4602-AADD-D4E59B29933F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E451F47-7C85-4602-AADD-D4E59B29933F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E451F47-7C85-4602-AADD-D4E59B29933F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
