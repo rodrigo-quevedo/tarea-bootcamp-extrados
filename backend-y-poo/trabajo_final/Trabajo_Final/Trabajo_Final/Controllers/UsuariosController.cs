@@ -1,7 +1,7 @@
 ﻿using Configuration;
 using Configuration.DI;
-using DAO.DAOs.DI;
-using DAO.Entidades.Usuario;
+using DAO.DAOs.Cartas;
+using DAO.Entidades.UsuarioEntidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -55,6 +55,8 @@ namespace Trabajo_Final.Controllers
         public UsuariosController(
             IVerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
 
+            ICartaDAO cartaDao,
+
             IJwtConfiguration jwtConfig,
             
             ICrearJwtService jwt,
@@ -89,7 +91,7 @@ namespace Trabajo_Final.Controllers
 
         [HttpPost]
         [Route("/login")]
-        public ActionResult LoginUser(CredencialesLoginDTO credenciales)
+        public async Task<ActionResult> LoginUser(CredencialesLoginDTO credenciales)
         {
             Console.WriteLine("POST /login");
 
@@ -100,7 +102,7 @@ namespace Trabajo_Final.Controllers
                 throw new AlreadyLoggedInException("Ya está logeado. Cierre su sesión actual para poder loguearse (ir a /logout).");
 
             //Verificar credenciales
-            Usuario usuarioVerificado = logearUsuarioService.LogearUsuario(credenciales);
+            Usuario usuarioVerificado = await logearUsuarioService.LogearUsuario(credenciales);
 
             //Si actualmente el usuario tiene un refreshToken, se intentará desactivarlo en DB
             //(si falla sigue de largo)
@@ -112,7 +114,7 @@ namespace Trabajo_Final.Controllers
             string refreshToken = crearRefreshTokenService.CrearRefreshToken(usuarioVerificado);
 
             //Asignar refresh token en db
-            asignarRefreshTokenService.AsignarRefreshToken(usuarioVerificado, refreshToken);
+            await asignarRefreshTokenService.AsignarRefreshToken(usuarioVerificado, refreshToken);
             
 
         //Respuesta servidor:
@@ -136,12 +138,12 @@ namespace Trabajo_Final.Controllers
 
         [HttpGet]
         [Route("/refresh")]
-        public ActionResult RefreshToken()
+        public async Task<ActionResult> RefreshToken()
         {
             string refreshToken = Request.Cookies["refreshToken"];
             if (refreshToken == null || refreshToken == "") throw new SinPermisoException("No puede actualizar el token porque no está logeado.");
 
-            string jwtActualizado = actualizarJWTService.ActualizarJWT(refreshToken);
+            string jwtActualizado = await actualizarJWTService.ActualizarJWT(refreshToken);
             
             
             return Ok(new
@@ -164,7 +166,7 @@ namespace Trabajo_Final.Controllers
         //Si usuario no está logeado, hacer autoregistro de JUGADOR:
         [HttpPost]
         [Route("/registro")]
-        public ActionResult AutoRegistrarJugador(DatosRegistroDTO datosUsuarioARegistrar)
+        public async Task<ActionResult> AutoRegistrarJugador(DatosRegistroDTO datosUsuarioARegistrar)
         {
             Console.WriteLine("POST /registro");
 
@@ -177,7 +179,7 @@ namespace Trabajo_Final.Controllers
                 throw new SinPermisoException("Solo se crean usuarios con rol JUGADOR en /registro");
        
             
-            registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar);   
+            await registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar);   
                 
             return Ok(new { message = $"Usuario [{datosUsuarioARegistrar.email}] se autoregistró con éxito." });
         }
@@ -187,7 +189,7 @@ namespace Trabajo_Final.Controllers
         [HttpPost]
         [Route("/crear")]
         [Authorize(Roles = $"{Roles.ADMIN},{Roles.ORGANIZADOR}")] 
-        public ActionResult RegistrarUsuario(DatosRegistroDTO datosUsuarioARegistrar)
+        public async Task<ActionResult> RegistrarUsuario(DatosRegistroDTO datosUsuarioARegistrar)
         {
             //verificar que organizador crea juez, ya que admin puede crear todo
             string rol_usuario_creador = User.FindFirst(ClaimTypes.Role).Value;
@@ -203,7 +205,7 @@ namespace Trabajo_Final.Controllers
             string id_string = User.FindFirst(ClaimTypes.Sid).Value;
             Int32.TryParse(id_string, out int id_usuario_creador);
 
-            registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar, id_usuario_creador);
+            await registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar, id_usuario_creador);
 
             return Ok(new { message = $"Usuario [{datosUsuarioARegistrar.email}] se registró con éxito." });
         }
@@ -213,7 +215,7 @@ namespace Trabajo_Final.Controllers
         [HttpGet]
         [Route("/logout")]
         [Authorize]
-        public ActionResult LogoutUser()
+        public async Task<ActionResult> LogoutUser()
         {
             //Desactivar refreshToken en db (borrado logico):
             string id_usuario_string = User.FindFirst(ClaimTypes.Sid).Value;
@@ -221,8 +223,8 @@ namespace Trabajo_Final.Controllers
 
             string refreshToken = Request.Cookies["refreshToken"];
 
-            desactivarRefreshTokenService.DesactivarRefreshToken(id_usuario, refreshToken);
-
+            bool sesion_cerrada = await desactivarRefreshTokenService.DesactivarRefreshToken(id_usuario, refreshToken);
+            if (!sesion_cerrada) throw new Exception("No se pudo cerrar la sesión.");
 
             //Server response:
             

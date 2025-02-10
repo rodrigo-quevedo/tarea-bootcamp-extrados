@@ -94,11 +94,13 @@ namespace DAO.DAOs.Cartas
                         }
 
                         transaction.Commit();
+
+                        flag_seriesCargadas = true;
                     }
                     catch (Exception ex) 
                     {
                         transaction.Rollback();
-                        Console.WriteLine("Error inserting data: " + ex.Message);
+                        Console.WriteLine("Error transaction [series]: " + ex.Message);
                         flag_seriesCargadas = false;
                     }
                 }
@@ -123,11 +125,13 @@ namespace DAO.DAOs.Cartas
                         }
 
                         transaction.Commit();
+
+                        flag_cartasCargadas = true;
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        Console.WriteLine("Error inserting data: " + ex.Message);
+                        Console.WriteLine("Error transaction [cartas]: " + ex.Message);
                         flag_cartasCargadas = false;
                     }
 
@@ -154,11 +158,13 @@ namespace DAO.DAOs.Cartas
                         }
 
                         transaction.Commit();
+
+                        flag_seriesDeCartasCargadas = true;
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        Console.WriteLine("Error inserting data: " + ex.Message);
+                        Console.WriteLine("Error transaction [series_de_cartas]: " + ex.Message);
                         flag_seriesDeCartasCargadas = false;
                     }
 

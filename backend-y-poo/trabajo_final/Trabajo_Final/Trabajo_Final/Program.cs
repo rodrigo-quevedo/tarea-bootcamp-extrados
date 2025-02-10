@@ -134,6 +134,7 @@ app.UseExceptionHandler(exceptionHandlerApp => {
         //HTTP headers
         context.Response.ContentType = MediaTypeNames.Application.Json;
 
+
         //Status code de la exception
         var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
         Console.WriteLine($"error: {exceptionHandlerPathFeature?.Error}");
@@ -142,10 +143,26 @@ app.UseExceptionHandler(exceptionHandlerApp => {
             context.Response.StatusCode = exceptionBase.ExceptionStatusCode;
             
         else { context.Response.StatusCode = StatusCodes.Status500InternalServerError; }
-        
 
+
+        //Manejo de custom exceptions
+        switch (exceptionHandlerPathFeature?.Error.GetType().Name)
+        { 
+            case nameof(InvalidRefreshTokenException): //Borrar cookie refreshToken invalida
+            {
+                context.Response.Cookies.Append("refreshToken", "", new CookieOptions
+                {
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.None,
+                    Secure = true,
+                    Expires = DateTime.Now
+                });
+                break;
+            }
+        }
+        
+        
         //HTTP body
-        //exception por default
         await context.Response.WriteAsJsonAsync<ResponseBodyDTO>(
             new ResponseBodyDTO(
                 exceptionHandlerPathFeature?.Error.Message,

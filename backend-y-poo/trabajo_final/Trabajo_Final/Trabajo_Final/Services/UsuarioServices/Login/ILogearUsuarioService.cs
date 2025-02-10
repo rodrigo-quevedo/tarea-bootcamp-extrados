@@ -1,10 +1,10 @@
-﻿using DAO.Entidades.Usuario;
+﻿using DAO.Entidades.UsuarioEntidades;
 using Trabajo_Final.DTO;
 
 namespace Trabajo_Final.Services.UsuarioServices.Login
 {
     public interface ILogearUsuarioService
     {
-        public Usuario LogearUsuario(CredencialesLoginDTO cred);
+        public Task<Usuario> LogearUsuario(CredencialesLoginDTO cred);
     }
 }

@@ -1,9 +1,9 @@
-﻿using DAO.Entidades.Usuario;
+﻿using DAO.Entidades.UsuarioEntidades;
 
 namespace Trabajo_Final.Services.UsuarioServices.RefreshToken.AsignarRefreshToken
 {
     public interface IAsignarRefreshTokenService
     {
-        public bool AsignarRefreshToken(Usuario usuarioValidado, string refreshToken);
+        public Task<bool> AsignarRefreshToken(Usuario usuarioValidado, string refreshToken);
     }
 }

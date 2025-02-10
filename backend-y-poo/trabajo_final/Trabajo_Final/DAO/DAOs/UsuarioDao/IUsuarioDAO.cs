@@ -10,13 +10,16 @@ namespace DAO.DAOs.UsuarioDao
     public interface IUsuarioDAO
     {
 
-        public Task<int> CrearUsuario(Usuario usuario);
-        public Task<int> CrearUsuario(Usuario usuario, int id_usuario_creador);
-        public Task<Usuario> BuscarUnUsuario(Usuario usuario);
+        public int CrearUsuario(Usuario usuario);
+        public Task<int> CrearUsuarioAsync(Usuario usuario);
+        public Task<int> CrearUsuarioAsync(Usuario usuario, int id_usuario_creador);
+        
+        public Usuario BuscarUnUsuario(Usuario usuario);
+        public Task<Usuario> BuscarUnUsuarioAsync(Usuario usuario);
 
-        public Task<int> GuardarRefreshToken(int id, string refreshToken);
-        public Task<int> BorradoLogicoRefreshToken(int id, string refreshToken);
-        public Task<Refresh_Token> BuscarRefreshToken(string refreshToken, bool activo);
+        public Task<int> GuardarRefreshTokenAsync(int id, string refreshToken);
+        public Task<int> BorradoLogicoRefreshTokenAsync(int id, string refreshToken);
+        public Task<Refresh_Token> BuscarRefreshTokenAsync(string refreshToken, bool activo);
 
     }
 }

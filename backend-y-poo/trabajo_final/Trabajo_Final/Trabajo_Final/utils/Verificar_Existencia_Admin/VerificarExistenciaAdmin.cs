@@ -4,8 +4,8 @@ using Isopoh.Cryptography.Argon2;
 using Configuration;
 using Microsoft.Extensions.Options;
 using Configuration.DI;
-using DAO.DAOs.Usuario;
-using DAO.Entidades.Usuario;
+using DAO.DAOs.UsuarioDao;
+using DAO.Entidades.UsuarioEntidades;
 
 namespace Trabajo_Final.utils.Verificar_Existencia_Admin
 {

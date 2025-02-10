@@ -1,6 +1,6 @@
 ﻿using DAO.DAOs;
-using DAO.DAOs.Usuario;
-using DAO.Entidades.Usuario;
+using DAO.DAOs.UsuarioDao;
+using DAO.Entidades.UsuarioEntidades;
 using Isopoh.Cryptography.Argon2;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using Trabajo_Final.DTO;
@@ -17,10 +17,10 @@ namespace Trabajo_Final.Services.UsuarioServices.Login
         }
 
 
-        public Usuario LogearUsuario(CredencialesLoginDTO cred)
+        public async Task<Usuario> LogearUsuario(CredencialesLoginDTO cred)
         {
             //buscar si existe
-            Usuario usuarioExistente = usuarioDAO.BuscarUnUsuario(new Usuario(0, null, null, null, cred.email, null, true, null));
+            Usuario usuarioExistente = await usuarioDAO.BuscarUnUsuarioAsync(new Usuario(0, null, null, null, cred.email, null, true, null));
             if (usuarioExistente == null) throw new NotFoundException($"No se encontró al usuario con email '{cred.email}'");
 
             //comparar passwords

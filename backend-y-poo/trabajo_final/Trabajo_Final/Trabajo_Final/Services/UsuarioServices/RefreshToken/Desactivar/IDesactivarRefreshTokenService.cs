@@ -2,6 +2,6 @@
 {
     public interface IDesactivarRefreshTokenService
     {
-        public bool DesactivarRefreshToken(int id, string refreshToken);
+        public Task<bool> DesactivarRefreshToken(int id, string refreshToken);
     }
 }

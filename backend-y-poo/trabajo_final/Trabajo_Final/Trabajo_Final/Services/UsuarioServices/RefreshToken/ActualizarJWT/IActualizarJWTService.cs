@@ -4,6 +4,6 @@ namespace Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar
 {
     public interface IActualizarJWTService
     {
-        public string ActualizarJWT(string refreshToken);
+        public Task<string> ActualizarJWT(string refreshToken);
     }
 }

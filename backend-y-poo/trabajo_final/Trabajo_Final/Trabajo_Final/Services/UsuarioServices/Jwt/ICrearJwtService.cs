@@ -1,4 +1,4 @@
-﻿using DAO.Entidades.Usuario;
+﻿using DAO.Entidades.UsuarioEntidades;
 
 namespace Trabajo_Final.Services.UsuarioServices.Jwt
 {

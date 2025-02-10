@@ -1,6 +1,6 @@
 ﻿using DAO.DAOs;
-using DAO.DAOs.Usuario;
-using DAO.Entidades.Usuario;
+using DAO.DAOs.UsuarioDao;
+using DAO.Entidades.UsuarioEntidades;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Trabajo_Final.utils.Exceptions.BaseException;
 using Trabajo_Final.utils.Exceptions.Exceptions;
@@ -16,10 +16,10 @@ namespace Trabajo_Final.Services.UsuarioServices.RefreshToken.AsignarRefreshToke
         }
 
 
-        public bool AsignarRefreshToken(Usuario usuarioValidado, string refreshToken)
+        public async Task<bool> AsignarRefreshToken(Usuario usuarioValidado, string refreshToken)
         {
             //guardar refresh token en db
-            int filasAfectadas = usuarioDAO.GuardarRefreshToken(usuarioValidado.Id, refreshToken);
+            int filasAfectadas = await usuarioDAO.GuardarRefreshTokenAsync(usuarioValidado.Id, refreshToken);
             if (filasAfectadas == 0) throw new DefaultException("No se pudo guardar el refresh token en la base de datos.");
 
             return true;

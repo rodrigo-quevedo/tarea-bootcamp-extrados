@@ -1,7 +1,6 @@
 ﻿using Configuration;
 using Configuration.DI;
-using DAO.DAOs.DI;
-using DAO.Entidades.Usuario;
+using DAO.Entidades.UsuarioEntidades;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

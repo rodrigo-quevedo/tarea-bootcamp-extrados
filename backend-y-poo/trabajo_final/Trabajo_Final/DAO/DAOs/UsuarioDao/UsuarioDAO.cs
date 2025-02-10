@@ -27,7 +27,37 @@ namespace DAO.DAOs.UsuarioDao
 
         // ------------------ CRUD ------------------ //
 
-        public async Task<int> CrearUsuario(Usuario usuario)
+        public int CrearUsuario(Usuario usuario)
+        {
+            string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo) " +
+                "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo);";
+
+            try
+            {
+                return connection.Execute(insertQuery, new
+                {
+                    usuario.Rol,
+                    usuario.Pais,
+                    usuario.Nombre_apellido,
+                    usuario.Email,
+                    usuario.Password, //recibe password YA ENCRIPTADA
+                    usuario.Activo
+                });
+            }
+            catch (MySqlException e)
+            {
+                if (e.Message.Contains("Duplicate entry")
+                    &&
+                    e.Message.Contains("for key 'usuarios.email'")
+                )
+                    throw new AlreadyExistsException($"El usuario con mail [{usuario.Email}] ya existe.");
+
+                throw e;
+            }
+
+        }
+
+        public async Task<int> CrearUsuarioAsync(Usuario usuario)
         {
             string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo) " +
                 "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo);";
@@ -57,7 +87,8 @@ namespace DAO.DAOs.UsuarioDao
 
         }
 
-        public async Task<int> CrearUsuario(Usuario usuario, int id_usuario_creador)
+
+        public async Task<int> CrearUsuarioAsync(Usuario usuario, int id_usuario_creador)
         {
             string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo, id_usuario_creador) " +
                 "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo, @Id_usuario_creador);";
@@ -89,14 +120,58 @@ namespace DAO.DAOs.UsuarioDao
 
         }
 
-        //READ
-        public Usuario BuscarUsuarios(Usuario usuario)
-        {
-            return null;
-        }
 
         //READ
-        public async Task<Usuario> BuscarUnUsuario(Usuario usuario) // Búsqueda por id, email, rol (este ultimo para Verificar_Existencia_Admin)
+
+        public Usuario BuscarUnUsuario(Usuario usuario) // Búsqueda por id, email, rol (este ultimo para Verificar_Existencia_Admin)
+        {
+            string selectQuery;
+
+            if (usuario.Id != default) //default de int es 0
+            {
+                selectQuery = "SELECT * FROM usuarios " +
+                              "WHERE id=@Id AND activo=@Activo;";
+
+                return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
+                {
+                    usuario.Id,
+                    usuario.Activo
+                });
+            }
+
+            else if (usuario.Email != default) //default de string es null
+            {
+                selectQuery = "SELECT * FROM usuarios " +
+                              "WHERE email=@Email AND activo=@Activo;";
+
+                return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
+                {
+                    usuario.Email,
+                    usuario.Activo
+                });
+            }
+
+            else if (usuario.Rol != default) //default de string es null
+            {
+                selectQuery = "SELECT * FROM usuarios " +
+                              "WHERE rol=@rol AND activo=@activo;";
+
+                return connection.QueryFirstOrDefault<Usuario>(selectQuery, new
+                {
+                    rol = usuario.Rol,
+                    activo = usuario.Activo
+                });
+            }
+
+
+            //si no se cumple ninguno de esos parámetros, devuelve null
+            Console.WriteLine("No se pasó ningún id, email o rol para la búsqueda, se devolverá null");
+            return null;
+
+        }
+
+
+        public async Task<Usuario> BuscarUnUsuarioAsync(Usuario usuario) // Búsqueda por id, email, rol (este ultimo para Verificar_Existencia_Admin)
         {
             string selectQuery;
 
@@ -146,7 +221,7 @@ namespace DAO.DAOs.UsuarioDao
 
 
         //INSERT (refreshtoken)
-        public async Task<int> GuardarRefreshToken(int id, string refreshToken)
+        public async Task<int> GuardarRefreshTokenAsync(int id, string refreshToken)
         {
             string insertQuery = "INSERT INTO refresh_tokens(refresh_token, id_usuario, token_activo)  " +
                                  "VALUES (@Refresh_token, @Id, @Token_activo);";
@@ -162,7 +237,7 @@ namespace DAO.DAOs.UsuarioDao
 
         //UPDATE (refreshToken): borrado logico
 
-        public async Task<int> BorradoLogicoRefreshToken(int id, string refreshToken)
+        public async Task<int> BorradoLogicoRefreshTokenAsync(int id, string refreshToken)
         {
             string updateQuery = "UPDATE refresh_tokens " +
                                  "SET token_activo = @Token_activo " +
@@ -176,7 +251,7 @@ namespace DAO.DAOs.UsuarioDao
             });
         }
 
-        public async Task<Refresh_Token> BuscarRefreshToken(string refreshToken, bool activo)
+        public async Task<Refresh_Token> BuscarRefreshTokenAsync(string refreshToken, bool activo)
         {
             //No hace falta buscar por id_usuario ya que está incluido en el JWT.
             //-> Para cada id_usuario y TIMESTAMP habrá un JWT único.

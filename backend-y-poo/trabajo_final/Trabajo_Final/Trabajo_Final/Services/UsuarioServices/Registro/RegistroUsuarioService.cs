@@ -1,5 +1,5 @@
-﻿using DAO.DAOs.Usuario;
-using DAO.Entidades.Usuario;
+﻿using DAO.DAOs.UsuarioDao;
+using DAO.Entidades.UsuarioEntidades;
 using Isopoh.Cryptography.Argon2;
 using System.Security.Claims;
 using Trabajo_Final.DTO;
@@ -18,7 +18,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
 
 
         //inputs ya vienen validados desde el DTO
-        public bool RegistrarUsuario(DatosRegistroDTO datos)
+        public async Task<bool> RegistrarUsuario(DatosRegistroDTO datos)
         {
             string hashedPassword = Argon2.Hash( datos.password );
             Usuario nuevoUsuario = new Usuario(
@@ -35,7 +35,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
 
             //aca se puede hacer catch y tirar una custom exception segun el resultado
             //(ej. falló el INSERT por mail repetido o falló INSERT por network error)
-            int filasDeTablaAfectadas = usuarioDAO.CrearUsuario(nuevoUsuario);
+            int filasDeTablaAfectadas = await usuarioDAO.CrearUsuarioAsync(nuevoUsuario);
             if (filasDeTablaAfectadas == 0) throw new Exception($"No se pudo crear el usuario [{nuevoUsuario.Email}].");
             
             Console.WriteLine($"Se registró al usuario [{nuevoUsuario.Email}] con éxito.");
@@ -43,7 +43,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
             return true;
         }
 
-        public bool RegistrarUsuario(DatosRegistroDTO datos, int id_usuario_creador)
+        public async Task<bool> RegistrarUsuario(DatosRegistroDTO datos, int id_usuario_creador)
         {
             string hashedPassword = Argon2.Hash(datos.password);
             Usuario nuevoUsuario = new Usuario(
@@ -58,7 +58,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
                 null
             );
 
-            int filasDeTablaAfectadas = usuarioDAO.CrearUsuario(nuevoUsuario, id_usuario_creador);
+            int filasDeTablaAfectadas = await usuarioDAO.CrearUsuarioAsync(nuevoUsuario, id_usuario_creador);
             if (filasDeTablaAfectadas == 0) throw new Exception($"No se pudo crear el usuario [{nuevoUsuario.Email}].");
             
             Console.WriteLine($"Se registró al usuario [{nuevoUsuario.Email}] con éxito.");
