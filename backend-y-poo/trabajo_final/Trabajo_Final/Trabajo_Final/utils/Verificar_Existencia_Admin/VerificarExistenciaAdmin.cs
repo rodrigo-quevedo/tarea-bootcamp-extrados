@@ -1,11 +1,11 @@
 ﻿using DAO.DAOs;
-using DAO.Entidades;
 using Trabajo_Final.utils.Constantes;
 using Isopoh.Cryptography.Argon2;
 using Configuration;
 using Microsoft.Extensions.Options;
-using DAO.DAOs.DI;
 using Configuration.DI;
+using DAO.DAOs.Usuario;
+using DAO.Entidades.Usuario;
 
 namespace Trabajo_Final.utils.Verificar_Existencia_Admin
 {

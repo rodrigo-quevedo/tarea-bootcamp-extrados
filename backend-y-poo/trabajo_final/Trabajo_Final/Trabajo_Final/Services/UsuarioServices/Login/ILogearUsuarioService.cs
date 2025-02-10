@@ -1,4 +1,4 @@
-﻿using DAO.Entidades;
+﻿using DAO.Entidades.Usuario;
 using Trabajo_Final.DTO;
 
 namespace Trabajo_Final.Services.UsuarioServices.Login

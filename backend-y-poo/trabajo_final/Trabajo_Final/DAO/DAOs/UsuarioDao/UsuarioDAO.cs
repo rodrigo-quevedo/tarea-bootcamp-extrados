@@ -1,6 +1,5 @@
 ﻿using DAO.Connection;
-using DAO.DAOs.DI;
-using DAO.Entidades;
+using DAO.Entidades.UsuarioEntidades;
 using Dapper;
 using MySqlConnector;
 using System;
@@ -12,13 +11,14 @@ using System.Threading.Tasks;
 using Trabajo_Final.utils.Exceptions.Exceptions;
 
 
-namespace DAO.DAOs
+
+namespace DAO.DAOs.UsuarioDao
 {
     public class UsuarioDAO : IUsuarioDAO
     {
         // Connection
         private MySqlConnection connection { get; set; }
-        
+
 
         public UsuarioDAO(string connectionString)
         {
@@ -32,15 +32,16 @@ namespace DAO.DAOs
             string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo) " +
                 "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo);";
 
-            try { 
+            try
+            {
                 return await connection.ExecuteAsync(insertQuery, new
                 {
-                    Rol = usuario.Rol,
-                    Pais = usuario.Pais,
-                    Nombre_apellido = usuario.Nombre_apellido,
-                    Email = usuario.Email,
-                    Password = usuario.Password, //recibe password YA ENCRIPTADA
-                    Activo = usuario.Activo
+                    usuario.Rol,
+                    usuario.Pais,
+                    usuario.Nombre_apellido,
+                    usuario.Email,
+                    usuario.Password, //recibe password YA ENCRIPTADA
+                    usuario.Activo
                 });
             }
             catch (MySqlException e)
@@ -65,22 +66,23 @@ namespace DAO.DAOs
             {
                 return await connection.ExecuteAsync(insertQuery, new
                 {
-                    Rol = usuario.Rol,
-                    Pais = usuario.Pais,
-                    Nombre_apellido = usuario.Nombre_apellido,
-                    Email = usuario.Email,
-                    Password = usuario.Password, //recibe password YA ENCRIPTADA
-                    Activo = usuario.Activo,
+                    usuario.Rol,
+                    usuario.Pais,
+                    usuario.Nombre_apellido,
+                    usuario.Email,
+                    usuario.Password, //recibe password YA ENCRIPTADA
+                    usuario.Activo,
                     Id_usuario_creador = id_usuario_creador
                 });
             }
-            catch(MySqlException e) {
+            catch (MySqlException e)
+            {
                 if (e.Message.Contains("Duplicate entry")
                     &&
                     e.Message.Contains("for key 'usuarios.email'")
                 )
-                    throw new AlreadyExistsException($"El usuario con mail [{usuario.Email}] ya existe."); 
-                   
+                    throw new AlreadyExistsException($"El usuario con mail [{usuario.Email}] ya existe.");
+
                 throw e;
             }
 
@@ -105,8 +107,8 @@ namespace DAO.DAOs
 
                 return await connection.QueryFirstOrDefaultAsync<Usuario>(selectQuery, new
                 {
-                    Id = usuario.Id,
-                    Activo = usuario.Activo
+                    usuario.Id,
+                    usuario.Activo
                 });
             }
 
@@ -117,8 +119,8 @@ namespace DAO.DAOs
 
                 return await connection.QueryFirstOrDefaultAsync<Usuario>(selectQuery, new
                 {
-                    Email = usuario.Email,
-                    Activo = usuario.Activo
+                    usuario.Email,
+                    usuario.Activo
                 });
             }
 
@@ -138,7 +140,7 @@ namespace DAO.DAOs
             //si no se cumple ninguno de esos parámetros, devuelve null
             Console.WriteLine("No se pasó ningún id, email o rol para la búsqueda, se devolverá null");
             return null;
-            
+
         }
 
 

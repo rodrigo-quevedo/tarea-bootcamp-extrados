@@ -1,6 +1,6 @@
 ﻿using DAO.DAOs;
-using DAO.DAOs.DI;
-using DAO.Entidades;
+using DAO.DAOs.Usuario;
+using DAO.Entidades.Usuario;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Trabajo_Final.utils.Exceptions.BaseException;
 using Trabajo_Final.utils.Exceptions.Exceptions;

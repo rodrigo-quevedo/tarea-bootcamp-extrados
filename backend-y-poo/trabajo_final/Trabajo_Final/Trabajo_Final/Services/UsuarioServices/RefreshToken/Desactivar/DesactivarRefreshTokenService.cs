@@ -1,4 +1,4 @@
-﻿using DAO.DAOs.DI;
+﻿using DAO.DAOs.Usuario;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace Trabajo_Final.Services.UsuarioServices.RefreshToken.Desactivar

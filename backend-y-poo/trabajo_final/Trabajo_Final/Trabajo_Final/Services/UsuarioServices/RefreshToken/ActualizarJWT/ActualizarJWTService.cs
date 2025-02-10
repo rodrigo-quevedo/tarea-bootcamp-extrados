@@ -1,5 +1,5 @@
-﻿using DAO.DAOs.DI;
-using DAO.Entidades;
+﻿using DAO.DAOs.Usuario;
+using DAO.Entidades.Usuario;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.utils.Exceptions.Exceptions;
 

@@ -1,7 +1,8 @@
 using Configuration;
 using Configuration.DI;
 using DAO.DAOs;
-using DAO.DAOs.DI;
+using DAO.DAOs.Cartas;
+using DAO.DAOs.UsuarioDao;
 using DAO.Entidades;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -35,6 +36,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IUsuarioDAO>(
     new UsuarioDAO(builder.Configuration.GetSection(
+            "DB:general_connection_string"
+        ).Value
+    )
+);
+builder.Services.AddSingleton<ICartaDAO>(
+    new CartaDAO(builder.Configuration.GetSection(
             "DB:general_connection_string"
         ).Value
     )

@@ -1,7 +1,7 @@
 ﻿using Configuration;
 using Configuration.DI;
 using DAO.DAOs.DI;
-using DAO.Entidades;
+using DAO.Entidades.Usuario;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

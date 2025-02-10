@@ -1,6 +1,6 @@
 ﻿using DAO.DAOs;
-using DAO.DAOs.DI;
-using DAO.Entidades;
+using DAO.DAOs.Usuario;
+using DAO.Entidades.Usuario;
 using Isopoh.Cryptography.Argon2;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using Trabajo_Final.DTO;

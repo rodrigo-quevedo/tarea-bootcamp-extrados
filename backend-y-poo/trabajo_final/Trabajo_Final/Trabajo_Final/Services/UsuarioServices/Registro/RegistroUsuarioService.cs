@@ -1,5 +1,5 @@
-﻿using DAO.DAOs.DI;
-using DAO.Entidades;
+﻿using DAO.DAOs.Usuario;
+using DAO.Entidades.Usuario;
 using Isopoh.Cryptography.Argon2;
 using System.Security.Claims;
 using Trabajo_Final.DTO;

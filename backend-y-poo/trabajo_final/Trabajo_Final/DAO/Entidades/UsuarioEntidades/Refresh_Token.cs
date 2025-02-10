@@ -5,12 +5,12 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAO.Entidades
+namespace DAO.Entidades.UsuarioEntidades
 {
     public class Refresh_Token
     {
-        public int id_usuario {  get; set; } 
+        public int id_usuario { get; set; }
         public string refresh_token { get; set; }
-        public bool token_activo {  get; set; }
+        public bool token_activo { get; set; }
     }
 }
