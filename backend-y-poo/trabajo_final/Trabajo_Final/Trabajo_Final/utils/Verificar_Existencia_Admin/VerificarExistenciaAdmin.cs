@@ -9,7 +9,7 @@ using DAO.Entidades.UsuarioEntidades;
 
 namespace Trabajo_Final.utils.Verificar_Existencia_Admin
 {
-    public class VerificarExistenciaAdmin : IVerificarExistenciaAdmin
+    public class VerificarExistenciaAdmin 
     {
         // cargar DAO y connectionString
         private IUsuarioDAO usuarioDAO;

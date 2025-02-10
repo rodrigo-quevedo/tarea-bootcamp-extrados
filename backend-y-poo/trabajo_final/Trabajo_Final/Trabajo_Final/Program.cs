@@ -26,6 +26,7 @@ using Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar;
 using Trabajo_Final.Services.UsuarioServices.Registro;
 using Trabajo_Final.utils.Exceptions.BaseException;
 using Trabajo_Final.utils.Exceptions.Exceptions;
+using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -62,7 +63,9 @@ builder.Services.AddSingleton<IJwtConfiguration>(
         builder.Configuration.GetSection("Jwt:audience").Value
     )
 );
-builder.Services.AddSingleton<IVerificarExistenciaAdmin, VerificarExistenciaAdmin>();
+builder.Services.AddSingleton<VerificarExistenciaAdmin>();
+builder.Services.AddSingleton<GenerarCartasYSeries>();
+
 
 //services
 builder.Services.AddScoped<ICrearJwtService, CrearJwtService>();

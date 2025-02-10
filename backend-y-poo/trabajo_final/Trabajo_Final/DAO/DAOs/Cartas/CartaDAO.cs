@@ -59,7 +59,7 @@ namespace DAO.DAOs.Cartas
         }
 
         //cargar series y cartas
-        public async Task<bool> InicializarDB(
+        public bool InicializarEnDB(
             Serie[] arrSeries,
             Carta[] arrCartas,
             Series_De_Carta[] arrSeriesDeCartas,
@@ -68,12 +68,12 @@ namespace DAO.DAOs.Cartas
             bool cartasCargadas = false, 
             bool seriesDeCartaCargadas = false
         ) {
-
+            connection.Open();
             bool flag_seriesCargadas = seriesCargadas;
             bool flag_cartasCargadas = cartasCargadas;
             bool flag_seriesDeCartasCargadas = seriesDeCartaCargadas;
 
-            if (flag_seriesCargadas) 
+            if (!flag_seriesCargadas) 
                 using (MySqlTransaction transaction = connection.BeginTransaction())
                 {
                     string insertQuery = " INSERT into series " +
@@ -101,11 +101,10 @@ namespace DAO.DAOs.Cartas
                     {
                         transaction.Rollback();
                         Console.WriteLine("Error transaction [series]: " + ex.Message);
-                        flag_seriesCargadas = false;
                     }
                 }
 
-            if (flag_cartasCargadas)
+            if (!flag_cartasCargadas)
                 using (MySqlTransaction transaction = connection.BeginTransaction())
                 {
                     string insertQuery = " INSERT into cartas(id, ataque, defensa, ilustracion) " +
@@ -132,13 +131,12 @@ namespace DAO.DAOs.Cartas
                     {
                         transaction.Rollback();
                         Console.WriteLine("Error transaction [cartas]: " + ex.Message);
-                        flag_cartasCargadas = false;
                     }
 
 
                 }
 
-            if (flag_seriesDeCartasCargadas)
+            if (!flag_seriesDeCartasCargadas)
                 using (MySqlTransaction transaction = connection.BeginTransaction())
                 {
                     string insertQuery = " INSERT into series_de_cartas " +
@@ -165,7 +163,6 @@ namespace DAO.DAOs.Cartas
                     {
                         transaction.Rollback();
                         Console.WriteLine("Error transaction [series_de_cartas]: " + ex.Message);
-                        flag_seriesDeCartasCargadas = false;
                     }
 
                 }

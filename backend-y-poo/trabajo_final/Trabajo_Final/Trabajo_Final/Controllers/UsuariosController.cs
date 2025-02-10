@@ -24,6 +24,7 @@ using Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar;
 using Trabajo_Final.Services.UsuarioServices.Registro;
 using Trabajo_Final.utils.Constantes;
 using Trabajo_Final.utils.Exceptions.Exceptions;
+using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
 
 namespace Trabajo_Final.Controllers
@@ -47,13 +48,9 @@ namespace Trabajo_Final.Controllers
         
         private IRegistroUsuarioService registroUsuarioService;
 
-
-        //private IRegistrarUsuarioService registrarUsuarioService;
-
-
-
         public UsuariosController(
-            IVerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
+            VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
+            GenerarCartasYSeries generarCartasYSeries,
 
             ICartaDAO cartaDao,
 

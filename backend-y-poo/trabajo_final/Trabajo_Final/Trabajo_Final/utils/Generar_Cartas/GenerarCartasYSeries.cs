@@ -1,5 +1,4 @@
 ﻿using DAO.DAOs.Cartas;
-using DAO.DAOs.DI;
 using DAO.Entidades.Cartas;
 using System.Globalization;
 
@@ -10,7 +9,23 @@ namespace Trabajo_Final.utils.Generar_Cartas
         ICartaDAO cartaDAO;
         public GenerarCartasYSeries(ICartaDAO dao)
         {
+            //Si esto falla, resetear tablas con Use database + Run selection
+
             cartaDAO = dao;
+            Serie[] arrSeries = GenerarSeries(10);
+            Carta[] arrCartas = GenerarCartas(60);
+            Series_De_Carta[] arrSeriesDeCartas = GenerarSeriesDeCartas(arrSeries, arrCartas, 2);
+
+            //test:
+            //foreach (Serie serie in arrSeries) { Console.WriteLine(serie.Nombre); }
+            //foreach (Carta carta in arrCartas) { Console.WriteLine(carta.Id); }
+            //foreach (Series_De_Carta serieDeCarta in arrSeriesDeCartas) { Console.WriteLine($"{serieDeCarta.Id_carta} -> {serieDeCarta.Nombre_serie} "); }
+            
+            cartaDAO.InicializarEnDB(
+                arrSeries, arrCartas, arrSeriesDeCartas,
+                true, true, true//quitar esta linea para ejecutar
+            );
+
         }
 
 
@@ -31,11 +46,10 @@ namespace Trabajo_Final.utils.Generar_Cartas
 
                 fecha_salida = fecha_salida.AddMonths(2);
 
-                arrSeries.Append(new Serie
-                {
+                arrSeries[i] = new Serie {
                     Nombre = char_nombreSerie,
                     Fecha_salida = fecha_salida
-                });
+                };
             }
 
             return arrSeries;
@@ -49,7 +63,7 @@ namespace Trabajo_Final.utils.Generar_Cartas
             int id = 0;
             int atk = 0;
             int def = 0;
-            string url_img = "https://proveedor.en.la.nube.com/miusuario/imagenes/";
+            string base_url = "https://proveedor.en.la.nube.com/miusuario/imagenes/";
 
             for (int i = 1; i <= arrCartas.Length; i++)
             {
@@ -63,15 +77,12 @@ namespace Trabajo_Final.utils.Generar_Cartas
                     def = rnd.Next(0, 30) * 100;
                 }
 
-                url_img += i;
-
-                arrCartas.Append(new Carta
-                {
+                arrCartas[i-1]  = new Carta {
                     Id = id,
                     Ataque = atk,
                     Defensa = def,
-                    Ilustracion = url_img
-                });
+                    Ilustracion = base_url + i
+                };
             }
 
             return arrCartas;
@@ -79,27 +90,48 @@ namespace Trabajo_Final.utils.Generar_Cartas
     
         private Series_De_Carta[] GenerarSeriesDeCartas(Serie[] arrSeries, Carta[] arrCartas, int maxSeriesPorCarta)
         {
+            if (maxSeriesPorCarta > arrSeries.Length) throw new Exception("No se puede asignar a una carta más series de las que actualmente existen.");
+
+
             Series_De_Carta[] arrSeriesDeCartas 
                 = new Series_De_Carta[arrCartas.Length * maxSeriesPorCarta];
 
             Random rnd = new Random();
 
+
+            int acc_index = 0;
             foreach (var carta in arrCartas)
             {
                 int random_cantidad_series = rnd.Next(1, maxSeriesPorCarta + 1);
 
+                int[] indexes_ocupados = new int[random_cantidad_series];
+
                 for (int i = 0; i < random_cantidad_series; i++) { 
                     int random_serie_index = rnd.Next(0, arrSeries.Length);
 
-                    arrSeriesDeCartas.Append(new Series_De_Carta
-                    {
+                    while (indexes_ocupados.Contains(random_serie_index)) {
+                        random_serie_index = rnd.Next(0, arrSeries.Length);
+                    }
+
+                    indexes_ocupados[i] = random_serie_index;
+
+                    arrSeriesDeCartas[acc_index++] = new Series_De_Carta {
                         Id_carta = carta.Id,
                         Nombre_serie = arrSeries[random_serie_index].Nombre
-                    });
+                    };
                 }    
             }
 
-            return arrSeriesDeCartas;
+            //Limpiar nulls (al calcular el tamaño casi siempre sobra):
+            Series_De_Carta[] result_arr = new Series_De_Carta[acc_index];
+            int res_acc_index = 0;
+            foreach (var carta in arrSeriesDeCartas)
+            {
+                if (carta == null) break;
+                result_arr[res_acc_index++] = carta;
+            }
+
+            return result_arr;
         }
     
     
