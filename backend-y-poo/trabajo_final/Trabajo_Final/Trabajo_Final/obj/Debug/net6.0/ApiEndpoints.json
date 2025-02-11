@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.ColeccionCartas.ColeccionarCartasDTO",
+        "Type": "Trabajo_Final.DTO.ColeccionCartas.ArrayIdCartasDTO",
         "IsRequired": true
       }
     ],
@@ -23,6 +23,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
+    "Method": "BorrarCartasColeccionadas",
+    "RelativePath": "coleccion",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.ColeccionCartas.ArrayIdCartasDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

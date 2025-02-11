@@ -238,5 +238,43 @@ namespace DAO.DAOs.Cartas
             });
 
         }
+
+        //DELETE cartas coleccionadas
+        public async Task<bool> QuitarCartasColeccionadas(int id_jugador, int[] id_cartas)
+        {
+            string deleteQuery = " DELETE FROM cartas_coleccionadas " +
+                                 " WHERE id_jugador = @Id_jugador " +
+                                 "       AND" +
+                                 "       id_carta = @Id_carta;  ";
+
+            bool exito = false;
+
+            using (MySqlTransaction transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    foreach (int id_carta in id_cartas)
+                    {
+                        await connection.ExecuteAsync(
+                            deleteQuery, 
+                            new {
+                                Id_jugador = id_jugador,
+                                Id_carta = id_carta
+                            },
+                            transaction: transaction
+                        );
+                    }
+
+                    transaction.Commit();
+                    exito = true;
+                }
+                catch (Exception ex) {
+                    transaction.Rollback();
+                    Console.WriteLine("Error transaction [coleccionar cartas]: " + ex.Message);
+                    throw new DefaultException("No se pudo quitar las cartas de la colección.", ex);
+                }
+            }
+            return exito;
+        }
     }
 }

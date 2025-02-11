@@ -2,10 +2,10 @@
 
 namespace Trabajo_Final.DTO.ColeccionCartas
 {
-    public class ColeccionarCartasDTO
+    public class ArrayIdCartasDTO
     {
         [Required(ErrorMessage = "Campo 'Id_cartas' es obligatorio.")]
-        [MinLength(1, ErrorMessage = "Se debe ingresar al menos una ID de carta para coleccionar.")]
+        [MinLength(1, ErrorMessage = "Se debe ingresar al menos una ID de carta.")]
         public int[] Id_cartas {  get; set; }
     }
 }

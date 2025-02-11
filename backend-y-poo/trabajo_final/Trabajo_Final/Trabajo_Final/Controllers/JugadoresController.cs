@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Trabajo_Final.DTO.ColeccionCartas;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
+using Trabajo_Final.Services.JugadorServices.QuitarCartas;
 using Trabajo_Final.utils.Constantes;
 using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
@@ -18,24 +19,27 @@ namespace Trabajo_Final.Controllers
     {
         private IColeccionarCartasService coleccionarCartasService;
         private IObtenerColeccionService obtenerColeccionService;
+        private IQuitarCartasService quitarCartasService;
 
         public JugadoresController (
             VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
             GenerarCartasYSeries generarCartasYSeries,
 
             IColeccionarCartasService coleccionarCartas,
-            IObtenerColeccionService obtenerColeccion
+            IObtenerColeccionService obtenerColeccion,
+            IQuitarCartasService quitarCartas
         )
         {
             coleccionarCartasService = coleccionarCartas;
             obtenerColeccionService = obtenerColeccion;
+            quitarCartasService = quitarCartas;
         }
 
 
         [HttpPost]
         [Route("/coleccion")]
         [Authorize(Roles = Roles.JUGADOR)]
-        public async Task<ActionResult> ColeccionarCartas(ColeccionarCartasDTO dto)
+        public async Task<ActionResult> ColeccionarCartas(ArrayIdCartasDTO dto)
         {
             //parsear ID usuario
             string string_usuario_id = User.FindFirst(ClaimTypes.Sid).Value;
@@ -61,6 +65,20 @@ namespace Trabajo_Final.Controllers
                 await obtenerColeccionService.ObtenerColeccion(usuario_id);
 
             return Ok( new {cartas_coleccionadas = coleccion});
+        }
+
+        [HttpDelete]
+        [Route("/coleccion")]
+        [Authorize(Roles = Roles.JUGADOR)]
+        public async Task<ActionResult> BorrarCartasColeccionadas(ArrayIdCartasDTO dto)
+        {
+            string string_usuario_id = User.FindFirst(ClaimTypes.Sid).Value;
+            Int32.TryParse(string_usuario_id, out int usuario_id);
+
+            
+            await quitarCartasService.QuitarCartas(usuario_id, dto.Id_cartas);
+
+            return Ok(new { message = "Se quitaron las cartas de la colección."});
         }
 
     }
