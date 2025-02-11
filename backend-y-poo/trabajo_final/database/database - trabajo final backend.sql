@@ -238,7 +238,7 @@ CREATE TABLE juegos_de_ronda(
 -- "Server=localhost;Port=3306;Username=trabajo_final_backend_user;Password=123456;Database=trabajo_final_backend;"
 DROP USER IF EXISTS trabajo_final_backend_user;
 CREATE USER trabajo_final_backend_user IDENTIFIED BY '123456';
-GRANT SELECT, INSERT, UPDATE ON trabajo_final_backend.* TO trabajo_final_backend_user;
+GRANT SELECT, INSERT, UPDATE, DELETE ON trabajo_final_backend.* TO trabajo_final_backend_user;
 
 
 -- Hardcodear admin

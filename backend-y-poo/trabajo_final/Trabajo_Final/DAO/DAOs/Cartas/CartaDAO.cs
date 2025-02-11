@@ -205,6 +205,13 @@ namespace DAO.DAOs.Cartas
                 {
                     transaction.Rollback();
                     Console.WriteLine("Error transaction [coleccionar cartas]: " + ex.Message);
+
+                    if (ex.Message.Contains("Duplicate entry") 
+                        && 
+                        ex.Message.Contains("for key 'cartas_coleccionadas.PRIMARY'")
+                    )
+                        throw new AlreadyExistsException("Hay cartas que ya existen. Verificar y reintentar.");
+
                     throw new DefaultException("No se pudo agregar las cartas a la colección.", ex);
                 }
 
@@ -242,6 +249,8 @@ namespace DAO.DAOs.Cartas
         //DELETE cartas coleccionadas
         public async Task<bool> QuitarCartasColeccionadas(int id_jugador, int[] id_cartas)
         {
+            //await connection.OpenAsync();
+
             string deleteQuery = " DELETE FROM cartas_coleccionadas " +
                                  " WHERE id_jugador = @Id_jugador " +
                                  "       AND" +
