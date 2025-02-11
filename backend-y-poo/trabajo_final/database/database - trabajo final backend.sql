@@ -43,38 +43,16 @@ CREATE TABLE refresh_tokens (
 -- Posiblemente 'admin' no necesite tabla (con los atributos de la tabla usuario puede hacer sus tareas)
 -- Lo mismo pasa con 'organizador'
 
-DROP TABLE IF EXISTS jueces;
-CREATE TABLE jueces(
-	id_juez INT PRIMARY KEY,
-	FOREIGN KEY(id_juez) REFERENCES usuarios(id),
-	
-	-- acá no conviene guardar la foto en sí, sino una URL o path/ruta/directorio
-	-- el servidor lee esa URL o path y busca el archivo en el OS
-	foto VARCHAR(200) NOT NULL,
-	
-	alias VARCHAR(25) NOT NULL
-);
-
-
-DROP TABLE IF EXISTS jugadores;
-CREATE TABLE jugadores (
-	id_jugador INT PRIMARY KEY,
-	FOREIGN KEY(id_jugador) REFERENCES usuarios(id),
+DROP TABLE IF EXISTS perfil_usuarios;
+CREATE TABLE perfil_usuarios(
+	id_usuario INT PRIMARY KEY,
+	FOREIGN KEY(id_usuario) REFERENCES usuarios(id),
 
 	foto VARCHAR(200) NOT NULL, -- URL/path del archivo
 	
 	alias VARCHAR(25) NOT NULL
-	
-	-- Estos van en sus propia tabla:
-		-- cartas_coleccionadas
-		-- descalificaciones
-	
-	-- Esto se puede sacar de otras tablas ya existentes:
-		-- Juegos ganados
-		-- Juegos perdidos
-		-- Torneos ganados
-
 );
+
 
 DROP TABLE IF EXISTS series;
 CREATE TABLE series(
@@ -112,7 +90,7 @@ CREATE TABLE cartas_coleccionadas(
 	FOREIGN KEY (id_carta) REFERENCES cartas(id),
 	
 	id_jugador INT NOT NULL,
-	FOREIGN KEY (id_jugador) REFERENCES jugadores(id_jugador),
+	FOREIGN KEY (id_jugador) REFERENCES usuarios(id),
 	
 	PRIMARY KEY(id_carta, id_jugador)
 );

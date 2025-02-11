@@ -23,7 +23,7 @@ using Trabajo_Final.Services.UsuarioServices.RefreshToken.Desactivar;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar;
 using Trabajo_Final.Services.UsuarioServices.Registro;
 using Trabajo_Final.utils.Constantes;
-using Trabajo_Final.utils.Exceptions.Exceptions;
+using Custom_Exceptions.Exceptions.Exceptions;
 using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
 
@@ -50,9 +50,6 @@ namespace Trabajo_Final.Controllers
 
         public UsuariosController(
             VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
-            GenerarCartasYSeries generarCartasYSeries,
-
-            ICartaDAO cartaDao,
 
             IJwtConfiguration jwtConfig,
             
@@ -221,7 +218,7 @@ namespace Trabajo_Final.Controllers
             string refreshToken = Request.Cookies["refreshToken"];
 
             bool sesion_cerrada = await desactivarRefreshTokenService.DesactivarRefreshToken(id_usuario, refreshToken);
-            if (!sesion_cerrada) throw new Exception("No se pudo cerrar la sesión.");
+            if (!sesion_cerrada) throw new DefaultException("No se pudo cerrar la sesión.");
 
             //Server response:
             
@@ -253,17 +250,17 @@ namespace Trabajo_Final.Controllers
         //}
 
 
-        //crear torneo (organizador)
-        [HttpGet]
-        [Route("/torneo")]
-        [Authorize(Roles = Roles.ORGANIZADOR)]
-        public ActionResult crearTorneo()
-        {
-            //Console.WriteLine(User.Claims.ToString());
+        ////crear torneo (organizador)
+        //[HttpGet]
+        //[Route("/torneo")]
+        //[Authorize(Roles = Roles.ORGANIZADOR)]
+        //public ActionResult crearTorneo()
+        //{
+        //    //Console.WriteLine(User.Claims.ToString());
 
 
-            return Ok(new {rol_del_usuario = User.FindFirst(ClaimTypes.Role).Value});
-        }
+        //    return Ok(new {rol_del_usuario = User.FindFirst(ClaimTypes.Role).Value});
+        //}
 
     }
 }

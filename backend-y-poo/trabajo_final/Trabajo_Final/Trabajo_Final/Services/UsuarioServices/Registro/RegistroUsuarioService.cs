@@ -4,7 +4,7 @@ using Isopoh.Cryptography.Argon2;
 using System.Security.Claims;
 using Trabajo_Final.DTO;
 using Trabajo_Final.utils.Constantes;
-using Trabajo_Final.utils.Exceptions.Exceptions;
+using Custom_Exceptions.Exceptions.Exceptions;
 
 namespace Trabajo_Final.Services.UsuarioServices.Registro
 {
@@ -36,7 +36,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
             //aca se puede hacer catch y tirar una custom exception segun el resultado
             //(ej. falló el INSERT por mail repetido o falló INSERT por network error)
             int filasDeTablaAfectadas = await usuarioDAO.CrearUsuarioAsync(nuevoUsuario);
-            if (filasDeTablaAfectadas == 0) throw new Exception($"No se pudo crear el usuario [{nuevoUsuario.Email}].");
+            if (filasDeTablaAfectadas == 0) throw new DefaultException($"No se pudo crear el usuario [{nuevoUsuario.Email}].");
             
             Console.WriteLine($"Se registró al usuario [{nuevoUsuario.Email}] con éxito.");
 
@@ -59,7 +59,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Registro
             );
 
             int filasDeTablaAfectadas = await usuarioDAO.CrearUsuarioAsync(nuevoUsuario, id_usuario_creador);
-            if (filasDeTablaAfectadas == 0) throw new Exception($"No se pudo crear el usuario [{nuevoUsuario.Email}].");
+            if (filasDeTablaAfectadas == 0) throw new DefaultException($"No se pudo crear el usuario [{nuevoUsuario.Email}].");
             
             Console.WriteLine($"Se registró al usuario [{nuevoUsuario.Email}] con éxito.");
 

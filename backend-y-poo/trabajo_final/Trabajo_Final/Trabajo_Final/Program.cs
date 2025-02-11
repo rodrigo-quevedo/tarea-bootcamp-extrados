@@ -1,5 +1,7 @@
 using Configuration;
 using Configuration.DI;
+using Custom_Exceptions.Exceptions.BaseException;
+using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs;
 using DAO.DAOs.Cartas;
 using DAO.DAOs.UsuarioDao;
@@ -17,6 +19,8 @@ using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
 using Trabajo_Final.DTO;
+using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
+using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.AsignarRefreshToken;
@@ -24,8 +28,6 @@ using Trabajo_Final.Services.UsuarioServices.RefreshToken.Crear;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Desactivar;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar;
 using Trabajo_Final.Services.UsuarioServices.Registro;
-using Trabajo_Final.utils.Exceptions.BaseException;
-using Trabajo_Final.utils.Exceptions.Exceptions;
 using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
 using static System.Net.Mime.MediaTypeNames;
@@ -79,6 +81,8 @@ builder.Services.AddScoped<IDesactivarRefreshTokenService, DesactivarRefreshToke
 
 builder.Services.AddScoped<IRegistroUsuarioService, RegistroUsuarioService>();
 
+builder.Services.AddScoped<IColeccionarCartasService, ColeccionarCartasService>();
+builder.Services.AddScoped<IObtenerColeccionService, ObtenerColeccionService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
+    "Method": "ColeccionarCartas",
+    "RelativePath": "coleccion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.ColeccionCartas.ColeccionarCartasDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
+    "Method": "ObtenerCartasColeccionadas",
+    "RelativePath": "coleccion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
     "Method": "RegistrarUsuario",
     "RelativePath": "crear",
@@ -65,16 +91,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
-    "Method": "crearTorneo",
-    "RelativePath": "torneo",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   }
 ]

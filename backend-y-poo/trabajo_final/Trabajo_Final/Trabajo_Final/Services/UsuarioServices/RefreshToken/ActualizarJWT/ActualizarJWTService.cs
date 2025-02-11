@@ -1,7 +1,7 @@
 ﻿using DAO.DAOs.UsuarioDao;
 using DAO.Entidades.UsuarioEntidades;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
-using Trabajo_Final.utils.Exceptions.Exceptions;
+using Custom_Exceptions.Exceptions.Exceptions;
 
 namespace Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar
 {

@@ -14,7 +14,7 @@ namespace Trabajo_Final.utils.Generar_Cartas
             cartaDAO = dao;
             Serie[] arrSeries = GenerarSeries(10);
             Carta[] arrCartas = GenerarCartas(60);
-            Series_De_Carta[] arrSeriesDeCartas = GenerarSeriesDeCartas(arrSeries, arrCartas, 2);
+            Serie_De_Carta[] arrSeriesDeCartas = GenerarSeriesDeCartas(arrSeries, arrCartas, 2);
 
             //test:
             //foreach (Serie serie in arrSeries) { Console.WriteLine(serie.Nombre); }
@@ -88,13 +88,13 @@ namespace Trabajo_Final.utils.Generar_Cartas
             return arrCartas;
         }
     
-        private Series_De_Carta[] GenerarSeriesDeCartas(Serie[] arrSeries, Carta[] arrCartas, int maxSeriesPorCarta)
+        private Serie_De_Carta[] GenerarSeriesDeCartas(Serie[] arrSeries, Carta[] arrCartas, int maxSeriesPorCarta)
         {
             if (maxSeriesPorCarta > arrSeries.Length) throw new Exception("No se puede asignar a una carta más series de las que actualmente existen.");
 
 
-            Series_De_Carta[] arrSeriesDeCartas 
-                = new Series_De_Carta[arrCartas.Length * maxSeriesPorCarta];
+            Serie_De_Carta[] arrSeriesDeCartas 
+                = new Serie_De_Carta[arrCartas.Length * maxSeriesPorCarta];
 
             Random rnd = new Random();
 
@@ -115,7 +115,7 @@ namespace Trabajo_Final.utils.Generar_Cartas
 
                     indexes_ocupados[i] = random_serie_index;
 
-                    arrSeriesDeCartas[acc_index++] = new Series_De_Carta {
+                    arrSeriesDeCartas[acc_index++] = new Serie_De_Carta {
                         Id_carta = carta.Id,
                         Nombre_serie = arrSeries[random_serie_index].Nombre
                     };
@@ -123,7 +123,7 @@ namespace Trabajo_Final.utils.Generar_Cartas
             }
 
             //Limpiar nulls (al calcular el tamaño casi siempre sobra):
-            Series_De_Carta[] result_arr = new Series_De_Carta[acc_index];
+            Serie_De_Carta[] result_arr = new Serie_De_Carta[acc_index];
             int res_acc_index = 0;
             foreach (var carta in arrSeriesDeCartas)
             {

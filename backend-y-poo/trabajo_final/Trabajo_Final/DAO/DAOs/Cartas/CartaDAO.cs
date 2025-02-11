@@ -1,5 +1,7 @@
-﻿using DAO.Connection;
+﻿using Custom_Exceptions.Exceptions.Exceptions;
+using DAO.Connection;
 using DAO.Entidades.Cartas;
+using DAO.Entidades.ColeccionCartas;
 using Dapper;
 using MySqlConnector;
 using System;
@@ -46,7 +48,7 @@ namespace DAO.DAOs.Cartas
             });
         }
 
-        public async Task<int> CrearSerieDeCarta(Series_De_Carta seriesDeCarta)
+        public async Task<int> CrearSerieDeCarta(Serie_De_Carta seriesDeCarta)
         {
             string insertQuery = " INSERT into series_de_cartas " +
                                  " VALUES (@Nombre_serie, @Id_carta);";
@@ -62,7 +64,7 @@ namespace DAO.DAOs.Cartas
         public bool InicializarEnDB(
             Serie[] arrSeries,
             Carta[] arrCartas,
-            Series_De_Carta[] arrSeriesDeCartas,
+            Serie_De_Carta[] arrSeriesDeCartas,
 
             bool seriesCargadas = false, 
             bool cartasCargadas = false, 
@@ -170,7 +172,71 @@ namespace DAO.DAOs.Cartas
 
             return (flag_seriesCargadas && flag_cartasCargadas && flag_seriesDeCartasCargadas);
         }
-        
+       
 
+
+        //CREATE 
+        public async Task<bool> ColeccionarCartas(int id_jugador, int[] id_cartas)
+        {
+            bool exito = false;
+            using (MySqlTransaction transaction = connection.BeginTransaction())
+            {
+                string insertQuery = " INSERT into cartas_coleccionadas " +
+                                     " VALUES(@Id_carta, @Id_jugador); ";
+
+                try
+                {
+                    foreach (int id_carta in id_cartas)
+                    {
+                        await connection.ExecuteAsync(
+                            insertQuery, 
+                            new {
+                                Id_carta = id_carta,
+                                Id_jugador = id_jugador
+                            },
+                            transaction: transaction
+                        );
+                    }
+
+                    transaction.Commit();
+                    exito = true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Console.WriteLine("Error transaction [coleccionar cartas]: " + ex.Message);
+                    throw new DefaultException("No se pudo agregar las cartas a la colección.", ex);
+                }
+
+            }
+            return exito;
+
+        }
+
+        //READ cartas_coleccionadas
+        public async Task<IEnumerable<Carta>> BuscarCartasColeccionadas(int usuario_id)
+        {
+            string selectQuery = " SELECT * FROM cartas " +
+                                 " WHERE id IN ( " +
+                                 "    SELECT id_carta FROM cartas_coleccionadas " +
+                                 "    WHERE id_jugador = @Id_jugador " +
+                                 " ); ";
+
+            return await connection.QueryAsync<Carta>(selectQuery, new {
+                    Id_jugador = usuario_id
+                });
+        }
+
+        public async Task<IEnumerable<Serie_De_Carta>> BuscarSeriesDeCartas(int[] id_cartas)
+        {
+            string selectQuery = " SELECT * FROM series_de_cartas " +
+                                 " WHERE id_carta IN @Id_carta; ";
+
+            return await connection.QueryAsync<Serie_De_Carta>(selectQuery, new
+            {
+                Id_carta = id_cartas
+            });
+
+        }
     }
 }

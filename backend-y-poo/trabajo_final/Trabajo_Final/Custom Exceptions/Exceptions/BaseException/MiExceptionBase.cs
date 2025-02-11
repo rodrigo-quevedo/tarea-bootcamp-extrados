@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Trabajo_Final.utils.Exceptions.BaseException
+namespace Custom_Exceptions.Exceptions.BaseException
 {
     public class MiExceptionBase : Exception
     {
@@ -9,19 +9,19 @@ namespace Trabajo_Final.utils.Exceptions.BaseException
 
         public MiExceptionBase()
         {
-            this.ExceptionStatusCode = StatusCodes.Status500InternalServerError;
+            ExceptionStatusCode = StatusCodes.Status500InternalServerError;
         }
 
         public MiExceptionBase(string message)
             : base(message)
         {
-            this.ExceptionStatusCode = StatusCodes.Status500InternalServerError;
+            ExceptionStatusCode = StatusCodes.Status500InternalServerError;
         }
 
         public MiExceptionBase(string message, Exception inner)
             : base(message, inner)
         {
-            this.ExceptionStatusCode = StatusCodes.Status500InternalServerError;
+            ExceptionStatusCode = StatusCodes.Status500InternalServerError;
         }
     }
 }

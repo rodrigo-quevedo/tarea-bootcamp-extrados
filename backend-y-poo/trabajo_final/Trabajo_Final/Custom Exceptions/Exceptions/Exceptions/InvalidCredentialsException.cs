@@ -1,25 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
-using Trabajo_Final.utils.Exceptions.BaseException;
+﻿using Custom_Exceptions.Exceptions.BaseException;
+using Microsoft.AspNetCore.Http;
 
-namespace Trabajo_Final.utils.Exceptions.Exceptions
+namespace Custom_Exceptions.Exceptions.Exceptions
 {
     public class InvalidCredentialsException : MiExceptionBase
     {
         public InvalidCredentialsException()
         {
-            this.ExceptionStatusCode = StatusCodes.Status401Unauthorized;
+            ExceptionStatusCode = StatusCodes.Status401Unauthorized;
         }
 
         public InvalidCredentialsException(string message)
             : base(message)
         {
-            this.ExceptionStatusCode = StatusCodes.Status401Unauthorized;
+            ExceptionStatusCode = StatusCodes.Status401Unauthorized;
         }
 
         public InvalidCredentialsException(string message, Exception inner)
             : base(message, inner)
         {
-            this.ExceptionStatusCode = StatusCodes.Status401Unauthorized;
+            ExceptionStatusCode = StatusCodes.Status401Unauthorized;
         }
     }
 }

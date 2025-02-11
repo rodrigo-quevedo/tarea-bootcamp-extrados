@@ -1,25 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
-using Trabajo_Final.utils.Exceptions.BaseException;
+﻿using Custom_Exceptions.Exceptions.BaseException;
+using Microsoft.AspNetCore.Http;
 
-namespace Trabajo_Final.utils.Exceptions.Exceptions
+namespace Custom_Exceptions.Exceptions.Exceptions
 {
     public class NotFoundException : MiExceptionBase
     {
         public NotFoundException()
         {
-            this.ExceptionStatusCode = StatusCodes.Status404NotFound;
+            ExceptionStatusCode = StatusCodes.Status404NotFound;
         }
 
         public NotFoundException(string message)
             : base(message)
         {
-            this.ExceptionStatusCode = StatusCodes.Status404NotFound;
+            ExceptionStatusCode = StatusCodes.Status404NotFound;
         }
 
         public NotFoundException(string message, Exception inner)
             : base(message, inner)
         {
-            this.ExceptionStatusCode = StatusCodes.Status404NotFound;
+            ExceptionStatusCode = StatusCodes.Status404NotFound;
         }
     }
 }

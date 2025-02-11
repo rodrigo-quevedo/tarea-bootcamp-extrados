@@ -1,4 +1,5 @@
-﻿using DAO.Connection;
+﻿using Custom_Exceptions.Exceptions.Exceptions;
+using DAO.Connection;
 using DAO.Entidades.UsuarioEntidades;
 using Dapper;
 using MySqlConnector;
@@ -8,7 +9,7 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Trabajo_Final.utils.Exceptions.Exceptions;
+
 
 
 
