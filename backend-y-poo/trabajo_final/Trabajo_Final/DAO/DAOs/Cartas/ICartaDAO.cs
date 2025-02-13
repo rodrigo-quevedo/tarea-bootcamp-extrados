@@ -20,6 +20,8 @@ namespace DAO.DAOs.Cartas
             bool seriesDeCartaCargadas = false
         );
 
+        public Task<IEnumerable<string>> ObtenerNombresSeries();
+
         public Task<bool> ColeccionarCartas(int id_jugador, int[] id_cartas);
 
         public Task<IEnumerable<Carta>> BuscarCartasColeccionadas(int usuario_id);

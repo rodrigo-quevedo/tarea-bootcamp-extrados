@@ -13,7 +13,8 @@ namespace DAO.DAOs.UsuarioDao
         public int CrearUsuario(Usuario usuario);
         public Task<int> CrearUsuarioAsync(Usuario usuario);
         public Task<int> CrearUsuarioAsync(Usuario usuario, int id_usuario_creador);
-        
+
+        public Task<IEnumerable<int>> BuscarIDsUsuarios(Usuario busqueda);
         public Usuario BuscarUnUsuario(Usuario usuario);
         public Task<Usuario> BuscarUnUsuarioAsync(Usuario usuario);
 

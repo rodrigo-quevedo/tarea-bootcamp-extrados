@@ -1,4 +1,5 @@
-﻿using DAO.DAOs.Torneos;
+﻿using Custom_Exceptions.Exceptions.Exceptions;
+using DAO.DAOs.Torneos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,7 +44,7 @@ namespace Trabajo_Final.Controllers
                 dto.id_jueces_torneo
             );
 
-            return Ok();
+            return Ok(new { message = "Torneo creado con éxito"});
         }
 
     }

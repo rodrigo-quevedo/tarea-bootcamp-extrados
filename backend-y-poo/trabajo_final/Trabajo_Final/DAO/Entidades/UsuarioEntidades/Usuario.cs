@@ -18,6 +18,7 @@ namespace DAO.Entidades.UsuarioEntidades
         public int? Id_usuario_creador { get; set; }
         public string Refresh_token { get; set; }
 
+        public Usuario() { }
         public Usuario(int id, string rol, string pais, string nombre_apellido, string email, string password, bool activo, int? id_usuario_creador, string refresh_token)
         {
             Id = id;

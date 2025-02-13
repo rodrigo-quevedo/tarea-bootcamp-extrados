@@ -173,6 +173,15 @@ namespace DAO.DAOs.Cartas
             return (flag_seriesCargadas && flag_cartasCargadas && flag_seriesDeCartasCargadas);
         }
        
+        //READ nombres de todas las series
+        public async Task<IEnumerable<string>> ObtenerNombresSeries()
+        {
+            string selectQuery = " SELECT nombre FROM series; ";
+
+            return await connection.QueryAsync<string>(selectQuery, null);
+
+        }
+
 
 
         //CREATE 

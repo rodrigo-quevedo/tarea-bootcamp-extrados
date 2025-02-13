@@ -123,6 +123,26 @@ namespace DAO.DAOs.UsuarioDao
 
 
         //READ
+        public async Task<IEnumerable<int>> BuscarIDsUsuarios(Usuario busqueda)
+        {
+            string selectQuery;
+            if (busqueda.Rol != default)
+            {
+                selectQuery = " SELECT id FROM usuarios " +
+                              " WHERE rol = @Rol AND activo = @Activo; ";
+
+                return await connection.QueryAsync<int>(selectQuery, new
+                {
+                    Rol = busqueda.Rol,
+                    Activo = busqueda.Activo
+                });
+            }
+            //else if (busqueda.Pais != default) { }
+            //else if (busqueda.Nombre_apellido != default) { }
+
+            throw new Exception("Debe ingresar un rol para buscar los usuarios.");
+        }
+
 
         public Usuario BuscarUnUsuario(Usuario usuario) // Búsqueda por id, email, rol (este ultimo para Verificar_Existencia_Admin)
         {

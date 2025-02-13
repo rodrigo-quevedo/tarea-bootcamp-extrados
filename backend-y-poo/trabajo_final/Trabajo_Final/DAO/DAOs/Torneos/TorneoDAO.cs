@@ -34,7 +34,7 @@ namespace DAO.DAOs.Torneos
         )
         {
             bool exito = false;
-            connection.Open();
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
 
             using (MySqlTransaction transaction = connection.BeginTransaction()) 
             {
@@ -50,11 +50,9 @@ namespace DAO.DAOs.Torneos
                     "   @Id_organizador, @Pais, " +
                     "   @Fecha_hora_inicio, @Fecha_hora_fin, " +
                     "   @Cantidad_rondas, @Fase" +
-                    " ); " +
-                    "                             "+ 
-                    " SELECT LAST_INSERT_ID();";
+                    " ); ";
 
-                    int id_torneo = await connection.ExecuteAsync(insertAndReturnIdQuery, new
+                    await connection.ExecuteAsync(insertAndReturnIdQuery, new
                     {
                         Id_organizador = id_organizador,
                         Pais = pais,
@@ -65,8 +63,16 @@ namespace DAO.DAOs.Torneos
                     },
                     transaction: transaction);
 
+                    Console.WriteLine("Torneo creado OK");
+                    
+                    string selectIdQuery = " SELECT LAST_INSERT_ID(); ";
+
+                    int id_torneo = await connection.QueryFirstAsync<int>(selectIdQuery, null, transaction);
+
+                    Console.WriteLine($"Last INSERT id: {id_torneo}");
+
                     //TABLE series_habilitadas
-                    List<Serie_Habilitada> listaSeries
+                    List <Serie_Habilitada> listaSeries
                         = series_habilitadas
                         .Select(
                             serie => new Serie_Habilitada()
@@ -87,9 +93,8 @@ namespace DAO.DAOs.Torneos
                     //TABLE jueces_torneo
                     List<Juez_Torneo> listaJueces
                         = id_jueces
-                        .Select(
-                            id_juez => new Juez_Torneo()
-                            {
+                        .Select( id_juez => 
+                            new Juez_Torneo(){
                                 Id_torneo = id_torneo,
                                 Id_juez = id_juez
                             })
@@ -107,6 +112,7 @@ namespace DAO.DAOs.Torneos
                 }
                 catch (Exception ex) {
                     transaction.Rollback();
+
                     throw ex;
                 }
 

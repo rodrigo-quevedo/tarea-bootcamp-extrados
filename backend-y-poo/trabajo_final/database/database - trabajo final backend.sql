@@ -131,7 +131,9 @@ CREATE TABLE series_habilitadas(
 	FOREIGN KEY(nombre_serie) REFERENCES series(nombre),
 	
 	id_torneo INT NOT NULL,
-	FOREIGN KEY(id_torneo) REFERENCES torneos(id)
+	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
+	
+	PRIMARY KEY(nombre_seriejueces_torneo, id_torneo)
 );
 
 
@@ -139,7 +141,7 @@ DROP TABLE IF EXISTS jueces_torneo;
 CREATE TABLE jueces_torneo (
 	id_torneo INT NOT NULL,
 	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
-	torneos
+
 	id_juez INT NOT NULL,
 	FOREIGN KEY(id_juez) REFERENCES usuarios(id),
 	
@@ -154,6 +156,7 @@ CREATE TABLE jugadores_inscriptos(
 	
 	id_torneo INT NOT NULL,
 	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
+
 	
 	PRIMARY KEY(id_jugador, id_torneo)
 );
@@ -163,8 +166,8 @@ CREATE TABLE jugadores_inscriptos(
 -- pero las cartas del mazo deben quedar registradas igualmente
 -- por lo tanto, son colecciones independientes a nivel DB, es decir,
 -- que el servidor verificará que las cartas del mazo estén en las cartas coleccionadas.
-DROP TABLE IF EXISTS mazos;
-CREATE TABLE mazos(
+DROP TABLE IF EXISTS cartas_del_mazo;
+CREATE TABLE cartas_del_mazo(
 	id_jugador INT NOT NULL,
 	FOREIGN KEY(id_jugador) REFERENCES usuarios(id),
 	

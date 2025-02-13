@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Custom Http Exceptions")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25446117d352535d1eb29576ed19fa5737ee52c7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+469e5bbb1418982fb8dab4df5ef963be94c0cbcd")]
 [assembly: System.Reflection.AssemblyProductAttribute("Custom Http Exceptions")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Custom Http Exceptions")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
