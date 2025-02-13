@@ -108,5 +108,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "CrearTorneo",
+    "RelativePath": "torneos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Torneo.RegistroTorneoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

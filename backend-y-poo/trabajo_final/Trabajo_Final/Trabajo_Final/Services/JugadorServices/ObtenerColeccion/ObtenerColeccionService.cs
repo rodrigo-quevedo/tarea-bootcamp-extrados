@@ -43,9 +43,9 @@ namespace Trabajo_Final.Services.JugadorServices.ObtenerColeccion
             {
                 List<string> series = new List<string>();
                 foreach (Serie_De_Carta serie_de_carta in arrSeriesDeCartas) {
-                    if (serie_de_carta.Id_carta == carta.Id) {
+                    if (serie_de_carta.Id_carta == carta.Id) 
                         series.Add(serie_de_carta.Nombre_serie);
-                    }
+                    
                 }
 
                 coleccion[i++] = new CartaColeccionadaDTO()

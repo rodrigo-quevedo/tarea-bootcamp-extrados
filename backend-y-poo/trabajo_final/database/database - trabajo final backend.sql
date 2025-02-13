@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS cartas_coleccionadas;
 CREATE TABLE cartas_coleccionadas(
 	id_carta INT NOT NULL,
 	FOREIGN KEY (id_carta) REFERENCES cartas(id),
-	
+	trabajo_final_backendtrabajo_final_backend
 	id_jugador INT NOT NULL,
 	FOREIGN KEY (id_jugador) REFERENCES usuarios(id),
 	
@@ -116,7 +116,7 @@ CREATE TABLE torneos(
 	FOREIGN KEY(id_organizador) REFERENCES usuarios(id),
 	
 	id_ganador INT NULL,
-	FOREIGN KEY(id_ganador) REFERENCES jugadores(id_jugador)
+	FOREIGN KEY(id_ganador) REFERENCES usuarios(id)
 	
 	-- Ronda actual del torneo: 
 	-- SELECT numero_ronda FROM juegos_de_ronda
@@ -124,53 +124,6 @@ CREATE TABLE torneos(
 		-- ORDER BY numero_ronda DESC
 		-- LIMIT 1;
 );
-
--- Lista de espera: 
-	-- los Jugadores se van registrando al torneo y entran a esta tabla
-	-- luego, el Organizador acepta jugadores de esta lista y se agregan a la tabla "jugadores_inscriptos"
-DROP TABLE IF EXISTS jugadores_a_inscribir;
-CREATE TABLE jugadores_a_inscribir(
-	id_jugador INT NOT NULL,
-	FOREIGN KEY(id_jugador) REFERENCES jugadores(id_jugador),
-	
-	id_torneo INT NOT NULL,
-	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
-	
-	PRIMARY KEY(id_jugador, id_torneo)
-);
-
-
-DROP TABLE IF EXISTS jugadores_inscriptos;
-CREATE TABLE jugadores_inscriptos(
-	id_jugador INT NOT NULL,
-	FOREIGN KEY(id_jugador) REFERENCES jugadores(id_jugador),
-	
-	id_torneo INT NOT NULL,
-	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
-	
-	PRIMARY KEY(id_jugador, id_torneo)
-);
-
-
--- las cartas coleccionadas pueden ir cambiando
--- pero las cartas del mazo deben quedar registradas igualmente
--- por lo tanto, son colecciones independientes a nivel DB, es decir,
--- que el servidor verificará que las cartas del mazo estén en las cartas coleccionadas.
-DROP TABLE IF EXISTS mazos;
-CREATE TABLE mazos(
-	id_jugador INT NOT NULL,
-	FOREIGN KEY(id_jugador) REFERENCES jugadores(id_jugador),
-	
-	id_carta INT NOT NULL,
-	FOREIGN KEY(id_carta) REFERENCES cartas(id),
-	
-	id_torneo INT NOT NULL,
-	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
-	
-	-- no puede haber cartas repetidas para un jugador de un torneo:
-	PRIMARY KEY(id_torneo, id_jugador, id_carta) 
-);
-
 
 DROP TABLE IF EXISTS series_habilitadas;
 CREATE TABLE series_habilitadas(
@@ -186,12 +139,45 @@ DROP TABLE IF EXISTS jueces_torneo;
 CREATE TABLE jueces_torneo (
 	id_torneo INT NOT NULL,
 	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
-	
+	torneos
 	id_juez INT NOT NULL,
-	FOREIGN KEY(id_juez) REFERENCES jueces(id_juez),
+	FOREIGN KEY(id_juez) REFERENCES usuarios(id),
 	
 	PRIMARY KEY (id_torneo, id_juez)
 );
+
+
+DROP TABLE IF EXISTS jugadores_inscriptos;
+CREATE TABLE jugadores_inscriptos(
+	id_jugador INT NOT NULL,
+	FOREIGN KEY(id_jugador) REFERENCES usuarios(id),
+	
+	id_torneo INT NOT NULL,
+	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
+	
+	PRIMARY KEY(id_jugador, id_torneo)
+);
+
+
+-- las cartas coleccionadas pueden ir cambiando
+-- pero las cartas del mazo deben quedar registradas igualmente
+-- por lo tanto, son colecciones independientes a nivel DB, es decir,
+-- que el servidor verificará que las cartas del mazo estén en las cartas coleccionadas.
+DROP TABLE IF EXISTS mazos;
+CREATE TABLE mazos(
+	id_jugador INT NOT NULL,
+	FOREIGN KEY(id_jugador) REFERENCES usuarios(id),
+	
+	id_carta INT NOT NULL,
+	FOREIGN KEY(id_carta) REFERENCES cartas(id),
+	
+	id_torneo INT NOT NULL,
+	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
+	
+	-- no puede haber cartas repetidas para un jugador de un torneo:
+	PRIMARY KEY(id_torneo, id_jugador, id_carta) 
+);
+
 
 
 -- RONDAS Y JUEGOS -- 
@@ -211,23 +197,23 @@ CREATE TABLE juegos_de_ronda(
 	
 	-- los 2 jugadores se asignan al crearse el juego
 	id_jugador_1 INT NOT NULL,
-	FOREIGN KEY(id_jugador_1) REFERENCES jugadores(id_jugador),
+	FOREIGN KEY(id_jugador_1) REFERENCES usuarios(id),
 	id_jugador_2 INT NOT NULL,
-	FOREIGN KEY(id_jugador_2) REFERENCES jugadores(id_jugador),
+	FOREIGN KEY(id_jugador_2) REFERENCES usuarios(id),
 
 	id_ganador INT NULL,
-	FOREIGN KEY(id_ganador) REFERENCES jugadores(id_jugador),
+	FOREIGN KEY(id_ganador) REFERENCES usuarios(id),
 	CHECK(id_ganador IS NULL OR id_ganador = id_jugador_1 OR id_ganador = id_jugador_2),
 	
 	id_descalificado INT NULL,
-	FOREIGN KEY (id_descalificado) REFERENCES jugadores(id_jugador),
+	FOREIGN KEY (id_descalificado) REFERENCES usuarios(idcartas_coleccionadas),
 	-- Obtener descalificaciones de un usuario:
 		-- SELECT * from juegos_de_ronda
 		-- WHERE id_descalificado = (id del usuario);
 	
 	
 	id_juez INT NOT NULL,
-	FOREIGN KEY(id_juez) REFERENCES jueces(id_juez)
+	FOREIGN KEY(id_juez) REFERENCES usuarios(id)
 	
 );
 

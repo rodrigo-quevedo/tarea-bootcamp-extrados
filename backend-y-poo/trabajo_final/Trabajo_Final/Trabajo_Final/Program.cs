@@ -4,6 +4,7 @@ using Custom_Exceptions.Exceptions.BaseException;
 using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs;
 using DAO.DAOs.Cartas;
+using DAO.DAOs.Torneos;
 using DAO.DAOs.UsuarioDao;
 using DAO.Entidades;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -22,6 +23,7 @@ using Trabajo_Final.DTO;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
+using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.AsignarRefreshToken;
@@ -46,6 +48,12 @@ builder.Services.AddSingleton<IUsuarioDAO>(
 );
 builder.Services.AddSingleton<ICartaDAO>(
     new CartaDAO(builder.Configuration.GetSection(
+            "DB:general_connection_string"
+        ).Value
+    )
+);
+builder.Services.AddSingleton<ITorneoDAO>(
+    new TorneoDAO(builder.Configuration.GetSection(
             "DB:general_connection_string"
         ).Value
     )
@@ -85,6 +93,9 @@ builder.Services.AddScoped<IRegistroUsuarioService, RegistroUsuarioService>();
 builder.Services.AddScoped<IColeccionarCartasService, ColeccionarCartasService>();
 builder.Services.AddScoped<IObtenerColeccionService, ObtenerColeccionService>();
 builder.Services.AddScoped<IQuitarCartasService,  QuitarCartasService>();
+
+builder.Services.AddScoped<ICrearTorneoService, CrearTorneoService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
