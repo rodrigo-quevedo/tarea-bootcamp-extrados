@@ -25,8 +25,9 @@ namespace DAO.DAOs.Torneos
         //CREATE torneo, series_habilitadas, jueces_torneo
         public async Task<bool> CrearTorneo(
             int id_organizador, 
-            DateTime fecha_hora_inicio, DateTime fecha_hora_fin, 
-            int cantidad_rondas, 
+            DateTime fecha_hora_inicio, DateTime? fecha_hora_fin, 
+            string horario_inicio, string horario_fin,
+            int? cantidad_rondas, 
             string pais,
             string fase,
             string[] series_habilitadas,
@@ -44,11 +45,13 @@ namespace DAO.DAOs.Torneos
                     string insertAndReturnIdQuery =
                     " INSERT INTO torneos" +
                     "   (id_organizador, pais, " +
-                    "   fecha_hora_inicio, fecha_hora_fin, " +
+                    "   fecha_hora_inicio, fecha_hora_fin," +
+                    "   horario_inicio, horario_fin, " +
                     "   cantidad_rondas, fase) " +
                     " VALUES ( " +
                     "   @Id_organizador, @Pais, " +
                     "   @Fecha_hora_inicio, @Fecha_hora_fin, " +
+                    "   @Horario_inicio, @Horario_fin, " +
                     "   @Cantidad_rondas, @Fase" +
                     " ); ";
 
@@ -58,6 +61,8 @@ namespace DAO.DAOs.Torneos
                         Pais = pais,
                         Fecha_hora_inicio = fecha_hora_inicio,
                         Fecha_hora_fin = fecha_hora_fin,
+                        Horario_inicio = horario_inicio,
+                        Horario_fin = horario_fin,
                         Cantidad_rondas = cantidad_rondas,
                         Fase = fase
                     },

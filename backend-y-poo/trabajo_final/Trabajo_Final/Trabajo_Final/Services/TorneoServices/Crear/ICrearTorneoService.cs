@@ -4,7 +4,8 @@
     {
         public Task<bool> CrearTorneo(
             int id_organizador,
-            DateTime fecha_hora_inicio, DateTime fecha_hora_fin,
+            string fecha_hora_inicio, string fecha_hora_fin,
+            string horario_inicio, string horario_fin,
             string pais,
             string[] series_habilitadas,
             int[] id_jueces

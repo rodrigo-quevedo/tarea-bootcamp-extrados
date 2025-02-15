@@ -32,13 +32,11 @@ namespace Trabajo_Final.Controllers
             string string_id_organizador = User.FindFirst(ClaimTypes.Sid).Value;
             Int32.TryParse(string_id_organizador, out var id_organizador);
 
-            DateTime fecha_hora_inicio = DateTime.Parse(dto.fecha_hora_inicio, null, System.Globalization.DateTimeStyles.RoundtripKind);
-            DateTime fecha_hora_fin = DateTime.Parse(dto.fecha_hora_fin, null, System.Globalization.DateTimeStyles.RoundtripKind);
-
             
             await crearTorneoService.CrearTorneo(
                 id_organizador, 
-                fecha_hora_inicio, fecha_hora_fin, 
+                dto.fecha_hora_inicio, dto.fecha_hora_fin, 
+                dto.horario_diario_inicio, dto.horario_diario_fin,
                 dto.pais,
                 dto.series_habilitadas,
                 dto.id_jueces_torneo
@@ -46,6 +44,21 @@ namespace Trabajo_Final.Controllers
 
             return Ok(new { message = "Torneo creado con éxito"});
         }
+
+        //[HttpPost]
+        //[Route("/torneos/inscribirse")]
+        //[Authorize(Roles = Roles.JUGADOR)]
+        //public async Task<ActionResult> InscribirseATorneo(InscripcionTorneoDTO reqBody)
+        //{
+        //    //validar torneo service
+
+        //    //validar cartas mazo service
+
+        //    //inscribir service
+
+        //}
+
+
 
     }
 }

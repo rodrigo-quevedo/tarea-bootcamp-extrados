@@ -10,8 +10,9 @@ namespace DAO.DAOs.Torneos
     {
         public Task<bool> CrearTorneo(
             int id_organizador,
-            DateTime fecha_hora_inicio, DateTime fecha_hora_fin,
-            int cantidad_rondas,
+            DateTime fecha_hora_inicio, DateTime? fecha_hora_fin,
+            string horario_inicio, string horario_fin,
+            int? cantidad_rondas,
             string pais,
             string fase,
             string[] series_habilitadas,

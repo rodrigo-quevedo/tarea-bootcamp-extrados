@@ -24,6 +24,7 @@ using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
 using Trabajo_Final.Services.TorneoServices.Crear;
+using Trabajo_Final.Services.TorneoServices.ValidarJueces;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.AsignarRefreshToken;
@@ -95,6 +96,7 @@ builder.Services.AddScoped<IObtenerColeccionService, ObtenerColeccionService>();
 builder.Services.AddScoped<IQuitarCartasService,  QuitarCartasService>();
 
 builder.Services.AddScoped<ICrearTorneoService, CrearTorneoService>();
+builder.Services.AddScoped<IValidarJuecesService, ValidarJuecesService>();
 
 
 builder.Services.AddControllers();

@@ -99,18 +99,19 @@ DROP TABLE IF EXISTS torneos;
 CREATE TABLE torneos(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	
-	-- inicio y fin: cada torneo se realiza en el mismo dia, por lo que
-	-- las horas disponibles para los juegos se calculan con horaIncio - horaFin
 	fecha_hora_inicio DATETIME NOT NULL,	
-	fecha_hora_fin DATETIME NOT NULL,	
+	fecha_hora_fin DATETIME NULL,	
+
+	horario_diario_inicio VARCHAR(5) NOT NULL, -- HH:MM
+	horario_diario_fin VARCHAR(5) NOT NULL,
 	
-	-- rondas: se calcula con lo de arriba (ya viene calculado desde el server)
-	cantidad_rondas INT NOT NULL,
+   -- la elige el organizador, esta limitada si hay fecha_hora_fin
+	cantidad_rondas INT NULL,
 
 	pais VARCHAR(30) NOT NULL,
 	
 	fase VARCHAR(12) NOT NULL,
-	CHECK (fase IN ('registro', 'torneo', 'finalizado')),
+ 	CHECK (fase IN ('registro', 'torneo', 'finalizado')),
 	
 	id_organizador INT NOT NULL,
 	FOREIGN KEY(id_organizador) REFERENCES usuarios(id),
@@ -133,7 +134,7 @@ CREATE TABLE series_habilitadas(
 	id_torneo INT NOT NULL,
 	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
 	
-	PRIMARY KEY(nombre_seriejueces_torneo, id_torneo)
+	PRIMARY KEY(nombre_serie, id_torneo)
 );
 
 
@@ -156,7 +157,10 @@ CREATE TABLE jugadores_inscriptos(
 	
 	id_torneo INT NOT NULL,
 	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
-
+	
+	id INT AUTO_INCREMENT NOT NULL UNIQUE,
+	
+	aceptado BOOL NOT NULL,
 	
 	PRIMARY KEY(id_jugador, id_torneo)
 );
