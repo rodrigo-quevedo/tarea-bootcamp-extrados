@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Trabajo_Final.DTO.Torneo;
 using Trabajo_Final.Services.TorneoServices.Crear;
+using Trabajo_Final.Services.TorneoServices.EditarJueces;
 using Trabajo_Final.utils.Constantes;
 
 namespace Trabajo_Final.Controllers
@@ -15,12 +16,18 @@ namespace Trabajo_Final.Controllers
     public class TorneosController : ControllerBase
     {
         ICrearTorneoService crearTorneoService;
+        IAgregarJuezService agregarJuezService;
+        IEliminarJuezService eliminarJuezService;
 
         public TorneosController(
-            ICrearTorneoService crearTorneo   
+            ICrearTorneoService crearTorneo,
+            IAgregarJuezService agregarJuez,
+            IEliminarJuezService eliminarJuez
         )
         {
             crearTorneoService = crearTorneo;
+            agregarJuezService = agregarJuez;
+            eliminarJuezService = eliminarJuez;
         }
 
 
@@ -32,29 +39,50 @@ namespace Trabajo_Final.Controllers
             string string_id_organizador = User.FindFirst(ClaimTypes.Sid).Value;
             Int32.TryParse(string_id_organizador, out var id_organizador);
 
-            
+
             await crearTorneoService.CrearTorneo(
-                id_organizador, 
-                dto.fecha_hora_inicio, dto.fecha_hora_fin, 
+                id_organizador,
+                dto.fecha_hora_inicio, dto.fecha_hora_fin,
                 dto.horario_diario_inicio, dto.horario_diario_fin,
                 dto.pais,
                 dto.series_habilitadas,
                 dto.id_jueces_torneo
             );
 
-            return Ok(new { message = "Torneo creado con éxito"});
+            return Ok(new { message = "Torneo creado con éxito" });
         }
+
+        [HttpPost]
+        [Route("/torneos/{id_torneo}/jueces")]
+        [Authorize(Roles = Roles.ORGANIZADOR)]
+        public async Task<ActionResult> AgregarJuezTorneo([FromRoute] int id_torneo, EditarJuezTorneoDTO dto)
+        {
+            await agregarJuezService.AgregarJuez(id_torneo, (int) dto.id_juez);
+
+            return Ok(new { message = $"Juez con ID [{dto.id_juez}] agregado con éxito al torneo [{id_torneo}]." });
+        }
+
+        [HttpDelete]
+        [Route("/torneos/{id_torneo}/jueces")]
+        [Authorize(Roles = Roles.ORGANIZADOR)]
+        public async Task<ActionResult> EliminarJuezTorneo([FromRoute] int id_torneo, EditarJuezTorneoDTO dto)
+        {
+            await eliminarJuezService.EliminarJuez(id_torneo, (int) dto.id_juez);
+
+            return Ok(new { message = $"Juez [{dto.id_juez}] eliminado con éxito del torneo [{id_torneo}]." });
+        }
+
 
         //[HttpPost]
         //[Route("/torneos/inscribirse")]
         //[Authorize(Roles = Roles.JUGADOR)]
         //public async Task<ActionResult> InscribirseATorneo(InscripcionTorneoDTO reqBody)
         //{
-            //validar torneo service
+        //validar torneo service
 
-            //validar cartas mazo service
+        //validar cartas mazo service
 
-            //inscribir service
+        //inscribir service
 
         //}
 

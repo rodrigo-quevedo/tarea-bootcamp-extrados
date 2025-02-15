@@ -165,6 +165,14 @@ CREATE TABLE jugadores_inscriptos(
 	PRIMARY KEY(id_jugador, id_torneo)
 );
 
+-- Validar jueces sin SELECT:
+-- INSERT INTO jueces_torneo
+-- VALUES (
+--   1,
+--   (SELECT id FROM USUARIOS
+--    WHERE id=94
+--    AND rol = 'juez')
+-- );
 
 -- las cartas coleccionadas pueden ir cambiando
 -- pero las cartas del mazo deben quedar registradas igualmente

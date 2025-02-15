@@ -19,6 +19,8 @@ namespace DAO.DAOs.Torneos
             int[] id_jueces
         );
 
+        public Task<int> AgregarJuez(int id_torneo, int id_juez, string rol, string faseInvalida);
+        public Task<int> EliminarJuez(int id_torneo, int id_juez);
 
     }
 }

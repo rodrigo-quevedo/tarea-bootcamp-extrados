@@ -8,6 +8,7 @@ using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,12 +47,12 @@ namespace DAO.DAOs.Torneos
                     " INSERT INTO torneos" +
                     "   (id_organizador, pais, " +
                     "   fecha_hora_inicio, fecha_hora_fin," +
-                    "   horario_inicio, horario_fin, " +
+                    "   horario_diario_inicio, horario_diario_fin, " +
                     "   cantidad_rondas, fase) " +
                     " VALUES ( " +
                     "   @Id_organizador, @Pais, " +
                     "   @Fecha_hora_inicio, @Fecha_hora_fin, " +
-                    "   @Horario_inicio, @Horario_fin, " +
+                    "   @Horario_diario_inicio, @Horario_diario_fin, " +
                     "   @Cantidad_rondas, @Fase" +
                     " ); ";
 
@@ -61,8 +62,8 @@ namespace DAO.DAOs.Torneos
                         Pais = pais,
                         Fecha_hora_inicio = fecha_hora_inicio,
                         Fecha_hora_fin = fecha_hora_fin,
-                        Horario_inicio = horario_inicio,
-                        Horario_fin = horario_fin,
+                        Horario_diario_inicio = horario_inicio,
+                        Horario_diario_fin = horario_fin,
                         Cantidad_rondas = cantidad_rondas,
                         Fase = fase
                     },
@@ -129,6 +130,63 @@ namespace DAO.DAOs.Torneos
             return exito;
         }
 
-       
+        //UPDATE jueces del torneo
+        public async Task<int> AgregarJuez(int id_torneo, int id_juez, string rol, string faseInvalida)
+        {
+            string insertQueryConValidacion = " INSERT INTO jueces_torneo " +
+                                              " VALUES (           " +
+                                              "        (SELECT id FROM torneos " +
+                                              "         WHERE id = @Id_torneo" +
+                                              "         AND fase != @Fase)," +
+                                              "        (SELECT id FROM usuarios " +
+                                              "         WHERE id=@Id_juez " +
+                                              "         AND rol = @Rol)   " +
+                                              " );                       ";
+
+            
+            try
+            {
+                return await connection.ExecuteAsync(insertQueryConValidacion, new
+                {
+                    Id_torneo = id_torneo,
+                    Id_juez = id_juez,
+                    Rol = rol,
+                    Fase = faseInvalida
+                });
+
+            }
+            catch(Exception ex)
+            {
+                if (ex.Message.Contains("Column 'id_torneo' cannot be null"))
+                    throw new InvalidInputException($"No existe ningún torneo en fase registro/torneo con ID [{id_torneo}]. " +
+                                                    $"No se puede cambiar los jueces de torneos ya finalizados.");
+
+                if (ex.Message.Contains("Column 'id_juez' cannot be null"))
+                    throw new InvalidInputException($"El juez con ID [{id_juez}] no existe.");
+
+                throw ex;
+            }
+
+        }
+
+        public async Task<int> EliminarJuez(int id_torneo, int id_juez)
+        {
+            string deleteQuery = " DELETE FROM jueces_torneo " +
+                                 " WHERE id_juez = @Id_juez AND id_torneo = @Id_torneo";
+
+            
+            
+            int result = await connection.ExecuteAsync(deleteQuery, new
+            {
+                Id_torneo = id_torneo,
+                Id_juez = id_juez
+            });
+
+            if (result == 0) throw new InvalidInputException($"El juez con id [{id_juez}] no existe en el torneo [{id_torneo}]");
+
+            return result;
+        }
+
+
     }
 }
