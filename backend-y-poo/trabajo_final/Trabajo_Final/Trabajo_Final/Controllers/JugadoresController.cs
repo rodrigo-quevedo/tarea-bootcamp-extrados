@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Trabajo_Final.DTO.ColeccionCartas;
+using Trabajo_Final.DTO.ColeccionCartas.ResponseColeccionar;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
@@ -41,15 +42,18 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.JUGADOR)]
         public async Task<ActionResult> ColeccionarCartas(ArrayIdCartasDTO dto)
         {
-            //parsear ID usuario
+            //ID usuario
             string string_usuario_id = User.FindFirst(ClaimTypes.Sid).Value;
             Int32.TryParse(string_usuario_id, out int usuario_id);
 
 
-            await coleccionarCartasService.Coleccionar(usuario_id, dto.Id_cartas);
+            //Eliminar repeticiones dentro del array de IDs
+            int[] id_cartas = dto.Id_cartas.Distinct().ToArray();
+
+            ResponseColeccionarDTO response =  await coleccionarCartasService.Coleccionar(usuario_id, id_cartas);
             
 
-            return Ok(new {message= "Se agregaron las cartas a la colección."});
+            return Ok(response);
         }
 
 
@@ -72,13 +76,19 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.JUGADOR)]
         public async Task<ActionResult> BorrarCartasColeccionadas(ArrayIdCartasDTO dto)
         {
+            //ID jugador
             string string_usuario_id = User.FindFirst(ClaimTypes.Sid).Value;
             Int32.TryParse(string_usuario_id, out int usuario_id);
 
-            
-            await quitarCartasService.QuitarCartas(usuario_id, dto.Id_cartas);
+            //Eliminar repeticiones dentro del array de IDs
+            int[] id_cartas = dto.Id_cartas.Distinct().ToArray();
 
-            return Ok(new { message = "Se quitaron las cartas de la colección."});
+            await quitarCartasService.QuitarCartas(usuario_id, id_cartas);
+
+            return Ok(new { 
+                message = "Se quitaron las cartas de la colección.",
+                cartas_eliminadas = id_cartas
+            });
         }
 
     }

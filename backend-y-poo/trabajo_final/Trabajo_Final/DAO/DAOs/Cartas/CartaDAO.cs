@@ -193,18 +193,23 @@ namespace DAO.DAOs.Cartas
                 string insertQuery = " INSERT into cartas_coleccionadas " +
                                      " VALUES(@Id_carta, @Id_jugador); ";
 
+                string selectIdQuery = " SELECT LAST_INSERT_ID(); ";
+
+                int id_ultima_carta_INSERT = 0;
                 try
                 {
                     foreach (int id_carta in id_cartas)
                     {
+                        id_ultima_carta_INSERT = id_carta;
+
                         await connection.ExecuteAsync(
                             insertQuery, 
                             new {
                                 Id_carta = id_carta,
                                 Id_jugador = id_jugador
                             },
-                            transaction: transaction
-                        );
+                            transaction
+                        );                        
                     }
 
                     transaction.Commit();
@@ -215,13 +220,10 @@ namespace DAO.DAOs.Cartas
                     transaction.Rollback();
                     Console.WriteLine("Error transaction [coleccionar cartas]: " + ex.Message);
 
-                    if (ex.Message.Contains("Duplicate entry") 
-                        && 
-                        ex.Message.Contains("for key 'cartas_coleccionadas.PRIMARY'")
-                    )
-                        throw new AlreadyExistsException("Hay cartas que ya existen. Verificar y reintentar.");
+                    if (ex.Message.Contains("Cannot add or update a child row: a foreign key constraint fails (`trabajo_final_backend`.`cartas_coleccionadas`, CONSTRAINT `cartas_coleccionadas_ibfk_1` FOREIGN KEY (`id_carta`) REFERENCES `cartas` (`id`))"))
+                        throw new InvalidInputException($"La carta id [{id_ultima_carta_INSERT}] no existe.");
 
-                    throw new DefaultException("No se pudo agregar las cartas a la colección.", ex);
+                    throw ex;
                 }
 
             }
@@ -258,8 +260,7 @@ namespace DAO.DAOs.Cartas
         //DELETE cartas coleccionadas
         public async Task<bool> QuitarCartasColeccionadas(int id_jugador, int[] id_cartas)
         {
-            //await connection.OpenAsync();
-
+            
             string deleteQuery = " DELETE FROM cartas_coleccionadas " +
                                  " WHERE id_jugador = @Id_jugador " +
                                  "       AND" +
@@ -271,16 +272,25 @@ namespace DAO.DAOs.Cartas
             {
                 try
                 {
+                    int id_ultima_carta_DELETE = 0;
                     foreach (int id_carta in id_cartas)
                     {
-                        await connection.ExecuteAsync(
+                        id_ultima_carta_DELETE = id_carta;
+
+                        int result = await connection.ExecuteAsync(
                             deleteQuery, 
                             new {
                                 Id_jugador = id_jugador,
                                 Id_carta = id_carta
                             },
-                            transaction: transaction
+                            transaction
                         );
+
+                    //DELETE en MySql no tira ninguna Exception cuando algun valor es invalido.
+                    //En su lugar compruebo las filas afectadas.
+                    //Si me mandan un monton de IDs invalidas, me las ahorro con el 1er throw:
+                        if (result == 0) throw new InvalidInputException($"La carta [{id_ultima_carta_DELETE}] no existe en la coleccion.");
+
                     }
 
                     transaction.Commit();
@@ -289,7 +299,8 @@ namespace DAO.DAOs.Cartas
                 catch (Exception ex) {
                     transaction.Rollback();
                     Console.WriteLine("Error transaction [coleccionar cartas]: " + ex.Message);
-                    throw new DefaultException("No se pudo quitar las cartas de la colección.", ex);
+
+                    throw ex;
                 }
             }
             return exito;

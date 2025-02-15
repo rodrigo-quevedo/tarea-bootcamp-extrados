@@ -50,11 +50,11 @@ namespace Trabajo_Final.Controllers
         //[Authorize(Roles = Roles.JUGADOR)]
         //public async Task<ActionResult> InscribirseATorneo(InscripcionTorneoDTO reqBody)
         //{
-        //    //validar torneo service
+            //validar torneo service
 
-        //    //validar cartas mazo service
+            //validar cartas mazo service
 
-        //    //inscribir service
+            //inscribir service
 
         //}
 

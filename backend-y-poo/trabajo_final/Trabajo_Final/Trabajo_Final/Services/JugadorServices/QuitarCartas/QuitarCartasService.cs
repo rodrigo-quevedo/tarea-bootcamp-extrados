@@ -18,7 +18,7 @@ namespace Trabajo_Final.Services.JugadorServices.QuitarCartas
             bool exito = await cartaDAO.QuitarCartasColeccionadas(id_jugador, id_cartas);
             if (!exito) throw new DefaultException("No se pudo quitar las cartas de la colección.");
 
-            return exito;
+            return true;
         }
     }
 }
