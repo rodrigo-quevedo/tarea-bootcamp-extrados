@@ -188,5 +188,119 @@ namespace DAO.DAOs.Torneos
         }
 
 
+        //READ torneos
+        public async Task<IEnumerable<Torneo>> BuscarTorneos(Torneo busqueda)
+        {
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+
+            string selectQuery;
+
+
+            if (busqueda.Fase != default)
+            {
+                 selectQuery = " SELECT * FROM torneos " +
+                               " WHERE fase = @Fase;";
+
+                return await connection.QueryAsync<Torneo>(selectQuery, new
+                {
+                    Fase = busqueda.Fase
+                });
+            }
+
+
+            return null;//(Torneo busqueda) sin ningun campo valido para buscar
+        }
+
+        public async Task<IEnumerable<Serie_Habilitada>> BuscarSeriesDeTorneos(IEnumerable<Torneo> torneos)
+        {
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+
+            string selectQuery = " SELECT * FROM series_habilitadas " +
+                                 " WHERE id_torneo = @Id; "; //-->@Id mapea el Id de Torneo
+
+            IEnumerable<Serie_Habilitada> result = Enumerable.Empty<Serie_Habilitada>();
+
+            using (MySqlTransaction transaction = connection.BeginTransaction()) {
+
+                try
+                {
+                    foreach (Torneo torneo in torneos) {
+                        IEnumerable<Serie_Habilitada> queryResult =
+                            await connection.QueryAsync<Serie_Habilitada>(
+                                selectQuery, 
+                                new { Id = torneo.Id }, 
+                                transaction
+                            );
+
+                        result = result.Concat(queryResult);
+
+                    }
+
+                    //result = result.Concat(await connection.QueryAsync<Serie_Habilitada>(
+                    //    selectQuery,
+                    //    torneos.ToList(),
+                    //    transaction)
+                    //);
+
+                    transaction.Commit();
+
+                }
+                catch (Exception ex) { 
+                    transaction.Rollback(); 
+                    throw ex;
+                }
+
+                return result;
+            }
+
+        }
+
+        public async Task<IEnumerable<Juez_Torneo>> BuscarJuecesDeTorneos(IEnumerable<Torneo> torneos)
+        {
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
+
+            string selectQuery = " SELECT * FROM jueces_torneo " +
+                                 " WHERE id_torneo = @Id; ";//-->@Id mapea el Id de Torneo
+
+            IEnumerable<Juez_Torneo> result = Enumerable.Empty<Juez_Torneo>();
+
+            using (MySqlTransaction transaction = connection.BeginTransaction())
+            {
+
+                try
+                {
+                    foreach (Torneo torneo in torneos)
+                    {
+                        IEnumerable<Juez_Torneo> queryResult =
+                            await connection.QueryAsync<Juez_Torneo>(
+                                selectQuery,
+                                new { Id = torneo.Id },
+                                transaction
+                            );
+
+                        result = result.Concat(queryResult);
+
+                    }
+
+
+                    //result = result.Concat(await connection.QueryAsync<Juez_Torneo>(
+                    //    selectQuery,
+                    //    torneos.ToList(),
+                    //    transaction)
+                    //);
+
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+
+                return result;
+            }
+
+        }
     }
 }

@@ -100,7 +100,7 @@ CREATE TABLE torneos(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	
 	fecha_hora_inicio DATETIME NOT NULL,	
-	fecha_hora_fin DATETIME NULL,	
+	fecha_hora_fin DATETIME NULL NULL,	
 
 	horario_diario_inicio VARCHAR(5) NOT NULL, -- HH:MM
 	horario_diario_fin VARCHAR(5) NOT NULL,
@@ -116,13 +116,16 @@ CREATE TABLE torneos(
 	id_organizador INT NOT NULL,
 	FOREIGN KEY(id_organizador) REFERENCES usuarios(id),
 	
-	id_ganador INT NULL,
-	FOREIGN KEY(id_ganador) REFERENCES usuarios(id)
+	-- Id ganador:
+	-- SELECT id_ganador FROM partidas
+	-- WHERE id_torneo = [id torneo]
+	-- AND ronda = [cantidad_rondas];
+   
 	
 	-- Ronda actual del torneo: 
-	-- SELECT numero_ronda FROM juegos_de_ronda
+	-- SELECT ronda FROM partidas
 		-- WHERE id_torneo=(id torneo) 
-		-- ORDER BY numero_ronda DESC
+		-- ORDER BY ronda DESC
 		-- LIMIT 1;
 );
 
@@ -205,11 +208,11 @@ CREATE TABLE cartas_del_mazo(
 
 -- RONDAS Y JUEGOS -- 
 
-DROP TABLE IF EXISTS juegos_de_ronda;
-CREATE TABLE juegos_de_ronda(
+DROP TABLE IF EXISTS partidas;
+CREATE TABLE partidas(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 
-	numero_ronda INT NOT NULL,
+	ronda INT NOT NULL,
 	
 	id_torneo INT NOT NULL,
 	FOREIGN KEY (id_torneo) REFERENCES torneos(id),

@@ -20,6 +20,7 @@ using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
 using Trabajo_Final.DTO;
+using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
@@ -103,6 +104,8 @@ builder.Services.AddScoped<ICrearTorneoService, CrearTorneoService>();
 builder.Services.AddScoped<IValidarJuecesService, ValidarJuecesService>();
 builder.Services.AddScoped<IAgregarJuezService, AgregarJuezService>();
 builder.Services.AddScoped<IEliminarJuezService, EliminarJuezService>();
+
+builder.Services.AddScoped<IBuscarTorneosDisponiblesService, BuscarTorneosDisponiblesService>();
 
 
 builder.Services.AddControllers();

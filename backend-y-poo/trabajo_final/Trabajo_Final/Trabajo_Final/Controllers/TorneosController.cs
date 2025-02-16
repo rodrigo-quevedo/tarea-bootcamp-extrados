@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Trabajo_Final.DTO.ListaTorneos;
 using Trabajo_Final.DTO.Torneo;
+using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.TorneoServices.EditarJueces;
 using Trabajo_Final.utils.Constantes;
@@ -19,15 +21,20 @@ namespace Trabajo_Final.Controllers
         IAgregarJuezService agregarJuezService;
         IEliminarJuezService eliminarJuezService;
 
+        IBuscarTorneosDisponiblesService buscarTorneosDisponiblesService;
         public TorneosController(
             ICrearTorneoService crearTorneo,
             IAgregarJuezService agregarJuez,
-            IEliminarJuezService eliminarJuez
+            IEliminarJuezService eliminarJuez,
+
+            IBuscarTorneosDisponiblesService buscarTorneosDisponibles
         )
         {
             crearTorneoService = crearTorneo;
             agregarJuezService = agregarJuez;
             eliminarJuezService = eliminarJuez;
+
+            buscarTorneosDisponiblesService = buscarTorneosDisponibles;
         }
 
 
@@ -70,6 +77,19 @@ namespace Trabajo_Final.Controllers
             await eliminarJuezService.EliminarJuez(id_torneo, (int) dto.id_juez);
 
             return Ok(new { message = $"Juez [{dto.id_juez}] eliminado con éxito del torneo [{id_torneo}]." });
+        }
+
+
+        [HttpGet]
+        [Route("/torneos/inscribirse")]
+        [Authorize(Roles = Roles.JUGADOR)]
+        public async Task<ActionResult> BuscarTorneosDisponibles()
+        {
+        
+            IList<TorneoDisponibleDTO> torneos = 
+                await buscarTorneosDisponiblesService.BuscarTorneosDisponibles();
+
+            return Ok(torneos);
         }
 
 

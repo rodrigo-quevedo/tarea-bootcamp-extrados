@@ -8,9 +8,9 @@ namespace Trabajo_Final.DTO.Torneo
         [RegularExpression(@"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}Z$",
             ErrorMessage = "Ingrese la fecha_hora en formato ISO [aaaa-mm-ddThh:mm:ss.mmmZ]")]
         public string fecha_hora_inicio {  get; set; }
-        
-        
-        //Opcional, sirve para limitar cantidad de rondas maxima
+
+
+        [Required(ErrorMessage = "Campo 'fecha_hora_fin' es obligatorio.")]
         [RegularExpression(@"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}Z$",
             ErrorMessage = "Ingrese la fecha_hora en formato ISO [aaaa-mm-ddThh:mm:ss.mmmZ]")]
         public string fecha_hora_fin {  get; set; }
