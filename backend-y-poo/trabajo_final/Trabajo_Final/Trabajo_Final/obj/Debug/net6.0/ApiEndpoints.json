@@ -85,6 +85,22 @@
   },
   {
     "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
+    "Method": "ActualizarPerfil",
+    "RelativePath": "perfil",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Usuarios.ActualizarPerfilDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
     "Method": "RefreshToken",
     "RelativePath": "refresh",
     "HttpMethod": "GET",

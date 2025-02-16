@@ -28,6 +28,7 @@ using Trabajo_Final.Services.TorneoServices.EditarJueces;
 using Trabajo_Final.Services.TorneoServices.ValidarJueces;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
+using Trabajo_Final.Services.UsuarioServices.Perfil;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.AsignarRefreshToken;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Crear;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Desactivar;
@@ -91,6 +92,8 @@ builder.Services.AddScoped<ICrearRefreshTokenService, CrearRefreshTokenService>(
 builder.Services.AddScoped<IDesactivarRefreshTokenService, DesactivarRefreshTokenService>();
 
 builder.Services.AddScoped<IRegistroUsuarioService, RegistroUsuarioService>();
+
+builder.Services.AddScoped<IActualizarPerfilService, ActualizarPerfilService>();
 
 builder.Services.AddScoped<IColeccionarCartasService, ColeccionarCartasService>();
 builder.Services.AddScoped<IObtenerColeccionService, ObtenerColeccionService>();

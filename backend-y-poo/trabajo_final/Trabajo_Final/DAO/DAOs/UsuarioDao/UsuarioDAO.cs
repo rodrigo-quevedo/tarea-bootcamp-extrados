@@ -289,5 +289,69 @@ namespace DAO.DAOs.UsuarioDao
         }
 
 
+        public async Task<string> ActualizarPerfil(int id_usuario, string url_foto, string alias)
+        {
+            string upsertQuery = " INSERT INTO perfil_usuarios " +
+                                 " VALUES (@Id_usuario, @Foto, @Alias) " +
+
+                                 " ON DUPLICATE KEY " +
+                                 "      UPDATE foto = @Foto, alias = @Alias;";
+
+            int result = await connection.ExecuteAsync(upsertQuery, new
+            {
+                Foto = url_foto,
+                Alias = alias,
+                Id_usuario = id_usuario
+            });
+
+            //id_usuario no existe: Solo si un Admin elimina al usuario antes que corra esto.
+
+            if (result == 0) throw new Exception($"No se pudo agregar la foto ni el alias del usuario [{id_usuario}]");
+
+            return $"Se agregó la foto y el alias del usuario [{id_usuario}] con éxito.";
+        }
+
+        public async Task<string> ActualizarFotoPerfil(int id_usuario, string url_foto)
+        {
+            string upsertQuery = " INSERT INTO perfil_usuarios " +
+                                 " VALUES (@Id_usuario, @Foto, NULL) " +
+
+                                 " ON DUPLICATE KEY " +
+                                 "      UPDATE foto = @Foto;";
+
+            int result = await connection.ExecuteAsync(upsertQuery, new
+            {
+                Foto = url_foto,
+                Id_usuario = id_usuario
+            });
+
+            //id_usuario no existe: Solo si un Admin elimina al usuario antes que corra esto.
+
+            if (result == 0) throw new Exception($"No se pudo agregar la foto del usuario [{id_usuario}]");
+
+            return $"Se agregó la foto del usuario [{id_usuario}] con éxito.";
+        }
+
+        public async Task<string> ActualizarAliasPerfil(int id_usuario, string alias)
+        {
+            string upsertQuery = " INSERT INTO perfil_usuarios " +
+                                 " VALUES (@Id_usuario, NULL, @Alias) " +
+
+                                 " ON DUPLICATE KEY " +
+                                 "      UPDATE alias = @Alias;";
+
+            int result = await connection.ExecuteAsync(upsertQuery, new
+            {
+                Alias = alias,
+                Id_usuario = id_usuario
+            });
+
+            //id_usuario no existe: Solo si un Admin elimina al usuario antes que corra esto.
+
+            if (result == 0) throw new Exception($"No se pudo agregar el alias del usuario [{id_usuario}]");
+
+            return $"Se agregó el alias del usuario [{id_usuario}] con éxito.";
+        }
+
     }
 }

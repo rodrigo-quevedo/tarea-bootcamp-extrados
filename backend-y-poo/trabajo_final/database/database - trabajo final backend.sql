@@ -48,9 +48,9 @@ CREATE TABLE perfil_usuarios(
 	id_usuario INT PRIMARY KEY,
 	FOREIGN KEY(id_usuario) REFERENCES usuarios(id),
 
-	foto VARCHAR(200) NOT NULL, -- URL/path del archivo
+	foto VARCHAR(200) NULL, -- URL/path del archivo
 	
-	alias VARCHAR(25) NOT NULL
+	alias VARCHAR(25) NULL
 );
 
 
@@ -106,7 +106,7 @@ CREATE TABLE torneos(
 	horario_diario_fin VARCHAR(5) NOT NULL,
 	
    -- la elige el organizador, esta limitada si hay fecha_hora_fin
-	cantidad_rondas INT NULL,
+	cantidad_rondas INT NOT NULL,
 
 	pais VARCHAR(30) NOT NULL,
 	
@@ -157,12 +157,20 @@ CREATE TABLE jugadores_inscriptos(
 	
 	id_torneo INT NOT NULL,
 	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
-	
-	id INT AUTO_INCREMENT NOT NULL UNIQUE,
-	
-	aceptado BOOL NOT NULL,
-	
+
 	PRIMARY KEY(id_jugador, id_torneo)
+	
+	-- Esto me sirve para solucionar problemas de concurrencia:
+	-- Puede haber un exceso de inscripciones a un torneo (supongamos que
+	-- queda 1 solo lugar, pero 2 jugadores distintos leen fase=registro 
+	-- al mismo tiempo y se inscriben ambos, excediendo en 1)
+	
+	-- Solucion: El organizador, al aceptar las inscripciones y cambiar
+	-- de fase (registro ->torneo) lee los inscriptos al torneo con:
+	-- ORDER BY id DESC LIMIT [cantidad_valida_jugadores], y a todos esos
+	-- jugadores les asigna aceptado = true.
+	id INT AUTO_INCREMENT NOT NULL UNIQUE,
+	aceptado BOOL NOT NULL, 	
 );
 
 -- Validar jueces sin SELECT:

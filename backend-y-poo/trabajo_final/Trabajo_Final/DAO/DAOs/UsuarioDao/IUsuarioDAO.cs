@@ -22,5 +22,10 @@ namespace DAO.DAOs.UsuarioDao
         public Task<int> BorradoLogicoRefreshTokenAsync(int id, string refreshToken);
         public Task<Refresh_Token> BuscarRefreshTokenAsync(string refreshToken, bool activo);
 
+
+        public Task<string> ActualizarPerfil(int id_usuario, string url_foto, string alias);
+        public Task<string> ActualizarFotoPerfil(int id_usuario, string url_foto);
+        public Task<string> ActualizarAliasPerfil(int id_usuario, string alias);
+
     }
 }

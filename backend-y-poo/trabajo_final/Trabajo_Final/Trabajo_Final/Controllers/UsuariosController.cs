@@ -26,6 +26,8 @@ using Trabajo_Final.utils.Constantes;
 using Custom_Exceptions.Exceptions.Exceptions;
 using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
+using Trabajo_Final.DTO.Usuarios;
+using Trabajo_Final.Services.UsuarioServices.Perfil;
 
 namespace Trabajo_Final.Controllers
 {
@@ -48,6 +50,8 @@ namespace Trabajo_Final.Controllers
         
         private IRegistroUsuarioService registroUsuarioService;
 
+        private IActualizarPerfilService actualizarPerfilService;
+
         public UsuariosController(
             VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
 
@@ -62,7 +66,9 @@ namespace Trabajo_Final.Controllers
             ICrearRefreshTokenService  refreshToken,
             IDesactivarRefreshTokenService desactivarRefreshToken,
 
-            IRegistroUsuarioService registro
+            IRegistroUsuarioService registro,
+
+            IActualizarPerfilService actualizarPerfil
         )
         {
             jwtConfiguration = jwtConfig;
@@ -78,6 +84,7 @@ namespace Trabajo_Final.Controllers
 
             registroUsuarioService = registro;
 
+            actualizarPerfilService = actualizarPerfil;
         }
 
 
@@ -237,6 +244,21 @@ namespace Trabajo_Final.Controllers
             });
         }
 
+
+        [HttpPut]
+        [Route("/perfil")]
+        [Authorize(Roles = $"{Roles.JUGADOR},{Roles.JUEZ}")]
+        public async Task<ActionResult> ActualizarPerfil(ActualizarPerfilDTO dto)
+        {
+            //id usuario
+            string str_id_usuario = User.FindFirst(ClaimTypes.Sid).Value;
+            Int32.TryParse(str_id_usuario, out int id_usuario);
+
+
+            string response = await actualizarPerfilService.ActualizarPerfil(id_usuario, dto.url_foto, dto.alias);
+
+            return Ok(new { message = response});
+        }
 
         //test authorize
         //[HttpGet]
