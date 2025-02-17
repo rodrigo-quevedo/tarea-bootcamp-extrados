@@ -43,7 +43,7 @@ namespace Trabajo_Final.Services.TorneoServices.Crear
                 throw new InvalidInputException($"fecha_hora_fin: {str_fecha_hora_fin} no respeta el horario.");
 
 
-            if (fecha_hora_inicio.AddMinutes(30) >= fecha_hora_fin) throw new DuracionInvalidaException("El torneo debe durar como mínimo 30 minutos.");
+            if (fecha_hora_inicio.AddMinutes(30) > fecha_hora_fin) throw new DuracionInvalidaException("El torneo debe durar como mínimo 30 minutos.");
 
 
 

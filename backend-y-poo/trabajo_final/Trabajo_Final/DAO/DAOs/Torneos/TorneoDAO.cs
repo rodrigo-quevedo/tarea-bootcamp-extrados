@@ -344,15 +344,53 @@ namespace DAO.DAOs.Torneos
 
                 try
                 {
+
+                    //chequear que el torneo no este lleno
+                    string hayLugar_selectQuery =
+                        " SELECT ( " +
+                        "   POWER(2, (SELECT cantidad_rondas FROM torneos " +
+                        "            WHERE id = @Id_torneo) " +
+                        "   )" +
+                        "   > " +
+                        "  (SELECT count_jugadores " +
+                        "      FROM ( " +
+                        "        SELECT COUNT(*) AS count_jugadores" +
+                        "        FROM jugadores_inscriptos" +
+                        "        WHERE id_torneo = @Id_torneo" +
+                        "      ) AS count_table " +
+                        "   )" +
+                        " ); ";
+
+                    bool hayLugar = await connection.QueryFirstOrDefaultAsync<bool>(
+                        hayLugar_selectQuery,
+                        new { Id_torneo = id_torneo },
+                        transaction);
+
+                    if (!hayLugar) throw new TorneoLlenoException("El torneo ya está lleno."); 
+
                     //insert jugadores_inscriptos
                     string jugadorInsertQuery =
-                        " INSERT INTO jugadores_inscriptos " +
-                        "   (id_jugador, id_torneo, aceptado) " +
-                        " VALUES (" +
-                        "   (SELECT id FROM usuarios " +
-                        "       WHERE id=@Id_jugador AND rol = @Rol), " +
-                        "   (SELECT id FROM torneos " +
-                        "       WHERE id=@Id_torneo AND fase = @Fase), " +
+                        " INSERT INTO jugadores_inscriptos "                        +
+                        "   (id_jugador, id_torneo, aceptado) "                     +
+                        " VALUES ("                                                 +
+                        "   (SELECT id FROM usuarios "                              +
+                        "       WHERE id=@Id_jugador AND rol = @Rol), "             +
+                        "   (SELECT id FROM torneos "                               +
+                        "       WHERE "                                             +
+                        "           id=@Id_torneo "                                 +
+                        "       AND "                                               +
+                        "           fase = @Fase"                                   +  
+                        //"       AND "                                               +
+                        //"           ( POWER(2, (SELECT cantidad_rondas FROM torneos "+
+                        //"                       WHERE id=@Id_torneo) ) "             +
+                        //"           >   "                                            +
+                        //"           (SELECT count_jugadores FROM  "                  +
+                        //"               (SELECT COUNT(*) AS count_jugadores   "      +
+                        //"               FROM jugadores_inscriptos "                  +
+                        //"               WHERE id_torneo = @Id_torneo"                +
+                        //"               ) AS count_table )"                          +
+                        //"           ) "                                              +
+                        "   ), "                                                     +
                         "   @Aceptado); ";
 
                     await connection.ExecuteAsync(
@@ -416,7 +454,7 @@ namespace DAO.DAOs.Torneos
                         throw new InvalidInputException($"No existe ningun jugador con id [{id_jugador}].");
                     //torneo no existe
                     if (ex.Message.Contains("Column 'id_torneo' cannot be null"))
-                        throw new InvalidInputException($"No existe ningun torneo en fase '{fase_inscripcion}' con id [{id_torneo}]");
+                        throw new InvalidInputException($"No existe ningun torneo en fase '{fase_inscripcion}' con id [{id_torneo}]. O puede que el torneo ya esté lleno.");
                     ////carta no existe en coleccion (coleccion ya comprobó que existe)
                    if (ex.Message.Contains("Column 'id_carta' cannot be null"))
                         throw new InvalidInputException($"No existe ninguna carta con id [{ultima_id_carta_insert}] en la coleccion del jugador id [{id_jugador}].");
