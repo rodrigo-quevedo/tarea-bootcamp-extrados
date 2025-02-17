@@ -19,6 +19,7 @@ namespace DAO.DAOs.Cartas
         public CartaDAO(string connectionString) 
         {
             connection = new SingletonConnection(connectionString).Instance;
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
         }
 
 
@@ -70,7 +71,7 @@ namespace DAO.DAOs.Cartas
             bool cartasCargadas = false, 
             bool seriesDeCartaCargadas = false
         ) {
-            connection.Open();
+            
             bool flag_seriesCargadas = seriesCargadas;
             bool flag_cartasCargadas = cartasCargadas;
             bool flag_seriesDeCartasCargadas = seriesDeCartaCargadas;
@@ -247,14 +248,54 @@ namespace DAO.DAOs.Cartas
 
         public async Task<IEnumerable<Serie_De_Carta>> BuscarSeriesDeCartas(int[] id_cartas)
         {
-            string selectQuery = " SELECT * FROM series_de_cartas " +
-                                 " WHERE id_carta IN @Id_carta; ";
+            //string selectQuery = " SELECT * FROM series_de_cartas " +
+            //                     " WHERE id_carta IN @Id_carta; ";
 
-            return await connection.QueryAsync<Serie_De_Carta>(selectQuery, new
+            //return await connection.QueryAsync<Serie_De_Carta>(selectQuery, new
+            //{
+            //    Id_carta = id_cartas
+            //});
+            IEnumerable<Serie_De_Carta> result = Enumerable.Empty<Serie_De_Carta>();
+            
+            using (var transaction = connection.BeginTransaction())
             {
-                Id_carta = id_cartas
-            });
+                int ultimo_id_carta_select = id_cartas[0];
+                try
+                {                       
+                    string selectQuery = " SELECT * from series_de_cartas " +
+                                         " WHERE id_carta = " +
+                                         "      (SELECT id FROM cartas " +//verifica que existe
+                                         "       WHERE id=@Id_carta); ";
 
+                    foreach (int id_carta in id_cartas) {
+                        ultimo_id_carta_select = id_carta;
+
+                        IEnumerable<Serie_De_Carta> queryResult =
+                            await connection.QueryAsync<Serie_De_Carta>(
+                                selectQuery,
+                                new {
+                                    Id_carta = id_carta
+                                },
+                                transaction );
+
+                        if (queryResult.Count() == 0) throw new Exception("'id_carta' es null");
+
+                        result = result.Concat(queryResult);
+                    }
+
+                    transaction.Commit();
+
+                }
+                catch (Exception ex) {
+                    transaction.Rollback();
+
+                    if (ex.Message.Contains("'id_carta' es null"))
+                        throw new InvalidInputException($"No existe ninguna carta id [{ultimo_id_carta_select}]");
+                }
+            
+            }
+
+            return result;
         }
 
         //DELETE cartas coleccionadas

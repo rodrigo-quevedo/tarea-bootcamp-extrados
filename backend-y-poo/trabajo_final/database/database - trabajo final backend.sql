@@ -194,7 +194,7 @@ CREATE TABLE jugadores_inscriptos(
 -- por lo tanto, son colecciones independientes a nivel DB, es decir,
 -- que el servidor verificará que las cartas del mazo estén en las cartas coleccionadas.
 
-CREATE TABLE cartas_del_mazo(
+CREATE TABLE cartas_del_mazo( 
 	id_jugador INT NOT NULL,
 	FOREIGN KEY(id_jugador) REFERENCES usuarios(id),
 	

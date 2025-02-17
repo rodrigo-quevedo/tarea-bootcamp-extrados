@@ -107,30 +107,42 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.JUGADOR)]
         public async Task<ActionResult> InscribirseATorneo(InscripcionTorneoDTO dto)
         {
+            //verificar que no hay repetidas en el mazo
+            VerificarRepeticionesMazo(dto.id_cartas_mazo);
+
             //id jugador
             string str_id_jugador = User.FindFirst(ClaimTypes.Sid).Value;
-            Int32.TryParse(str_id_jugador, out var id_jugador);
+            Int32.TryParse(str_id_jugador, out int id_jugador);
 
 
-            await inscribirJugadorService.Inscribir(id_jugador, dto.id_torneo, dto.id_cartas_mazo);
+            await inscribirJugadorService.Inscribir(id_jugador, (int)dto.id_torneo, dto.id_cartas_mazo);
 
 
-            return Ok();
+            return Ok( new { message = $"El jugador id {id_jugador} se inscribió con éxito al torneo [{dto.id_torneo}]."});
         }
 
+        private void VerificarRepeticionesMazo(int[] id_cartas_mazo)
+        {
+            int id_repetida = 0;
 
-        //[HttpPost]
-        //[Route("/torneos/inscribirse")]
-        //[Authorize(Roles = Roles.JUGADOR)]
-        //public async Task<ActionResult> InscribirseATorneo(InscripcionTorneoDTO reqBody)
-        //{
-        //validar torneo service
+            try 
+            {
+                id_repetida = id_cartas_mazo
+                    .GroupBy(id => id)
+                    .First(id => id.Count() > 1)
+                    .Key;
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("Sequence contains no matching element"))
+                    Console.WriteLine("No hay cartas repetidas en el mazo");
 
-        //validar cartas mazo service
+                else throw ex;
+            }
 
-        //inscribir service
+            if (id_repetida != 0) throw new InvalidInputException($"La carta id [{id_repetida}] esta repetida.");
+        }
 
-        //}
 
 
 

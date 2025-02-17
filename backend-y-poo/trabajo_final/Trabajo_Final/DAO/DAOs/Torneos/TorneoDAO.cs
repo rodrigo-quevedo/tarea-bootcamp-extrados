@@ -1,6 +1,7 @@
 ﻿using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.Connection;
 using DAO.Entidades.Cartas;
+using DAO.Entidades.Custom;
 using DAO.Entidades.TorneoEntidades;
 using DAO.Entidades.UsuarioEntidades;
 using Dapper;
@@ -20,6 +21,7 @@ namespace DAO.DAOs.Torneos
         MySqlConnection connection;
         public TorneoDAO(string connectionString) { 
             this.connection = new SingletonConnection(connectionString).Instance;
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
         }
 
 
@@ -36,8 +38,7 @@ namespace DAO.DAOs.Torneos
         )
         {
             bool exito = false;
-            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-
+            
             using (MySqlTransaction transaction = connection.BeginTransaction()) 
             {
                 try
@@ -191,8 +192,6 @@ namespace DAO.DAOs.Torneos
         //READ torneos
         public async Task<IEnumerable<Torneo>> BuscarTorneos(Torneo busqueda)
         {
-            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-
             string selectQuery;
 
 
@@ -213,8 +212,6 @@ namespace DAO.DAOs.Torneos
 
         public async Task<IEnumerable<Serie_Habilitada>> BuscarSeriesDeTorneos(IEnumerable<Torneo> torneos)
         {
-            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-
             string selectQuery = " SELECT * FROM series_habilitadas " +
                                  " WHERE id_torneo = @Id; "; //-->@Id mapea el Id de Torneo
 
@@ -257,8 +254,6 @@ namespace DAO.DAOs.Torneos
 
         public async Task<IEnumerable<Juez_Torneo>> BuscarJuecesDeTorneos(IEnumerable<Torneo> torneos)
         {
-            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
-
             string selectQuery = " SELECT * FROM jueces_torneo " +
                                  " WHERE id_torneo = @Id; ";//-->@Id mapea el Id de Torneo
 
@@ -302,5 +297,108 @@ namespace DAO.DAOs.Torneos
             }
 
         }
+
+        public async Task<bool> InscribirJugador(
+            int id_jugador, string rol_jugador,
+            int id_torneo, string fase_inscripcion,
+            int[] id_cartas_mazo)
+        {
+            bool exito = false;
+
+            using (MySqlTransaction transaction = connection.BeginTransaction()) 
+            {
+                int ultima_id_carta_insert = id_cartas_mazo[0];
+
+                try
+                {
+                    //insert jugadores_inscriptos
+                    string jugadorInsertQuery =
+                        " INSERT INTO jugadores_inscriptos " +
+                        "   (id_jugador, id_torneo, aceptado) " +
+                        " VALUES (" +
+                        "   (SELECT id FROM usuarios " +
+                        "       WHERE id=@Id_jugador AND rol = @Rol), " +
+                        "   (SELECT id FROM torneos " +
+                        "       WHERE id=@Id_torneo AND fase = @Fase), " +
+                        "   @Aceptado); ";
+
+                    await connection.ExecuteAsync(
+                        jugadorInsertQuery,
+                        new {
+                            Id_jugador = id_jugador, Rol = rol_jugador,
+                            Id_torneo = id_torneo, Fase = fase_inscripcion,
+                            Aceptado = false
+                        },
+                        transaction);
+
+                    Console.WriteLine("Jugador inscripto OK");
+
+                    //insert cartas_del_mazo
+
+                    string mazoInsertQuery =
+                        " INSERT INTO cartas_del_mazo (id_jugador, id_carta, id_torneo) " +
+                        " VALUES ( " +
+                        "   (SELECT id FROM usuarios " +
+                        "       WHERE id=@Id_jugador AND rol=@Rol), " +
+                        "   (SELECT id_carta FROM cartas_coleccionadas " +
+                        "       WHERE " +
+                        "           id_carta=@Id_carta " +
+                        "           AND " +
+                        "           id_jugador=@Id_jugador" +
+                        "           AND " +
+                        "           id_carta IN (SELECT id_carta)" +
+                        "       )," +
+                        "   (SELECT id FROM torneos " +
+                        "       WHERE id=@Id_torneo AND fase=@Fase)" +
+                        "   ); ";
+
+                    
+                    foreach (int id_carta in id_cartas_mazo) {       
+                        
+                        ultima_id_carta_insert = id_carta;
+
+                        await connection.ExecuteAsync(
+                            mazoInsertQuery,
+                            new {
+                                Id_jugador = id_jugador,
+                                Rol = rol_jugador,
+                                Id_carta = id_carta,
+                                Id_torneo = id_torneo,
+                                Fase = fase_inscripcion
+                            },
+                            transaction
+                        );
+                    }
+
+                    transaction.Commit();
+                    Console.WriteLine("MAZO del jugador OK");
+                    exito = true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+
+                    //jugador no existe
+                    if (ex.Message.Contains("Column 'id_jugador' cannot be null"))
+                        throw new InvalidInputException($"No existe ningun jugador con id [{id_jugador}].");
+                    //torneo no existe
+                    if (ex.Message.Contains("Column 'id_torneo' cannot be null"))
+                        throw new InvalidInputException($"No existe ningun torneo en fase '{fase_inscripcion}' con id [{id_torneo}]");
+                    ////carta no existe en coleccion (coleccion ya comprobó que existe)
+                   if (ex.Message.Contains("Column 'id_carta' cannot be null"))
+                        throw new InvalidInputException($"No existe ninguna carta con id [{ultima_id_carta_insert}] en la coleccion del jugador id [{id_jugador}].");
+                    //jugador ya inscripto
+                    if (ex.Message.Contains("Duplicate entry") && ex.Message.Contains("for key 'jugadores_inscriptos.PRIMARY'"))
+                        throw new InvalidInputException($"El jugador [{id_jugador}] ya está inscripto en el torneo [{id_torneo}]");
+                    
+                    
+                    throw ex;
+                }
+            }
+
+            return exito;
+        }
+
+
     }
 }

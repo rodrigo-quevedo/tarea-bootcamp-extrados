@@ -17,8 +17,7 @@ namespace DAO.DAOs.Torneos
             string pais,
             string fase,
             string[] series_habilitadas,
-            int[] id_jueces
-        );
+            int[] id_jueces);
 
         public Task<int> AgregarJuez(int id_torneo, int id_juez, string rol, string faseInvalida);
         public Task<int> EliminarJuez(int id_torneo, int id_juez);
@@ -28,5 +27,9 @@ namespace DAO.DAOs.Torneos
         public Task<IEnumerable<Serie_Habilitada>> BuscarSeriesDeTorneos(IEnumerable<Torneo> torneos);
         public Task<IEnumerable<Juez_Torneo>> BuscarJuecesDeTorneos(IEnumerable<Torneo> torneos);
 
+        public Task<bool> InscribirJugador(
+            int id_jugador, string rol_jugador,
+            int id_torneo, string fase_inscripcion,
+            int[] id_cartas_mazo);
     }
 }
