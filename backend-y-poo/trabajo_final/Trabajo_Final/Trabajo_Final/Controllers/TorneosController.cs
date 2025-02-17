@@ -9,6 +9,7 @@ using Trabajo_Final.DTO.Torneo;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.TorneoServices.EditarJueces;
+using Trabajo_Final.Services.TorneoServices.InscribirJugador;
 using Trabajo_Final.utils.Constantes;
 
 namespace Trabajo_Final.Controllers
@@ -22,12 +23,18 @@ namespace Trabajo_Final.Controllers
         IEliminarJuezService eliminarJuezService;
 
         IBuscarTorneosDisponiblesService buscarTorneosDisponiblesService;
+        
+        IInscribirJugadorService inscribirJugadorService;
+        
+        
         public TorneosController(
             ICrearTorneoService crearTorneo,
             IAgregarJuezService agregarJuez,
             IEliminarJuezService eliminarJuez,
 
-            IBuscarTorneosDisponiblesService buscarTorneosDisponibles
+            IBuscarTorneosDisponiblesService buscarTorneosDisponibles,
+
+            IInscribirJugadorService inscribirJugador
         )
         {
             crearTorneoService = crearTorneo;
@@ -35,6 +42,8 @@ namespace Trabajo_Final.Controllers
             eliminarJuezService = eliminarJuez;
 
             buscarTorneosDisponiblesService = buscarTorneosDisponibles;
+
+            inscribirJugadorService = inscribirJugador;
         }
 
 
@@ -64,7 +73,7 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.ORGANIZADOR)]
         public async Task<ActionResult> AgregarJuezTorneo([FromRoute] int id_torneo, EditarJuezTorneoDTO dto)
         {
-            await agregarJuezService.AgregarJuez(id_torneo, (int) dto.id_juez);
+            await agregarJuezService.AgregarJuez(id_torneo, (int)dto.id_juez);
 
             return Ok(new { message = $"Juez con ID [{dto.id_juez}] agregado con éxito al torneo [{id_torneo}]." });
         }
@@ -74,7 +83,7 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.ORGANIZADOR)]
         public async Task<ActionResult> EliminarJuezTorneo([FromRoute] int id_torneo, EditarJuezTorneoDTO dto)
         {
-            await eliminarJuezService.EliminarJuez(id_torneo, (int) dto.id_juez);
+            await eliminarJuezService.EliminarJuez(id_torneo, (int)dto.id_juez);
 
             return Ok(new { message = $"Juez [{dto.id_juez}] eliminado con éxito del torneo [{id_torneo}]." });
         }
@@ -85,11 +94,28 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.JUGADOR)]
         public async Task<ActionResult> BuscarTorneosDisponibles()
         {
-        
-            IList<TorneoDisponibleDTO> torneos = 
+
+            IList<TorneoDisponibleDTO> torneos =
                 await buscarTorneosDisponiblesService.BuscarTorneosDisponibles();
 
             return Ok(torneos);
+        }
+
+
+        [HttpPost]
+        [Route("/torneos/inscribirse")]
+        [Authorize(Roles = Roles.JUGADOR)]
+        public async Task<ActionResult> InscribirseATorneo(InscripcionTorneoDTO dto)
+        {
+            //id jugador
+            string str_id_jugador = User.FindFirst(ClaimTypes.Sid).Value;
+            Int32.TryParse(str_id_jugador, out var id_jugador);
+
+
+            await inscribirJugadorService.Inscribir(id_jugador, dto.id_torneo, dto.id_cartas_mazo);
+
+
+            return Ok();
         }
 
 

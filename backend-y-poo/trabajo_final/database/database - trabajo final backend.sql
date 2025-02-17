@@ -95,12 +95,19 @@ CREATE TABLE cartas_coleccionadas(
 	PRIMARY KEY(id_carta, id_jugador)
 );
 
+
+
+DROP TABLE IF EXISTS series_habilitadas;
+DROP TABLE IF EXISTS jueces_torneo;
+DROP TABLE IF EXISTS jugadores_inscriptos;
+DROP TABLE IF EXISTS cartas_del_mazo;
+
 DROP TABLE IF EXISTS torneos;
 CREATE TABLE torneos(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	
 	fecha_hora_inicio DATETIME NOT NULL,	
-	fecha_hora_fin DATETIME NULL NULL,	
+	fecha_hora_fin DATETIME NOT NULL,	
 
 	horario_diario_inicio VARCHAR(5) NOT NULL, -- HH:MM
 	horario_diario_fin VARCHAR(5) NOT NULL,
@@ -114,7 +121,7 @@ CREATE TABLE torneos(
  	CHECK (fase IN ('registro', 'torneo', 'finalizado')),
 	
 	id_organizador INT NOT NULL,
-	FOREIGN KEY(id_organizador) REFERENCES usuarios(id),
+	FOREIGN KEY(id_organizador) REFERENCES usuarios(id)
 	
 	-- Id ganador:
 	-- SELECT id_ganador FROM partidas
@@ -129,7 +136,6 @@ CREATE TABLE torneos(
 		-- LIMIT 1;
 );
 
-DROP TABLE IF EXISTS series_habilitadas;
 CREATE TABLE series_habilitadas(
 	nombre_serie VARCHAR(20) NOT NULL,
 	FOREIGN KEY(nombre_serie) REFERENCES series(nombre),
@@ -141,7 +147,6 @@ CREATE TABLE series_habilitadas(
 );
 
 
-DROP TABLE IF EXISTS jueces_torneo;
 CREATE TABLE jueces_torneo (
 	id_torneo INT NOT NULL,
 	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
@@ -153,7 +158,6 @@ CREATE TABLE jueces_torneo (
 );
 
 
-DROP TABLE IF EXISTS jugadores_inscriptos;
 CREATE TABLE jugadores_inscriptos(
 	id_jugador INT NOT NULL,
 	FOREIGN KEY(id_jugador) REFERENCES usuarios(id),
@@ -161,7 +165,7 @@ CREATE TABLE jugadores_inscriptos(
 	id_torneo INT NOT NULL,
 	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
 
-	PRIMARY KEY(id_jugador, id_torneo)
+	PRIMARY KEY (id_jugador, id_torneo),
 	
 	-- Esto me sirve para solucionar problemas de concurrencia:
 	-- Puede haber un exceso de inscripciones a un torneo (supongamos que
@@ -172,8 +176,8 @@ CREATE TABLE jugadores_inscriptos(
 	-- de fase (registro ->torneo) lee los inscriptos al torneo con:
 	-- ORDER BY id DESC LIMIT [cantidad_valida_jugadores], y a todos esos
 	-- jugadores les asigna aceptado = true.
-	id INT AUTO_INCREMENT NOT NULL UNIQUE,
-	aceptado BOOL NOT NULL, 	
+	orden INT NOT NULL UNIQUE AUTO_INCREMENT,
+	aceptado BOOL NOT NULL	
 );
 
 -- Validar jueces sin SELECT:
@@ -189,7 +193,7 @@ CREATE TABLE jugadores_inscriptos(
 -- pero las cartas del mazo deben quedar registradas igualmente
 -- por lo tanto, son colecciones independientes a nivel DB, es decir,
 -- que el servidor verificará que las cartas del mazo estén en las cartas coleccionadas.
-DROP TABLE IF EXISTS cartas_del_mazo;
+
 CREATE TABLE cartas_del_mazo(
 	id_jugador INT NOT NULL,
 	FOREIGN KEY(id_jugador) REFERENCES usuarios(id),

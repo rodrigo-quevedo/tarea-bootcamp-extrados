@@ -260,29 +260,7 @@ namespace Trabajo_Final.Controllers
             return Ok(new { message = response});
         }
 
-        //test authorize
-        //[HttpGet]
-        //[Route("/datos")]
-        //[Authorize]
-        //public ActionResult mostrarDatosUsuario()
-        //{
-        //    Console.WriteLine("GET /datos");
 
-        //    return Ok(new {message="[autorización con éxito]"});
-        //}
-
-
-        ////crear torneo (organizador)
-        //[HttpGet]
-        //[Route("/torneo")]
-        //[Authorize(Roles = Roles.ORGANIZADOR)]
-        //public ActionResult crearTorneo()
-        //{
-        //    //Console.WriteLine(User.Claims.ToString());
-
-
-        //    return Ok(new {rol_del_usuario = User.FindFirst(ClaimTypes.Role).Value});
-        //}
 
     }
 }

@@ -10,16 +10,11 @@ namespace Trabajo_Final.Services.TorneoServices.InscribirJugador
             torneoDAO = torneoDao;
         }
 
+        public async Task<bool> Inscribir(int id_jugador, int id_torneo, int[] id_cartas_mazo)
+        {
 
-        //public async Task<bool> InscribirJugador (
-        //    int id_jugador,
-        //    int id_torneo,
-        //    int[] mazo
-        //)
-        //{
-        //    //
 
-        //}
-
+            return true;
+        }
     }
 }
