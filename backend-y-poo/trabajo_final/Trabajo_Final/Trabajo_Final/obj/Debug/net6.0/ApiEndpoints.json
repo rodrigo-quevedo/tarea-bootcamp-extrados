@@ -143,6 +143,22 @@
   },
   {
     "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "BuscarTorneos",
+    "RelativePath": "torneos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fases",
+        "Type": "System.String[]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
     "Method": "AgregarJuezTorneo",
     "RelativePath": "torneos/{id_torneo}/jueces",
     "HttpMethod": "POST",

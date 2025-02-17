@@ -24,6 +24,7 @@ using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
+using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.TorneoServices.EditarJueces;
 using Trabajo_Final.Services.TorneoServices.InscribirJugador;
@@ -105,6 +106,7 @@ builder.Services.AddScoped<ICrearTorneoService, CrearTorneoService>();
 builder.Services.AddScoped<IValidarJuecesService, ValidarJuecesService>();
 builder.Services.AddScoped<IAgregarJuezService, AgregarJuezService>();
 builder.Services.AddScoped<IEliminarJuezService, EliminarJuezService>();
+builder.Services.AddScoped<IBuscarTorneosService, BuscarTorneosService>();
 
 builder.Services.AddScoped<IBuscarTorneosDisponiblesService, BuscarTorneosDisponiblesService>();
 builder.Services.AddScoped<IInscribirJugadorService, InscribirJugadorService>();
@@ -191,6 +193,7 @@ app.UseExceptionHandler(exceptionHandlerApp => {
                 });
                 break;
             }
+
         }
         
         

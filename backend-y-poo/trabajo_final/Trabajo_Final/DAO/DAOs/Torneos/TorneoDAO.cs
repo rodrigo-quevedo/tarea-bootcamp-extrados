@@ -210,6 +210,39 @@ namespace DAO.DAOs.Torneos
             return null;//(Torneo busqueda) sin ningun campo valido para buscar
         }
 
+        public async Task<IEnumerable<Torneo>> BuscarTorneos(string[] fases)
+        {
+            IEnumerable<Torneo> result = Enumerable.Empty<Torneo>();
+            using (MySqlTransaction transaction = connection.BeginTransaction())
+            {
+                string selectQuery = " SELECT * FROM torneos " +
+                                     " WHERE fase = @Fase; ";
+
+                try
+                {
+                    foreach (string fase in fases)
+                    {
+                        IEnumerable<Torneo> queryResult =
+                            await connection.QueryAsync<Torneo>(
+                                selectQuery,
+                                new { Fase = fase },
+                                transaction);
+
+                        result = result.Concat(queryResult);
+                    }
+
+                    transaction.Commit();
+                }
+                catch (Exception ex) 
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+
+                return result;
+            }
+        }
+
         public async Task<IEnumerable<Serie_Habilitada>> BuscarSeriesDeTorneos(IEnumerable<Torneo> torneos)
         {
             string selectQuery = " SELECT * FROM series_habilitadas " +

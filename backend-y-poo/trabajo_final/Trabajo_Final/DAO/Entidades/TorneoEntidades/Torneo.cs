@@ -16,6 +16,6 @@ namespace DAO.Entidades.TorneoEntidades
         public int Cantidad_rondas {  get; set; }
         public string Pais { get; set; }
         public string Fase { get; set; }
-        public string Id_organizador { get; set; }
+        public int Id_organizador { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Trabajo_Final.DTO.ListaTorneos;
 using Trabajo_Final.DTO.Torneo;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
+using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.TorneoServices.EditarJueces;
 using Trabajo_Final.Services.TorneoServices.InscribirJugador;
@@ -23,10 +24,11 @@ namespace Trabajo_Final.Controllers
         IEliminarJuezService eliminarJuezService;
 
         IBuscarTorneosDisponiblesService buscarTorneosDisponiblesService;
-        
+
         IInscribirJugadorService inscribirJugadorService;
-        
-        
+
+        IBuscarTorneosService buscarTorneosService;
+
         public TorneosController(
             ICrearTorneoService crearTorneo,
             IAgregarJuezService agregarJuez,
@@ -34,7 +36,9 @@ namespace Trabajo_Final.Controllers
 
             IBuscarTorneosDisponiblesService buscarTorneosDisponibles,
 
-            IInscribirJugadorService inscribirJugador
+            IInscribirJugadorService inscribirJugador,
+
+            IBuscarTorneosService buscarTorneos
         )
         {
             crearTorneoService = crearTorneo;
@@ -44,6 +48,8 @@ namespace Trabajo_Final.Controllers
             buscarTorneosDisponiblesService = buscarTorneosDisponibles;
 
             inscribirJugadorService = inscribirJugador;
+
+            buscarTorneosService = buscarTorneos;
         }
 
 
@@ -118,14 +124,14 @@ namespace Trabajo_Final.Controllers
             await inscribirJugadorService.Inscribir(id_jugador, (int)dto.id_torneo, dto.id_cartas_mazo);
 
 
-            return Ok( new { message = $"El jugador id {id_jugador} se inscribió con éxito al torneo [{dto.id_torneo}]."});
+            return Ok(new { message = $"El jugador id {id_jugador} se inscribió con éxito al torneo [{dto.id_torneo}]." });
         }
 
         private void VerificarRepeticionesMazo(int[] id_cartas_mazo)
         {
             int id_repetida = 0;
 
-            try 
+            try
             {
                 id_repetida = id_cartas_mazo
                     .GroupBy(id => id)
@@ -144,7 +150,24 @@ namespace Trabajo_Final.Controllers
         }
 
 
+        [HttpGet]
+        [Route("/torneos")]
+        [Authorize(Roles = Roles.ORGANIZADOR)]
+        public async Task<ActionResult> BuscarTorneos([FromQuery] BuscarTorneosDTO dto)
+        {
+            string[] fases;
 
+            if (dto.fases == null || dto.fases.Length == 0)
+                fases = FasesTorneo.fases;
+            
+            else
+             fases = dto.fases.Distinct().ToArray();
+              
+
+            IList<TorneoDTO> result = await buscarTorneosService.BuscarTorneos(fases);
+
+            return Ok(result.ToArray());
+        }
 
     }
 }
