@@ -243,6 +243,19 @@ namespace DAO.DAOs.Torneos
             }
         }
 
+        public async Task<IEnumerable<Torneo>> BuscarTorneosLlenos(string faseInscripcion)
+        {
+            string selectQuery = " SELECT * FROM torneos " +
+                                 " WHERE " +
+                                 "      POWER(2, cantidad_rondas) " +
+                                 "      <=" +
+                                 "      (SELECT COUNT(*) FROM jugadores_inscriptos" +
+                                 "      WHERE torneos.id = jugadores_inscriptos.id_torneo); ";
+
+            return await connection.QueryAsync<Torneo>(selectQuery);
+
+        }
+
         public async Task<IEnumerable<Serie_Habilitada>> BuscarSeriesDeTorneos(IEnumerable<Torneo> torneos)
         {
             string selectQuery = " SELECT * FROM series_habilitadas " +
@@ -310,13 +323,6 @@ namespace DAO.DAOs.Torneos
 
                     }
 
-
-                    //result = result.Concat(await connection.QueryAsync<Juez_Torneo>(
-                    //    selectQuery,
-                    //    torneos.ToList(),
-                    //    transaction)
-                    //);
-
                     transaction.Commit();
 
                 }
@@ -329,6 +335,44 @@ namespace DAO.DAOs.Torneos
                 return result;
             }
 
+        }
+
+        public async Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(IEnumerable<Torneo> torneos)
+        {
+            string selectQuery = " SELECT * FROM jugadores_inscriptos " +
+                                 " WHERE id_torneo = @Id_torneo; ";//-->@Id mapea el Id de Torneo
+
+            IEnumerable<Jugador_Inscripto> result = Enumerable.Empty<Jugador_Inscripto>();
+
+            using (MySqlTransaction transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    foreach (Torneo torneo in torneos)
+                    {
+                        IEnumerable<Jugador_Inscripto> queryResult =
+                            await connection.QueryAsync<Jugador_Inscripto>(
+                                selectQuery,
+                                new { Id_torneo = torneo.Id },
+                                transaction
+                            );
+
+                        result = result.Concat(queryResult);
+
+                    }
+
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+
+            }
+            
+            return result;
         }
 
         public async Task<bool> InscribirJugador(

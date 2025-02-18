@@ -169,5 +169,18 @@ namespace Trabajo_Final.Controllers
             return Ok(result.ToArray());
         }
 
+        [HttpGet]
+        [Route("/torneos/iniciar")]
+        [Authorize(Roles = Roles.ORGANIZADOR)]
+        public async Task<ActionResult> BuscarTorneosLlenos()
+        {
+            IList<TorneoLlenoDTO> result = await buscarTorneosService.BuscarTorneosLlenos();
+
+            if (result == null) return Ok(new { message = "No hay torneos llenos para aceptar inscripciones." });
+
+            return Ok(result);
+        }
+
+
     }
 }

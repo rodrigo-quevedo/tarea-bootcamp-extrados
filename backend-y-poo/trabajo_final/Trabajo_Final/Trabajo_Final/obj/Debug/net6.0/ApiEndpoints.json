@@ -201,6 +201,16 @@
   },
   {
     "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "BuscarTorneosLlenos",
+    "RelativePath": "torneos/iniciar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
     "Method": "BuscarTorneosDisponibles",
     "RelativePath": "torneos/inscribirse",
     "HttpMethod": "GET",
