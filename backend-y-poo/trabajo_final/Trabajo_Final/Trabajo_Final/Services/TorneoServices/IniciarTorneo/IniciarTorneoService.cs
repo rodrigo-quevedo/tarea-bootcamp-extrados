@@ -25,6 +25,7 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
 
             //armar fechaHora de inicio y fin de partidas
             int cantidad_partidas = CalcularCantidadPartidas(torneo.Cantidad_rondas);
+            
             IEnumerable<FechaHoraPartida> fechaHoras = ArmarFechaHoraPartidas(torneo, cantidad_partidas);
 
             //armar jugadores
@@ -32,11 +33,10 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
             IEnumerable<Jugador_Inscripto> jugadores_aceptables =
                 await torneoDAO.BuscarJugadoresInscriptos(id_torneo, cantidad_jugadores);
 
-            IList<Jugador_Inscripto> list_jugadores_aceptables = jugadores_aceptables.ToList();
-        
+
 
             //sortear jugadores
-
+            //IEnumerable<Partida> partidas = ArmarPartidas(fechaHoras.ToList(), jugadores_aceptables.ToList());
 
 
             //transaction: UPDATE torneo, INSERT partidas
@@ -114,5 +114,14 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
 
             return fechaHora_partidas;
         }
+    
+        
+        //private IEnumerable<Partida> ArmarPartidas(
+        //    IList<FechaHoraPartida> fechaHoraPartidas, IList<Jugador_Inscripto> jugadoresPartida)
+        //{
+
+        //}
+    
+    
     }
 }

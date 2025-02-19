@@ -33,16 +33,29 @@ namespace Trabajo_Final.Services.TorneoServices.Crear
             int[] id_jueces
         )
         {
+            //valor del offset cuando el timezone es UTC 00:00:
+            TimeSpan offset_esperado = new TimeSpan(0, 0, 0);
+
             //parsear DateTimes y verificar
-            DateTime fecha_hora_inicio = DateTime.Parse(str_fecha_hora_inicio, null, System.Globalization.DateTimeStyles.RoundtripKind);
+            DateTimeOffset fechahora_inicio_offset = DateTimeOffset.Parse(str_fecha_hora_inicio);
+            if (fechahora_inicio_offset.Offset != offset_esperado)
+                throw new InvalidInputException($"'fecha_hora_inicio' ingresada {str_fecha_hora_inicio} no es UTC.");
+            
+            DateTime fecha_hora_inicio = fechahora_inicio_offset.UtcDateTime;
+
             if (!ValidarHorario(horario_inicio, horario_fin, fecha_hora_inicio))
                 throw new InvalidInputException($"fecha_hora_inicio: {str_fecha_hora_inicio} no respeta el horario.");
-            
-            DateTime fecha_hora_fin = DateTime.Parse(str_fecha_hora_fin, null, System.Globalization.DateTimeStyles.RoundtripKind);
+
+            DateTimeOffset fechahora_fin_offset = DateTimeOffset.Parse(str_fecha_hora_fin);
+            if (fechahora_fin_offset.Offset != offset_esperado)
+                throw new InvalidInputException($"'fecha_hora_fin' ingresada {str_fecha_hora_inicio} no es UTC.");
+
+            DateTime fecha_hora_fin = fechahora_inicio_offset.UtcDateTime;
+
             if (!ValidarHorario(horario_inicio, horario_fin, fecha_hora_fin))
                 throw new InvalidInputException($"fecha_hora_fin: {str_fecha_hora_fin} no respeta el horario.");
 
-
+            
             if (fecha_hora_inicio.AddMinutes(30) > fecha_hora_fin) throw new DuracionInvalidaException("El torneo debe durar como mínimo 30 minutos.");
 
 
@@ -112,19 +125,19 @@ namespace Trabajo_Final.Services.TorneoServices.Crear
 
 
             //dias entre medio: cantidad de minutos en el horario * dias intermedios
-            DateTime hoy = DateTime.Now;
-            DateTime horario_inicio_hoy = ParseHorario(horario_inicio, hoy);
-            DateTime horario_fin_hoy = ParseHorario(horario_fin, hoy);
+            DateTime datetime_referencia = DateTime.Now;
+            DateTime horario_inicio_referencia = ParseHorario(horario_inicio, datetime_referencia);
+            DateTime horario_fin_referencia = ParseHorario(horario_fin, datetime_referencia);
             
             int minutos_en_horario = 
-                (int) horario_fin_hoy.Subtract(horario_inicio_hoy).TotalMinutes;
+                (int)horario_fin_referencia.Subtract(horario_inicio_referencia).TotalMinutes;
 
 
-            DateTime parsed_fecha_hora_fin = ParseHorario("00:00", fecha_hora_fin);
-            DateTime parsed_fecha_hora_inicio = ParseHorario("00:00", fecha_hora_inicio);
+            DateTime date_fecha_hora_fin = fecha_hora_fin.Date;
+            DateTime date_fecha_hora_inicio = fecha_hora_inicio.Date;
 
             int cantidad_dias_intermedios =
-                (int) parsed_fecha_hora_fin.Subtract(parsed_fecha_hora_inicio)
+                (int) date_fecha_hora_fin.Subtract(date_fecha_hora_inicio)
                 .TotalDays - 1; //Resto un día para no incluir el último día (ya calculado)
 
 
@@ -158,14 +171,8 @@ namespace Trabajo_Final.Services.TorneoServices.Crear
                 int cantidad_partidas_en_siguiente_ronda =
                     cantidad_partidas + (int)Math.Pow(2, cantidad_rondas);
 
-
-                if (cantidad_partidas_en_siguiente_ronda > cantidad_partidas_max)
-                {
-                    //calcular_siguiente_ronda = false;
-                    break;
-                }
-
-
+                if (cantidad_partidas_en_siguiente_ronda > cantidad_partidas_max) break;
+                
                 cantidad_partidas = cantidad_partidas_en_siguiente_ronda;
                 cantidad_rondas++;
             }
@@ -199,7 +206,6 @@ namespace Trabajo_Final.Services.TorneoServices.Crear
             DateTime fechaHora)
         {
             //Horario inicio
-
             DateTime horario_fechahora_inicio = ParseHorario(horario_inicio, fechaHora);
 
             //Horario fin
@@ -240,7 +246,7 @@ namespace Trabajo_Final.Services.TorneoServices.Crear
             Int32.TryParse(str_horario_minutos, out int horario_minutos);
 
 
-            return datetime.Date
+            return datetime.Date //este objeto datetime ya viene en formato UTC
                     .AddHours(horario_horas)
                     .AddMinutes(horario_minutos);
         }

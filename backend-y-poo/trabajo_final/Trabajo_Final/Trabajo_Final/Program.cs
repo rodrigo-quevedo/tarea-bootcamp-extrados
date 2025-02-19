@@ -46,6 +46,32 @@ using static System.Net.Mime.MediaTypeNames;
 var builder = WebApplication.CreateBuilder(args);
 
 
+////Demo: manejo de DateTimes y timezones
+
+////sacar timezone del string
+//string ISO_datetime_string = "2024-01-15T23:59Z";
+//DateTimeOffset dateTimeOffset = DateTimeOffset.Parse(ISO_datetime_string);
+//Console.WriteLine($"offset: {dateTimeOffset.Offset}");
+//TimeSpan offset_esperado = new TimeSpan(0, 0, 0);
+//Console.WriteLine($"offset esperado: {offset_esperado}");
+
+////verificar timezone UTC
+//if (dateTimeOffset.Offset != offset_esperado)
+//    throw new Exception($"{dateTimeOffset} es un datetime incorrecto. El timezone no es UTC (z).");
+
+////pasar a DateTime con timezone UTC      
+//Console.WriteLine($"datetime offset: {dateTimeOffset}");
+//DateTime utc_datetime = dateTimeOffset.UtcDateTime;
+//Console.WriteLine($"datetime: {utc_datetime} | {utc_datetime.ToString("o")}");
+
+////Demo: datetime.Date
+//DateTime date = utc_datetime.Date;
+//Console.WriteLine($"datetime.Date: {date}");
+//DateTime datetime_con_addMinutes_y_addHours = date.AddMinutes(1).AddHours(3);
+//Console.WriteLine($"datetime utc con addMinutes y addHours: {datetime_con_addMinutes_y_addHours}");
+//return;
+
+
 // Servicios (auto-inyeccion de dependencias)
 
 builder.Services.AddSingleton<IUsuarioDAO>(
