@@ -199,8 +199,8 @@ namespace Trabajo_Final.Services.TorneoServices.Crear
             DateTime fechaHora)
         {
             //Horario inicio
-            DateTime horario_fechahora_inicio = ParseHorario(horario_inicio, fechaHora);
 
+            DateTime horario_fechahora_inicio = ParseHorario(horario_inicio, fechaHora);
 
             //Horario fin
             DateTime horario_fechahora_fin = ParseHorario(horario_fin, fechaHora);
@@ -231,7 +231,7 @@ namespace Trabajo_Final.Services.TorneoServices.Crear
 
         }
 
-        private DateTime ParseHorario(string horario, DateTime datetime)
+        public static DateTime ParseHorario(string horario, DateTime datetime)
         {
             string str_horario_horas = horario.Substring(0, 2);
             string str_horario_minutos = horario.Substring(3, 2);

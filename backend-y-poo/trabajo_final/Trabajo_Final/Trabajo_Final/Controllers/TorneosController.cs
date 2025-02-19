@@ -1,5 +1,6 @@
 ﻿using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs.Torneos;
+using DAO.Entidades.PartidaEntidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.TorneoServices.EditarJueces;
+using Trabajo_Final.Services.TorneoServices.IniciarTorneo;
 using Trabajo_Final.Services.TorneoServices.InscribirJugador;
 using Trabajo_Final.utils.Constantes;
 
@@ -28,6 +30,7 @@ namespace Trabajo_Final.Controllers
         IInscribirJugadorService inscribirJugadorService;
 
         IBuscarTorneosService buscarTorneosService;
+        IIniciarTorneoService iniciarTorneoService;
 
         public TorneosController(
             ICrearTorneoService crearTorneo,
@@ -38,7 +41,8 @@ namespace Trabajo_Final.Controllers
 
             IInscribirJugadorService inscribirJugador,
 
-            IBuscarTorneosService buscarTorneos
+            IBuscarTorneosService buscarTorneos,
+            IIniciarTorneoService iniciarTorneo
         )
         {
             crearTorneoService = crearTorneo;
@@ -50,6 +54,7 @@ namespace Trabajo_Final.Controllers
             inscribirJugadorService = inscribirJugador;
 
             buscarTorneosService = buscarTorneos;
+            iniciarTorneoService = iniciarTorneo;
         }
 
 
@@ -179,6 +184,23 @@ namespace Trabajo_Final.Controllers
             if (result == null) return Ok(new { message = "No hay torneos llenos para aceptar inscripciones." });
 
             return Ok(result);
+        }
+
+
+        [HttpPost]
+        [Route("/torneos/iniciar")]
+        [Authorize(Roles = Roles.ORGANIZADOR)]
+        public async Task<ActionResult> IniciarTorneo(IniciarTorneoDTO dto)
+        {
+            
+            IEnumerable<Partida> partidas_primera_ronda = 
+                await iniciarTorneoService.IniciarTorneo((int)dto.id_torneo);
+
+
+            return Ok(new { 
+                message = "Se inició el torneo correctamente.",
+                partidas_primera_ronda = partidas_primera_ronda.ToArray()
+            });
         }
 
 

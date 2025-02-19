@@ -23,13 +23,14 @@ namespace DAO.DAOs.Torneos
         public Task<int> EliminarJuez(int id_torneo, int id_juez);
 
 
+        public Task<Torneo> BuscarTorneo(Torneo busqueda);
         public Task<IEnumerable<Torneo>> BuscarTorneos(Torneo busqueda);
         public Task<IEnumerable<Torneo>> BuscarTorneos(string[] fases);
         public Task<IEnumerable<Torneo>> BuscarTorneosLlenos(string faseInscripcion);
         public Task<IEnumerable<Serie_Habilitada>> BuscarSeriesDeTorneos(IEnumerable<Torneo> torneos);
         public Task<IEnumerable<Juez_Torneo>> BuscarJuecesDeTorneos(IEnumerable<Torneo> torneos);
-        public Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(IEnumerable<Torneo> torneos);  
-
+        public Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(IEnumerable<Torneo> torneos);
+        public Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(int id_torneo, int max_cantidad_jugadores);
         public Task<bool> InscribirJugador(
             int id_jugador, string rol_jugador,
             int id_torneo, string fase_inscripcion,

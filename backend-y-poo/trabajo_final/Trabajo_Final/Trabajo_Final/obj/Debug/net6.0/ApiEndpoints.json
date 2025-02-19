@@ -211,6 +211,22 @@
   },
   {
     "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "IniciarTorneo",
+    "RelativePath": "torneos/iniciar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Torneo.IniciarTorneoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
     "Method": "BuscarTorneosDisponibles",
     "RelativePath": "torneos/inscribirse",
     "HttpMethod": "GET",

@@ -255,7 +255,8 @@ namespace Trabajo_Final.Controllers
             Int32.TryParse(str_id_usuario, out int id_usuario);
 
 
-            string response = await actualizarPerfilService.ActualizarPerfil(id_usuario, dto.url_foto, dto.alias);
+            string response = await actualizarPerfilService.ActualizarPerfil(
+                id_usuario, dto.url_foto, dto.alias);
 
             return Ok(new { message = response});
         }

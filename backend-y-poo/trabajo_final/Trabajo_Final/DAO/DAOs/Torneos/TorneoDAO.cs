@@ -190,6 +190,26 @@ namespace DAO.DAOs.Torneos
 
 
         //READ torneos
+        public async Task<Torneo> BuscarTorneo(Torneo busqueda)
+        {
+            string selectQuery;
+
+
+            if (busqueda.Id != default)
+            {
+                selectQuery = " SELECT * FROM torneos " +
+                              " WHERE id = @Id;";
+
+                return await connection.QueryFirstOrDefaultAsync<Torneo>(selectQuery, new
+                {
+                    Id = busqueda.Id
+                });
+            }
+
+
+            return null;//(Torneo busqueda) sin ningun campo valido para buscar
+        }
+
         public async Task<IEnumerable<Torneo>> BuscarTorneos(Torneo busqueda)
         {
             string selectQuery;
@@ -375,6 +395,22 @@ namespace DAO.DAOs.Torneos
             return result;
         }
 
+        public async Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(int id_torneo, int max_cantidad_jugadores)
+        {
+            string selectQuery = " SELECT * FROM jugadores_inscriptos " +
+                                 " WHERE id_torneo = @Id_torneo " +
+                                 " ORDER BY orden DESC " +
+                                 " LIMIT @Max_cantidad_jugadores; ";
+
+            return await connection.QueryAsync<Jugador_Inscripto>(
+                selectQuery,
+                new {
+                    Id_torneo = id_torneo,
+                    Max_cantidad_jugadores = max_cantidad_jugadores
+                });
+
+        }
+
         public async Task<bool> InscribirJugador(
             int id_jugador, string rol_jugador,
             int id_torneo, string fase_inscripcion,
@@ -410,7 +446,7 @@ namespace DAO.DAOs.Torneos
                         new { Id_torneo = id_torneo },
                         transaction);
 
-                    if (!hayLugar) throw new TorneoLlenoException("El torneo ya está lleno."); 
+                    if (!hayLugar) throw new TorneoLlenoException(); 
 
                     //insert jugadores_inscriptos
                     string jugadorInsertQuery =
@@ -460,8 +496,8 @@ namespace DAO.DAOs.Torneos
                         "           id_carta=@Id_carta " +
                         "           AND " +
                         "           id_jugador=@Id_jugador" +
-                        "           AND " +
-                        "           id_carta IN (SELECT id_carta)" +
+                        //"           AND " +
+                        //"           id_carta IN (SELECT id_carta)" +
                         "       )," +
                         "   (SELECT id FROM torneos " +
                         "       WHERE id=@Id_torneo AND fase=@Fase)" +

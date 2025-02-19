@@ -27,6 +27,7 @@ using Trabajo_Final.Services.JugadorServices.QuitarCartas;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.TorneoServices.EditarJueces;
+using Trabajo_Final.Services.TorneoServices.IniciarTorneo;
 using Trabajo_Final.Services.TorneoServices.InscribirJugador;
 using Trabajo_Final.Services.TorneoServices.ValidarJueces;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
@@ -43,6 +44,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Servicios (auto-inyeccion de dependencias)
 
@@ -107,6 +109,7 @@ builder.Services.AddScoped<IValidarJuecesService, ValidarJuecesService>();
 builder.Services.AddScoped<IAgregarJuezService, AgregarJuezService>();
 builder.Services.AddScoped<IEliminarJuezService, EliminarJuezService>();
 builder.Services.AddScoped<IBuscarTorneosService, BuscarTorneosService>();
+builder.Services.AddScoped<IIniciarTorneoService, IniciarTorneoService>();
 
 builder.Services.AddScoped<IBuscarTorneosDisponiblesService, BuscarTorneosDisponiblesService>();
 builder.Services.AddScoped<IInscribirJugadorService, InscribirJugadorService>();
