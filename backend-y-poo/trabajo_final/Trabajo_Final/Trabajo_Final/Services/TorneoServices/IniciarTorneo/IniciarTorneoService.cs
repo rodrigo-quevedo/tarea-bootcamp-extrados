@@ -25,8 +25,11 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
 
             //armar fechaHora de inicio y fin de partidas
             int cantidad_partidas = CalcularCantidadPartidas(torneo.Cantidad_rondas);
-            
+
+         
             IEnumerable<FechaHoraPartida> fechaHoras = ArmarFechaHoraPartidas(torneo, cantidad_partidas);
+
+            //DemoLeerDateTime(torneo);
 
             //armar jugadores
             int cantidad_jugadores = (int) Math.Pow(2, torneo.Cantidad_rondas);
@@ -75,53 +78,86 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
 
             while (partida_pointer <= cantidad_partidas)
             {
-                DateTime inicio = momento_pointer;
-                DateTime fin = momento_pointer.AddMinutes(30);
+                DateTime inicio_partida = momento_pointer;
+                DateTime fin_partida = momento_pointer.AddMinutes(30);
 
-                DateTime horario_fin =
+                //Averiguar hora de cierre del dia actual
+                DateTime momento_cierre = 
                     CrearTorneoService.ParseHorario(
                         torneo.Horario_diario_fin, 
                         momento_pointer);
 
-                if (momento_pointer.AddMinutes(30) > horario_fin) {
-                    
+                //Averiguar si la partida excede el horario de cierre
+                if (momento_pointer.AddMinutes(30) > momento_cierre)
+                {   //Si lo excede:
+
                     momento_pointer.AddDays(1); //voy al dia siguiente
 
-                    momento_pointer = 
+                    momento_pointer = //voy al inicio de ese dia
                         CrearTorneoService.ParseHorario(
-                            torneo.Horario_diario_inicio, //voy al inicio de ese dia
+                            torneo.Horario_diario_inicio,
                             momento_pointer);
 
-                    inicio = momento_pointer;//empieza partida
+                    inicio_partida = momento_pointer;//seteo el inicio de partida
 
-                    momento_pointer = momento_pointer.AddMinutes(30);
-                    fin = momento_pointer;//final partida
+                    fin_partida = momento_pointer.AddMinutes(30);//seteo el final de partida
+                
                 }
 
-                else {
-                    momento_pointer = momento_pointer.AddMinutes(30);
-                }
+                //Mover el pointer del inicio de partida al final:
+                momento_pointer = momento_pointer.AddMinutes(30);
+                
 
                 fechaHora_partidas.Add(new FechaHoraPartida()
                 {
-                    fecha_hora_inicio = inicio,
-                    fecha_hora_fin = fin
+                    fecha_hora_inicio = inicio_partida,
+                    fecha_hora_fin = fin_partida
                 });
 
-                Console.WriteLine($"{inicio} -> {fin}");
+                Console.WriteLine($"{inicio_partida} -> {fin_partida}");
                 partida_pointer++;
             }
 
             return fechaHora_partidas;
         }
-    
-        
+
+
         //private IEnumerable<Partida> ArmarPartidas(
         //    IList<FechaHoraPartida> fechaHoraPartidas, IList<Jugador_Inscripto> jugadoresPartida)
         //{
 
         //}
-    
-    
+
+
+
+        private void DemoLeerDateTime(Torneo torneo)
+        {
+            Console.WriteLine($"inicio: {torneo.Fecha_hora_inicio} | {torneo.Fecha_hora_inicio.ToString("o")}");
+            Console.WriteLine($"inicio en timezone local: {torneo.Fecha_hora_inicio.ToLocalTime()}" +
+                $" | {torneo.Fecha_hora_inicio.ToLocalTime().ToString("o")}");
+            Console.WriteLine($"inicio .Date: {torneo.Fecha_hora_inicio.Date}");
+            Console.WriteLine($"inicio Kind: {torneo.Fecha_hora_inicio.Kind}");
+            Console.WriteLine($"fin: {torneo.Fecha_hora_fin} | {torneo.Fecha_hora_fin.ToString("o")}");
+            Console.WriteLine($"fin en timezone local: {torneo.Fecha_hora_fin.ToLocalTime()} " +
+                $"| {torneo.Fecha_hora_fin.ToLocalTime().ToString("o")}");
+            Console.WriteLine($"fin Kind: {torneo.Fecha_hora_fin.Kind}");
+            Console.WriteLine($"substract (ambos tienen Kind=unspecified): {torneo.Fecha_hora_fin.Subtract(torneo.Fecha_hora_inicio)}");
+            DateTime fin_utc = torneo.Fecha_hora_fin;
+            fin_utc = DateTime.SpecifyKind(fin_utc, DateTimeKind.Utc);
+
+            //fin_utc = fin_utc.AddMinutes(3);
+            //Console.WriteLine($"fin {torneo.Fecha_hora_fin} | fin_utc {fin_utc}");
+            Console.WriteLine($"fin_utc Kind: {fin_utc.Kind}");
+            Console.WriteLine($"substract (fin_utc tiene Kind=utc, inicio Kind=unspecified): {fin_utc.Subtract(torneo.Fecha_hora_inicio)}");
+
+            DateTime inicio_local = torneo.Fecha_hora_inicio;
+            inicio_local = DateTime.SpecifyKind(inicio_local, DateTimeKind.Local);
+            Console.WriteLine($"inicio_local Kind: {inicio_local.Kind}");
+            Console.WriteLine($"substract (fin3_utc tiene Kind=utc, inicio Kind=local): {fin_utc.Subtract(inicio_local)}");
+
+
+            throw new Exception("fin programa");
+        }
+
     }
 }
