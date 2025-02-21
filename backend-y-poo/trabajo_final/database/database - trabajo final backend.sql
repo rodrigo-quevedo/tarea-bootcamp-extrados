@@ -210,8 +210,6 @@ CREATE TABLE cartas_del_mazo(
 
 
 
--- RONDAS Y JUEGOS -- 
-
 DROP TABLE IF EXISTS partidas;
 CREATE TABLE partidas(
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -236,7 +234,7 @@ CREATE TABLE partidas(
 	CHECK(id_ganador IS NULL OR id_ganador = id_jugador_1 OR id_ganador = id_jugador_2),
 	
 	id_descalificado INT NULL,
-	FOREIGN KEY (id_descalificado) REFERENCES usuarios(idcartas_coleccionadas),
+	FOREIGN KEY (id_descalificado) REFERENCES usuarios(id),
 	-- Obtener descalificaciones de un usuario:
 		-- SELECT * from juegos_de_ronda
 		-- WHERE id_descalificado = (id del usuario);

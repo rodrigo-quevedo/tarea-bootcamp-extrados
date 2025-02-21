@@ -550,6 +550,77 @@ namespace DAO.DAOs.Torneos
             return exito;
         }
 
+        public async Task<bool> IniciarTorneo(
+            string faseTorneo,
+            int id_torneo,
+            IList<int> id_jugadores_aceptados,
+            IList<DatosPartidaDTO> partidas_primera_ronda)
+        {
+
+            using (MySqlTransaction transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    //UPDATE torneo
+                    string updateQuery = " UPDATE torneos " +
+                                         " SET fase = @Fase " +
+                                         " WHERE id = @Id; ";
+
+                    int torneo_result = await connection.ExecuteAsync(
+                        updateQuery, 
+                        new {
+                            Fase = faseTorneo,
+                            Id = id_torneo
+                        }, 
+                        transaction);
+
+                    if (torneo_result == 0) throw new Exception("No se pudo actualizar fase del torneo.");
+
+                    //UPDATE jugadores_inscriptos
+                    string jugadores_updateQuery =
+                        " UPDATE jugadores_inscriptos " +
+                        " SET aceptado = @Aceptado " +
+                        " WHERE id_jugador = @Id_jugador; ";
+
+                    foreach(int id_jugador in id_jugadores_aceptados)
+                    {
+                        int jugador_result = await connection.ExecuteAsync(
+                            jugadores_updateQuery,
+                            new { Aceptado = true, Id_jugador = id_jugador },
+                            transaction);
+
+                        if (jugador_result == 0) throw new Exception($"No se pudo actualizar estado 'aceptado' del jugador {id_jugador}");
+                    }
+
+                    //INSERT partidas
+                    string insertQuery =
+                        " INSERT INTO partidas ( " +
+                        "   id_torneo, ronda, fecha_hora_inicio, " +
+                        "   fecha_hora_fin, id_jugador_1, id_jugador_2, " +
+                        "   id_juez) " +
+                        " VALUES (" +
+                        "   @Id_torneo, @Ronda, @Fecha_hora_inicio, " +
+                        "   @Fecha_hora_fin, @Id_jugador_1, @Id_jugador_2," +
+                        "   @Id_juez); ";
+
+
+                    await connection.ExecuteAsync(
+                        insertQuery,
+                        partidas_primera_ronda,
+                        transaction);
+
+                    transaction.Commit();
+                }
+                catch (Exception ex) 
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+
+                return true;
+            }
+        }
+
 
     }
 }

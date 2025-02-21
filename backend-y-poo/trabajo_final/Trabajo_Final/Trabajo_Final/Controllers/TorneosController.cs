@@ -193,13 +193,11 @@ namespace Trabajo_Final.Controllers
         public async Task<ActionResult> IniciarTorneo(IniciarTorneoDTO dto)
         {
             
-            IEnumerable<Partida> partidas_primera_ronda = 
-                await iniciarTorneoService.IniciarTorneo((int)dto.id_torneo);
+            await iniciarTorneoService.IniciarTorneo((int)dto.id_torneo);
 
 
             return Ok(new { 
-                message = "Se inició el torneo correctamente.",
-                partidas_primera_ronda = partidas_primera_ronda.ToArray()
+                message = "Se inició el torneo correctamente."
             });
         }
 
