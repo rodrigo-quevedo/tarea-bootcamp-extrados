@@ -444,6 +444,29 @@ namespace DAO.DAOs.Torneos
 
         }
 
+        public async Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresAceptados(IEnumerable<Torneo> torneos) 
+        {
+            string selectQuery = " SELECT * FROM jugadores_inscriptos " +
+                                 " WHERE id_torneo = @Id_torneo " +
+                                 " AND aceptado = @Aceptado; ";
+
+            IEnumerable<Jugador_Inscripto> result = Enumerable.Empty<Jugador_Inscripto>();
+
+            foreach(Torneo torneo in torneos)
+            {
+                IEnumerable<Jugador_Inscripto> queryResult =  await connection.QueryAsync<Jugador_Inscripto>(
+                    selectQuery,
+                    new {
+                        Id_torneo = torneo.Id,
+                        Aceptado = true
+                    });
+
+                result = result.Concat(queryResult);
+            }
+
+            return result;
+        }
+
         public async Task<bool> InscribirJugador(
             int id_jugador, string rol_jugador,
             int id_torneo, string fase_inscripcion,
@@ -613,13 +636,17 @@ namespace DAO.DAOs.Torneos
                     string jugadores_updateQuery =
                         " UPDATE jugadores_inscriptos " +
                         " SET aceptado = @Aceptado " +
-                        " WHERE id_jugador = @Id_jugador; ";
+                        " WHERE id_jugador = @Id_jugador" +
+                        " AND id_torneo = @Id_torneo; ";
 
                     foreach(int id_jugador in id_jugadores_aceptados)
                     {
                         int jugador_result = await connection.ExecuteAsync(
                             jugadores_updateQuery,
-                            new { Aceptado = true, Id_jugador = id_jugador },
+                            new { 
+                                Aceptado = true, 
+                                Id_jugador = id_jugador,
+                                Id_torneo = id_torneo},
                             transaction);
 
                         if (jugador_result == 0) throw new Exception($"No se pudo actualizar estado 'aceptado' del jugador {id_jugador}");

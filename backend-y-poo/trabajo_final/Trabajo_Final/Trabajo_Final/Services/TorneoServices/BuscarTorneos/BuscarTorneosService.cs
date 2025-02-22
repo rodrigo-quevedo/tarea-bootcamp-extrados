@@ -32,6 +32,10 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
             IEnumerable<Juez_Torneo> jueces_torneos =
                 await torneoDAO.BuscarJuecesDeTorneos(torneos);
 
+            //jugadores inscriptos (aceptados)
+            IEnumerable<Jugador_Inscripto> jugadores =
+                await torneoDAO.BuscarJugadoresAceptados(torneos);
+
 
             //armar DTO
             IList<TorneoDTO> result = new List<TorneoDTO>();
@@ -50,6 +54,12 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     .Select(juez => juez.Id_juez)
                     .ToList();
 
+                IList<int> id_jugadores_aceptados = 
+                    jugadores
+                    .Where(jugador => jugador.Id_torneo == torneo.Id)
+                    .Select(jugador => jugador.Id_jugador)
+                    .ToList();
+
 
                 result.Add(new TorneoDTO()
                 {
@@ -63,7 +73,8 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     fase = torneo.Fase,
                     id_organizador = torneo.Id_organizador,
                     series_habilitadas = series.ToArray(),
-                    id_jueces_torneo = id_jueces.ToArray()
+                    id_jueces_torneo = id_jueces.ToArray(),
+                    id_jugadores_aceptados = id_jugadores_aceptados.ToArray()
                 });
 
             }
