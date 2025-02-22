@@ -28,10 +28,6 @@ namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
             IEnumerable<Serie_Habilitada> series_habilitadas =
                 await torneoDAO.BuscarSeriesDeTorneos(torneos);
 
-            //jueces
-            IEnumerable<Juez_Torneo> jueces_torneos = 
-                await torneoDAO.BuscarJuecesDeTorneos(torneos);
-
 
             //armar DTO
             IList<TorneoDisponibleDTO> result = new List<TorneoDisponibleDTO>();
@@ -43,11 +39,6 @@ namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
                     if (serie.Id_torneo == torneo.Id) 
                         series.Add(serie.Nombre_serie);
 
-                IList<int> id_jueces = new List<int>();
-                foreach (Juez_Torneo juez in jueces_torneos)
-                    if (juez.Id_torneo == torneo.Id)
-                        id_jueces.Add(juez.Id_juez);
-
 
                 result.Add(new TorneoDisponibleDTO()
                 {
@@ -57,8 +48,7 @@ namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
                     horario_diario_inicio = torneo.Horario_diario_inicio,
                     horario_diario_fin = torneo.Horario_diario_fin,
                     pais = torneo.Pais,
-                    series_habilitadas = series.ToArray(),
-                    id_jueces_torneo = id_jueces.ToArray()
+                    series_habilitadas = series.ToArray()
                 });
 
             }

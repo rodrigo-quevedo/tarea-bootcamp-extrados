@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Trabajo_Final.DTO.Torneo
+namespace Trabajo_Final.DTO.Torneos
 {
     public class EditarJuezTorneoDTO
     {

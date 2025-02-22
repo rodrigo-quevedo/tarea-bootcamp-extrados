@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Trabajo_Final.DTO.ListaTorneos;
-using Trabajo_Final.DTO.Torneo;
+using Trabajo_Final.DTO.Torneos;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
+using Trabajo_Final.Services.PartidaServices.Buscar_Partidas;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.TorneoServices.EditarJueces;
@@ -32,6 +33,8 @@ namespace Trabajo_Final.Controllers
         IBuscarTorneosService buscarTorneosService;
         IIniciarTorneoService iniciarTorneoService;
 
+        IBuscarPartidasService buscarPartidasService;
+
         public TorneosController(
             ICrearTorneoService crearTorneo,
             IAgregarJuezService agregarJuez,
@@ -42,7 +45,9 @@ namespace Trabajo_Final.Controllers
             IInscribirJugadorService inscribirJugador,
 
             IBuscarTorneosService buscarTorneos,
-            IIniciarTorneoService iniciarTorneo
+            IIniciarTorneoService iniciarTorneo,
+
+            IBuscarPartidasService buscarPartidas
         )
         {
             crearTorneoService = crearTorneo;
@@ -55,6 +60,8 @@ namespace Trabajo_Final.Controllers
 
             buscarTorneosService = buscarTorneos;
             iniciarTorneoService = iniciarTorneo;
+
+            buscarPartidasService = buscarPartidas;
         }
 
 
@@ -159,7 +166,7 @@ namespace Trabajo_Final.Controllers
             Int32.TryParse(str_id_organizador, out int id_organizador);
 
 
-            IList<TorneoDTO> result = await buscarTorneosService.BuscarTorneos(fases, id_organizador);
+            IList<TorneoVistaCompletaDTO> result = await buscarTorneosService.BuscarTorneos(fases, id_organizador);
 
             return Ok(new { lista_torneos = result.ToArray() });
         }
@@ -185,8 +192,10 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.ORGANIZADOR)]
         public async Task<ActionResult> IniciarTorneo(IniciarTorneoDTO dto)
         {
-            
-            await iniciarTorneoService.IniciarTorneo((int)dto.id_torneo);
+            Int32.TryParse(User.FindFirst(ClaimTypes.Sid).Value, out int id_organizador);
+
+
+            await iniciarTorneoService.IniciarTorneo((int)dto.id_torneo, id_organizador);
 
 
             return Ok(new { 
@@ -194,6 +203,20 @@ namespace Trabajo_Final.Controllers
             });
         }
 
+        [HttpGet]
+        [Route("/torneos/oficializar")]
+        [Authorize(Roles = Roles.JUEZ)]
+        public async Task<ActionResult> BuscarPartidasParaOficializar()
+        {
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_juez);
+
+            IEnumerable<Partida> result = 
+                await buscarPartidasService.BuscarPartidasParaOficializar(id_juez);
+
+            if (result == null) return Ok($"No hay partidas para el juez [{id_juez}].");
+
+            return Ok(result);
+        }
 
 
 

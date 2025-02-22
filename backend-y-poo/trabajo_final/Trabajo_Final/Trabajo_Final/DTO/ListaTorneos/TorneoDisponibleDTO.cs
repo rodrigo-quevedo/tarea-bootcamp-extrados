@@ -17,10 +17,6 @@ namespace Trabajo_Final.DTO.ListaTorneos
 
         public string[] series_habilitadas { get; set; }
 
-        // Estos no se si hacen falta:
-
-        //public int id_organizador {  get; set; }
-        public int[] id_jueces_torneo { get; set; }
 
     }
 }

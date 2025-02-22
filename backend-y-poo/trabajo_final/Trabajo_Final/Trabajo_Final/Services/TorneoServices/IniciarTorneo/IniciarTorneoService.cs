@@ -20,12 +20,14 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
         }
 
 
-        public async Task<bool> IniciarTorneo(int id_torneo)
+        public async Task<bool> IniciarTorneo(int id_torneo, int id_organizador)
         {
             //buscar torneo
-            Torneo torneo = await torneoDAO.BuscarTorneo(new Torneo() { Id = id_torneo });
+            Torneo torneo = await torneoDAO.BuscarTorneo( new Torneo() { Id = id_torneo });
 
+            if (torneo == null) throw new InvalidInputException($"El torneo {id_torneo} no existe.");
             if (torneo.Fase != FasesTorneo.REGISTRO) throw new InvalidInputException($"El torneo {id_torneo} ya ha iniciado. Fase actual del torneo: {torneo.Fase}");
+            if (torneo.Id_organizador != id_organizador) throw new InvalidInputException($"El torneo {id_torneo} no pertenece al organizador.");
 
             //buscar jueces
             IEnumerable<Torneo> busqueda = Enumerable.Empty<Torneo>();

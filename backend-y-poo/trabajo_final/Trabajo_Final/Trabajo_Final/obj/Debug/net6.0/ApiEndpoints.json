@@ -135,7 +135,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneo.RegistroTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Torneos.RegistroTorneoDTO",
         "IsRequired": true
       }
     ],
@@ -172,7 +172,7 @@
       },
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneo.EditarJuezTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Torneos.EditarJuezTorneoDTO",
         "IsRequired": true
       }
     ],
@@ -193,7 +193,7 @@
       },
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneo.EditarJuezTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Torneos.EditarJuezTorneoDTO",
         "IsRequired": true
       }
     ],
@@ -219,7 +219,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneo.IniciarTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Torneos.IniciarTorneoDTO",
         "IsRequired": true
       }
     ],
@@ -245,10 +245,20 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneo.InscripcionTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Torneos.InscripcionTorneoDTO",
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "BuscarPartidasParaOficializar",
+    "RelativePath": "torneos/oficializar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

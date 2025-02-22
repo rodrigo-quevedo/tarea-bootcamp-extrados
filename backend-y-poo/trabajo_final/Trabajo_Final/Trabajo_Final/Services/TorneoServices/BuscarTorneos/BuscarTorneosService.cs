@@ -18,7 +18,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
         }
 
 
-        public async Task<IList<TorneoDTO>> BuscarTorneos(string[] fases, int id_organizador)
+        public async Task<IList<TorneoVistaCompletaDTO>> BuscarTorneos(string[] fases, int id_organizador)
         {
             //torneos
             IEnumerable<Torneo> torneos =
@@ -38,7 +38,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
 
 
             //armar DTO
-            IList<TorneoDTO> result = new List<TorneoDTO>();
+            IList<TorneoVistaCompletaDTO> result = new List<TorneoVistaCompletaDTO>();
 
             foreach (Torneo torneo in torneos)
             {
@@ -61,17 +61,17 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     .ToList();
 
 
-                result.Add(new TorneoDTO()
+                result.Add(new TorneoVistaCompletaDTO()
                 {
-                    id = torneo.Id,
-                    fecha_hora_inicio = torneo.Fecha_hora_inicio,
-                    fecha_hora_fin = torneo.Fecha_hora_fin,
-                    horario_diario_inicio = torneo.Horario_diario_inicio,
-                    horario_diario_fin = torneo.Horario_diario_fin,
-                    cantidad_rondas = torneo.Cantidad_rondas,
-                    pais = torneo.Pais,
-                    fase = torneo.Fase,
-                    id_organizador = torneo.Id_organizador,
+                    Id = torneo.Id,
+                    Fecha_hora_inicio = torneo.Fecha_hora_inicio,
+                    Fecha_hora_fin = torneo.Fecha_hora_fin,
+                    Horario_diario_inicio = torneo.Horario_diario_inicio,
+                    Horario_diario_fin = torneo.Horario_diario_fin,
+                    Cantidad_rondas = torneo.Cantidad_rondas,
+                    Pais = torneo.Pais,
+                    Fase = torneo.Fase,
+                    Id_organizador = torneo.Id_organizador,
                     series_habilitadas = series.ToArray(),
                     id_jueces_torneo = id_jueces.ToArray(),
                     id_jugadores_aceptados = id_jugadores_aceptados.ToArray()
@@ -130,18 +130,18 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
 
                 result.Add(new TorneoLlenoDTO()
                 {
-                    id = torneo.Id,
-                    fecha_hora_inicio = torneo.Fecha_hora_inicio,
-                    fecha_hora_fin = torneo.Fecha_hora_fin,
-                    horario_diario_inicio = torneo.Horario_diario_inicio,
-                    horario_diario_fin = torneo.Horario_diario_fin,
-                    cantidad_rondas = torneo.Cantidad_rondas,
-                    pais = torneo.Pais,
-                    fase = torneo.Fase,
-                    id_organizador = torneo.Id_organizador,
+                    Id = torneo.Id,
+                    Fecha_hora_inicio = torneo.Fecha_hora_inicio,
+                    Fecha_hora_fin = torneo.Fecha_hora_fin,
+                    Horario_diario_inicio = torneo.Horario_diario_inicio,
+                    Horario_diario_fin = torneo.Horario_diario_fin,
+                    Cantidad_rondas = torneo.Cantidad_rondas,
+                    Pais = torneo.Pais,
+                    Fase = torneo.Fase,
+                    Id_organizador = torneo.Id_organizador,
                     series_habilitadas = series.ToArray(),
                     id_jueces_torneo = id_jueces.ToArray(),
-                    id_jugadores = id_jugadores.ToArray()
+                    id_jugadores_inscriptos = id_jugadores.ToArray()
                 });
 
             }
