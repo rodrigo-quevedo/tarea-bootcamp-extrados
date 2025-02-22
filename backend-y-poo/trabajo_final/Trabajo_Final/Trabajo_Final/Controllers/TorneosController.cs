@@ -84,7 +84,10 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.ORGANIZADOR)]
         public async Task<ActionResult> AgregarJuezTorneo([FromRoute] int id_torneo, EditarJuezTorneoDTO dto)
         {
-            await agregarJuezService.AgregarJuez(id_torneo, (int)dto.id_juez);
+            //id organizador
+            Int32.TryParse(User.FindFirst(ClaimTypes.Sid).Value, out int id_organizador);
+
+            await agregarJuezService.AgregarJuez(id_organizador, id_torneo, (int)dto.id_juez);
 
             return Ok(new { message = $"Juez con ID [{dto.id_juez}] agregado con éxito al torneo [{id_torneo}]." });
         }
@@ -94,7 +97,10 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.ORGANIZADOR)]
         public async Task<ActionResult> EliminarJuezTorneo([FromRoute] int id_torneo, EditarJuezTorneoDTO dto)
         {
-            await eliminarJuezService.EliminarJuez(id_torneo, (int)dto.id_juez);
+            //id organizador
+            Int32.TryParse(User.FindFirst(ClaimTypes.Sid).Value, out int id_organizador);
+
+            await eliminarJuezService.EliminarJuez(id_organizador, id_torneo, (int)dto.id_juez);
 
             return Ok(new { message = $"Juez [{dto.id_juez}] eliminado con éxito del torneo [{id_torneo}]." });
         }
@@ -119,7 +125,7 @@ namespace Trabajo_Final.Controllers
         public async Task<ActionResult> InscribirseATorneo(InscripcionTorneoDTO dto)
         {
             //verificar que no hay repetidas en el mazo
-            VerificarRepeticionesMazo(dto.id_cartas_mazo);
+            inscribirJugadorService.VerificarRepeticionesMazo(dto.id_cartas_mazo);
 
             //id jugador
             string str_id_jugador = User.FindFirst(ClaimTypes.Sid).Value;
@@ -132,27 +138,6 @@ namespace Trabajo_Final.Controllers
             return Ok(new { message = $"El jugador id {id_jugador} se inscribió con éxito al torneo [{dto.id_torneo}]." });
         }
 
-        private void VerificarRepeticionesMazo(int[] id_cartas_mazo)
-        {
-            int id_repetida = 0;
-
-            try
-            {
-                id_repetida = id_cartas_mazo
-                    .GroupBy(id => id)
-                    .First(id => id.Count() > 1)
-                    .Key;
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message.Contains("Sequence contains no matching element"))
-                    Console.WriteLine("No hay cartas repetidas en el mazo");
-
-                else throw ex;
-            }
-
-            if (id_repetida != 0) throw new InvalidInputException($"La carta id [{id_repetida}] esta repetida.");
-        }
 
 
         [HttpGet]
@@ -160,6 +145,7 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.ORGANIZADOR)]
         public async Task<ActionResult> BuscarTorneos([FromQuery] BuscarTorneosDTO dto)
         {
+            //fases
             string[] fases;
 
             if (dto.fases == null || dto.fases.Length == 0)
@@ -167,11 +153,15 @@ namespace Trabajo_Final.Controllers
             
             else
              fases = dto.fases.Distinct().ToArray();
-              
 
-            IList<TorneoDTO> result = await buscarTorneosService.BuscarTorneos(fases);
+            //id organizador
+            string str_id_organizador = User.FindFirst(ClaimTypes.Sid).Value;
+            Int32.TryParse(str_id_organizador, out int id_organizador);
 
-            return Ok(result.ToArray());
+
+            IList<TorneoDTO> result = await buscarTorneosService.BuscarTorneos(fases, id_organizador);
+
+            return Ok(new { lista_torneos = result.ToArray() });
         }
 
         [HttpGet]

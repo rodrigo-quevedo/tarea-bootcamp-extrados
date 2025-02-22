@@ -18,11 +18,11 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
         }
 
 
-        public async Task<IList<TorneoDTO>> BuscarTorneos(string[] fases)
+        public async Task<IList<TorneoDTO>> BuscarTorneos(string[] fases, int id_organizador)
         {
             //torneos
             IEnumerable<Torneo> torneos =
-                await torneoDAO.BuscarTorneos(fases);
+                await torneoDAO.BuscarTorneos(fases, id_organizador);
 
             //series
             IEnumerable<Serie_Habilitada> series_habilitadas =

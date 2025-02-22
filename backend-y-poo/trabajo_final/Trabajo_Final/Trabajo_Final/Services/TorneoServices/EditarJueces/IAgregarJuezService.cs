@@ -2,6 +2,6 @@
 {
     public interface IAgregarJuezService
     {
-        public Task<bool> AgregarJuez(int id_torneo, int id_juez);
+        public Task<bool> AgregarJuez(int id_organizador, int id_torneo, int id_juez);
     }
 }

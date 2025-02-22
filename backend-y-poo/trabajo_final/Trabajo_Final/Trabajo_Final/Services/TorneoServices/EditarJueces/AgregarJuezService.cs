@@ -13,9 +13,14 @@ namespace Trabajo_Final.Services.TorneoServices.EditarJueces
         }
 
 
-        public async Task<bool> AgregarJuez(int id_torneo, int id_juez)
+        public async Task<bool> AgregarJuez(int id_organizador, int id_torneo, int id_juez)
         {
-            await torneoDAO.AgregarJuez(id_torneo, id_juez, Roles.JUEZ, FasesTorneo.FINALIZADO);
+            await torneoDAO.AgregarJuez(
+                id_organizador, 
+                id_torneo, 
+                id_juez, 
+                Roles.JUEZ, 
+                FasesTorneo.FINALIZADO);
 
             return true;
         }

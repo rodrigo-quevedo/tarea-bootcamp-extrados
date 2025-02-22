@@ -39,24 +39,26 @@ namespace Trabajo_Final.Services.TorneoServices.Crear
             //parsear DateTimes y verificar
             DateTimeOffset fechahora_inicio_offset = DateTimeOffset.Parse(str_fecha_hora_inicio);
             if (fechahora_inicio_offset.Offset != offset_esperado)
-                throw new InvalidInputException($"'fecha_hora_inicio' ingresada {str_fecha_hora_inicio} no es UTC.");
-            
+                    throw new InvalidInputException($"'fecha_hora_inicio' ingresada {str_fecha_hora_inicio} no es UTC.");
             DateTime fecha_hora_inicio = fechahora_inicio_offset.UtcDateTime;
 
             if (!ValidarHorario(horario_inicio, horario_fin, fecha_hora_inicio))
                 throw new InvalidInputException($"fecha_hora_inicio: {str_fecha_hora_inicio} no respeta el horario.");
 
+
+
             DateTimeOffset fechahora_fin_offset = DateTimeOffset.Parse(str_fecha_hora_fin);
             if (fechahora_fin_offset.Offset != offset_esperado)
-                throw new InvalidInputException($"'fecha_hora_fin' ingresada {str_fecha_hora_inicio} no es UTC.");
-
-            DateTime fecha_hora_fin = fechahora_inicio_offset.UtcDateTime;
+                    throw new InvalidInputException($"'fecha_hora_fin' ingresada {str_fecha_hora_inicio} no es UTC.");
+            DateTime fecha_hora_fin = fechahora_fin_offset.UtcDateTime;
 
             if (!ValidarHorario(horario_inicio, horario_fin, fecha_hora_fin))
                 throw new InvalidInputException($"fecha_hora_fin: {str_fecha_hora_fin} no respeta el horario.");
 
+
             
-            if (fecha_hora_inicio.AddMinutes(30) > fecha_hora_fin) throw new DuracionInvalidaException("El torneo debe durar como mínimo 30 minutos.");
+            if (fecha_hora_inicio.AddMinutes(30) > fecha_hora_fin) 
+                throw new DuracionInvalidaException("El torneo debe durar como mínimo 30 minutos.");
 
 
 

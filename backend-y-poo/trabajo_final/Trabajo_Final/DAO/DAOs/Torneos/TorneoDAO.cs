@@ -132,13 +132,19 @@ namespace DAO.DAOs.Torneos
         }
 
         //UPDATE jueces del torneo
-        public async Task<int> AgregarJuez(int id_torneo, int id_juez, string rol, string faseInvalida)
+        public async Task<int> AgregarJuez(
+            int id_organizador,
+            int id_torneo, 
+            int id_juez, 
+            string rol, 
+            string faseInvalida)
         {
             string insertQueryConValidacion = " INSERT INTO jueces_torneo " +
                                               " VALUES (           " +
                                               "        (SELECT id FROM torneos " +
                                               "         WHERE id = @Id_torneo" +
-                                              "         AND fase != @Fase)," +
+                                              "         AND fase != @Fase " +
+                                              "         AND id_organizador = @Id_organizador)," +
                                               "        (SELECT id FROM usuarios " +
                                               "         WHERE id=@Id_juez " +
                                               "         AND rol = @Rol)   " +
@@ -149,6 +155,7 @@ namespace DAO.DAOs.Torneos
             {
                 return await connection.ExecuteAsync(insertQueryConValidacion, new
                 {
+                    Id_organizador = id_organizador,
                     Id_torneo = id_torneo,
                     Id_juez = id_juez,
                     Rol = rol,
@@ -159,7 +166,7 @@ namespace DAO.DAOs.Torneos
             catch(Exception ex)
             {
                 if (ex.Message.Contains("Column 'id_torneo' cannot be null"))
-                    throw new InvalidInputException($"No existe ningún torneo en fase registro/torneo con ID [{id_torneo}]. " +
+                    throw new InvalidInputException($"No existe ningún torneo en fase registro/torneo con ID [{id_torneo}] cuyo organizador sea {id_organizador}. " +
                                                     $"No se puede cambiar los jueces de torneos ya finalizados.");
 
                 if (ex.Message.Contains("Column 'id_juez' cannot be null"))
@@ -170,20 +177,37 @@ namespace DAO.DAOs.Torneos
 
         }
 
-        public async Task<int> EliminarJuez(int id_torneo, int id_juez)
+        public async Task<int> EliminarJuez(
+            int id_organizador,
+            int id_torneo, 
+            int id_juez,
+            string faseInvalida)
         {
             string deleteQuery = " DELETE FROM jueces_torneo " +
-                                 " WHERE id_juez = @Id_juez AND id_torneo = @Id_torneo";
+                                 " WHERE id_juez = @Id_juez " +
+                                 " AND id_torneo = (SELECT id FROM torneos " +
+                                 "                  WHERE id = @Id_torneo " +
+                                 "                  AND id_organizador = @Id_organizador " +
+                                 "                  AND fase != @FaseInvalida); ";
 
-            
-            
-            int result = await connection.ExecuteAsync(deleteQuery, new
+
+            int result = 0;
+            try
             {
-                Id_torneo = id_torneo,
-                Id_juez = id_juez
-            });
+                result = await connection.ExecuteAsync(deleteQuery, new
+                {
+                    Id_organizador = id_organizador,
+                    Id_torneo = id_torneo,
+                    Id_juez = id_juez,
+                    FaseInvalida = faseInvalida
+                });
 
-            if (result == 0) throw new InvalidInputException($"El juez con id [{id_juez}] no existe en el torneo [{id_torneo}]");
+                if (result == 0) throw new InvalidInputException($"No se eliminó el juez por alguna de estas razones: (1) El juez con id [{id_juez}] no existe en el torneo [{id_torneo}]. (2) Dicho torneo ya ha finalizado. (3) Dicho torneo tiene otro organizador.");
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
 
             return result;
         }
@@ -230,13 +254,14 @@ namespace DAO.DAOs.Torneos
             return null;//(Torneo busqueda) sin ningun campo valido para buscar
         }
 
-        public async Task<IEnumerable<Torneo>> BuscarTorneos(string[] fases)
+        public async Task<IEnumerable<Torneo>> BuscarTorneos(string[] fases, int id_organizador)
         {
             IEnumerable<Torneo> result = Enumerable.Empty<Torneo>();
             using (MySqlTransaction transaction = connection.BeginTransaction())
             {
                 string selectQuery = " SELECT * FROM torneos " +
-                                     " WHERE fase = @Fase; ";
+                                     " WHERE fase = @Fase " +
+                                     " AND id_organizador = @Id_organizador; ";
 
                 try
                 {
@@ -245,7 +270,7 @@ namespace DAO.DAOs.Torneos
                         IEnumerable<Torneo> queryResult =
                             await connection.QueryAsync<Torneo>(
                                 selectQuery,
-                                new { Fase = fase },
+                                new { Fase = fase, Id_organizador = id_organizador },
                                 transaction);
 
                         result = result.Concat(queryResult);

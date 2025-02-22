@@ -63,5 +63,28 @@ namespace Trabajo_Final.Services.TorneoServices.InscribirJugador
 
             return true;
         }
+
+
+        public void VerificarRepeticionesMazo(int[] id_cartas_mazo)
+        {
+            int id_repetida = 0;
+
+            try
+            {
+                id_repetida = id_cartas_mazo
+                    .GroupBy(id => id)
+                    .First(id => id.Count() > 1)
+                    .Key;
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("Sequence contains no matching element"))
+                    Console.WriteLine("No hay cartas repetidas en el mazo");
+
+                else throw ex;
+            }
+
+            if (id_repetida != 0) throw new InvalidInputException($"La carta id [{id_repetida}] esta repetida.");
+        }
     }
 }
