@@ -1,4 +1,5 @@
-﻿using DAO.DAOs.Torneos;
+﻿using Custom_Exceptions.Exceptions.Exceptions;
+using DAO.DAOs.Torneos;
 using DAO.Entidades.Custom;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
@@ -23,6 +24,8 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
         {
             //buscar torneo
             Torneo torneo = await torneoDAO.BuscarTorneo(new Torneo() { Id = id_torneo });
+
+            if (torneo.Fase != FasesTorneo.REGISTRO) throw new InvalidInputException($"El torneo {id_torneo} ya ha iniciado. Fase actual del torneo: {torneo.Fase}");
 
             //buscar jueces
             IEnumerable<Torneo> busqueda = Enumerable.Empty<Torneo>();

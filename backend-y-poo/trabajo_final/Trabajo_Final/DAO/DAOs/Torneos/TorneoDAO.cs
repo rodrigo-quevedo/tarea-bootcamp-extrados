@@ -263,16 +263,24 @@ namespace DAO.DAOs.Torneos
             }
         }
 
-        public async Task<IEnumerable<Torneo>> BuscarTorneosLlenos(string faseInscripcion)
+        public async Task<IEnumerable<Torneo>> BuscarTorneosLlenos(string faseInscripcion, int id_organizador)
         {
             string selectQuery = " SELECT * FROM torneos " +
                                  " WHERE " +
-                                 "      POWER(2, cantidad_rondas) " +
-                                 "      <=" +
-                                 "      (SELECT COUNT(*) FROM jugadores_inscriptos" +
-                                 "      WHERE torneos.id = jugadores_inscriptos.id_torneo); ";
+                                 "      id_organizador = @Id_organizador " +
+                                 " AND" +
+                                 "      fase = @Fase " +
+                                 " AND  " +
+                                 "      ( POWER(2, cantidad_rondas) " +
+                                 "        <=" +
+                                 "        (SELECT COUNT(*) FROM jugadores_inscriptos" +
+                                 "        WHERE torneos.id = jugadores_inscriptos.id_torneo)" +
+                                 "      ); ";
 
-            return await connection.QueryAsync<Torneo>(selectQuery);
+            return await connection.QueryAsync<Torneo>(
+                selectQuery,
+                new { Fase = faseInscripcion, Id_organizador =  id_organizador }
+                );
 
         }
 

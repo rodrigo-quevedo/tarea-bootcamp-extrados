@@ -179,7 +179,10 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.ORGANIZADOR)]
         public async Task<ActionResult> BuscarTorneosLlenos()
         {
-            IList<TorneoLlenoDTO> result = await buscarTorneosService.BuscarTorneosLlenos();
+            string str_id_organizador = User.FindFirst(ClaimTypes.Sid).Value;
+            Int32.TryParse(str_id_organizador, out int id_organizador);
+
+            IList<TorneoLlenoDTO> result = await buscarTorneosService.BuscarTorneosLlenos(id_organizador);
 
             if (result == null) return Ok(new { message = "No hay torneos llenos para aceptar inscripciones." });
 
@@ -200,6 +203,9 @@ namespace Trabajo_Final.Controllers
                 message = "Se inició el torneo correctamente."
             });
         }
+
+
+
 
 
     }
