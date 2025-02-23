@@ -25,7 +25,9 @@ using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
+using Trabajo_Final.Services.PartidaServices.ArmarPartidasService;
 using Trabajo_Final.Services.PartidaServices.Buscar_Partidas;
+using Trabajo_Final.Services.PartidaServices.Oficializar_Partidas;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.TorneoServices.EditarJueces;
@@ -145,10 +147,15 @@ builder.Services.AddScoped<IEliminarJuezService, EliminarJuezService>();
 builder.Services.AddScoped<IBuscarTorneosService, BuscarTorneosService>();
 builder.Services.AddScoped<IIniciarTorneoService, IniciarTorneoService>();
 
+builder.Services.AddScoped<IArmarPartidasService, ArmarPartidasService>();
+
 builder.Services.AddScoped<IBuscarTorneosDisponiblesService, BuscarTorneosDisponiblesService>();
 builder.Services.AddScoped<IInscribirJugadorService, InscribirJugadorService>();
 
 builder.Services.AddScoped<IBuscarPartidasService, BuscarPartidasService>();
+builder.Services.AddScoped<IOficializarPartidaService, OficializarPartidaService>();
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

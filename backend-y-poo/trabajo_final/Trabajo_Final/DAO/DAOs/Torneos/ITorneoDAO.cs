@@ -18,7 +18,8 @@ namespace DAO.DAOs.Torneos
             string pais,
             string fase,
             string[] series_habilitadas,
-            int[] id_jueces);
+            int[] id_jueces,
+            string rolJuez);
 
         public Task<int> AgregarJuez(
             int id_organizador,

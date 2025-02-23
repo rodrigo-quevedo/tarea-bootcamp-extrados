@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Trabajo_Final.DTO.ListaTorneos;
+using Trabajo_Final.DTO.OficializarPartidas;
 using Trabajo_Final.DTO.Torneos;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.PartidaServices.Buscar_Partidas;
+using Trabajo_Final.Services.PartidaServices.Oficializar_Partidas;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.TorneoServices.EditarJueces;
@@ -34,6 +36,7 @@ namespace Trabajo_Final.Controllers
         IIniciarTorneoService iniciarTorneoService;
 
         IBuscarPartidasService buscarPartidasService;
+        IOficializarPartidaService oficializarPartidaService;
 
         public TorneosController(
             ICrearTorneoService crearTorneo,
@@ -47,7 +50,8 @@ namespace Trabajo_Final.Controllers
             IBuscarTorneosService buscarTorneos,
             IIniciarTorneoService iniciarTorneo,
 
-            IBuscarPartidasService buscarPartidas
+            IBuscarPartidasService buscarPartidas,
+            IOficializarPartidaService oficializarPartida
         )
         {
             crearTorneoService = crearTorneo;
@@ -62,6 +66,7 @@ namespace Trabajo_Final.Controllers
             iniciarTorneoService = iniciarTorneo;
 
             buscarPartidasService = buscarPartidas;
+            oficializarPartidaService = oficializarPartida;
         }
 
 
@@ -70,8 +75,10 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.ORGANIZADOR)]
         public async Task<ActionResult> CrearTorneo(RegistroTorneoDTO dto)
         {
-            string string_id_organizador = User.FindFirst(ClaimTypes.Sid).Value;
-            Int32.TryParse(string_id_organizador, out var id_organizador);
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out var id_organizador);
+            
+            string[] series_habilitadas = dto.series_habilitadas.Distinct().ToArray();
+            int[] id_jueces_torneo = dto.id_jueces_torneo.Distinct().ToArray();
 
 
             await crearTorneoService.CrearTorneo(
@@ -79,8 +86,8 @@ namespace Trabajo_Final.Controllers
                 dto.fecha_hora_inicio, dto.fecha_hora_fin,
                 dto.horario_diario_inicio, dto.horario_diario_fin,
                 dto.pais,
-                dto.series_habilitadas,
-                dto.id_jueces_torneo
+                series_habilitadas,
+                id_jueces_torneo
             );
 
             return Ok(new { message = "Torneo creado con éxito" });
@@ -218,7 +225,22 @@ namespace Trabajo_Final.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("/torneos/oficializar")]
+        [Authorize(Roles = Roles.JUEZ)]
+        public async Task<ActionResult> OficializarPartida(OficializarPartidaDTO dto)
+        {
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_juez);
 
+            await oficializarPartidaService.OficializarPartida(
+                id_juez,
+                (int) dto.id_partida,
+                (int) dto.id_ganador,
+                (int) dto.id_descalificado
+                );
+
+            return Ok(new { message = $"La partida {dto.id_partida} se oficializó con éxito." });
+        }
 
 
     }

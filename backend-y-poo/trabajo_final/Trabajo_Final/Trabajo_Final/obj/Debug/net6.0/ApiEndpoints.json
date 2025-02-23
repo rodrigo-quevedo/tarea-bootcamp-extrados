@@ -260,5 +260,21 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "OficializarPartida",
+    "RelativePath": "torneos/oficializar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.OficializarPartidas.OficializarPartidaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

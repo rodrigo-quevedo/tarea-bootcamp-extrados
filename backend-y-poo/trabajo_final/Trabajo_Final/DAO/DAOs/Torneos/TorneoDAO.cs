@@ -2,6 +2,7 @@
 using DAO.Connection;
 using DAO.Entidades.Cartas;
 using DAO.Entidades.Custom;
+using DAO.Entidades.Custom.JuezTorneo;
 using DAO.Entidades.TorneoEntidades;
 using DAO.Entidades.UsuarioEntidades;
 using Dapper;
@@ -11,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,16 +36,21 @@ namespace DAO.DAOs.Torneos
             string pais,
             string fase,
             string[] series_habilitadas,
-            int[] id_jueces
+            int[] id_jueces,
+            string rolJuez
         )
         {
             bool exito = false;
-            
+
+            string ultimaSerieInsert = series_habilitadas[0];
+            int ultimoJuezInsert = id_jueces[0];
+
+
             using (MySqlTransaction transaction = connection.BeginTransaction()) 
             {
                 try
                 {
-                    //TABLE torneos
+                    //INSERT torneos
                     string insertAndReturnIdQuery =
                     " INSERT INTO torneos" +
                     "   (id_organizador, pais, " +
@@ -68,7 +75,7 @@ namespace DAO.DAOs.Torneos
                         Cantidad_rondas = cantidad_rondas,
                         Fase = fase
                     },
-                    transaction: transaction);
+                    transaction);
 
                     Console.WriteLine("Torneo creado OK");
                     
@@ -78,41 +85,79 @@ namespace DAO.DAOs.Torneos
 
                     Console.WriteLine($"Last INSERT id: {id_torneo}");
 
-                    //TABLE series_habilitadas
-                    List <Serie_Habilitada> listaSeries
-                        = series_habilitadas
-                        .Select(
-                            serie => new Serie_Habilitada()
-                            {
+                    //INSERT series_habilitadas
+                    List <Serie_Habilitada> listaSeries = 
+                        series_habilitadas.Select( serie => 
+                            new Serie_Habilitada() {
                                 Nombre_serie = serie,
-                                Id_torneo = id_torneo
-                            })
+                                Id_torneo = id_torneo 
+                            }
+                        )
                         .ToList();
 
                     var insertSeriesQuery = 
                         @" INSERT INTO series_habilitadas (nombre_serie, id_torneo) " +
-                         " VALUES (@Nombre_serie, @Id_torneo);";
+                         " VALUES ( " +
+                         //"  @Nobre_serie, " +
+                         "  (SELECT nombre from series " +
+                         "   WHERE nombre = @Nombre_serie), " +
+                         "  @Id_torneo" +
+                         ");";
 
-                    await connection.ExecuteAsync(insertSeriesQuery, listaSeries,
-                    transaction: transaction);
+                    ultimaSerieInsert = listaSeries[0].Nombre_serie;
+                    int serieResult = 0;
+
+                    foreach (Serie_Habilitada serie in listaSeries)
+                    {
+                        ultimaSerieInsert = serie.Nombre_serie;
+
+                        serieResult = await connection.ExecuteAsync(
+                            insertSeriesQuery, 
+                            serie,
+                            transaction);
+
+                        if (serieResult == 0) throw new Exception($"No se pudo agregar la serie [{ultimaSerieInsert}].");
+                    }
 
 
-                    //TABLE jueces_torneo
-                    List<Juez_Torneo> listaJueces
-                        = id_jueces
+                    //INSERT jueces_torneo
+                    List<JuezTorneoDTO> listaJueces = 
+                        id_jueces
                         .Select( id_juez => 
-                            new Juez_Torneo(){
+                            new JuezTorneoDTO(){
                                 Id_torneo = id_torneo,
-                                Id_juez = id_juez
+                                Id_juez = id_juez,
+                                Activo = true,
+                                Rol = rolJuez
                             })
                         .ToList();
 
                     var insertJuecesQuery =
                         @" INSERT INTO jueces_torneo (id_torneo, id_juez) " +
-                         " VALUES (@Id_torneo, @Id_juez);";
+                         " VALUES (" +
+                         "      @Id_torneo, " +
+                         "      (SELECT id FROM usuarios " +
+                         "       WHERE id = @Id_juez " +
+                         "       AND activo = @Activo " +
+                         "       AND rol = @Rol)" +
+                         " );";
 
-                    await connection.ExecuteAsync(insertJuecesQuery, listaJueces,
-                    transaction: transaction);
+                    ultimoJuezInsert = listaJueces[0].Id_juez;
+                    int juezResult = 0;
+
+                    foreach(Juez_Torneo juez in listaJueces)
+                    {
+                        ultimoJuezInsert = juez.Id_juez;
+
+                        juezResult = await connection.ExecuteAsync(
+                            insertJuecesQuery, 
+                            juez,
+                            transaction);
+
+                        if (juezResult == 0) throw new Exception($"No se pudo agregar al juez [{ultimoJuezInsert}].");
+                    }
+
+                   
 
                     transaction.Commit();
                     exito = true;
@@ -120,6 +165,10 @@ namespace DAO.DAOs.Torneos
                 catch (Exception ex) {
                     transaction.Rollback();
 
+                    if (ex.Message.Contains("Column 'id_juez' cannot be null"))
+                        throw new InvalidInputException($"Juez [{ultimoJuezInsert}] no existe (o no está activo).");
+                    if (ex.Message.Contains("Column 'nombre_serie' cannot be null"))
+                        throw new InvalidInputException($"La serie [{ultimaSerieInsert}] no existe.");
                     throw ex;
                 }
 
