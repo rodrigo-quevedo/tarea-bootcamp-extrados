@@ -6,7 +6,7 @@
             int id_juez,
             int id_partida,
             int id_ganador,
-            int id_descalificado
+            int? id_descalificado
             );
     }
 }

@@ -236,7 +236,7 @@ namespace Trabajo_Final.Controllers
                 id_juez,
                 (int) dto.id_partida,
                 (int) dto.id_ganador,
-                (int) dto.id_descalificado
+                dto.id_descalificado
                 );
 
             return Ok(new { message = $"La partida {dto.id_partida} se oficializó con éxito." });
