@@ -61,14 +61,16 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
             IEnumerable<Jugador_Inscripto> jugadores_aceptables =
                 await torneoDAO.BuscarJugadoresInscriptos(id_torneo, cantidad_jugadores);
 
-            
+
             //armar partidas
-            IEnumerable<DatosPartidaDTO> partidas = 
-                armarPartidasService.ArmarPartidas(
+            int ronda = 1;
+            IEnumerable<InsertPartidaDTO> partidas = 
+                armarPartidasService.ArmarPartidas_JugadoresAleatorios(
                     torneo.Id, 
                     fechaHoras.ToList(), 
                     jugadores_aceptables.ToList(),
-                    jueces.ToList());
+                    jueces.ToList(),
+                    ronda);
 
 
             //transaction: UPDATE torneo, UPDATE jugadores_inscriptos, INSERT partidas

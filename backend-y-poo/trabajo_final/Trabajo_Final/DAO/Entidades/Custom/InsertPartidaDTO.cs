@@ -1,6 +1,6 @@
 ﻿namespace DAO.Entidades.Custom
 {
-    public class DatosPartidaDTO
+    public class InsertPartidaDTO
     {
         public int Ronda { get; set; }
         public int Id_torneo { get; set; }

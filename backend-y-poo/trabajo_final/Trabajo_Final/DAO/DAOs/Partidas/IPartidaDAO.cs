@@ -1,5 +1,7 @@
-﻿using DAO.Entidades.Custom.Partida_CantidadRondas;
+﻿using DAO.Entidades.Custom;
+using DAO.Entidades.Custom.Partida_CantidadRondas;
 using DAO.Entidades.PartidaEntidades;
+using DAO.Entidades.TorneoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +28,15 @@ namespace DAO.DAOs.Partidas
             int id_torneo,
             string faseFinalizado);
 
+        public Task<bool> OficializarUltimaPartidaDeRonda(
+            int id_partida,
+            int id_ganador, int? id_descalificado,
+            IEnumerable<InsertPartidaDTO> partidas);
+
+
+        public Task<IEnumerable<Partida>> BuscarJugadoresGanadores(
+            int id_torneo, 
+            int ronda, 
+            int cantidad_ganadores);
     }
 }

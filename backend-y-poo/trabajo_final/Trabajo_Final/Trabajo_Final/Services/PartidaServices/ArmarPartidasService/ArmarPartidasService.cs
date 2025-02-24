@@ -1,5 +1,7 @@
 ﻿using DAO.Entidades.Custom;
+using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
+using System.Text.Json;
 using Trabajo_Final.DTO.Partidas;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.utils.Horarios;
@@ -68,13 +70,14 @@ namespace Trabajo_Final.Services.PartidaServices.ArmarPartidasService
         }
 
 
-        public IEnumerable<DatosPartidaDTO> ArmarPartidas(
+        public IEnumerable<InsertPartidaDTO> ArmarPartidas_JugadoresAleatorios(
            int id_torneo,
            IList<FechaHoraPartida> fechaHoraPartidas,
            IList<Jugador_Inscripto> jugadoresPartida,
-           IList<Juez_Torneo> jueces)
+           IList<Juez_Torneo> jueces,
+           int ronda)
         {
-            IList<DatosPartidaDTO> partidas = new List<DatosPartidaDTO>();
+            IList<InsertPartidaDTO> partidas = new List<InsertPartidaDTO>();
 
             Random rnd = new Random();
 
@@ -96,20 +99,62 @@ namespace Trabajo_Final.Services.PartidaServices.ArmarPartidasService
                 Juez_Torneo juez = jueces[index_juez];
 
                 //armar partida
-                partidas.Add(new DatosPartidaDTO()
+                partidas.Add(new InsertPartidaDTO()
                 {
-                    Ronda = 1,
+                    Ronda = ronda,
                     Id_torneo = id_torneo,
                     Id_jugador_1 = j1.Id_jugador,
                     Id_jugador_2 = j2.Id_jugador,
                     Fecha_hora_inicio = fechahora.fecha_hora_inicio,
                     Fecha_hora_fin = fechahora.fecha_hora_fin,
-                    Id_juez = juez.Id_juez,
+                    Id_juez = juez.Id_juez
                 });
             }
 
             return partidas;
         }
 
+        public IEnumerable<InsertPartidaDTO> ArmarPartidas_JugadoresEnOrdenCronologico(
+            int id_torneo, 
+            IList<FechaHoraPartida> fechaHoraPartidas, 
+            IList<Partida> ganadores_ronda_anterior, 
+            IList<Juez_Torneo> jueces, 
+            int ronda)
+        {
+            IList<InsertPartidaDTO> partidas = new List<InsertPartidaDTO>();
+
+            Random rnd = new Random();
+
+            foreach (FechaHoraPartida fechahora in fechaHoraPartidas)
+            {
+                //asignar jugadores en orden cronologico
+                int id_jugador_1 = (int) ganadores_ronda_anterior[0].Id_ganador; 
+                ganadores_ronda_anterior.RemoveAt(0);
+
+                int id_jugador_2 = (int)ganadores_ronda_anterior[0].Id_ganador;
+                ganadores_ronda_anterior.RemoveAt(0);
+
+                //sortear juez
+                Juez_Torneo juez = jueces[rnd.Next(jueces.Count)];
+
+                //armar partida
+                partidas.Add(new InsertPartidaDTO()
+                {
+                    Ronda = ronda,
+                    Id_torneo = id_torneo,
+                    Id_jugador_1 = id_jugador_1,
+                    Id_jugador_2 = id_jugador_2,
+                    Fecha_hora_inicio = fechahora.fecha_hora_inicio,
+                    Fecha_hora_fin = fechahora.fecha_hora_fin,
+                    Id_juez = juez.Id_juez
+                });
+
+            }
+
+
+            return partidas;
+        }
+    
+    
     }
 }

@@ -516,6 +516,8 @@ namespace DAO.DAOs.Torneos
             return result;
         }
 
+       
+
         public async Task<bool> InscribirJugador(
             int id_jugador, string rol_jugador,
             int id_torneo, string fase_inscripcion,
@@ -659,7 +661,7 @@ namespace DAO.DAOs.Torneos
             string faseTorneo,
             int id_torneo,
             IList<int> id_jugadores_aceptados,
-            IList<DatosPartidaDTO> partidas_primera_ronda)
+            IList<InsertPartidaDTO> partidas_primera_ronda)
         {
 
             using (MySqlTransaction transaction = connection.BeginTransaction())

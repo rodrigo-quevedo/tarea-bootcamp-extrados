@@ -1,7 +1,12 @@
 ﻿using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs.Partidas;
+using DAO.DAOs.Torneos;
+using DAO.Entidades.Custom;
 using DAO.Entidades.Custom.Partida_CantidadRondas;
 using DAO.Entidades.PartidaEntidades;
+using DAO.Entidades.TorneoEntidades;
+using Trabajo_Final.DTO.Partidas;
+using Trabajo_Final.Services.PartidaServices.ArmarPartidasService;
 using Trabajo_Final.utils.Constantes;
 
 namespace Trabajo_Final.Services.PartidaServices.Oficializar_Partidas
@@ -9,9 +14,15 @@ namespace Trabajo_Final.Services.PartidaServices.Oficializar_Partidas
     public class OficializarPartidaService : IOficializarPartidaService
     {
         IPartidaDAO partidaDAO;
-        public OficializarPartidaService(IPartidaDAO partidaDao)
+        ITorneoDAO torneoDAO;
+
+        IArmarPartidasService armarPartidasService;
+        public OficializarPartidaService(IPartidaDAO partidaDao, ITorneoDAO torneoDao, IArmarPartidasService armarPartidas)
         {
             partidaDAO = partidaDao;
+            torneoDAO = torneoDao;
+
+            armarPartidasService = armarPartidas;
         }
 
         public async Task<bool> OficializarPartida(
@@ -69,20 +80,69 @@ namespace Trabajo_Final.Services.PartidaServices.Oficializar_Partidas
 
 
             //--->NO es final: crear partidas de la siguiente ronda
-                
-            //buscar torneo (horario_diario_inicio y horario_diario_fin)
-            //buscar jueces
-            //buscar jugadores
 
+            //buscar torneo (horario_diario_inicio y horario_diario_fin)
+            Torneo torneo = await torneoDAO.BuscarTorneo(new Torneo() { Id = datosPartida.Id_torneo });
+            if (torneo == null) throw new Exception($"No se pudo obtener los datos del torneo [{datosPartida.Id_torneo}]");
 
             //armar fechahoras
+            int proxima_ronda = datosPartida.Ronda + 1;
+
+            int cantidad_partidas_proxima_ronda = 
+                (int) Math.Pow(2, torneo.Cantidad_rondas - proxima_ronda);
+
+            IEnumerable<FechaHoraPartida> fechaHoras = 
+                armarPartidasService.ArmarFechaHoraPartidas(
+                    datosPartida.Fecha_hora_fin,//empieza a armar desde que termina esta ultima partida
+                    torneo.Horario_diario_inicio,
+                    torneo.Horario_diario_fin,
+                    cantidad_partidas_proxima_ronda);
+
+            //buscar jueces
+            IEnumerable<Torneo> busqueda = Enumerable.Empty<Torneo>().Append(torneo);
+
+            IEnumerable<Juez_Torneo> jueces = await torneoDAO.BuscarJuecesDeTorneos(busqueda);
+            if (!jueces.Any()) throw new Exception($"No se pudo obtener la información de los participantes del torneo [{torneo.Id}]");
+
+
+            //buscar jugadores ganadores
+            // cantidad_ganadores = cantidad_partidas de ronda - 1 (por la partida actual)
+            int cantidad_partidas_ronda = 
+                (int) Math.Pow(2, datosPartida.Cantidad_rondas - datosPartida.Ronda);
+
+            int cantidad_ganadores = cantidad_partidas_ronda - 1;
+
+            //ganadores de la db:
+            IEnumerable<Partida> ganadores =
+                await partidaDAO.BuscarJugadoresGanadores(
+                    datosPartida.Id_torneo,
+                    datosPartida.Ronda,
+                    cantidad_ganadores);
+
+            //agregar ganador de esta partida:
+            ganadores = ganadores.Append(new Partida()
+            {
+                Id = datosPartida.Id,
+                Id_ganador = id_ganador
+            });
+
 
             //armar partidas
+            IEnumerable <InsertPartidaDTO> partidas = 
+                armarPartidasService.ArmarPartidas_JugadoresEnOrdenCronologico(
+                    torneo.Id,
+                    fechaHoras.ToList(),
+                    ganadores.ToList(),
+                    jueces.ToList(),
+                    proxima_ronda);
 
             //DAO: UPDATE partida + INSERT partidas
+            return await partidaDAO.OficializarUltimaPartidaDeRonda(
+                id_partida,
+                id_ganador,
+                id_descalificado,
+                partidas);
 
-
-            throw new NotImplementedException();
         }
     }
 }

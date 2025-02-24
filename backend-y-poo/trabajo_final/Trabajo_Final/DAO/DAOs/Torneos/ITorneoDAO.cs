@@ -43,6 +43,7 @@ namespace DAO.DAOs.Torneos
         public Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(IEnumerable<Torneo> torneos);
         public Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(int id_torneo, int max_cantidad_jugadores);
         public Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresAceptados(IEnumerable<Torneo> torneos);
+        
         public Task<bool> InscribirJugador(
             int id_jugador, string rol_jugador,
             int id_torneo, string fase_inscripcion,
@@ -52,6 +53,6 @@ namespace DAO.DAOs.Torneos
             string faseTorneo,
             int id_torneo,
             IList<int> id_jugadores_aceptados,
-            IList<DatosPartidaDTO> partidas_primera_ronda);
+            IList<InsertPartidaDTO> partidas_primera_ronda);
     }
 }

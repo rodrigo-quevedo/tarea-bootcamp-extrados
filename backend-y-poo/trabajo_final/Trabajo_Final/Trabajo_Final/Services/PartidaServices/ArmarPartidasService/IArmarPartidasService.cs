@@ -1,4 +1,5 @@
 ﻿using DAO.Entidades.Custom;
+using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
 using Trabajo_Final.DTO.Partidas;
 
@@ -13,11 +14,20 @@ namespace Trabajo_Final.Services.PartidaServices.ArmarPartidasService
             int cantidad_partidas);
 
 
-        public IEnumerable<DatosPartidaDTO> ArmarPartidas(
+        public IEnumerable<InsertPartidaDTO> ArmarPartidas_JugadoresAleatorios(
            int id_torneo,
            IList<FechaHoraPartida> fechaHoraPartidas,
            IList<Jugador_Inscripto> jugadoresPartida,
-           IList<Juez_Torneo> jueces);
+           IList<Juez_Torneo> jueces,
+           int ronda);
+
+
+        public IEnumerable<InsertPartidaDTO> ArmarPartidas_JugadoresEnOrdenCronologico(
+            int id_torneo,
+            IList<FechaHoraPartida> fechaHoraPartidas,
+            IList<Partida> ganadores_ronda_anterior,
+            IList<Juez_Torneo> jueces,
+            int ronda);
 
     }
 

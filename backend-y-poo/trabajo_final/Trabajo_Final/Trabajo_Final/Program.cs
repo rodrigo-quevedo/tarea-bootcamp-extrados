@@ -8,6 +8,7 @@ using DAO.DAOs.Partidas;
 using DAO.DAOs.Torneos;
 using DAO.DAOs.UsuarioDao;
 using DAO.Entidades;
+using DAO.Entidades.TorneoEntidades;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
