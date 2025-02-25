@@ -22,6 +22,7 @@ using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
 using Trabajo_Final.DTO;
+using Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
@@ -155,6 +156,8 @@ builder.Services.AddScoped<IInscribirJugadorService, InscribirJugadorService>();
 
 builder.Services.AddScoped<IBuscarPartidasService, BuscarPartidasService>();
 builder.Services.AddScoped<IOficializarPartidaService, OficializarPartidaService>();
+
+builder.Services.AddScoped<IBuscarDescalificacionesService, BuscarDescalificacionesService>();
 
 
 

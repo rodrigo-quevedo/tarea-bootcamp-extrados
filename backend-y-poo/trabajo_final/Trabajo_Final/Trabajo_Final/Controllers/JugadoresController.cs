@@ -1,10 +1,12 @@
 ﻿using DAO.DAOs.Cartas;
+using DAO.Entidades.Custom.Descalificaciones;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Trabajo_Final.DTO.ColeccionCartas;
 using Trabajo_Final.DTO.ColeccionCartas.ResponseColeccionar;
+using Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
@@ -21,6 +23,8 @@ namespace Trabajo_Final.Controllers
         private IColeccionarCartasService coleccionarCartasService;
         private IObtenerColeccionService obtenerColeccionService;
         private IQuitarCartasService quitarCartasService;
+        
+        private IBuscarDescalificacionesService buscarDescalificacionesService;
 
         public JugadoresController (
             VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
@@ -28,12 +32,16 @@ namespace Trabajo_Final.Controllers
 
             IColeccionarCartasService coleccionarCartas,
             IObtenerColeccionService obtenerColeccion,
-            IQuitarCartasService quitarCartas
+            IQuitarCartasService quitarCartas,
+
+            IBuscarDescalificacionesService buscarDescalificaciones
         )
         {
             coleccionarCartasService = coleccionarCartas;
             obtenerColeccionService = obtenerColeccion;
             quitarCartasService = quitarCartas;
+
+            buscarDescalificacionesService = buscarDescalificaciones;
         }
 
 
@@ -90,6 +98,22 @@ namespace Trabajo_Final.Controllers
                 cartas_eliminadas = id_cartas
             });
         }
+
+        [HttpGet]
+        [Route("/descalificaciones")]
+        [Authorize(Roles = Roles.JUGADOR)]
+        public async Task<ActionResult> BuscarDescalificaciones()
+        {
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_jugador);
+
+            IEnumerable<DescalificacionDTO> result = 
+                await buscarDescalificacionesService.BuscarDescalificaciones(id_jugador);
+
+            if (result == null || !result.Any()) return Ok($"El jugador [{id_jugador}] no tiene descalificaciones.");
+
+            return Ok(result);
+        }
+
 
     }
 }

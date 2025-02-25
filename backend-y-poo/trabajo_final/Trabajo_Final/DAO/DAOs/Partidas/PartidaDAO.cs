@@ -1,6 +1,7 @@
 ﻿using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.Connection;
 using DAO.Entidades.Custom;
+using DAO.Entidades.Custom.Descalificaciones;
 using DAO.Entidades.Custom.Partida_CantidadRondas;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
@@ -319,6 +320,15 @@ namespace DAO.DAOs.Partidas
             return result;
         }
 
+
+        public async Task<IEnumerable<DescalificacionDTO>> BuscarDescalificaciones(int id_jugador)
+        {
+            string selectQuery = " SELECT id AS id_partida, id_descalificado, motivo_descalificacion " +
+                                 " FROM partidas" +
+                                 " WHERE id_descalificado = @id_jugador; ";
+
+            return await connection.QueryAsync<DescalificacionDTO>(selectQuery, new { id_jugador });
+        }
 
 
     }

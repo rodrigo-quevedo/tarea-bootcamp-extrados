@@ -1,4 +1,5 @@
 ﻿using DAO.Entidades.Custom;
+using DAO.Entidades.Custom.Descalificaciones;
 using DAO.Entidades.Custom.Partida_CantidadRondas;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
@@ -44,5 +45,8 @@ namespace DAO.DAOs.Partidas
             int id_torneo, 
             int ronda, 
             int cantidad_ganadores);
+
+
+        public Task<IEnumerable<DescalificacionDTO>> BuscarDescalificaciones(int id_jugador);
     }
 }
