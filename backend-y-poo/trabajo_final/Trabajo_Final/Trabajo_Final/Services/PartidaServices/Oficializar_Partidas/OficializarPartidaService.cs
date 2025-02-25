@@ -29,7 +29,8 @@ namespace Trabajo_Final.Services.PartidaServices.Oficializar_Partidas
             int id_juez, 
             int id_partida, 
             int id_ganador, 
-            int? id_descalificado)
+            int? id_descalificado,
+            string motivo_descalificacion)
         {
             //buscar partida y cantidad de rondas del torneo
             //(necesito la ronda de la partida para ver si es la ultima partida de esa ronda)
@@ -62,7 +63,7 @@ namespace Trabajo_Final.Services.PartidaServices.Oficializar_Partidas
 
             //--->No es ultima partida de la ronda:
             if (!ultimaPartidaDeRonda) //DAO: UPDATE partida
-                return await partidaDAO.OficializarResultado(id_partida, id_ganador, id_descalificado);
+                return await partidaDAO.OficializarResultado(id_partida, id_ganador, id_descalificado, motivo_descalificacion);
 
 
             //--->Es ultima partida de ronda:
@@ -73,7 +74,8 @@ namespace Trabajo_Final.Services.PartidaServices.Oficializar_Partidas
             if (esFinal) //DAO: UPDATE partida +  UPDATE torneo (fase = 'finalizado')
                 return await partidaDAO.OficializarFinal(
                     id_partida, 
-                    id_ganador, id_descalificado, 
+                    id_ganador, 
+                    id_descalificado, motivo_descalificacion,
                     datosPartida.Id_torneo, 
                     FasesTorneo.FINALIZADO);
 
@@ -140,7 +142,7 @@ namespace Trabajo_Final.Services.PartidaServices.Oficializar_Partidas
             return await partidaDAO.OficializarUltimaPartidaDeRonda(
                 id_partida,
                 id_ganador,
-                id_descalificado,
+                id_descalificado, motivo_descalificacion,
                 partidas);
 
         }

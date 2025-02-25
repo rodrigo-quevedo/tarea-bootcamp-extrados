@@ -2,12 +2,28 @@ DROP DATABASE IF EXISTS trabajo_final_backend;
 CREATE DATABASE trabajo_final_backend;
 USE trabajo_final_backend;
 
+DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS refresh_tokens;
+DROP TABLE IF EXISTS perfil_usuarios;
+
+DROP TABLE IF EXISTS series;
+DROP TABLE IF EXISTS cartas;
+DROP TABLE IF EXISTS series_de_cartas;
+DROP TABLE IF EXISTS cartas_coleccionadas;
+
+DROP TABLE IF EXISTS torneos;
+DROP TABLE IF EXISTS series_habilitadas;
+DROP TABLE IF EXISTS jueces_torneo;
+DROP TABLE IF EXISTS jugadores_inscriptos;
+DROP TABLE IF EXISTS cartas_del_mazo;
+DROP TABLE IF EXISTS partidas;
+
 
 -- Creación de usuario: 
 -- 1. El servidor obtiene los datos del usuario a crear.
 -- 2. Se añade fila en "usuarios". Se obtiene la ID de esa fila.
 -- 3. Se añade fila en tabla del rol correspondiente. Se agrega ID usuario a esa tabla como FK.
-DROP TABLE IF EXISTS usuarios;
+
 CREATE TABLE usuarios(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	rol VARCHAR(15) NOT NULL,
@@ -30,7 +46,7 @@ CREATE TABLE usuarios(
 	-- refresh_token VARCHAR(300) NULL -->esto no permite multiples dispositivos
 );
 
-DROP TABLE IF EXISTS refresh_tokens;
+
 CREATE TABLE refresh_tokens (
 	refresh_token VARCHAR(300) PRIMARY KEY,
 	
@@ -43,7 +59,7 @@ CREATE TABLE refresh_tokens (
 -- Posiblemente 'admin' no necesite tabla (con los atributos de la tabla usuario puede hacer sus tareas)
 -- Lo mismo pasa con 'organizador'
 
-DROP TABLE IF EXISTS perfil_usuarios;
+
 CREATE TABLE perfil_usuarios(
 	id_usuario INT PRIMARY KEY,
 	FOREIGN KEY(id_usuario) REFERENCES usuarios(id),
@@ -54,7 +70,6 @@ CREATE TABLE perfil_usuarios(
 );
 
 
-DROP TABLE IF EXISTS series;
 CREATE TABLE series(
 	nombre VARCHAR(20) PRIMARY KEY,
 	fecha_salida DATETIME NOT NULL -- usar DateTime UTC (transformar datetime a UTC en el servidor)
@@ -62,7 +77,7 @@ CREATE TABLE series(
 	-- lista de cartas: SELECT * FROM cartas WHERE serie=(nombre de la serie)
 );
 
-DROP TABLE IF EXISTS cartas;
+
 CREATE TABLE cartas(
 	id INT PRIMARY KEY,
 	ataque INT NOT NULL,
@@ -71,7 +86,7 @@ CREATE TABLE cartas(
 );
 
 
-DROP TABLE IF EXISTS series_de_cartas;
+
 CREATE TABLE series_de_cartas(
 	nombre_serie VARCHAR(20) NOT NULL,
 	FOREIGN KEY(nombre_serie) REFERENCES series(nombre),
@@ -84,7 +99,7 @@ CREATE TABLE series_de_cartas(
 
 
 -- Esta tabla implementa una relacion muchos a muchos, se usa PK de 2 columnas:
-DROP TABLE IF EXISTS cartas_coleccionadas;
+
 CREATE TABLE cartas_coleccionadas(
 	id_carta INT NOT NULL,
 	FOREIGN KEY (id_carta) REFERENCES cartas(id),
@@ -96,13 +111,6 @@ CREATE TABLE cartas_coleccionadas(
 );
 
 
-
-DROP TABLE IF EXISTS series_habilitadas;
-DROP TABLE IF EXISTS jueces_torneo;
-DROP TABLE IF EXISTS jugadores_inscriptos;
-DROP TABLE IF EXISTS cartas_del_mazo;
-
-DROP TABLE IF EXISTS torneos;
 CREATE TABLE torneos(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	
@@ -209,8 +217,6 @@ CREATE TABLE cartas_del_mazo(
 );
 
 
-
-DROP TABLE IF EXISTS partidas;
 CREATE TABLE partidas(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 
@@ -231,21 +237,24 @@ CREATE TABLE partidas(
 
 	id_ganador INT NULL,
 	FOREIGN KEY(id_ganador) REFERENCES usuarios(id),
-	CHECK(id_ganador IS NULL OR id_ganador = id_jugador_1 OR id_ganador = id_jugador_2),
+	CHECK(id_ganador IS NULL OR (id_ganador = id_jugador_1 OR id_ganador = id_jugador_2)),
 	
 	id_descalificado INT NULL,
 	FOREIGN KEY (id_descalificado) REFERENCES usuarios(id),
-	-- Obtener descalificaciones de un usuario:
-		-- SELECT * from juegos_de_ronda
-		-- WHERE id_descalificado = (id del usuario);
+
+	CHECK(id_descalificado IS NULL OR (id_descalificado = id_jugador_1 OR id_descalificado = id_jugador_2)),
+	CHECK (id_descalificado IS NULL OR id_descalificado != id_ganador),
 	
+	motivo_descalificacion VARCHAR(60) NULL,
 	
 	id_juez INT NOT NULL,
 	FOREIGN KEY(id_juez) REFERENCES usuarios(id)
-	
 );
 
 
+-- Obtener descalificaciones de un usuario:
+	-- SELECT * from juegos_de_ronda
+	-- WHERE id_descalificado = (id del usuario);
 
 
 -- Connection string (formato para MySQLConnector -> https://mysqlconnector.net/connection-options/): 

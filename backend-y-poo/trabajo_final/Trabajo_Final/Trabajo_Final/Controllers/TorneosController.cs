@@ -230,14 +230,20 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.JUEZ)]
         public async Task<ActionResult> OficializarPartida(OficializarPartidaDTO dto)
         {
+            if (dto.id_descalificado != null && dto.motivo_descalificacion == null)
+                throw new InvalidInputException("Debe haber un 'motivo_descalificacion' junto al id_descalificado.");
+
+            if (dto.id_descalificado == null && dto.motivo_descalificacion != null)
+                throw new InvalidInputException("Debe haber un 'id_descalificado' junto al motivo_descalificacion");
+
             Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_juez);
 
             await oficializarPartidaService.OficializarPartida(
                 id_juez,
                 (int) dto.id_partida,
                 (int) dto.id_ganador,
-                dto.id_descalificado
-                );
+                dto.id_descalificado,
+                dto.motivo_descalificacion);
 
             return Ok(new { message = $"La partida {dto.id_partida} se oficializó con éxito." });
         }

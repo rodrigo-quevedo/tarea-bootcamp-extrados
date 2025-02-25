@@ -20,17 +20,23 @@ namespace DAO.DAOs.Partidas
             int id_torneo,
             int ronda);
 
-        public Task<bool> OficializarResultado(int id_partida, int id_ganador, int? id_descalificado);
+        public Task<bool> OficializarResultado(
+            int id_partida, 
+            int id_ganador, 
+            int? id_descalificado,
+            string motivo_descalificacion);
 
         public Task<bool> OficializarFinal(
             int id_partida, 
-            int id_ganador, int? id_descalificado, 
+            int id_ganador, 
+            int? id_descalificado, string motivo_descalificacion,
             int id_torneo,
             string faseFinalizado);
 
         public Task<bool> OficializarUltimaPartidaDeRonda(
             int id_partida,
-            int id_ganador, int? id_descalificado,
+            int id_ganador, 
+            int? id_descalificado,string motivo_descalificacion,
             IEnumerable<InsertPartidaDTO> partidas);
 
 

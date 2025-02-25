@@ -1,4 +1,5 @@
-﻿using DAO.Connection;
+﻿using Custom_Exceptions.Exceptions.Exceptions;
+using DAO.Connection;
 using DAO.Entidades.Custom;
 using DAO.Entidades.Custom.Partida_CantidadRondas;
 using DAO.Entidades.PartidaEntidades;
@@ -83,7 +84,11 @@ namespace DAO.DAOs.Partidas
             else return false;
         }
 
-        public async Task<bool> OficializarResultado(int id_partida, int id_ganador, int? id_descalificado)
+        public async Task<bool> OficializarResultado(
+            int id_partida, 
+            int id_ganador, 
+            int? id_descalificado, 
+            string motivo_descalificacion)
         {
             string updateQuery;
             int result = 0;
@@ -91,48 +96,36 @@ namespace DAO.DAOs.Partidas
             try
             {
                 if (id_descalificado == null)
-                {
                     updateQuery = " UPDATE partidas " +
                                   " SET id_ganador = @Id_ganador " +
                                   " WHERE id = @Id_partida";
 
-                    result = await connection.ExecuteAsync(updateQuery, new {
-                        Id_partida = id_partida,
-                        Id_ganador = id_ganador
-                    });
-
-                    if (result == 0) throw new Exception($"No se pudo guardar el resultado de la partida [{id_partida}]");
-                
-                    return true;
-                }
-
-
-                updateQuery = " UPDATE partidas " +
-                              " SET " +
-                              "     id_ganador = @Id_ganador," +
-                              "     id_descalificado = @Id_descalificado " +
-                              " WHERE id = @Id_partida";
+                else 
+                    updateQuery = " UPDATE partidas " +
+                                  " SET " +
+                                  "     id_ganador = @Id_ganador," +
+                                  "     id_descalificado = @Id_descalificado, " +
+                                  "     motivo_descalificacion = @Motivo " +
+                                  " WHERE id = @Id_partida";
 
                 result = await connection.ExecuteAsync(updateQuery, new
                 {
                     Id_partida = id_partida,
                     Id_ganador = id_ganador,
-                    Id_descalificado = id_descalificado
+                    Id_descalificado = id_descalificado,
+                    Motivo = motivo_descalificacion
                 });
 
                 if (result == 0) throw new Exception($"No se pudo guardar el resultado de la partida [{id_partida}]");
 
-
+                return true;
             }
             catch (Exception ex) 
             {
-                //id_ganador o id_descalificado no son jugador_1 o jugador_2 (salta el
-                //CHECK de la tabla)
-
+                ManejarGanadorYDescalificadoExceptions(ex, id_ganador, id_descalificado);
 
                 throw ex;
             }
-            return true;
         }
 
 
@@ -140,6 +133,7 @@ namespace DAO.DAOs.Partidas
             int id_partida,
             int id_ganador, 
             int? id_descalificado,
+            string motivo_descalificacion,
             int id_torneo,
             string faseFinalizado)
         {
@@ -152,39 +146,28 @@ namespace DAO.DAOs.Partidas
                 {
                     //UPDATE partida
                     if (id_descalificado == null)
-                    {
                         updatePartidaQuery = " UPDATE partidas " +
                                              " SET id_ganador = @Id_ganador " +
                                              " WHERE id = @Id_partida";
 
-                        updatePartidaResult = await connection.ExecuteAsync(
-                            updatePartidaQuery, 
-                            new {
-                                Id_partida = id_partida,
-                                Id_ganador = id_ganador },
-                            transaction);
-
-                        if (updatePartidaResult == 0) throw new Exception($"No se pudo guardar el resultado de la partida [{id_partida}]");
-
-                    }
                     else
-                    {
                         updatePartidaQuery = " UPDATE partidas " +
                                              " SET " +
                                              "     id_ganador = @Id_ganador," +
-                                             "     id_descalificado = @Id_descalificado " +
+                                             "     id_descalificado = @Id_descalificado, " +
+                                             "     motivo_descalificacion = @Motivo " +
                                              " WHERE id = @Id_partida";
 
-                        updatePartidaResult = await connection.ExecuteAsync(
-                            updatePartidaQuery, 
-                            new {
-                                Id_partida = id_partida,
-                                Id_ganador = id_ganador,
-                                Id_descalificado = id_descalificado},
-                            transaction);
+                    updatePartidaResult = await connection.ExecuteAsync(
+                        updatePartidaQuery, 
+                        new {
+                            Id_partida = id_partida,
+                            Id_ganador = id_ganador,
+                            Id_descalificado = id_descalificado,
+                            Motivo = motivo_descalificacion},
+                        transaction);
 
-                        if (updatePartidaResult == 0) throw new Exception($"No se pudo guardar el resultado de la partida [{id_partida}]");
-                    }
+                    if (updatePartidaResult == 0) throw new Exception($"No se pudo guardar el resultado de la partida [{id_partida}]");
 
                     //UPDATE torneo
                     string updateTorneoQuery =
@@ -209,9 +192,7 @@ namespace DAO.DAOs.Partidas
                 { 
                     transaction.Rollback();
 
-                    //id_ganador o id_descalificado no son jugador_1 o jugador_2 (salta el
-                    //CHECK de la tabla)
-
+                    ManejarGanadorYDescalificadoExceptions(ex, id_ganador, id_descalificado);
 
                     throw ex;
                 }
@@ -220,56 +201,44 @@ namespace DAO.DAOs.Partidas
 
         public async Task<bool> OficializarUltimaPartidaDeRonda(
             int id_partida, 
-            int id_ganador, int? id_descalificado, 
+            int id_ganador, 
+            int? id_descalificado, 
+            string motivo_descalificacion,
             IEnumerable<InsertPartidaDTO> partidas)
         {
             string updatePartidaQuery;
-            int updatePartidaResult = 0;
-
-
+            
             using (MySqlTransaction transaction = connection.BeginTransaction())
             {
                 try
                 {
                     //UPDATE partida
                     if (id_descalificado == null)
-                    {
                         updatePartidaQuery = " UPDATE partidas " +
                                              " SET id_ganador = @Id_ganador " +
                                              " WHERE id = @Id_partida";
-
-                        updatePartidaResult = await connection.ExecuteAsync(
-                            updatePartidaQuery,
-                            new
-                            {
-                                Id_partida = id_partida,
-                                Id_ganador = id_ganador
-                            },
-                            transaction);
-
-                        if (updatePartidaResult == 0) throw new Exception($"No se pudo guardar el resultado de la partida [{id_partida}]");
-
-                    }
                     else
-                    {
                         updatePartidaQuery = " UPDATE partidas " +
                                              " SET " +
                                              "     id_ganador = @Id_ganador," +
-                                             "     id_descalificado = @Id_descalificado " +
+                                             "     id_descalificado = @Id_descalificado, " +
+                                             "     motivo_descalificacion = @Motivo " +
                                              " WHERE id = @Id_partida";
 
-                        updatePartidaResult = await connection.ExecuteAsync(
-                            updatePartidaQuery,
-                            new
-                            {
-                                Id_partida = id_partida,
-                                Id_ganador = id_ganador,
-                                Id_descalificado = id_descalificado
-                            },
-                            transaction);
+                    
+                    int updatePartidaResult = await connection.ExecuteAsync(
+                        updatePartidaQuery,
+                        new
+                        {
+                            Id_partida = id_partida,
+                            Id_ganador = id_ganador,
+                            Id_descalificado = id_descalificado,
+                            Motivo = motivo_descalificacion
+                        },
+                        transaction);
 
-                        if (updatePartidaResult == 0) throw new Exception($"No se pudo guardar el resultado de la partida [{id_partida}]");
-                    }
+                    if (updatePartidaResult == 0) throw new Exception($"No se pudo guardar el resultado de la partida [{id_partida}]");
+                    
 
                     //INSERT partidas
                     string insertQuery =
@@ -298,9 +267,9 @@ namespace DAO.DAOs.Partidas
                 {
                     transaction.Rollback();
 
-                    //id_ganador o id_descalificado no son jugador_1 o jugador_2 (salta el
-                    //CHECK de la tabla)
+                    Console.WriteLine($"ex.Message: {ex.Message}");
 
+                    ManejarGanadorYDescalificadoExceptions(ex, id_ganador, id_descalificado);
 
                     throw ex;
                 }
@@ -308,6 +277,22 @@ namespace DAO.DAOs.Partidas
 
             }
                 return true;
+        }
+
+
+        private void ManejarGanadorYDescalificadoExceptions(Exception ex, int id_ganador, 
+            int? id_descalificado)
+        {
+            //id_ganador o id_descalificado no son jugador_1 o jugador_2 (salta el CHECK de la tabla)
+            if (ex.Message.Contains("Check constraint 'partidas_chk_1' is violated"))
+                throw new InvalidInputException($"El 'id_ganador' [{id_ganador}] es incorrecto. No pertenece a ningun jugador de la partida.");
+
+            if (ex.Message.Contains("Check constraint 'partidas_chk_2' is violated"))
+                throw new InvalidInputException($"El 'id_descalificado' [{id_descalificado}] es incorrecto. No pertenece a ningun jugador de la partida.");
+
+            //id_ganador e id_descalificado son el mismo
+            if (ex.Message.Contains("Check constraint 'partidas_chk_3' is violated"))
+                throw new InvalidInputException("El 'id_ganador' e 'id_descalificado' no pueden ser iguales.");
         }
 
 
