@@ -58,16 +58,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
-    "Method": "BuscarDescalificaciones",
-    "RelativePath": "descalificaciones",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
     "Method": "LoginUser",
     "RelativePath": "login",
@@ -87,6 +77,36 @@
     "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
     "Method": "LogoutUser",
     "RelativePath": "logout",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
+    "Method": "BuscarPartidasPerdidas",
+    "RelativePath": "partidas/derrotas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
+    "Method": "BuscarDescalificaciones",
+    "RelativePath": "partidas/descalificaciones",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
+    "Method": "BuscarPartidasGanadas",
+    "RelativePath": "partidas/victorias",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

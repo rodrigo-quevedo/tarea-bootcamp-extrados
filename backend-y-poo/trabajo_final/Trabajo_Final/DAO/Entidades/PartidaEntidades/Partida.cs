@@ -17,6 +17,7 @@ namespace DAO.Entidades.PartidaEntidades
         public int Id_jugador_2 { get; set; }
         public int? Id_ganador { get; set; }
         public int? Id_descalificado {  get; set; }
+        public string? Motivo_descalificacion { get; set; }
         public int Id_juez {  get; set; }
 
 

@@ -321,15 +321,33 @@ namespace DAO.DAOs.Partidas
         }
 
 
-        public async Task<IEnumerable<DescalificacionDTO>> BuscarDescalificaciones(int id_jugador)
+        public async Task<IEnumerable<Partida>> BuscarDescalificaciones(int id_jugador)
         {
-            string selectQuery = " SELECT id AS id_partida, id_descalificado, motivo_descalificacion " +
-                                 " FROM partidas" +
-                                 " WHERE id_descalificado = @id_jugador; ";
+            //string selectQuery = " SELECT id AS id_partida, id_descalificado, motivo_descalificacion " +
+            //                     " FROM partidas" +
+            //                     " WHERE id_descalificado = @id_jugador; ";
 
-            return await connection.QueryAsync<DescalificacionDTO>(selectQuery, new { id_jugador });
+            string selectQuery = " SELECT * FROM partidas WHERE id_descalificado = @id_jugador";
+
+            return await connection.QueryAsync<Partida>(selectQuery, new { id_jugador });
+        }
+        public async Task<IEnumerable<Partida>> BuscarPartidasGanadas(int id_jugador)
+        {
+            string selectQuery = " SELECT * FROM partidas WHERE id_ganador = @id_jugador";
+
+            return await connection.QueryAsync<Partida>(selectQuery, new { id_jugador });
         }
 
+        public async Task<IEnumerable<Partida>> BuscarPartidasPerdidas(int id_jugador)
+        {
+            string selectQuery =
+                " SELECT * FROM partidas " +
+                " WHERE " +
+                "       (id_jugador_1 = @id_jugador OR id_jugador_2 = @id_jugador) " +
+                "       AND " +
+                "       id_ganador != @id_jugador; ";
 
+            return await connection.QueryAsync<Partida>(selectQuery, new { id_jugador });
+        }
     }
 }

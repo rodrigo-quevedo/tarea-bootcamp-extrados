@@ -1,5 +1,6 @@
 ﻿using DAO.DAOs.Cartas;
 using DAO.Entidades.Custom.Descalificaciones;
+using DAO.Entidades.PartidaEntidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace Trabajo_Final.Controllers
         private IObtenerColeccionService obtenerColeccionService;
         private IQuitarCartasService quitarCartasService;
         
-        private IBuscarDescalificacionesService buscarDescalificacionesService;
+        private IBuscarPartidasService buscarPartidasService;
 
         public JugadoresController (
             VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
@@ -34,14 +35,14 @@ namespace Trabajo_Final.Controllers
             IObtenerColeccionService obtenerColeccion,
             IQuitarCartasService quitarCartas,
 
-            IBuscarDescalificacionesService buscarDescalificaciones
+            IBuscarPartidasService buscarPartidas
         )
         {
             coleccionarCartasService = coleccionarCartas;
             obtenerColeccionService = obtenerColeccion;
             quitarCartasService = quitarCartas;
 
-            buscarDescalificacionesService = buscarDescalificaciones;
+            buscarPartidasService = buscarPartidas;
         }
 
 
@@ -100,16 +101,46 @@ namespace Trabajo_Final.Controllers
         }
 
         [HttpGet]
-        [Route("/descalificaciones")]
+        [Route("/partidas/descalificaciones")]
         [Authorize(Roles = Roles.JUGADOR)]
         public async Task<ActionResult> BuscarDescalificaciones()
         {
             Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_jugador);
 
-            IEnumerable<DescalificacionDTO> result = 
-                await buscarDescalificacionesService.BuscarDescalificaciones(id_jugador);
+            IEnumerable<Partida> result = 
+                await buscarPartidasService.BuscarDescalificaciones(id_jugador);
 
-            if (result == null || !result.Any()) return Ok($"El jugador [{id_jugador}] no tiene descalificaciones.");
+            if (result == null || !result.Any()) return Ok(new { message = $"El jugador [{id_jugador}] no tiene descalificaciones." });
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("/partidas/victorias")]
+        [Authorize(Roles = Roles.JUGADOR)]
+        public async Task<ActionResult> BuscarPartidasGanadas()
+        {
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_jugador);
+
+            IEnumerable<Partida> result =
+                await buscarPartidasService.BuscarPartidasGanadas(id_jugador);
+
+            if (result == null || !result.Any()) return Ok( new { message = $"El jugador [{id_jugador}] no tiene partidas ganadas." });
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("/partidas/derrotas")]
+        [Authorize(Roles = Roles.JUGADOR)]
+        public async Task<ActionResult> BuscarPartidasPerdidas()
+        {
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_jugador);
+
+            IEnumerable<Partida> result =
+                await buscarPartidasService.BuscarPartidasPerdidas(id_jugador);
+
+            if (result == null || !result.Any()) return Ok(new { message = $"El jugador [{id_jugador}] no tiene partidas perdidas." });
 
             return Ok(result);
         }

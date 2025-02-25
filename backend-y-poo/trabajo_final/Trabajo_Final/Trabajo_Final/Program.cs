@@ -154,10 +154,10 @@ builder.Services.AddScoped<IArmarPartidasService, ArmarPartidasService>();
 builder.Services.AddScoped<IBuscarTorneosDisponiblesService, BuscarTorneosDisponiblesService>();
 builder.Services.AddScoped<IInscribirJugadorService, InscribirJugadorService>();
 
-builder.Services.AddScoped<IBuscarPartidasService, BuscarPartidasService>();
+builder.Services.AddScoped<Trabajo_Final.Services.PartidaServices.Buscar_Partidas.IBuscarPartidasService, Trabajo_Final.Services.PartidaServices.Buscar_Partidas.BuscarPartidasService>();
 builder.Services.AddScoped<IOficializarPartidaService, OficializarPartidaService>();
 
-builder.Services.AddScoped<IBuscarDescalificacionesService, BuscarDescalificacionesService>();
+builder.Services.AddScoped<Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones.IBuscarPartidasService, Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones.BuscarPartidasService>();
 
 
 

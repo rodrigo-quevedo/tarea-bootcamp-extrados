@@ -220,7 +220,7 @@ namespace Trabajo_Final.Controllers
             IEnumerable<Partida> result = 
                 await buscarPartidasService.BuscarPartidasParaOficializar(id_juez);
 
-            if (result == null) return Ok($"No hay partidas para el juez [{id_juez}].");
+            if (result == null) return Ok(new { message = $"No hay partidas para el juez [{id_juez}]." });
 
             return Ok(result);
         }
