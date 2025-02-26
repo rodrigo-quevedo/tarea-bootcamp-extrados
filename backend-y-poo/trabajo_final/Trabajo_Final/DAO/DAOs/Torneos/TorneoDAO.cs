@@ -263,6 +263,7 @@ namespace DAO.DAOs.Torneos
 
 
         //READ torneos
+
         public async Task<Torneo> BuscarTorneo(Torneo busqueda)
         {
             string selectQuery;
@@ -283,22 +284,27 @@ namespace DAO.DAOs.Torneos
             return null;//(Torneo busqueda) sin ningun campo valido para buscar
         }
 
+        public async Task<IEnumerable<Torneo>> BuscarTorneos(IList<int> id_torneos)
+        {
+            string selectQuery = " SELECT * FROM torneos WHERE id IN @id_torneos";
+
+            return await connection.QueryAsync<Torneo>(selectQuery, new { id_torneos });
+        }
+
+
         public async Task<IEnumerable<Torneo>> BuscarTorneos(Torneo busqueda)
         {
-            string selectQuery;
+            string selectQuery = null;
 
 
-            if (busqueda.Fase != default)
+            if (busqueda.Fase != default) selectQuery = " SELECT * FROM torneos " +
+                                                        " WHERE fase = @Fase;";
+
+
+            return await connection.QueryAsync<Torneo>(selectQuery, new
             {
-                 selectQuery = " SELECT * FROM torneos " +
-                               " WHERE fase = @Fase;";
-
-                return await connection.QueryAsync<Torneo>(selectQuery, new
-                {
-                    Fase = busqueda.Fase
-                });
-            }
-
+                Fase = busqueda.Fase
+            });
 
             return null;//(Torneo busqueda) sin ningun campo valido para buscar
         }

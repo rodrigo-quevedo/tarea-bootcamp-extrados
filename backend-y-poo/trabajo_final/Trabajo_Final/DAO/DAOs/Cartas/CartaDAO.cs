@@ -2,6 +2,7 @@
 using DAO.Connection;
 using DAO.Entidades.Cartas;
 using DAO.Entidades.ColeccionCartas;
+using DAO.Entidades.TorneoEntidades;
 using Dapper;
 using MySqlConnector;
 using System;
@@ -346,5 +347,24 @@ namespace DAO.DAOs.Cartas
             }
             return exito;
         }
+
+        public async Task<IEnumerable<Carta_Del_Mazo>> BuscarMazosInscriptos(
+            int id_jugador, IList<int> id_torneos)
+        {
+            string selectQuery = " SELECT * FROM cartas_del_mazo " +
+                                 " WHERE " +
+                                 "      id_jugador = @id_jugador " +
+                                 " AND " +
+                                 "      id_torneo IN @id_torneos; ";
+
+            return await connection.QueryAsync<Carta_Del_Mazo>(
+                selectQuery,
+                new {
+                    id_jugador,
+                    id_torneos
+                });
+        }
+
+
     }
 }

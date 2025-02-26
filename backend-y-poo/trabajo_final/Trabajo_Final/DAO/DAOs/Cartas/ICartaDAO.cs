@@ -1,5 +1,6 @@
 ﻿using DAO.Entidades.Cartas;
 using DAO.Entidades.ColeccionCartas;
+using DAO.Entidades.TorneoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,5 +30,8 @@ namespace DAO.DAOs.Cartas
         public Task<IEnumerable<Serie_De_Carta>> BuscarSeriesDeCartas(int[] id_cartas);
 
         public Task<bool> QuitarCartasColeccionadas(int id_jugador, int[] id_cartas);
+
+        public Task<IEnumerable<Carta_Del_Mazo>> BuscarMazosInscriptos(
+            int id_jugador, IList<int> id_torneos);
     }
 }

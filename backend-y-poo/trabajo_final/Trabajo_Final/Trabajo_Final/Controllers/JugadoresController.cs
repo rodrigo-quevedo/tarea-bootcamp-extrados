@@ -1,9 +1,11 @@
 ﻿using DAO.DAOs.Cartas;
 using DAO.Entidades.Custom.Descalificaciones;
+using DAO.Entidades.Custom.TorneoGanado;
 using DAO.Entidades.PartidaEntidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Security.Claims;
 using Trabajo_Final.DTO.ColeccionCartas;
 using Trabajo_Final.DTO.ColeccionCartas.ResponseColeccionar;
@@ -11,6 +13,7 @@ using Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
+using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.utils.Constantes;
 using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
@@ -24,10 +27,11 @@ namespace Trabajo_Final.Controllers
         private IColeccionarCartasService coleccionarCartasService;
         private IObtenerColeccionService obtenerColeccionService;
         private IQuitarCartasService quitarCartasService;
-        
-        private IBuscarPartidasService buscarPartidasService;
 
-        public JugadoresController (
+        private IBuscarPartidasService buscarPartidasService;
+        private IBuscarTorneosService buscarTorneosService;
+
+        public JugadoresController(
             VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
             GenerarCartasYSeries generarCartasYSeries,
 
@@ -35,7 +39,8 @@ namespace Trabajo_Final.Controllers
             IObtenerColeccionService obtenerColeccion,
             IQuitarCartasService quitarCartas,
 
-            IBuscarPartidasService buscarPartidas
+            IBuscarPartidasService buscarPartidas,
+            IBuscarTorneosService buscarTorneos
         )
         {
             coleccionarCartasService = coleccionarCartas;
@@ -43,6 +48,7 @@ namespace Trabajo_Final.Controllers
             quitarCartasService = quitarCartas;
 
             buscarPartidasService = buscarPartidas;
+            buscarTorneosService = buscarTorneos;
         }
 
 
@@ -59,8 +65,8 @@ namespace Trabajo_Final.Controllers
             //Eliminar repeticiones dentro del array de IDs
             int[] id_cartas = dto.Id_cartas.Distinct().ToArray();
 
-            ResponseColeccionarDTO response =  await coleccionarCartasService.Coleccionar(usuario_id, id_cartas);
-            
+            ResponseColeccionarDTO response = await coleccionarCartasService.Coleccionar(usuario_id, id_cartas);
+
 
             return Ok(response);
         }
@@ -74,10 +80,10 @@ namespace Trabajo_Final.Controllers
             string string_usuario_id = User.FindFirst(ClaimTypes.Sid).Value;
             Int32.TryParse(string_usuario_id, out int usuario_id);
 
-            CartaColeccionadaDTO[] coleccion = 
+            CartaColeccionadaDTO[] coleccion =
                 await obtenerColeccionService.ObtenerColeccion(usuario_id);
 
-            return Ok( new {cartas_coleccionadas = coleccion});
+            return Ok(new { cartas_coleccionadas = coleccion });
         }
 
         [HttpDelete]
@@ -94,7 +100,7 @@ namespace Trabajo_Final.Controllers
 
             await quitarCartasService.QuitarCartas(usuario_id, id_cartas);
 
-            return Ok(new { 
+            return Ok(new {
                 message = "Se quitaron las cartas de la colección.",
                 cartas_eliminadas = id_cartas
             });
@@ -107,7 +113,7 @@ namespace Trabajo_Final.Controllers
         {
             Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_jugador);
 
-            IEnumerable<Partida> result = 
+            IEnumerable<Partida> result =
                 await buscarPartidasService.BuscarDescalificaciones(id_jugador);
 
             if (result == null || !result.Any()) return Ok(new { message = $"El jugador [{id_jugador}] no tiene descalificaciones." });
@@ -125,7 +131,7 @@ namespace Trabajo_Final.Controllers
             IEnumerable<Partida> result =
                 await buscarPartidasService.BuscarPartidasGanadas(id_jugador);
 
-            if (result == null || !result.Any()) return Ok( new { message = $"El jugador [{id_jugador}] no tiene partidas ganadas." });
+            if (result == null || !result.Any()) return Ok(new { message = $"El jugador [{id_jugador}] no tiene partidas ganadas." });
 
             return Ok(result);
         }
@@ -141,6 +147,21 @@ namespace Trabajo_Final.Controllers
                 await buscarPartidasService.BuscarPartidasPerdidas(id_jugador);
 
             if (result == null || !result.Any()) return Ok(new { message = $"El jugador [{id_jugador}] no tiene partidas perdidas." });
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("/torneos/victorias")]
+        [Authorize(Roles = Roles.JUGADOR)]
+        public async Task<ActionResult> BuscarTorneosGanados()
+        {
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_jugador);
+
+            IList<TorneoGanadoDTO> result =
+                await buscarTorneosService.BuscarTorneosGanados(id_jugador);
+
+            if (result == null || !result.Any()) return Ok($"No hay torneos ganados del jugador [{id_jugador}]");
 
             return Ok(result);
         }

@@ -349,5 +349,19 @@ namespace DAO.DAOs.Partidas
 
             return await connection.QueryAsync<Partida>(selectQuery, new { id_jugador });
         }
+
+        public async Task<IEnumerable<Partida>> BuscarFinalesGanadas(int id_jugador)
+        {
+            string selectQuery = " SELECT * FROM partidas " +
+                                 " WHERE " +
+                                 "      ronda = (SELECT cantidad_rondas FROM torneos" +
+                                 "               WHERE torneos.id = partidas.id_torneo)" +
+                                 " AND" +
+                                 "      id_ganador = @id_jugador; ";
+
+            return await connection.QueryAsync<Partida>(selectQuery, new { id_jugador });
+        }
+
+
     }
 }

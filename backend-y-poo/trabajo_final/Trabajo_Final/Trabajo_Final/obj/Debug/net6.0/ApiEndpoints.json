@@ -306,5 +306,15 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
+    "Method": "BuscarTorneosGanados",
+    "RelativePath": "torneos/victorias",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]
