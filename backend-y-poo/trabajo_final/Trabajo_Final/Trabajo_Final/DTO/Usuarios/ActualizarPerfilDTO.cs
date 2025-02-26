@@ -11,8 +11,8 @@ namespace Trabajo_Final.DTO.Usuarios
         [Url]
         public string? url_foto {  get; set; }
 
-        [RegularExpression(@"^[a-zA-Z0-9 ]{4,25}$", 
-            ErrorMessage = "Válidos: letras, números y espacios. Entre 4 y 25 caracteres.")]
+        [RegularExpression("^[a-zA-Z0-9]{4,25}$", 
+            ErrorMessage = "Válidos: letras, números. Entre 4 y 25 caracteres.")]
         public string? alias { get; set; }
     }
 }

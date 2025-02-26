@@ -66,7 +66,7 @@ CREATE TABLE perfil_usuarios(
 
 	foto VARCHAR(200) NULL, -- URL/path del archivo
 	
-	alias VARCHAR(25) NULL
+	alias VARCHAR(25) UNIQUE NULL
 );
 
 

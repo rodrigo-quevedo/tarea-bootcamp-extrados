@@ -24,6 +24,7 @@ namespace DAO.DAOs.UsuarioDao
         public UsuarioDAO(string connectionString)
         {
             connection = new SingletonConnection(connectionString).Instance;
+            if (connection.State != System.Data.ConnectionState.Open) connection.Open();
         }
 
         // ------------------ CRUD ------------------ //
@@ -288,70 +289,79 @@ namespace DAO.DAOs.UsuarioDao
             });
         }
 
+        public async Task<bool> VerificarAliasExistente(int id_usuario, string alias)
+        {
+            string selectQuery = " SELECT COUNT(*) FROM perfil_usuarios " +
+                                 " WHERE alias = @alias " +
+                                 " AND id_usuario != @id_usuario; ";
+
+            int result = await connection.QueryFirstOrDefaultAsync<int>(selectQuery, 
+                new {id_usuario, alias});
+
+            Console.WriteLine($"Verificar alias result: {result}");
+
+            if (result > 0) throw new InvalidInputException($"El alias '{alias}' ya existe.");
+
+            return true;
+        } 
 
         public async Task<string> ActualizarPerfil(int id_usuario, string url_foto, string alias)
         {
+            //default: url_foto != null && alias != null
+
             string upsertQuery = " INSERT INTO perfil_usuarios " +
                                  " VALUES (@Id_usuario, @Foto, @Alias) " +
 
                                  " ON DUPLICATE KEY " +
                                  "      UPDATE foto = @Foto, alias = @Alias;";
 
-            int result = await connection.ExecuteAsync(upsertQuery, new
+            string exceptionMessage = $"No se pudo agregar la foto ni el alias del usuario [{id_usuario}]";
+            string successMessage = $"Se agregó la foto y el alias del usuario [{id_usuario}] con éxito.";
+
+
+            if (url_foto == null)
             {
-                Foto = url_foto,
-                Alias = alias,
-                Id_usuario = id_usuario
-            });
+                upsertQuery = " INSERT INTO perfil_usuarios " +
+                              " VALUES (@Id_usuario, NULL, @Alias) " +
+
+                              " ON DUPLICATE KEY " +
+                              "      UPDATE alias = @Alias;";
+                
+                exceptionMessage = $"No se pudo agregar el alias del usuario [{id_usuario}]";
+                successMessage = $"Se agregó el alias del usuario [{id_usuario}] con éxito.";
+
+            }
+
+            else if (alias == null)
+            {
+                upsertQuery = " INSERT INTO perfil_usuarios " +
+                              " VALUES (@Id_usuario, @Foto, NULL) " +
+
+                              " ON DUPLICATE KEY " +
+                              "      UPDATE foto = @Foto;";
+
+                exceptionMessage = $"No se pudo agregar la foto del usuario [{id_usuario}]";
+                successMessage = $"Se agregó la foto del usuario [{id_usuario}] con éxito.";
+            }
+
+            //Las variables sobrantes no se usan, ya que cambia el query string.
+            int result = await connection.ExecuteAsync(
+                upsertQuery, new {
+                    Foto = url_foto,
+                    Alias = alias,
+                    Id_usuario = id_usuario});
 
             //id_usuario no existe: Solo si un Admin elimina al usuario antes que corra esto.
 
-            if (result == 0) throw new Exception($"No se pudo agregar la foto ni el alias del usuario [{id_usuario}]");
+            Console.WriteLine($"UPSERT /perfil result: {result}");
 
-            return $"Se agregó la foto y el alias del usuario [{id_usuario}] con éxito.";
+            if (result == 0) throw new Exception(exceptionMessage);
+
+            return successMessage;
         }
 
-        public async Task<string> ActualizarFotoPerfil(int id_usuario, string url_foto)
-        {
-            string upsertQuery = " INSERT INTO perfil_usuarios " +
-                                 " VALUES (@Id_usuario, @Foto, NULL) " +
 
-                                 " ON DUPLICATE KEY " +
-                                 "      UPDATE foto = @Foto;";
 
-            int result = await connection.ExecuteAsync(upsertQuery, new
-            {
-                Foto = url_foto,
-                Id_usuario = id_usuario
-            });
-
-            //id_usuario no existe: Solo si un Admin elimina al usuario antes que corra esto.
-
-            if (result == 0) throw new Exception($"No se pudo agregar la foto del usuario [{id_usuario}]");
-
-            return $"Se agregó la foto del usuario [{id_usuario}] con éxito.";
-        }
-
-        public async Task<string> ActualizarAliasPerfil(int id_usuario, string alias)
-        {
-            string upsertQuery = " INSERT INTO perfil_usuarios " +
-                                 " VALUES (@Id_usuario, NULL, @Alias) " +
-
-                                 " ON DUPLICATE KEY " +
-                                 "      UPDATE alias = @Alias;";
-
-            int result = await connection.ExecuteAsync(upsertQuery, new
-            {
-                Alias = alias,
-                Id_usuario = id_usuario
-            });
-
-            //id_usuario no existe: Solo si un Admin elimina al usuario antes que corra esto.
-
-            if (result == 0) throw new Exception($"No se pudo agregar el alias del usuario [{id_usuario}]");
-
-            return $"Se agregó el alias del usuario [{id_usuario}] con éxito.";
-        }
 
     }
 }

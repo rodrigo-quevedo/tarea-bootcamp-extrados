@@ -251,9 +251,10 @@ namespace Trabajo_Final.Controllers
         public async Task<ActionResult> ActualizarPerfil(ActualizarPerfilDTO dto)
         {
             //id usuario
-            string str_id_usuario = User.FindFirst(ClaimTypes.Sid).Value;
-            Int32.TryParse(str_id_usuario, out int id_usuario);
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_usuario);
 
+            //manejo de string vacio "", ya que data annotation [RegEx] lo deja pasar como valido:
+            if (dto.alias == "") throw new InvalidInputException("Alias incorrecto. Caracteres válidos: letras, números. Entre 4 y 25 caracteres.");
 
             string response = await actualizarPerfilService.ActualizarPerfil(
                 id_usuario, dto.url_foto, dto.alias);

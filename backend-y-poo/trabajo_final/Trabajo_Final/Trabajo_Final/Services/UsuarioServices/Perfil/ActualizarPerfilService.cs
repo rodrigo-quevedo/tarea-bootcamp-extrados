@@ -15,21 +15,13 @@ namespace Trabajo_Final.Services.UsuarioServices.Perfil
 
         public async Task<string> ActualizarPerfil(int id_usuario, string url_foto, string alias)
         {
-            string responseMessage;
-
             if (url_foto == null && alias == null)
                 throw new InvalidInputException("Debe ingresar la 'url_foto' y/o el 'alias' para actualizarlos.");
-                
-            if (url_foto != null && alias != null)
-                responseMessage = await usuarioDAO.ActualizarPerfil(id_usuario, url_foto, alias);
 
-            else if (url_foto != null)
-                responseMessage = await usuarioDAO.ActualizarFotoPerfil(id_usuario, url_foto);
+            if (alias != null) await usuarioDAO.VerificarAliasExistente(id_usuario, alias);
 
-            else
-                responseMessage = await usuarioDAO.ActualizarAliasPerfil(id_usuario, alias);
+            return await usuarioDAO.ActualizarPerfil(id_usuario, url_foto, alias);
 
-            return responseMessage;
         }
     }
 }
