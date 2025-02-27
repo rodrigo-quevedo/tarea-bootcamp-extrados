@@ -2,12 +2,12 @@
 using System.Text.RegularExpressions;
 using Trabajo_Final.utils.Constantes;
 
-namespace Trabajo_Final.DTO.ListaTorneos
+namespace Trabajo_Final.DTO.ListaTorneos.UserInput
 {
     public class BuscarTorneosDTO
     {
-        
-        [ArrayFases( ErrorMessage = $"Fases validas: {FasesTorneo.REGISTRO}|{FasesTorneo.TORNEO}|{FasesTorneo.FINALIZADO}")]
+
+        [ArrayFases(ErrorMessage = $"Fases validas: {FasesTorneo.REGISTRO}|{FasesTorneo.TORNEO}|{FasesTorneo.FINALIZADO}")]
         public string[]? fases { get; set; }
     }
 
@@ -25,9 +25,11 @@ namespace Trabajo_Final.DTO.ListaTorneos
                 if (value is string[] stringArray)
                 {
                     //Console.WriteLine($"Validando array. Elemento actual: {value}");
-                    foreach (string item in stringArray) {
+                    foreach (string item in stringArray)
+                    {
                         if (!FasesTorneo.fases.Contains(item))
-                            return new ValidationResult($"'{item}' no es una fase válida.") { 
+                            return new ValidationResult($"'{item}' no es una fase válida.")
+                            {
                                 ErrorMessage = $"'{item}' no es una fase válida."
                             };
                     }

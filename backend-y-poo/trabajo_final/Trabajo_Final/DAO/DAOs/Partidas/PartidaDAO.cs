@@ -36,6 +36,30 @@ namespace DAO.DAOs.Partidas
             return await connection.QueryAsync<Partida>(selectQuery, new { Id_juez = id_juez });
         }
 
+
+        public async Task<IEnumerable<Partida>> BuscarPartidasOficializadasDelTorneo(
+            int id_juez, IEnumerable<Torneo> torneos)
+        {
+
+            IEnumerable<Partida> result = Enumerable.Empty<Partida>();
+
+            string selectQuery = " SELECT * FROM partidas " +
+                                 " WHERE " +
+                                 "      id_juez = @id_juez" +
+                                 " AND " +
+                                 "      id_torneo = @Id; ";
+
+            foreach(Torneo torneo in torneos)
+            {
+                IEnumerable<Partida> queryResult =
+                    await connection.QueryAsync<Partida>(selectQuery, new { id_juez, torneo.Id });
+
+                result = result.Concat(queryResult);
+            }
+
+            return result;
+        }
+
         public async Task<Partida_CantidadRondasDTO> BuscarDatosParaOficializar(Partida partida)
         {
             string selectQuery;

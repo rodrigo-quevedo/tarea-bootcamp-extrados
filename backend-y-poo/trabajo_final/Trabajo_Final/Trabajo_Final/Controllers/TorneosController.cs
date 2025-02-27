@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Trabajo_Final.DTO.ListaTorneos;
+using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
+using Trabajo_Final.DTO.ListaTorneos.UserInput;
 using Trabajo_Final.DTO.OficializarPartidas;
 using Trabajo_Final.DTO.Torneos;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
@@ -248,6 +249,19 @@ namespace Trabajo_Final.Controllers
             return Ok(new { message = $"La partida {dto.id_partida} se oficializó con éxito." });
         }
 
+        [HttpGet]
+        [Route("/torneos/oficializados")]
+        [Authorize(Roles = Roles.JUEZ)]
+        public async Task<ActionResult> BuscarTorneosOficializados()
+        {
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_juez);
+
+            IList<TorneoOficializadoDTO> result = 
+                await buscarTorneosService.BuscarTorneosOficializados(id_juez);
+
+            if (result == null || !result.Any()) return Ok($"No hay torneos oficializados por el juez id [{id_juez}");
+            return Ok(result);
+        }
 
     }
 }

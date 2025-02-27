@@ -1,6 +1,4 @@
-﻿using DAO.Entidades.Custom.TorneoGanado;
-using DAO.Entidades.TorneoEntidades;
-using Trabajo_Final.DTO.ListaTorneos;
+﻿using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
 
 namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
 {
@@ -10,5 +8,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
         public Task<IList<TorneoLlenoDTO>> BuscarTorneosLlenos(int id_organizador);
 
         public Task<IList<TorneoGanadoDTO>> BuscarTorneosGanados(int id_jugador);
+
+        public Task<IList<TorneoOficializadoDTO>> BuscarTorneosOficializados(int id_juez);
     }
 }

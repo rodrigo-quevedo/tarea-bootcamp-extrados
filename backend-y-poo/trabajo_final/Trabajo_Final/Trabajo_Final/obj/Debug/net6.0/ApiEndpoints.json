@@ -283,6 +283,16 @@
   },
   {
     "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "BuscarTorneosOficializados",
+    "RelativePath": "torneos/oficializados",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
     "Method": "BuscarPartidasParaOficializar",
     "RelativePath": "torneos/oficializar",
     "HttpMethod": "GET",

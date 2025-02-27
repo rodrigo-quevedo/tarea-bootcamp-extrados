@@ -1,6 +1,5 @@
 ﻿using DAO.DAOs.Cartas;
 using DAO.Entidades.Custom.Descalificaciones;
-using DAO.Entidades.Custom.TorneoGanado;
 using DAO.Entidades.PartidaEntidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +8,7 @@ using System.Data;
 using System.Security.Claims;
 using Trabajo_Final.DTO.ColeccionCartas;
 using Trabajo_Final.DTO.ColeccionCartas.ResponseColeccionar;
+using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
 using Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
@@ -17,6 +17,7 @@ using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.utils.Constantes;
 using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
+
 
 namespace Trabajo_Final.Controllers
 {

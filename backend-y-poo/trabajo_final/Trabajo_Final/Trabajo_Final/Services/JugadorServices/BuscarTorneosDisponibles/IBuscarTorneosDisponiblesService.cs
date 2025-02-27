@@ -1,4 +1,4 @@
-﻿using Trabajo_Final.DTO.ListaTorneos;
+﻿using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
 
 namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
 {

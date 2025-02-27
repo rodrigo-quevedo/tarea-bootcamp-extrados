@@ -2,7 +2,7 @@
 using DAO.DAOs.Torneos;
 using DAO.DAOs.UsuarioDao;
 using DAO.Entidades.TorneoEntidades;
-using Trabajo_Final.DTO.ListaTorneos;
+using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
 using Trabajo_Final.utils.Constantes;
 
 namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
@@ -42,13 +42,14 @@ namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
 
                 result.Add(new TorneoDisponibleDTO()
                 {
-                    id = torneo.Id,
-                    fecha_hora_inicio = torneo.Fecha_hora_inicio,
-                    fecha_hora_fin = torneo.Fecha_hora_fin,
-                    horario_diario_inicio = torneo.Horario_diario_inicio,
-                    horario_diario_fin = torneo.Horario_diario_fin,
-                    pais = torneo.Pais,
-                    series_habilitadas = series.ToArray()
+                    Id_torneo = torneo.Id,
+                    Fecha_hora_inicio = torneo.Fecha_hora_inicio,
+                    Fecha_hora_fin = torneo.Fecha_hora_fin,
+                    Horario_diario_inicio = torneo.Horario_diario_inicio,
+                    Horario_diario_fin = torneo.Horario_diario_fin,
+                    Cantidad_rondas = torneo.Cantidad_rondas,
+                    Pais = torneo.Pais,
+                    Series_habilitadas = series.ToArray()
                 });
 
             }

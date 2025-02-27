@@ -2,6 +2,7 @@
 using DAO.Connection;
 using DAO.Entidades.Cartas;
 using DAO.Entidades.Custom;
+using DAO.Entidades.Custom.Ganador_Torneo;
 using DAO.Entidades.Custom.JuezTorneo;
 using DAO.Entidades.TorneoEntidades;
 using DAO.Entidades.UsuarioEntidades;
@@ -364,6 +365,20 @@ namespace DAO.DAOs.Torneos
 
         }
 
+        public async Task<IEnumerable<int>> BuscarIdTorneosOficializados(int id_juez, string faseFinalizado)
+        {
+            string selectQuery = " SELECT id_torneo FROM jueces_torneo " +
+                                 " WHERE " +
+                                 "      id_juez = @id_juez" +
+                                 " AND " +
+                                 "      @faseFinalizado = " +
+                                 "          (SELECT fase FROM torneos " +
+                                 "          WHERE torneos.id = jueces_torneo.id_torneo) " +
+                                 " ; ";
+
+            return await connection.QueryAsync<int>(selectQuery, new { id_juez, faseFinalizado });
+        }
+
         public async Task<IEnumerable<Serie_Habilitada>> BuscarSeriesDeTorneos(IEnumerable<Torneo> torneos)
         {
             string selectQuery = " SELECT * FROM series_habilitadas " +
@@ -522,7 +537,29 @@ namespace DAO.DAOs.Torneos
             return result;
         }
 
-       
+        public async Task<IEnumerable<GanadorTorneo>> BuscarGanadoresTorneos(IEnumerable<Torneo> torneos)
+        {
+            IEnumerable<GanadorTorneo> result = Enumerable.Empty<GanadorTorneo>();
+
+            string selectQuery = " SELECT id_ganador, id_torneo FROM partidas " +
+                                 " WHERE " +
+                                 "      id_torneo = @Id " +
+                                 " AND " +
+                                 "      ronda = " +
+                                 "          (SELECT cantidad_rondas FROM torneos " +
+                                 "          WHERE torneos.id = @Id)" +
+                                 " ; ";
+
+            foreach(Torneo torneo in torneos)
+            {
+                IEnumerable<GanadorTorneo> queryResult = 
+                    await connection.QueryAsync<GanadorTorneo>(selectQuery, new {torneo.Id});
+
+                result = result.Concat(queryResult);
+            }
+
+            return result;
+        }
 
         public async Task<bool> InscribirJugador(
             int id_jugador, string rol_jugador,

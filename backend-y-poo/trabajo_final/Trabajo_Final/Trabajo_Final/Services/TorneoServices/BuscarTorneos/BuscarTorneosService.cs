@@ -1,12 +1,12 @@
 ﻿using DAO.DAOs.Cartas;
 using DAO.DAOs.Partidas;
 using DAO.DAOs.Torneos;
-using DAO.DAOs.UsuarioDao;
-using DAO.Entidades.Custom.TorneoGanado;
+using DAO.Entidades.Custom.Ganador_Torneo;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Text.Json;
-using Trabajo_Final.DTO.ListaTorneos;
+using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
 using Trabajo_Final.utils.Constantes;
 
 namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
@@ -78,9 +78,9 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Pais = torneo.Pais,
                     Fase = torneo.Fase,
                     Id_organizador = torneo.Id_organizador,
-                    series_habilitadas = series.ToArray(),
-                    id_jueces_torneo = id_jueces.ToArray(),
-                    id_jugadores_aceptados = id_jugadores_aceptados.ToArray()
+                    Series_habilitadas = series.ToArray(),
+                    Id_jueces = id_jueces.ToArray(),
+                    Id_jugadores = id_jugadores_aceptados.ToArray()
                 });
 
             }
@@ -145,9 +145,9 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Pais = torneo.Pais,
                     Fase = torneo.Fase,
                     Id_organizador = torneo.Id_organizador,
-                    series_habilitadas = series.ToArray(),
-                    id_jueces_torneo = id_jueces.ToArray(),
-                    id_jugadores_inscriptos = id_jugadores.ToArray()
+                    Series_habilitadas = series.ToArray(),
+                    Id_jueces = id_jueces.ToArray(),
+                    Id_jugadores_inscriptos = id_jugadores.ToArray()
                 });
 
             }
@@ -203,7 +203,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
 
                 result.Add(new TorneoGanadoDTO()
                 {
-                    Id = torneo.Id,
+                    Id_torneo = torneo.Id,
                     Id_ganador = id_jugador,
                     Fecha_hora_inicio = torneo.Fecha_hora_inicio,
                     Fecha_hora_fin = torneo.Fecha_hora_fin,
@@ -212,7 +212,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Cantidad_rondas = torneo.Cantidad_rondas,
                     Pais = torneo.Pais,
                     Series_habilitadas = series.ToArray(),
-                    Id_jugadores = id_jugadores.ToArray(),
+                    //Id_jugadores = id_jugadores.ToArray(),
                     Id_cartas_mazo = id_cartas_mazo.ToArray()
                 });
 
@@ -222,6 +222,80 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
 
         }
 
+
+        public async Task<IList<TorneoOficializadoDTO>> BuscarTorneosOficializados(int id_juez)
+        {
+            //filtrar torneos oficializados (finalizados)
+            IEnumerable<int> id_torneos_oficializados =
+                await torneoDAO.BuscarIdTorneosOficializados(id_juez, FasesTorneo.FINALIZADO);
+
+            IEnumerable<Torneo> torneos =
+                await torneoDAO.BuscarTorneos(id_torneos_oficializados.ToList());
+
+            //datos extra del torneo:
+
+            IEnumerable<Serie_Habilitada> series_habilitadas =
+                await torneoDAO.BuscarSeriesDeTorneos(torneos);
+
+            IEnumerable<Jugador_Inscripto> jugadores_aceptados =
+                await torneoDAO.BuscarJugadoresAceptados(torneos);
+
+            IEnumerable<GanadorTorneo> ganadores_torneos =
+                await torneoDAO.BuscarGanadoresTorneos(torneos);
+
+            IEnumerable<Partida> partidas =
+                await partidaDAO.BuscarPartidasOficializadasDelTorneo(id_juez, torneos);
+
+
+            //armar DTO:
+            IList<TorneoOficializadoDTO> result = new List<TorneoOficializadoDTO>();
+
+            foreach (Torneo torneo in torneos)
+            {
+                string[] series_habilitadas_torneo = 
+                    series_habilitadas
+                    .Where(serie => serie.Id_torneo == torneo.Id)
+                    .Select(serie => serie.Nombre_serie)
+                    .ToArray();
+
+                int[] id_jugadores =
+                    jugadores_aceptados
+                    .Where(jugador => jugador.Id_torneo == torneo.Id)
+                    .Select(jugador => jugador.Id_jugador) 
+                    .ToArray();
+
+                int id_ganador =
+                    ganadores_torneos
+                    .Where(ganador => ganador.Id_torneo == torneo.Id)
+                    .Select(ganador => ganador.Id_ganador)
+                    .First();
+
+                int[] id_partidas =
+                    partidas
+                    .Where(partida => partida.Id_torneo == torneo.Id)
+                    .Select(partida => partida.Id)
+                    .ToArray();
+
+
+                result.Add(new TorneoOficializadoDTO()
+                {
+                    Id_torneo = torneo.Id,
+                    Fecha_hora_inicio = torneo.Fecha_hora_inicio,
+                    Fecha_hora_fin = torneo.Fecha_hora_fin,
+                    Horario_diario_inicio = torneo.Horario_diario_inicio,
+                    Horario_diario_fin = torneo.Horario_diario_fin,
+                    Cantidad_rondas = torneo.Cantidad_rondas,
+                    Pais = torneo.Pais,
+                    Id_ganador = id_ganador,
+                    Id_jugadores = id_jugadores,
+                    Series_habilitadas = series_habilitadas_torneo,
+                    Id_partidas_oficializadas = id_partidas
+                });
+            }
+
+
+            return result;
+        }
 
     }
 }
