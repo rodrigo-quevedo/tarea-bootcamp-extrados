@@ -318,6 +318,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "BuscarTorneosOrganizados",
+    "RelativePath": "torneos/organizados",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fases",
+        "Type": "System.String[]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
     "Method": "BuscarTorneosGanados",
     "RelativePath": "torneos/victorias",

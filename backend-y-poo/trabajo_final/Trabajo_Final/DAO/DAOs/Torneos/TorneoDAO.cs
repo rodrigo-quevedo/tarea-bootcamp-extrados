@@ -310,6 +310,24 @@ namespace DAO.DAOs.Torneos
             return null;//(Torneo busqueda) sin ningun campo valido para buscar
         }
 
+        public async Task<IEnumerable<Torneo>> BuscarTorneos(string[] fases)
+        {
+            IEnumerable<Torneo> result = Enumerable.Empty<Torneo>();
+
+            string selectQuery = " SELECT * FROM torneos " +
+                                 " WHERE fase = @Fase; ";
+
+            foreach (string fase in fases)
+            {
+                IEnumerable<Torneo> queryResult =
+                    await connection.QueryAsync<Torneo>(selectQuery,new { Fase = fase});
+
+                result = result.Concat(queryResult);
+            }
+
+            return result;
+        }
+
         public async Task<IEnumerable<Torneo>> BuscarTorneosOrganizados(string[] fases, int id_organizador)
         {
             IEnumerable<Torneo> result = Enumerable.Empty<Torneo>();

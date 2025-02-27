@@ -23,8 +23,111 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
             cartaDAO = cartaDao;
         }
 
+        public async Task<IList<TorneoVistaAdminDTO>> BuscarTorneos(string[] fases)
+        {
+            //torneos
+            IEnumerable<Torneo> torneos =
+                await torneoDAO.BuscarTorneos(fases);
 
-        public async Task<IList<TorneoVistaCompletaDTO>> BuscarTorneos(string[] fases, int id_organizador)
+            //series
+            IEnumerable<Serie_Habilitada> series_habilitadas =
+                await torneoDAO.BuscarSeriesDeTorneos(torneos);
+
+            //jueces
+            IEnumerable<Juez_Torneo> jueces_torneos =
+                await torneoDAO.BuscarJuecesDeTorneos(torneos);
+
+            //jugadores que se inscribieron
+            IEnumerable<Jugador_Inscripto> jugadores_registro =
+                await torneoDAO.BuscarJugadoresInscriptos(torneos);
+
+            //jugadores inscriptos (aceptados)
+            IEnumerable<Jugador_Inscripto> jugadores =
+                await torneoDAO.BuscarJugadoresAceptados(torneos);
+
+            //ganadores de torneos
+            IEnumerable<GanadorTorneo> ganadores =
+                await torneoDAO.BuscarGanadoresTorneos(torneos);
+
+            //partidas del torneo
+            IEnumerable<Partida> partidas =
+                await partidaDAO.BuscarPartidasDelTorneo(torneos);
+
+
+            //armar DTO
+            IList<TorneoVistaAdminDTO> result = new List<TorneoVistaAdminDTO>();
+
+            foreach (Torneo torneo in torneos)
+            {
+                string[] series =
+                    series_habilitadas
+                    .Where(serie => serie.Id_torneo == torneo.Id)
+                    .Select(serie => serie.Nombre_serie)
+                    .ToArray();
+
+                int[] id_jueces =
+                    jueces_torneos
+                    .Where(juez => juez.Id_torneo == torneo.Id)
+                    .Select(juez => juez.Id_juez)
+                    .ToArray();
+
+                int[] id_jugadores_inscriptos = 
+                    jugadores_registro
+                    .Where(jugador => jugador.Id_torneo == torneo.Id)
+                    .Select(jugador => jugador.Id_jugador)
+                    .ToArray();
+
+                int[]? id_jugadores_aceptados;
+                if (torneo.Fase == FasesTorneo.REGISTRO) id_jugadores_aceptados = null;
+                else id_jugadores_aceptados =
+                    jugadores
+                    .Where(jugador => jugador.Id_torneo == torneo.Id)
+                    .Select(jugador => jugador.Id_jugador)
+                    .ToArray();
+
+                int? id_ganador;
+                if (torneo.Fase != FasesTorneo.FINALIZADO) id_ganador = null;
+                else id_ganador =
+                        ganadores
+                        .First(ganador => ganador.Id_torneo == torneo.Id)
+                        .Id_ganador;
+
+                int[]? id_partidas;
+                if (torneo.Fase == FasesTorneo.REGISTRO) id_partidas = null;
+                else id_partidas =
+                    partidas
+                    .Where(partida => partida.Id_torneo == torneo.Id)
+                    .Select(partida => partida.Id)
+                    .ToArray();
+
+
+
+                result.Add(new TorneoVistaAdminDTO()
+                {
+                    Id = torneo.Id,
+                    Fecha_hora_inicio = torneo.Fecha_hora_inicio,
+                    Fecha_hora_fin = torneo.Fecha_hora_fin,
+                    Horario_diario_inicio = torneo.Horario_diario_inicio,
+                    Horario_diario_fin = torneo.Horario_diario_fin,
+                    Cantidad_rondas = torneo.Cantidad_rondas,
+                    Pais = torneo.Pais,
+                    Fase = torneo.Fase,
+                    Id_organizador = torneo.Id_organizador,
+                    Series_habilitadas = series,
+                    Id_jueces = id_jueces,
+                    Id_jugadores_inscriptos = id_jugadores_inscriptos,
+                    Id_jugadores_aceptados = id_jugadores_aceptados,
+                    Id_ganador = id_ganador,
+                    Id_partidas = id_partidas
+                });
+
+            }
+
+
+            return result;
+        }
+
+        public async Task<IList<TorneoOrganizadoDTO>> BuscarTorneosOrganizados(string[] fases, int id_organizador)
         {
             //torneos
             IEnumerable<Torneo> torneos =
@@ -52,7 +155,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
 
 
             //armar DTO
-            IList<TorneoVistaCompletaDTO> result = new List<TorneoVistaCompletaDTO>();
+            IList<TorneoOrganizadoDTO> result = new List<TorneoOrganizadoDTO>();
 
             foreach (Torneo torneo in torneos)
             {
@@ -68,7 +171,9 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     .Select(juez => juez.Id_juez)
                     .ToArray();
 
-                int[] id_jugadores_aceptados = 
+                int[]? id_jugadores_aceptados;
+                if (torneo.Fase == FasesTorneo.REGISTRO) id_jugadores_aceptados = null;
+                else id_jugadores_aceptados =
                     jugadores
                     .Where(jugador => jugador.Id_torneo == torneo.Id)
                     .Select(jugador => jugador.Id_jugador)
@@ -81,15 +186,17 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                         .First(ganador => ganador.Id_torneo == torneo.Id)
                         .Id_ganador;
 
-                int[] id_partidas =
+                int[]? id_partidas;
+                if (torneo.Fase == FasesTorneo.REGISTRO) id_partidas = null;
+                else id_partidas =
                     partidas
                     .Where(partida => partida.Id_torneo == torneo.Id)
-                    .Select(partida => partida.Id) 
+                    .Select(partida => partida.Id)
                     .ToArray();
 
 
 
-                result.Add(new TorneoVistaCompletaDTO()
+                result.Add(new TorneoOrganizadoDTO()
                 {
                     Id = torneo.Id,
                     Fecha_hora_inicio = torneo.Fecha_hora_inicio,

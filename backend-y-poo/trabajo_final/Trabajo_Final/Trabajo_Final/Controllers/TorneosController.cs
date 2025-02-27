@@ -153,12 +153,29 @@ namespace Trabajo_Final.Controllers
             return Ok(new { message = $"El jugador id {id_jugador} se inscribió con éxito al torneo [{dto.id_torneo}]." });
         }
 
-
-
         [HttpGet]
         [Route("/torneos")]
-        [Authorize(Roles = Roles.ORGANIZADOR)]
+        [Authorize(Roles = Roles.ADMIN)]
         public async Task<ActionResult> BuscarTorneos([FromQuery] BuscarTorneosDTO dto)
+        {
+            //fases
+            string[] fases;
+
+            if (dto.fases == null || dto.fases.Length == 0)
+                fases = FasesTorneo.fases;
+
+            else
+                fases = dto.fases.Distinct().ToArray();
+
+            IList<TorneoVistaAdminDTO> result = await buscarTorneosService.BuscarTorneos(fases);
+
+            return Ok(new { lista_torneos = result.ToArray() });
+        }
+
+        [HttpGet]
+        [Route("/torneos/organizados")]
+        [Authorize(Roles = Roles.ORGANIZADOR)]
+        public async Task<ActionResult> BuscarTorneosOrganizados([FromQuery] BuscarTorneosDTO dto)
         {
             //fases
             string[] fases;
@@ -174,7 +191,7 @@ namespace Trabajo_Final.Controllers
             Int32.TryParse(str_id_organizador, out int id_organizador);
 
 
-            IList<TorneoVistaCompletaDTO> result = await buscarTorneosService.BuscarTorneos(fases, id_organizador);
+            IList<TorneoOrganizadoDTO> result = await buscarTorneosService.BuscarTorneosOrganizados(fases, id_organizador);
 
             return Ok(new { lista_torneos = result.ToArray() });
         }
