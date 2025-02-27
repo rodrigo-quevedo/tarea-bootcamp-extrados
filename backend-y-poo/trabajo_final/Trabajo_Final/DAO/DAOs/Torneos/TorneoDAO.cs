@@ -310,38 +310,40 @@ namespace DAO.DAOs.Torneos
             return null;//(Torneo busqueda) sin ningun campo valido para buscar
         }
 
-        public async Task<IEnumerable<Torneo>> BuscarTorneos(string[] fases, int id_organizador)
+        public async Task<IEnumerable<Torneo>> BuscarTorneosOrganizados(string[] fases, int id_organizador)
         {
             IEnumerable<Torneo> result = Enumerable.Empty<Torneo>();
-            using (MySqlTransaction transaction = connection.BeginTransaction())
-            {
+            //using (MySqlTransaction transaction = connection.BeginTransaction())
+            //{
                 string selectQuery = " SELECT * FROM torneos " +
                                      " WHERE fase = @Fase " +
                                      " AND id_organizador = @Id_organizador; ";
 
-                try
-                {
+                //try
+                //{
                     foreach (string fase in fases)
                     {
                         IEnumerable<Torneo> queryResult =
                             await connection.QueryAsync<Torneo>(
                                 selectQuery,
-                                new { Fase = fase, Id_organizador = id_organizador },
-                                transaction);
+                                new { Fase = fase, Id_organizador = id_organizador }
+                                //,
+                                //transaction
+                                );
 
                         result = result.Concat(queryResult);
                     }
 
-                    transaction.Commit();
-                }
-                catch (Exception ex) 
-                {
-                    transaction.Rollback();
-                    throw ex;
-                }
+                    //transaction.Commit();
+                ////}
+                ////catch (Exception ex) 
+                ////{
+                //    transaction.Rollback();
+                //    throw ex;
+                //}
 
                 return result;
-            }
+            //}
         }
 
         public async Task<IEnumerable<Torneo>> BuscarTorneosLlenos(string faseInscripcion, int id_organizador)
