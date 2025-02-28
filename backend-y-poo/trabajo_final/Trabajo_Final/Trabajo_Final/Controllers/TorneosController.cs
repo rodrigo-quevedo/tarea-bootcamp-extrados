@@ -5,12 +5,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Trabajo_Final.DTO.EditarPartidas;
 using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
 using Trabajo_Final.DTO.ListaTorneos.UserInput;
 using Trabajo_Final.DTO.OficializarPartidas;
 using Trabajo_Final.DTO.Torneos;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.PartidaServices.Buscar_Partidas;
+using Trabajo_Final.Services.PartidaServices.Editar_Jueces_Partida;
 using Trabajo_Final.Services.PartidaServices.Oficializar_Partidas;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
@@ -36,8 +38,10 @@ namespace Trabajo_Final.Controllers
         IBuscarTorneosService buscarTorneosService;
         IIniciarTorneoService iniciarTorneoService;
 
-        IBuscarPartidasService buscarPartidasService;
+        IBuscarPartidasParaOficializarService buscarPartidasService;
         IOficializarPartidaService oficializarPartidaService;
+
+        IEditarJuezPartidaService editarJuezPartidaService;
 
         public TorneosController(
             ICrearTorneoService crearTorneo,
@@ -51,8 +55,10 @@ namespace Trabajo_Final.Controllers
             IBuscarTorneosService buscarTorneos,
             IIniciarTorneoService iniciarTorneo,
 
-            IBuscarPartidasService buscarPartidas,
-            IOficializarPartidaService oficializarPartida
+            IBuscarPartidasParaOficializarService buscarPartidas,
+            IOficializarPartidaService oficializarPartida,
+
+            IEditarJuezPartidaService editarJuezPartida
         )
         {
             crearTorneoService = crearTorneo;
@@ -68,6 +74,8 @@ namespace Trabajo_Final.Controllers
 
             buscarPartidasService = buscarPartidas;
             oficializarPartidaService = oficializarPartida;
+
+            editarJuezPartidaService = editarJuezPartida;
         }
 
 
@@ -280,5 +288,17 @@ namespace Trabajo_Final.Controllers
             return Ok(result);
         }
 
+
+        [HttpPut]
+        [Route("/partidas/juez")]
+        [Authorize(Roles = Roles.ORGANIZADOR)]
+        public async Task<ActionResult> EditarJuezPartida(EditarJuezPartidaDTO dto)
+        {
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_organizador);
+
+            await editarJuezPartidaService.EditarJuezPartida(id_organizador, dto.Id_partida, dto.Id_juez);
+
+            return Ok(new { message = $"Se editó el juez de la partida {dto.Id_partida} con éxito. El nuevo juez es {dto.Id_juez}" });
+        }
     }
 }

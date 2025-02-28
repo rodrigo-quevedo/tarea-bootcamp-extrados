@@ -22,13 +22,14 @@ using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
 using Trabajo_Final.DTO;
-using Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones;
+using Trabajo_Final.Services.JugadorServices.BuscarPartidas;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
 using Trabajo_Final.Services.PartidaServices.ArmarPartidasService;
 using Trabajo_Final.Services.PartidaServices.Buscar_Partidas;
+using Trabajo_Final.Services.PartidaServices.Editar_Jueces_Partida;
 using Trabajo_Final.Services.PartidaServices.Oficializar_Partidas;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
@@ -154,10 +155,12 @@ builder.Services.AddScoped<IArmarPartidasService, ArmarPartidasService>();
 builder.Services.AddScoped<IBuscarTorneosDisponiblesService, BuscarTorneosDisponiblesService>();
 builder.Services.AddScoped<IInscribirJugadorService, InscribirJugadorService>();
 
-builder.Services.AddScoped<Trabajo_Final.Services.PartidaServices.Buscar_Partidas.IBuscarPartidasService, Trabajo_Final.Services.PartidaServices.Buscar_Partidas.BuscarPartidasService>();
+builder.Services.AddScoped<IBuscarPartidasParaOficializarService, BuscarPartidasParaOficializarService>();
 builder.Services.AddScoped<IOficializarPartidaService, OficializarPartidaService>();
 
-builder.Services.AddScoped<Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones.IBuscarPartidasService, Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones.BuscarPartidasService>();
+builder.Services.AddScoped<IBuscarPartidasService, BuscarPartidasService>();
+
+builder.Services.AddScoped<IEditarJuezPartidaService, EditarJuezPartidaService>();
 
 
 

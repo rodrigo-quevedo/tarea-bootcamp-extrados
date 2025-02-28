@@ -104,6 +104,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "EditarJuezPartida",
+    "RelativePath": "partidas/juez",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.EditarPartidas.EditarJuezPartidaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
     "Method": "BuscarPartidasGanadas",
     "RelativePath": "partidas/victorias",

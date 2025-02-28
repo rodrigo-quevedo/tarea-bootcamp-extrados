@@ -9,7 +9,7 @@ using System.Security.Claims;
 using Trabajo_Final.DTO.ColeccionCartas;
 using Trabajo_Final.DTO.ColeccionCartas.ResponseColeccionar;
 using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
-using Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones;
+using Trabajo_Final.Services.JugadorServices.BuscarPartidas;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;

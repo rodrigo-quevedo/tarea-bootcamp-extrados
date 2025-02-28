@@ -187,13 +187,13 @@ namespace DAO.DAOs.Torneos
             int id_torneo, 
             int id_juez, 
             string rol, 
-            string faseInvalida)
+            string faseRegistro)
         {
             string insertQueryConValidacion = " INSERT INTO jueces_torneo " +
                                               " VALUES (           " +
                                               "        (SELECT id FROM torneos " +
                                               "         WHERE id = @Id_torneo" +
-                                              "         AND fase != @Fase " +
+                                              "         AND fase = @Fase " +
                                               "         AND id_organizador = @Id_organizador)," +
                                               "        (SELECT id FROM usuarios " +
                                               "         WHERE id=@Id_juez " +
@@ -209,15 +209,14 @@ namespace DAO.DAOs.Torneos
                     Id_torneo = id_torneo,
                     Id_juez = id_juez,
                     Rol = rol,
-                    Fase = faseInvalida
+                    Fase = faseRegistro
                 });
 
             }
             catch(Exception ex)
             {
                 if (ex.Message.Contains("Column 'id_torneo' cannot be null"))
-                    throw new InvalidInputException($"No existe ningún torneo en fase registro/torneo con ID [{id_torneo}] cuyo organizador sea {id_organizador}. " +
-                                                    $"No se puede cambiar los jueces de torneos ya finalizados.");
+                    throw new InvalidInputException($"No se pudo agregar el juez al torneo. Razones posibles: 1. El torneo [{id_torneo}] no pertenece al organizador [{id_organizador}]. 2. El torneo no está en fase de registro. ");
 
                 if (ex.Message.Contains("Column 'id_juez' cannot be null"))
                     throw new InvalidInputException($"El juez con ID [{id_juez}] no existe.");
@@ -231,14 +230,14 @@ namespace DAO.DAOs.Torneos
             int id_organizador,
             int id_torneo, 
             int id_juez,
-            string faseInvalida)
+            string faseRegistro)
         {
             string deleteQuery = " DELETE FROM jueces_torneo " +
                                  " WHERE id_juez = @Id_juez " +
                                  " AND id_torneo = (SELECT id FROM torneos " +
                                  "                  WHERE id = @Id_torneo " +
                                  "                  AND id_organizador = @Id_organizador " +
-                                 "                  AND fase != @FaseInvalida); ";
+                                 "                  AND fase = @Fase); ";
 
 
             int result = 0;
@@ -249,10 +248,10 @@ namespace DAO.DAOs.Torneos
                     Id_organizador = id_organizador,
                     Id_torneo = id_torneo,
                     Id_juez = id_juez,
-                    FaseInvalida = faseInvalida
+                    Fase = faseRegistro
                 });
 
-                if (result == 0) throw new InvalidInputException($"No se eliminó el juez por alguna de estas razones: (1) El juez con id [{id_juez}] no existe en el torneo [{id_torneo}]. (2) Dicho torneo ya ha finalizado. (3) Dicho torneo tiene otro organizador.");
+                if (result == 0) throw new InvalidInputException($"No se eliminó el juez por alguna de estas razones: (1) El juez con id [{id_juez}] no existe en el torneo [{id_torneo}]. (2) Dicho torneo no se encuentra en fase registro. (3) Dicho torneo tiene otro organizador.");
             }
             catch(Exception ex)
             {
@@ -477,6 +476,32 @@ namespace DAO.DAOs.Torneos
 
                 return result;
             }
+
+        }
+
+        public async Task<IEnumerable<Juez_Torneo>> BuscarJuecesDeTorneo(int id_organizador, int id_partida)
+        {
+            //Verificar que la partida pertenece a un torneo del organizador
+            //Y verificar que la partida es "editable" -> no tiene id_ganador
+
+            string selectQueryConVerificacion =
+                " SELECT * from jueces_torneo " +
+                " WHERE id_torneo = " +
+                "       (SELECT id_torneo FROM partidas " +
+                "        WHERE " +
+                "               partidas.id = @id_partida " +
+                "        AND " +
+                "               partidas.id_ganador IS NULL " + //partida es editable
+                "        AND " +
+                "           partidas.id_torneo IN " + 
+                    "           (SELECT id FROM torneos " +
+                    "            WHERE id_organizador = @id_organizador)" +//verificar organizador
+                "       ); ";
+
+
+            return await connection.QueryAsync<Juez_Torneo>(
+                selectQueryConVerificacion,
+                new { id_partida, id_organizador });
 
         }
 

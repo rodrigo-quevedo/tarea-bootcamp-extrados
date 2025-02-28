@@ -3,56 +3,88 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\partidas\\partidadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\partidas\\partidadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\controllers\\torneoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\controllers\\torneoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\partidaservices\\editar_jueces_partida\\editarjuezpartidaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\partidaservices\\editar_jueces_partida\\editarjuezpartidaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\torneoservices\\buscartorneos\\buscartorneosservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\torneoservices\\buscartorneos\\buscartorneosservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\torneos\\torneodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\torneos\\torneodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\dto\\listatorneos\\responsedto\\torneoorganizadodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\dto\\listatorneos\\responsedto\\torneoorganizadodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\torneoservices\\buscartorneos\\ibuscartorneosservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\torneoservices\\buscartorneos\\ibuscartorneosservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\torneos\\itorneodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\torneos\\itorneodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\partidas\\partidadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\partidas\\partidadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\cartas\\cartadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\cartas\\cartadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\partidas\\ipartidadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\partidas\\ipartidadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\entidades\\custom\\ganador_torneo\\ganadortorneo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\entidades\\custom\\ganador_torneo\\ganadortorneo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\partidaservices\\editar_jueces_partida\\ieditarjuezpartidaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\partidaservices\\editar_jueces_partida\\ieditarjuezpartidaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\torneos\\torneodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\torneos\\torneodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\torneoservices\\buscartorneos\\ibuscartorneosservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\torneoservices\\buscartorneos\\ibuscartorneosservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\torneoservices\\buscartorneos\\buscartorneosservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\torneoservices\\buscartorneos\\buscartorneosservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\torneos\\itorneodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\torneos\\itorneodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\dto\\editarpartidas\\editarjuezpartidadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\dto\\editarpartidas\\editarjuezpartidadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\jugadorservices\\buscarpartidas\\buscarpartidasservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\jugadorservices\\buscarpartidas\\buscarpartidasservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\partidaservices\\buscar_partidas\\buscarpartidasparaoficializarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\partidaservices\\buscar_partidas\\buscarpartidasparaoficializarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\partidaservices\\buscar_partidas\\ibuscarpartidasparaoficializarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\partidaservices\\buscar_partidas\\ibuscarpartidasparaoficializarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\jugadorservices\\buscarpartidas\\ibuscarpartidasservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\jugadorservices\\buscarpartidas\\ibuscarpartidasservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\controllers\\jugadorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\controllers\\jugadorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\dto\\listatorneos\\responsedto\\torneoorganizadodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\dto\\listatorneos\\responsedto\\torneoorganizadodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\dto\\listatorneos\\responsedto\\torneooficializadodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\dto\\listatorneos\\responsedto\\torneooficializadodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\entidades\\custom\\ganador_torneo\\ganadortorneo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\entidades\\custom\\ganador_torneo\\ganadortorneo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\dto\\listatorneos\\responsedto\\torneobasedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -79,10 +111,6 @@
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\dto\\listatorneos\\userinput\\buscartorneosdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\services\\jugadorservices\\buscarpartidas\\buscarpartidasservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\services\\jugadorservices\\buscarpartidas\\buscarpartidasservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\usuariodao\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\usuariodao\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -97,10 +125,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\trabajo_final\\dto\\usuarios\\actualizarperfildto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Trabajo_Final\\Trabajo_Final.csproj|solutionrelative:trabajo_final\\dto\\usuarios\\actualizarperfildto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\trabajo_final\\dao\\daos\\cartas\\cartadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\cartas\\cartadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -110,24 +134,25 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 11,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Program.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Program.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Program.cs",
               "RelativeToolTip": "Trabajo_Final\\Program.cs",
-              "ViewState": "AgIAANoAAAAAAAAAAAAAAOQAAABVAAAAAAAAAA==",
+              "ViewState": "AgIAAJQAAAAAAAAAAAAiwKIAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-06T19:55:46.188Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 19,
               "Title": "UsuariosController.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Controllers\\UsuariosController.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Controllers\\UsuariosController.cs",
@@ -140,26 +165,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "JugadoresController.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Controllers\\JugadoresController.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Controllers\\JugadoresController.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Controllers\\JugadoresController.cs",
               "RelativeToolTip": "Trabajo_Final\\Controllers\\JugadoresController.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAgwD8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJgAAAAAAAAAAAAuwD8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-25T16:38:59.589Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "TorneosController.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Controllers\\TorneosController.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Controllers\\TorneosController.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Controllers\\TorneosController.cs",
               "RelativeToolTip": "Trabajo_Final\\Controllers\\TorneosController.cs",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAUwKEAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAACEBAAAAAAAAAADgvyoBAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-11T03:33:52.923Z",
               "IsPinned": true,
@@ -167,72 +193,77 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "TorneoDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Torneos\\TorneoDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\Torneos\\TorneoDAO.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Torneos\\TorneoDAO.cs",
               "RelativeToolTip": "DAO\\DAOs\\Torneos\\TorneoDAO.cs",
-              "ViewState": "AgIAANwBAAAAAAAAAAAvwOIBAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAANIAAAAAAAAAAAAmwNoAAAC1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-20T21:29:22.194Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "ITorneoDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Torneos\\ITorneoDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\Torneos\\ITorneoDAO.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Torneos\\ITorneoDAO.cs",
               "RelativeToolTip": "DAO\\DAOs\\Torneos\\ITorneoDAO.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAIA1wC8AAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAAEwC8AAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-24T01:56:00.093Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "PartidaDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Partidas\\PartidaDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\Partidas\\PartidaDAO.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Partidas\\PartidaDAO.cs",
               "RelativeToolTip": "DAO\\DAOs\\Partidas\\PartidaDAO.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAvwB0AAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAJUBAAAAAAAAAADwv5wBAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-23T20:31:16.081Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "IPartidaDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Partidas\\IPartidaDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\Partidas\\IPartidaDAO.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Partidas\\IPartidaDAO.cs",
               "RelativeToolTip": "DAO\\DAOs\\Partidas\\IPartidaDAO.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAIAwwBQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAzwDgAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-23T20:17:14.749Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 12,
               "Title": "BuscarPartidasService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\JugadorServices\\BuscarPartidas\\BuscarPartidasService.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Services\\JugadorServices\\BuscarPartidas\\BuscarPartidasService.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\JugadorServices\\BuscarPartidas\\BuscarPartidasService.cs",
               "RelativeToolTip": "Trabajo_Final\\Services\\JugadorServices\\BuscarPartidas\\BuscarPartidasService.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAADgvxsAAABHAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-25T16:46:37.818Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "IBuscarTorneosService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\TorneoServices\\BuscarTorneos\\IBuscarTorneosService.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Services\\TorneoServices\\BuscarTorneos\\IBuscarTorneosService.cs",
@@ -241,11 +272,12 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-26T03:06:04.722Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "BuscarTorneosService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\TorneoServices\\BuscarTorneos\\BuscarTorneosService.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Services\\TorneoServices\\BuscarTorneos\\BuscarTorneosService.cs",
@@ -254,11 +286,12 @@
               "ViewState": "AgIAABAAAAAAAAAAAAAkwBkAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-26T20:04:22.025Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 22,
               "Title": "ICartaDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Cartas\\ICartaDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\Cartas\\ICartaDAO.cs",
@@ -271,20 +304,21 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 3,
               "Title": "CartaDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Cartas\\CartaDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\Cartas\\CartaDAO.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\Cartas\\CartaDAO.cs",
               "RelativeToolTip": "DAO\\DAOs\\Cartas\\CartaDAO.cs",
-              "ViewState": "AgIAAGIBAAAAAAAAAADwv2wBAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGwBAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-26T21:57:49.985Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 27,
               "Title": "UsuarioDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\UsuarioDao\\UsuarioDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\UsuarioDao\\UsuarioDAO.cs",
@@ -297,7 +331,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 29,
               "Title": "ActualizarPerfilService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\UsuarioServices\\Perfil\\ActualizarPerfilService.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\Services\\UsuarioServices\\Perfil\\ActualizarPerfilService.cs",
@@ -310,7 +344,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 28,
               "Title": "IUsuarioDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\DAOs\\UsuarioDao\\IUsuarioDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\UsuarioDao\\IUsuarioDAO.cs",
@@ -323,7 +357,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 30,
               "Title": "ActualizarPerfilDTO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\Usuarios\\ActualizarPerfilDTO.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\Usuarios\\ActualizarPerfilDTO.cs",
@@ -337,30 +371,86 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "TorneoOrganizadoDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOrganizadoDTO.cs",
-              "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOrganizadoDTO.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOrganizadoDTO.cs",
-              "RelativeToolTip": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOrganizadoDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAhAAAAAAAAAA==",
+              "Title": "IEditarJuezPartidaService.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\PartidaServices\\Editar_Jueces_Partida\\IEditarJuezPartidaService.cs",
+              "RelativeDocumentMoniker": "Trabajo_Final\\Services\\PartidaServices\\Editar_Jueces_Partida\\IEditarJuezPartidaService.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\PartidaServices\\Editar_Jueces_Partida\\IEditarJuezPartidaService.cs",
+              "RelativeToolTip": "Trabajo_Final\\Services\\PartidaServices\\Editar_Jueces_Partida\\IEditarJuezPartidaService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T20:48:25.103Z"
+              "WhenOpened": "2025-02-28T21:39:36.922Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "TorneoDisponibleDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoDisponibleDTO.cs",
-              "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoDisponibleDTO.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoDisponibleDTO.cs",
-              "RelativeToolTip": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoDisponibleDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAyAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "EditarJuezPartidaService.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\PartidaServices\\Editar_Jueces_Partida\\EditarJuezPartidaService.cs",
+              "RelativeDocumentMoniker": "Trabajo_Final\\Services\\PartidaServices\\Editar_Jueces_Partida\\EditarJuezPartidaService.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\PartidaServices\\Editar_Jueces_Partida\\EditarJuezPartidaService.cs",
+              "RelativeToolTip": "Trabajo_Final\\Services\\PartidaServices\\Editar_Jueces_Partida\\EditarJuezPartidaService.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAcwCQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T02:46:28.019Z"
+              "WhenOpened": "2025-02-28T21:39:21.91Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 13,
+              "Title": "BuscarPartidasParaOficializarService.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\PartidaServices\\Buscar_Partidas\\BuscarPartidasParaOficializarService.cs",
+              "RelativeDocumentMoniker": "Trabajo_Final\\Services\\PartidaServices\\Buscar_Partidas\\BuscarPartidasParaOficializarService.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\PartidaServices\\Buscar_Partidas\\BuscarPartidasParaOficializarService.cs",
+              "RelativeToolTip": "Trabajo_Final\\Services\\PartidaServices\\Buscar_Partidas\\BuscarPartidasParaOficializarService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T21:42:41.601Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IBuscarPartidasService.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\JugadorServices\\BuscarPartidas\\IBuscarPartidasService.cs",
+              "RelativeDocumentMoniker": "Trabajo_Final\\Services\\JugadorServices\\BuscarPartidas\\IBuscarPartidasService.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\JugadorServices\\BuscarPartidas\\IBuscarPartidasService.cs",
+              "RelativeToolTip": "Trabajo_Final\\Services\\JugadorServices\\BuscarPartidas\\IBuscarPartidasService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T21:41:43.259Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "EditarJuezPartidaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\EditarPartidas\\EditarJuezPartidaDTO.cs",
+              "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\EditarPartidas\\EditarJuezPartidaDTO.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\EditarPartidas\\EditarJuezPartidaDTO.cs",
+              "RelativeToolTip": "Trabajo_Final\\DTO\\EditarPartidas\\EditarJuezPartidaDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T20:07:19.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IBuscarPartidasParaOficializarService.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\PartidaServices\\Buscar_Partidas\\IBuscarPartidasParaOficializarService.cs",
+              "RelativeDocumentMoniker": "Trabajo_Final\\Services\\PartidaServices\\Buscar_Partidas\\IBuscarPartidasParaOficializarService.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\Services\\PartidaServices\\Buscar_Partidas\\IBuscarPartidasParaOficializarService.cs",
+              "RelativeToolTip": "Trabajo_Final\\Services\\PartidaServices\\Buscar_Partidas\\IBuscarPartidasParaOficializarService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T21:42:45.493Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
               "Title": "TorneoGanadoDTO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoGanadoDTO.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoGanadoDTO.cs",
@@ -372,7 +462,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 21,
               "Title": "TorneoBaseDTO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoBaseDTO.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoBaseDTO.cs",
@@ -384,7 +474,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 20,
               "Title": "GanadorTorneo.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\DAO\\Entidades\\Custom\\Ganador_Torneo\\GanadorTorneo.cs",
               "RelativeDocumentMoniker": "DAO\\Entidades\\Custom\\Ganador_Torneo\\GanadorTorneo.cs",
@@ -396,7 +486,45 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
+              "Title": "TorneoOficializadoDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOficializadoDTO.cs",
+              "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOficializadoDTO.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOficializadoDTO.cs",
+              "RelativeToolTip": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOficializadoDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T03:00:41.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "TorneoOrganizadoDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOrganizadoDTO.cs",
+              "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOrganizadoDTO.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOrganizadoDTO.cs",
+              "RelativeToolTip": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOrganizadoDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T20:48:25.103Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "TorneoDisponibleDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoDisponibleDTO.cs",
+              "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoDisponibleDTO.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoDisponibleDTO.cs",
+              "RelativeToolTip": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoDisponibleDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T02:46:28.019Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
               "Title": "TorneoLlenoDTO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoLlenoDTO.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoLlenoDTO.cs",
@@ -408,19 +536,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "TorneoOficializadoDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOficializadoDTO.cs",
-              "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOficializadoDTO.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOficializadoDTO.cs",
-              "RelativeToolTip": "Trabajo_Final\\DTO\\ListaTorneos\\ResponseDTO\\TorneoOficializadoDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAMAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T03:00:41.514Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 26,
               "Title": "BuscarTorneosDTO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Trabajo_Final\\DTO\\ListaTorneos\\UserInput\\BuscarTorneosDTO.cs",
               "RelativeDocumentMoniker": "Trabajo_Final\\DTO\\ListaTorneos\\UserInput\\BuscarTorneosDTO.cs",

@@ -19,7 +19,7 @@ namespace Trabajo_Final.Services.TorneoServices.EditarJueces
                 id_organizador, 
                 id_torneo, 
                 id_juez, 
-                FasesTorneo.FINALIZADO);
+                FasesTorneo.REGISTRO);
 
             return true;
         }

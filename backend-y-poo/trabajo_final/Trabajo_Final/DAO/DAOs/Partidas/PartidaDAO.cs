@@ -406,6 +406,20 @@ namespace DAO.DAOs.Partidas
             return await connection.QueryAsync<Partida>(selectQuery, new { id_jugador });
         }
 
+        public async Task<bool> EditarJuezPartida(int id_partida, int id_nuevo_juez)
+        {
+            string updateQuery = " UPDATE partidas " +
+                                 " SET id_juez = @id_nuevo_juez " +
+                                 " WHERE id = @id_partida; ";
+
+            int rows = await connection.ExecuteAsync(
+                updateQuery,
+                new { id_nuevo_juez, id_partida });
+
+            if (rows == 0) throw new Exception("DB error: No se pudo editar el juez.");
+
+            return true;
+        }
 
     }
 }

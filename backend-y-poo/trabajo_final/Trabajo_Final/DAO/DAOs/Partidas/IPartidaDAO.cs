@@ -55,5 +55,8 @@ namespace DAO.DAOs.Partidas
         public Task<IEnumerable<Partida>> BuscarPartidasPerdidas(int id_jugador);
 
         public Task<IEnumerable<Partida>> BuscarFinalesGanadas(int id_jugador);
+
+        public Task<bool> EditarJuezPartida(int id_partida, int id_nuevo_juez);
+
     }
 }

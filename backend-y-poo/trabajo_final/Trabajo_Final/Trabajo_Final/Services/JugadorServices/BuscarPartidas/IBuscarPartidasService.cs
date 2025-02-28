@@ -1,7 +1,7 @@
 ﻿using DAO.Entidades.Custom.Descalificaciones;
 using DAO.Entidades.PartidaEntidades;
 
-namespace Trabajo_Final.Services.JugadorServices.BuscarDescalificaciones
+namespace Trabajo_Final.Services.JugadorServices.BuscarPartidas
 {
     public interface IBuscarPartidasService
     {

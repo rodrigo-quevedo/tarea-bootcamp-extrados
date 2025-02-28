@@ -2,7 +2,7 @@
 
 namespace Trabajo_Final.Services.PartidaServices.Buscar_Partidas
 {
-    public interface IBuscarPartidasService
+    public interface IBuscarPartidasParaOficializarService
     {
         public Task<IEnumerable<Partida>> BuscarPartidasParaOficializar(int id_juez);
     }
