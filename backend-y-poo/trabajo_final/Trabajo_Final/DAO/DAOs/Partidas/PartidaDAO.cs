@@ -421,9 +421,10 @@ namespace DAO.DAOs.Partidas
             return true;
         }
 
-        public async Task<IEnumerable<Partida>> VerificarPartidas_EditarJugadoresPartida(
+        public async Task<int> BuscarIdTorneoVerificandoPartidas(
            IEnumerable<int> id_partidas,
-           int id_organizador)
+           int id_organizador,
+           int ronda)
         {
             //Verificaciones: 
                 // Todas las partidas pertenecen al mismo torneo.
@@ -437,7 +438,7 @@ namespace DAO.DAOs.Partidas
                 " WHERE " +
                 "       id = @id_primera_partida " +
                 " AND " +
-                "       ronda = 1 " +
+                "       ronda = @ronda " +
                 " AND " +
                 "       id_torneo IN " +
                 "           (SELECT id FROM torneos " +
@@ -445,12 +446,13 @@ namespace DAO.DAOs.Partidas
 
             int id_primera_partida = id_partidas.FirstOrDefault();
 
-            Partida? primeraPartida =
-                await connection.QueryFirstOrDefaultAsync(
+            Partida primeraPartida =
+                await connection.QueryFirstOrDefaultAsync<Partida>(
                     primeraPartida_selectQuery,
                     new {
                         id_primera_partida,
-                        id_organizador 
+                        id_organizador,
+                        ronda
                     });
 
             if (primeraPartida == null) throw new InvalidInputException($"La partida [{id_primera_partida}] es inválida por alguna de estas razones: 1. No existe. 2. No está en la primera ronda. 3. El torneo al que pertenece no fue organizado por este organizador.");
@@ -465,26 +467,32 @@ namespace DAO.DAOs.Partidas
                                  " AND " +
                                  "      id_torneo = @id_torneo" +
                                  " AND " +
-                                 "      ronda = 1; ";
-
-            IList<Partida> result = new List<Partida>();
-            result.Add((Partida) primeraPartida );
+                                 "      ronda = @ronda; ";
 
             foreach(int id_partida in id_partidas)
             {
                 Partida queryResult = 
-                    await connection.QueryFirstOrDefaultAsync(
+                    await connection.QueryFirstOrDefaultAsync<Partida>(
                         selectQuery,
-                        new { id_partida, id_torneo });
+                        new { id_partida, id_torneo, ronda });
 
                 if (queryResult == null) throw new InvalidInputException($"La partida [{id_partida}] es inválida por alguna de estas razones: 1. No existe. 2. No está en la primera ronda. 3. No pertenece al mismo torneo que las demás. 4. Puede que la primera partida enviada al servidor no tenga el mismo torneo que las demás.");
-
-                result.Add(queryResult);
             }
 
-            return result.AsEnumerable();
+            return id_torneo;
         }
 
+        public async Task<IEnumerable<Partida>> BuscarPartidasPrimeraRonda(int id_torneo)
+        {
+            string selectQuery =
+                " SELECT * FROM partidas " +
+                " WHERE " +
+                "       id_torneo = @id_torneo " +
+                " AND " +
+                "       ronda = 1; ";
+
+            return await connection.QueryAsync<Partida>(selectQuery, new { id_torneo });
+        }
 
     }
 }
