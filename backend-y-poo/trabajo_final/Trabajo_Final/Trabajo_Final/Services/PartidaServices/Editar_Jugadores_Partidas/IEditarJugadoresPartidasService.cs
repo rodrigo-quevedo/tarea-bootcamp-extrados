@@ -6,7 +6,7 @@ namespace Trabajo_Final.Services.PartidaServices.Editar_Jugadores_Partidas
     {
         public Task<bool> EditarJugadoresDePartidas(
             int id_organizador, 
-            Jugadores_Partida[] jugadores_partidas);
+            JugadoresPartida[] jugadores_partidas);
 
 
     }

@@ -311,8 +311,6 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.ORGANIZADOR)]
         public async Task<ActionResult> EditarJugadoresPartidas(EditarJugadoresPartidasDTO dto)
         {
-            Console.WriteLine($"In controller. dto: {JsonSerializer.Serialize(dto)}");
-
             Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_organizador);
 
             await editarJugadoresPartidasService.EditarJugadoresDePartidas(id_organizador, dto.editar_jugadores_partidas);
