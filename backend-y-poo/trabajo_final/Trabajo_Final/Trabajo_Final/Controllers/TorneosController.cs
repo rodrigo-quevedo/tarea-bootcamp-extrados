@@ -14,6 +14,7 @@ using Trabajo_Final.DTO.Torneos;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.PartidaServices.Buscar_Partidas;
 using Trabajo_Final.Services.PartidaServices.Editar_Jueces_Partida;
+using Trabajo_Final.Services.PartidaServices.Editar_Jugadores_Partidas;
 using Trabajo_Final.Services.PartidaServices.Oficializar_Partidas;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
@@ -43,6 +44,7 @@ namespace Trabajo_Final.Controllers
         IOficializarPartidaService oficializarPartidaService;
 
         IEditarJuezPartidaService editarJuezPartidaService;
+        IEditarJugadoresPartidasService editarJugadoresPartidasService;
 
         public TorneosController(
             ICrearTorneoService crearTorneo,
@@ -59,7 +61,8 @@ namespace Trabajo_Final.Controllers
             IBuscarPartidasParaOficializarService buscarPartidas,
             IOficializarPartidaService oficializarPartida,
 
-            IEditarJuezPartidaService editarJuezPartida
+            IEditarJuezPartidaService editarJuezPartida,
+            IEditarJugadoresPartidasService editarJugadoresPartidas
         )
         {
             crearTorneoService = crearTorneo;
@@ -77,6 +80,7 @@ namespace Trabajo_Final.Controllers
             oficializarPartidaService = oficializarPartida;
 
             editarJuezPartidaService = editarJuezPartida;
+            editarJugadoresPartidasService = editarJugadoresPartidas;
         }
 
 
@@ -311,7 +315,9 @@ namespace Trabajo_Final.Controllers
 
             Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_organizador);
 
-            return Ok();
+            await editarJugadoresPartidasService.EditarJugadoresDePartidas(id_organizador, dto.editar_jugadores_partidas);
+
+            return Ok(new { message = $"Se editaron los jugadores de las partidas con éxito."});
         }
 
 

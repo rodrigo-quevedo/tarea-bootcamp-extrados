@@ -30,6 +30,7 @@ using Trabajo_Final.Services.JugadorServices.QuitarCartas;
 using Trabajo_Final.Services.PartidaServices.ArmarPartidasService;
 using Trabajo_Final.Services.PartidaServices.Buscar_Partidas;
 using Trabajo_Final.Services.PartidaServices.Editar_Jueces_Partida;
+using Trabajo_Final.Services.PartidaServices.Editar_Jugadores_Partidas;
 using Trabajo_Final.Services.PartidaServices.Oficializar_Partidas;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
 using Trabajo_Final.Services.TorneoServices.Crear;
@@ -161,7 +162,7 @@ builder.Services.AddScoped<IOficializarPartidaService, OficializarPartidaService
 builder.Services.AddScoped<IBuscarPartidasService, BuscarPartidasService>();
 
 builder.Services.AddScoped<IEditarJuezPartidaService, EditarJuezPartidaService>();
-
+builder.Services.AddScoped<IEditarJugadoresPartidasService, EditarJugadoresPartidasService>();
 
 
 builder.Services.AddControllers();
