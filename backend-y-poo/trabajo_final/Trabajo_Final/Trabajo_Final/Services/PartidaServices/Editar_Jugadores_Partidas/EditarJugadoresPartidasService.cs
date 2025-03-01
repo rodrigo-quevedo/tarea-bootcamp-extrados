@@ -1,6 +1,7 @@
 ﻿using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs.Partidas;
 using DAO.DAOs.Torneos;
+using DAO.Entidades.Custom.JugadoresPartidas;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
 using Trabajo_Final.DTO.EditarPartidas;
@@ -100,14 +101,10 @@ namespace Trabajo_Final.Services.PartidaServices.Editar_Jugadores_Partidas
                     $"en las partidas de la primera ronda: " +
                     $"[{String.Join(", ", id_jugadores_repetidos)}]." +
                     $"Revise las partidas y los jugadores.");
-            
-
-
 
 
             //DAO: UPDATE partidas
-
-            throw new NotImplementedException();
+            return await partidaDAO.EditarJugadoresPartidas(jugadores_partidas.AsEnumerable());
         }
     }
 }

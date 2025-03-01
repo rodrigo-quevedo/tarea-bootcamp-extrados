@@ -2,6 +2,7 @@
 using DAO.Connection;
 using DAO.Entidades.Custom;
 using DAO.Entidades.Custom.Descalificaciones;
+using DAO.Entidades.Custom.JugadoresPartidas;
 using DAO.Entidades.Custom.Partida_CantidadRondas;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
@@ -493,6 +494,44 @@ namespace DAO.DAOs.Partidas
 
             return await connection.QueryAsync<Partida>(selectQuery, new { id_torneo });
         }
+
+        public async Task<bool> EditarJugadoresPartidas(IEnumerable<JugadoresPartida> jugadores_partidas)
+        {
+            string updateQuery =
+                " UPDATE partidas " +
+                " SET " +
+                "       id_jugador_1 = @Id_jugador_1," +
+                "       id_jugador_2 = @Id_jugador_2" +
+                " WHERE" +
+                "       id = @Id_partida;";
+
+            using (MySqlTransaction transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    int ultima_id_partida_insert;
+                    foreach (JugadoresPartida partida in jugadores_partidas)
+                    {
+                        ultima_id_partida_insert = partida.Id_partida;
+
+                        int rows = 
+                            await connection.ExecuteAsync(updateQuery, partida, transaction);
+
+                        if (rows == 0) throw new Exception($"No se pudieron actualizar los jugadores. Error al actualizar partida [{ultima_id_partida_insert}].");
+                    }
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+
+            return true;
+        }
+
 
     }
 }

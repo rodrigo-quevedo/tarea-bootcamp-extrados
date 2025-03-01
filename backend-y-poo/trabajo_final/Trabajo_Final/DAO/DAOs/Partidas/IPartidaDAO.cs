@@ -1,5 +1,6 @@
 ﻿using DAO.Entidades.Custom;
 using DAO.Entidades.Custom.Descalificaciones;
+using DAO.Entidades.Custom.JugadoresPartidas;
 using DAO.Entidades.Custom.Partida_CantidadRondas;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
@@ -64,6 +65,8 @@ namespace DAO.DAOs.Partidas
             int ronda);
 
         public Task<IEnumerable<Partida>> BuscarPartidasPrimeraRonda(int id_torneo);
+
+        public Task<bool> EditarJugadoresPartidas(IEnumerable<JugadoresPartida> jugadores_partidas);
 
     }
 }
