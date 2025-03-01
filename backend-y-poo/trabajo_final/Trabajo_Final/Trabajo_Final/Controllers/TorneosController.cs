@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Text.Json;
 using Trabajo_Final.DTO.EditarPartidas;
 using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
 using Trabajo_Final.DTO.ListaTorneos.UserInput;
@@ -296,9 +297,23 @@ namespace Trabajo_Final.Controllers
         {
             Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_organizador);
 
-            await editarJuezPartidaService.EditarJuezPartida(id_organizador, dto.Id_partida, dto.Id_juez);
+            await editarJuezPartidaService.EditarJuezPartida(id_organizador, (int) dto.Id_partida, (int) dto.Id_juez);
 
             return Ok(new { message = $"Se editó el juez de la partida {dto.Id_partida} con éxito. El nuevo juez es {dto.Id_juez}" });
         }
+
+        [HttpPut]
+        [Route("/partidas/jugadores")]
+        [Authorize(Roles = Roles.ORGANIZADOR)]
+        public async Task<ActionResult> EditarJugadoresPartidas(EditarJugadoresPartidasDTO dto)
+        {
+            Console.WriteLine($"In controller. dto: {JsonSerializer.Serialize(dto)}");
+
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_organizador);
+
+            return Ok();
+        }
+
+
     }
 }

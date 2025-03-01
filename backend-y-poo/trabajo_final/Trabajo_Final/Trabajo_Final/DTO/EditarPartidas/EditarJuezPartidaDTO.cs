@@ -1,8 +1,14 @@
-﻿namespace Trabajo_Final.DTO.EditarPartidas
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Trabajo_Final.DTO.EditarPartidas
 {
     public class EditarJuezPartidaDTO
     {
-        public int Id_partida {  get; set; }
-        public int Id_juez {  get; set; }
+        [Required(ErrorMessage = "Campo 'Id_partida' es obligatorio.")]
+        public int? Id_partida {  get; set; }
+
+
+        [Required(ErrorMessage = "Campo 'Id_juez' es obligatorio.")]
+        public int? Id_juez {  get; set; }
     }
 }

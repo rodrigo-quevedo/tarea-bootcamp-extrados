@@ -120,6 +120,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "EditarJugadoresPartidas",
+    "RelativePath": "partidas/jugadores",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.EditarPartidas.EditarJugadoresPartidasDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
     "Method": "BuscarPartidasGanadas",
     "RelativePath": "partidas/victorias",

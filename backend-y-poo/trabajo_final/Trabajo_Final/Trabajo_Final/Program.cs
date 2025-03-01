@@ -247,6 +247,21 @@ app.UseExceptionHandler(exceptionHandlerApp => {
                 break;
             }
 
+            case nameof(MultipleInvalidInputException): //Borrar cookie refreshToken invalida
+            {
+                if (exceptionHandlerPathFeature?.Error is MultipleInvalidInputException multipleInvalidInputEx)
+                    {
+                        await context.Response.WriteAsJsonAsync(
+                            new {
+                                errors = multipleInvalidInputEx.errores,
+                                exceptionHandlerPathFeature?.Error.GetType().Name,
+                                exceptionHandlerPathFeature?.Path
+                            }
+                         );
+                    }
+                break;
+            }
+
         }
         
         
