@@ -39,7 +39,7 @@ namespace Trabajo_Final.Services.PartidaServices.Oficializar_Partidas
                     Id = id_partida, 
                     Id_juez = id_juez });
 
-            if (datosPartida == null) throw new InvalidInputException($"El juez [{id_juez}] no está asignado a la partida con id [{id_partida}].");
+            if (datosPartida == null) throw new InvalidInputException($"No se pudo oficializar la partida por alguna de estas razones: 1. El juez [{id_juez}] no está asignado a la partida con id [{id_partida}]. 2. La partida no existe. 3. El torneo de la partida fue cancelado.");
 
 
             //verificar que no este oficializada aún
@@ -84,7 +84,7 @@ namespace Trabajo_Final.Services.PartidaServices.Oficializar_Partidas
             //--->NO es final: crear partidas de la siguiente ronda
 
             //buscar torneo (horario_diario_inicio y horario_diario_fin)
-            Torneo torneo = await torneoDAO.BuscarTorneo(new Torneo() { Id = datosPartida.Id_torneo });
+            Torneo torneo = await torneoDAO.BuscarTorneoActivo(new Torneo() { Id = datosPartida.Id_torneo });
             if (torneo == null) throw new Exception($"No se pudo obtener los datos del torneo [{datosPartida.Id_torneo}]");
 
             //armar fechahoras

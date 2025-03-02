@@ -22,7 +22,7 @@ namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
         {
             //torneos
             IEnumerable<Torneo> torneos = 
-                await torneoDAO.BuscarTorneos(new Torneo() { Fase = FasesTorneo.REGISTRO});
+                await torneoDAO.BuscarTorneosActivos(new Torneo() { Fase = FasesTorneo.REGISTRO});
                         
             //series
             IEnumerable<Serie_Habilitada> series_habilitadas =

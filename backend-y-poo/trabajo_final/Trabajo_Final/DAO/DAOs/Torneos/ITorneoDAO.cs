@@ -36,9 +36,9 @@ namespace DAO.DAOs.Torneos
             string faseInvalida);
 
 
-        public Task<Torneo> BuscarTorneo(Torneo busqueda);
+        public Task<Torneo> BuscarTorneoActivo(Torneo busqueda);
         public Task<IEnumerable<Torneo>> BuscarTorneos(IList<int> id_torneos);
-        public Task<IEnumerable<Torneo>> BuscarTorneos(Torneo busqueda);
+        public Task<IEnumerable<Torneo>> BuscarTorneosActivos(Torneo busqueda);
         public Task<IEnumerable<Torneo>> BuscarTorneos(string[] fases);
         public Task<IEnumerable<Torneo>> BuscarTorneosOrganizados(string[] fases, int id_organizador);
         public Task<IEnumerable<Torneo>> BuscarTorneosLlenos(string faseInscripcion, int id_organizador);

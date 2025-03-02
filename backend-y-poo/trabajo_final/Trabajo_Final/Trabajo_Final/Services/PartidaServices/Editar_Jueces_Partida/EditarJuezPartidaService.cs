@@ -19,11 +19,11 @@ namespace Trabajo_Final.Services.PartidaServices.Editar_Jueces_Partida
 
         public async Task<bool> EditarJuezPartida(int id_organizador, int id_partida, int id_juez)
         {
-            //verificar que al organizador le pertenece la partida
+            //buscar jueces (tiene verificacion adentro del dao)
             IEnumerable<Juez_Torneo> jueces_torneo = 
                 await torneoDAO.BuscarJuecesDeTorneo(id_organizador, id_partida);
 
-            if (!jueces_torneo.Any() || jueces_torneo == null) throw new InvalidInputException($"No tiene permiso para editar el juez de la partida. Razones posibles: 1. La partida [{id_partida}] no pertenece a un torneo del organizador [{id_organizador}]. 2. La partida [{id_partida}] ya ha sido oficializada y no se puede editar.");
+            if (!jueces_torneo.Any() || jueces_torneo == null) throw new InvalidInputException($"No tiene permiso para editar el juez de la partida. Razones posibles: 1. La partida [{id_partida}] no pertenece a un torneo del organizador [{id_organizador}]. 2. La partida [{id_partida}] ya ha sido oficializada y no se puede editar. 3. La partida no existe. 4. El torneo está cancelado.");
 
             Console.WriteLine(JsonSerializer.Serialize(jueces_torneo));
 

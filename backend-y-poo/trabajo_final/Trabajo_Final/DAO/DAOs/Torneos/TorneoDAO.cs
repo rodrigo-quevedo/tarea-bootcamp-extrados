@@ -194,7 +194,10 @@ namespace DAO.DAOs.Torneos
                                               "        (SELECT id FROM torneos " +
                                               "         WHERE id = @Id_torneo" +
                                               "         AND fase = @Fase " +
-                                              "         AND id_organizador = @Id_organizador)," +
+                                              "         AND id_organizador = @Id_organizador " +
+                                              "         AND id NOT IN " +
+                                              "             (SELECT id_torneo FROM torneos_cancelados) " +
+                                              "         )," +
                                               "        (SELECT id FROM usuarios " +
                                               "         WHERE id=@Id_juez " +
                                               "         AND rol = @Rol)   " +
@@ -216,7 +219,7 @@ namespace DAO.DAOs.Torneos
             catch(Exception ex)
             {
                 if (ex.Message.Contains("Column 'id_torneo' cannot be null"))
-                    throw new InvalidInputException($"No se pudo agregar el juez al torneo. Razones posibles: 1. El torneo [{id_torneo}] no pertenece al organizador [{id_organizador}]. 2. El torneo no está en fase de registro. ");
+                    throw new InvalidInputException($"No se pudo agregar el juez al torneo. Razones posibles: 1. El torneo [{id_torneo}] no pertenece al organizador [{id_organizador}]. 2. El torneo no está en fase de registro. 3. El torneo no existe. 4. El torneo está cancelado.");
 
                 if (ex.Message.Contains("Column 'id_juez' cannot be null"))
                     throw new InvalidInputException($"El juez con ID [{id_juez}] no existe.");
@@ -237,7 +240,10 @@ namespace DAO.DAOs.Torneos
                                  " AND id_torneo = (SELECT id FROM torneos " +
                                  "                  WHERE id = @Id_torneo " +
                                  "                  AND id_organizador = @Id_organizador " +
-                                 "                  AND fase = @Fase); ";
+                                 "                  AND fase = @Fase " +
+                                 "                  AND id NOT IN " +
+                                 "                      (SELECT id_torneo FROM torneos_cancelados) " +
+                                 "                  ); ";
 
 
             int result = 0;
@@ -251,7 +257,7 @@ namespace DAO.DAOs.Torneos
                     Fase = faseRegistro
                 });
 
-                if (result == 0) throw new InvalidInputException($"No se eliminó el juez por alguna de estas razones: (1) El juez con id [{id_juez}] no existe en el torneo [{id_torneo}]. (2) Dicho torneo no se encuentra en fase registro. (3) Dicho torneo tiene otro organizador.");
+                if (result == 0) throw new InvalidInputException($"No se eliminó el juez por alguna de estas razones: (1) El juez con id [{id_juez}] no existe en el torneo [{id_torneo}]. (2) El torneo no se encuentra en fase registro. (3) El torneo tiene otro organizador. (4) El torneo no existe. (5) El torneo está cancelado.");
             }
             catch(Exception ex)
             {
@@ -264,7 +270,7 @@ namespace DAO.DAOs.Torneos
 
         //READ torneos
 
-        public async Task<Torneo> BuscarTorneo(Torneo busqueda)
+        public async Task<Torneo> BuscarTorneoActivo(Torneo busqueda)
         {
             string selectQuery;
 
@@ -272,7 +278,8 @@ namespace DAO.DAOs.Torneos
             if (busqueda.Id != default)
             {
                 selectQuery = " SELECT * FROM torneos " +
-                              " WHERE id = @Id;";
+                              " WHERE id = @Id " +
+                              " AND id NOT IN (SELECT id_torneo FROM torneos_cancelados);";
 
                 return await connection.QueryFirstOrDefaultAsync<Torneo>(selectQuery, new
                 {
@@ -292,13 +299,16 @@ namespace DAO.DAOs.Torneos
         }
 
 
-        public async Task<IEnumerable<Torneo>> BuscarTorneos(Torneo busqueda)
+        public async Task<IEnumerable<Torneo>> BuscarTorneosActivos(Torneo busqueda)
         {
             string selectQuery = null;
 
 
-            if (busqueda.Fase != default) selectQuery = " SELECT * FROM torneos " +
-                                                        " WHERE fase = @Fase;";
+            if (busqueda.Fase != default) 
+                selectQuery = " SELECT * FROM torneos " +
+                              " WHERE fase = @Fase " +
+                              " AND id NOT IN " +
+                              "   (SELECT id_torneo FROM torneos_cancelados); ";
 
 
             return await connection.QueryAsync<Torneo>(selectQuery, new
@@ -370,6 +380,9 @@ namespace DAO.DAOs.Torneos
                                  "      id_organizador = @Id_organizador " +
                                  " AND" +
                                  "      fase = @Fase " +
+                                 " AND " +
+                                 "      id NOT IN " +
+                                 "          (SELECT id_torneo FROM torneos_cancelados) " +
                                  " AND  " +
                                  "      ( POWER(2, cantidad_rondas) " +
                                  "        <=" +
@@ -494,8 +507,9 @@ namespace DAO.DAOs.Torneos
                 "               partidas.id_ganador IS NULL " + //partida es editable
                 "        AND " +
                 "           partidas.id_torneo IN " + 
-                    "           (SELECT id FROM torneos " +
-                    "            WHERE id_organizador = @id_organizador)" +//verificar organizador
+                "               (SELECT id FROM torneos " +
+                "                WHERE id_organizador = @id_organizador " +//verificar organizador
+                "                AND id NOT IN (SELECT id_torneo FROM torneos_cancelados) )" +
                 "       ); ";
 
 
@@ -654,7 +668,9 @@ namespace DAO.DAOs.Torneos
                         "       WHERE "                                             +
                         "           id=@Id_torneo "                                 +
                         "       AND "                                               +
-                        "           fase = @Fase"                                   +  
+                        "           fase = @Fase "                                  +
+                        "       AND id NOT IN "                                     +
+                        "           (SELECT id_torneo FROM torneos_cancelados) "    +  
                         //"       AND "                                               +
                         //"           ( POWER(2, (SELECT cantidad_rondas FROM torneos "+
                         //"                       WHERE id=@Id_torneo) ) "             +
@@ -729,7 +745,7 @@ namespace DAO.DAOs.Torneos
                         throw new InvalidInputException($"No existe ningun jugador con id [{id_jugador}].");
                     //torneo no existe
                     if (ex.Message.Contains("Column 'id_torneo' cannot be null"))
-                        throw new InvalidInputException($"No existe ningun torneo en fase '{fase_inscripcion}' con id [{id_torneo}]. O puede que el torneo ya esté lleno.");
+                        throw new InvalidInputException($"No se pudo inscribir al torneo [{id_torneo}] por alguna de estas razones: 1. El torneo no está en fase '{fase_inscripcion}'. 2. El torneo no existe. 3. El torneo ya está lleno. 4. El torneo está cancelado.");
                     ////carta no existe en coleccion (coleccion ya comprobó que existe)
                    if (ex.Message.Contains("Column 'id_carta' cannot be null"))
                         throw new InvalidInputException($"No existe ninguna carta con id [{ultima_id_carta_insert}] en la coleccion del jugador id [{id_jugador}].");
@@ -856,6 +872,9 @@ namespace DAO.DAOs.Torneos
             {
                 if (ex.Message.Contains("Column 'id_torneo' cannot be null"))
                     throw new InvalidInputException($"No se pudo cancelar el torneo [{id_torneo}] por alguna de estas razones: 1. Ya ha finalizado. 2. No existe. ");
+
+                if (ex.Message.Contains("Duplicate entry") && ex.Message.Contains("for key 'torneos_cancelados.PRIMARY'"))
+                    throw new InvalidInputException($"El torneo [{id_torneo}] no se canceló porque ya está cancelado.");
 
                 throw ex;
             }

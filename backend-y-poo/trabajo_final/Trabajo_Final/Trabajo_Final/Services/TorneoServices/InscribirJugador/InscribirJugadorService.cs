@@ -25,16 +25,12 @@ namespace Trabajo_Final.Services.TorneoServices.InscribirJugador
             IEnumerable<Serie_De_Carta> series_de_cartas = 
                 await cartaDAO.BuscarSeriesDeCartas(id_cartas_mazo);
 
-            //foreach (Serie_De_Carta serie in series_de_cartas) Console.WriteLine($"{serie.Id_carta} -> {serie.Nombre_serie}");
-
             IList<Torneo> busqueda = new List<Torneo>();
             busqueda.Add(new Torneo() { Id =id_torneo });
 
             IEnumerable<Serie_Habilitada> series_habilitadas =
                 await torneoDAO.BuscarSeriesDeTorneos(busqueda);
 
-
-            //foreach (Serie_Habilitada serie in series_habilitadas) Console.WriteLine($"torneo {serie.Id_torneo} -> {serie.Nombre_serie}");
 
             foreach(int id_carta in id_cartas_mazo)
             {

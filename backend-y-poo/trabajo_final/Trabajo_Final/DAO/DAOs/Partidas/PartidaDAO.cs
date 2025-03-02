@@ -52,7 +52,9 @@ namespace DAO.DAOs.Partidas
         {
             string selectQuery = " SELECT * FROM partidas " +
                                  " WHERE id_ganador IS NULL " +
-                                 " AND id_juez = @Id_juez; ";
+                                 " AND id_juez = @Id_juez " +
+                                 " AND id_torneo NOT IN " +
+                                 "      (SELECT id_torneo FROM torneos_cancelados); ";
 
             return await connection.QueryAsync<Partida>(selectQuery, new { Id_juez = id_juez });
         }
@@ -92,7 +94,9 @@ namespace DAO.DAOs.Partidas
                               " JOIN torneos " +
                               " ON partidas.id_torneo = torneos.id " +
                               " WHERE partidas.id = @Id_partida " +
-                              " AND partidas.id_juez = @Id_juez ";
+                              " AND partidas.id_juez = @Id_juez " +
+                              " AND partidas.id_torneo NOT IN " +//verificar torneo no cancelado
+                              "                 (SELECT id_torneo FROM torneos_cancelados); ";
 
                 return await connection.QueryFirstOrDefaultAsync<Partida_CantidadRondasDTO>(selectQuery, new {
                     Id_partida = partida.Id,
@@ -431,6 +435,7 @@ namespace DAO.DAOs.Partidas
                 // Todas las partidas pertenecen al mismo torneo.
                 // El torneo fue organizado por id_organizador.
                 // Todas las partidas están en la ronda 1.
+                // La partinas no han sido oficializadas
 
 
             //buscar una sola partida y obtener torneo:
@@ -441,9 +446,13 @@ namespace DAO.DAOs.Partidas
                 " AND " +
                 "       ronda = @ronda " +
                 " AND " +
+                "       id_ganador IS NULL " +
+                " AND " +
                 "       id_torneo IN " +
                 "           (SELECT id FROM torneos " +
-                "            WHERE id_organizador = @id_organizador);";
+                "            WHERE id_organizador = @id_organizador " +
+                "            AND id NOT IN (SELECT id_torneo FROM torneos_cancelados) " +
+                "           ); ";
 
             int id_primera_partida = id_partidas.FirstOrDefault();
 
@@ -456,7 +465,7 @@ namespace DAO.DAOs.Partidas
                         ronda
                     });
 
-            if (primeraPartida == null) throw new InvalidInputException($"La partida [{id_primera_partida}] es inválida por alguna de estas razones: 1. No existe. 2. No está en la primera ronda. 3. El torneo al que pertenece no fue organizado por este organizador.");
+            if (primeraPartida == null) throw new InvalidInputException($"La partida [{id_primera_partida}] es inválida por alguna de estas razones: 1. No existe. 2. No está en la primera ronda. 3. El torneo al que pertenece no fue organizado por este organizador. 4. Ya ha sido oficializada y no se puede editar sus jugadores.");
 
             int id_torneo = primeraPartida.Id_torneo;
 
@@ -468,7 +477,9 @@ namespace DAO.DAOs.Partidas
                                  " AND " +
                                  "      id_torneo = @id_torneo" +
                                  " AND " +
-                                 "      ronda = @ronda; ";
+                                 "      ronda = @ronda " +
+                                 " AND " +
+                                 "      id_ganador IS NULL; ";
 
             foreach(int id_partida in id_partidas)
             {
@@ -477,7 +488,7 @@ namespace DAO.DAOs.Partidas
                         selectQuery,
                         new { id_partida, id_torneo, ronda });
 
-                if (queryResult == null) throw new InvalidInputException($"La partida [{id_partida}] es inválida por alguna de estas razones: 1. No existe. 2. No está en la primera ronda. 3. No pertenece al mismo torneo que las demás. 4. Puede que la primera partida enviada al servidor no tenga el mismo torneo que las demás.");
+                if (queryResult == null) throw new InvalidInputException($"La partida [{id_partida}] es inválida por alguna de estas razones: 1. No existe. 2. No está en la primera ronda. 3. Ya ha sido oficializada y no se puede editar sus jugadores. 4. No pertenece al mismo torneo que las demás. 5. Puede que la primera partida enviada al servidor no tenga el mismo torneo que las demás.");
             }
 
             return id_torneo;
