@@ -61,5 +61,14 @@ namespace DAO.DAOs.Torneos
             int id_torneo,
             IList<int> id_jugadores_aceptados,
             IList<InsertPartidaDTO> partidas_primera_ronda);
+
+
+        public Task<bool> CancelarTorneo(
+            int id_admin,
+            int id_torneo,
+            string? motivo,
+            DateTime now,
+            string faseFinalizado);
+
     }
 }

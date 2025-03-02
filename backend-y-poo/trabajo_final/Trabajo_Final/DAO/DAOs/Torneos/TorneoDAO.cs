@@ -821,5 +821,49 @@ namespace DAO.DAOs.Torneos
         }
 
 
+        public async Task<bool> CancelarTorneo(
+            int id_admin,
+            int id_torneo,
+            string? motivo,
+            DateTime now,
+            string faseFinalizado)
+        {
+            string insertQuery =
+                " INSERT INTO torneos_cancelados (id_torneo, id_admin, fechaHora, motivo) " +
+                " VALUES (" +
+                "   (SELECT id FROM torneos WHERE id = @id_torneo AND fase != @faseFinalizado), " +
+                "   @id_admin, " +
+                "   @now, " +
+                "   @motivo); ";
+
+
+            try
+            {
+                int rows = await connection.ExecuteAsync(
+                    insertQuery,
+                    new {
+                        id_admin,
+                        id_torneo,
+                        now,
+                        motivo,
+                        faseFinalizado
+                    });
+
+                if (rows == 0) throw new Exception($"No se pudo cancelar el torneo en la db.");
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("Column 'id_torneo' cannot be null"))
+                    throw new InvalidInputException($"No se pudo cancelar el torneo [{id_torneo}] por alguna de estas razones: 1. Ya ha finalizado. 2. No existe. ");
+
+                throw ex;
+            }
+
+            return true;
+        }
+
+
+
     }
 }

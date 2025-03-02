@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS series_de_cartas;
 DROP TABLE IF EXISTS cartas_coleccionadas;
 
 DROP TABLE IF EXISTS torneos;
+DROP TABLE IF EXISTS torneos_cancelados;
 DROP TABLE IF EXISTS series_habilitadas;
 DROP TABLE IF EXISTS jueces_torneo;
 DROP TABLE IF EXISTS jugadores_inscriptos;
@@ -255,6 +256,20 @@ CREATE TABLE partidas(
 -- Obtener descalificaciones de un usuario:
 	-- SELECT * from juegos_de_ronda
 	-- WHERE id_descalificado = (id del usuario);
+
+
+CREATE TABLE torneos_cancelados(
+	id_torneo INT PRIMARY KEY,
+	FOREIGN KEY(id_torneo) REFERENCES torneos(id),
+	
+	id_admin INT NOT NULL,
+	FOREIGN KEY(id_admin) REFERENCES usuarios(id),
+	
+	fechahora DATETIME NOT NULL,
+	
+	motivo VARCHAR(60) NULL
+);
+
 
 
 -- Connection string (formato para MySQLConnector -> https://mysqlconnector.net/connection-options/): 

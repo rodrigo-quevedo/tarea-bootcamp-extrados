@@ -17,6 +17,7 @@ using Trabajo_Final.Services.PartidaServices.Editar_Jueces_Partida;
 using Trabajo_Final.Services.PartidaServices.Editar_Jugadores_Partidas;
 using Trabajo_Final.Services.PartidaServices.Oficializar_Partidas;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
+using Trabajo_Final.Services.TorneoServices.CancelarTorneo;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.Services.TorneoServices.EditarJueces;
 using Trabajo_Final.Services.TorneoServices.IniciarTorneo;
@@ -46,6 +47,8 @@ namespace Trabajo_Final.Controllers
         IEditarJuezPartidaService editarJuezPartidaService;
         IEditarJugadoresPartidasService editarJugadoresPartidasService;
 
+        ICancelarTorneoService cancelarTorneoService;
+
         public TorneosController(
             ICrearTorneoService crearTorneo,
             IAgregarJuezService agregarJuez,
@@ -62,7 +65,9 @@ namespace Trabajo_Final.Controllers
             IOficializarPartidaService oficializarPartida,
 
             IEditarJuezPartidaService editarJuezPartida,
-            IEditarJugadoresPartidasService editarJugadoresPartidas
+            IEditarJugadoresPartidasService editarJugadoresPartidas,
+
+            ICancelarTorneoService cancelarTorneo
         )
         {
             crearTorneoService = crearTorneo;
@@ -81,6 +86,8 @@ namespace Trabajo_Final.Controllers
 
             editarJuezPartidaService = editarJuezPartida;
             editarJugadoresPartidasService = editarJugadoresPartidas;
+
+            cancelarTorneoService = cancelarTorneo;
         }
 
 
@@ -318,6 +325,18 @@ namespace Trabajo_Final.Controllers
             return Ok(new { message = $"Se editaron los jugadores de las partidas con éxito."});
         }
 
+
+        [HttpPost]
+        [Route("/torneos/cancelar")]
+        [Authorize(Roles = Roles.ADMIN)]
+        public async Task<ActionResult> CancelarTorneo(CancelarTorneoDTO dto)
+        {
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_admin);
+
+            await cancelarTorneoService.CancelarTorneo(id_admin, dto);
+
+            return Ok(new { message = $"El torneo [{dto.Id_torneo}] fue cancelado con exito." });
+        }
 
     }
 }

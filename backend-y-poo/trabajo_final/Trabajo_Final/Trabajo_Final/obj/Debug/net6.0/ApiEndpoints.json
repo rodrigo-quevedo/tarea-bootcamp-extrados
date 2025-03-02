@@ -263,6 +263,22 @@
   },
   {
     "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "CancelarTorneo",
+    "RelativePath": "torneos/cancelar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Torneos.CancelarTorneoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
     "Method": "BuscarTorneosLlenos",
     "RelativePath": "torneos/iniciar",
     "HttpMethod": "GET",
