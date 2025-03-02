@@ -361,6 +361,29 @@ namespace DAO.DAOs.UsuarioDao
         }
 
 
+        public async Task<bool> BorradoLogicoUsuarioYSesionesActivas(int id_usuario)
+        {
+            string borradoLogicoUsuarioQuery = " UPDATE usuarios " +
+                                               " SET activo = @activo " +
+                                               " WHERE id = @id_usuario; ";
+
+            string borradoLogicoSesionesQuery = " UPDATE refresh_tokens " +
+                                                " SET token_activo = @activo " +
+                                                " WHERE id_usuario = @id_usuario; ";
+
+
+            int usuarioResult = await connection.ExecuteAsync(
+                borradoLogicoUsuarioQuery,
+                new { id_usuario, activo = false });
+
+            if (usuarioResult == 0) throw new InvalidInputException($"El usuario [{id_usuario}] no existe.");
+
+            await connection.ExecuteAsync(
+                borradoLogicoSesionesQuery,
+                new { id_usuario, activo = false });
+
+            return true;
+        }
 
 
     }

@@ -26,5 +26,7 @@ namespace DAO.DAOs.UsuarioDao
         public Task<bool> VerificarAliasExistente(int id_usuario, string alias);
         public Task<string> ActualizarPerfil(int id_usuario, string url_foto, string alias);
 
+        public Task<bool> BorradoLogicoUsuarioYSesionesActivas(int id_usuario);
+
     }
 }

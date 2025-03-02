@@ -28,6 +28,7 @@ using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
 using Trabajo_Final.DTO.Usuarios;
 using Trabajo_Final.Services.UsuarioServices.Perfil;
+using Trabajo_Final.Services.UsuarioServices.Eliminar;
 
 namespace Trabajo_Final.Controllers
 {
@@ -52,6 +53,8 @@ namespace Trabajo_Final.Controllers
 
         private IActualizarPerfilService actualizarPerfilService;
 
+        private IEliminarUsuarioService eliminarUsuarioService;
+
         public UsuariosController(
             VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
 
@@ -68,7 +71,9 @@ namespace Trabajo_Final.Controllers
 
             IRegistroUsuarioService registro,
 
-            IActualizarPerfilService actualizarPerfil
+            IActualizarPerfilService actualizarPerfil,
+
+            IEliminarUsuarioService eliminarUsuario
         )
         {
             jwtConfiguration = jwtConfig;
@@ -85,6 +90,8 @@ namespace Trabajo_Final.Controllers
             registroUsuarioService = registro;
 
             actualizarPerfilService = actualizarPerfil;
+
+            eliminarUsuarioService = eliminarUsuario;
         }
 
 
@@ -262,7 +269,15 @@ namespace Trabajo_Final.Controllers
             return Ok(new { message = response});
         }
 
+        [HttpDelete]
+        [Route("/usuarios/{id_usuario}")]
+        [Authorize(Roles = Roles.ADMIN)]
+        public async Task<ActionResult> EliminarUsuario([FromRoute] int id_usuario)
+        {
+            await eliminarUsuarioService.EliminarUsuario(id_usuario);
 
+            return Ok(new {message = $"Se eliminó al usuario [{id_usuario}] con éxito."});
+        }
 
     }
 }
