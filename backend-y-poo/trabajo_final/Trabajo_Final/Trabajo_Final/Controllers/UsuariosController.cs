@@ -29,6 +29,8 @@ using Trabajo_Final.utils.Verificar_Existencia_Admin;
 using Trabajo_Final.DTO.Usuarios;
 using Trabajo_Final.Services.UsuarioServices.Perfil;
 using Trabajo_Final.Services.UsuarioServices.Eliminar;
+using Trabajo_Final.Services.UsuarioServices.Editar;
+using Trabajo_Final.DTO.EditarUsuario;
 
 namespace Trabajo_Final.Controllers
 {
@@ -54,6 +56,7 @@ namespace Trabajo_Final.Controllers
         private IActualizarPerfilService actualizarPerfilService;
 
         private IEliminarUsuarioService eliminarUsuarioService;
+        private IEditarUsuarioService editarUsuarioService;
 
         public UsuariosController(
             VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
@@ -73,7 +76,8 @@ namespace Trabajo_Final.Controllers
 
             IActualizarPerfilService actualizarPerfil,
 
-            IEliminarUsuarioService eliminarUsuario
+            IEliminarUsuarioService eliminarUsuario,
+            IEditarUsuarioService editarUsuario
         )
         {
             jwtConfiguration = jwtConfig;
@@ -92,6 +96,7 @@ namespace Trabajo_Final.Controllers
             actualizarPerfilService = actualizarPerfil;
 
             eliminarUsuarioService = eliminarUsuario;
+            editarUsuarioService = editarUsuario;
         }
 
 
@@ -278,6 +283,17 @@ namespace Trabajo_Final.Controllers
 
             return Ok(new {message = $"Se eliminó al usuario [{id_usuario}] con éxito."});
         }
+
+        [HttpPut]
+        [Route("/usuarios/{id_usuario}")]
+        [Authorize(Roles = Roles.ADMIN)]
+        public async Task<ActionResult> EditarUsuario([FromRoute] int id_usuario, RequestBodyEditarUsuarioDTO dto)
+        {
+            await editarUsuarioService.EditarUsuario(id_usuario, dto);
+
+            return Ok(new { message = $"Se editó al usuario [{id_usuario}] con éxito." });
+        }
+
 
     }
 }

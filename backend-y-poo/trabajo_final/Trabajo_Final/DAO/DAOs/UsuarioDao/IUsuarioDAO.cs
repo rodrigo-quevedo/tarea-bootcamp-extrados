@@ -1,4 +1,5 @@
-﻿using DAO.Entidades.UsuarioEntidades;
+﻿using DAO.Entidades.Custom.EditarUsuario;
+using DAO.Entidades.UsuarioEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,5 +29,7 @@ namespace DAO.DAOs.UsuarioDao
 
         public Task<bool> BorradoLogicoUsuarioYSesionesActivas(int id_usuario);
 
+        public Task<DatosEditablesUsuarioDTO> BuscarDatosEditablesUsuario(int id_usuario);
+        public Task<bool> EditarUsuario(DatosEditablesUsuarioDTO dto, string[] rolesPerfil);
     }
 }

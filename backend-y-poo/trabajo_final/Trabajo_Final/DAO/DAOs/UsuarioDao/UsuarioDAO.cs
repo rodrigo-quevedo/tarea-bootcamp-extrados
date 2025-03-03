@@ -1,5 +1,6 @@
 ﻿using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.Connection;
+using DAO.Entidades.Custom.EditarUsuario;
 using DAO.Entidades.UsuarioEntidades;
 using Dapper;
 using MySqlConnector;
@@ -280,7 +281,11 @@ namespace DAO.DAOs.UsuarioDao
 
             string selectQuery = "SELECT * FROM refresh_tokens " +
                                  " WHERE refresh_token = @RefreshToken " +
-                                 " AND token_activo = @Activo ";
+                                 " AND token_activo = @Activo " +
+                                 " AND " +
+                                 "      @Activo = " +
+                                 "          (SELECT activo from usuarios" +
+                                 "           WHERE refresh_tokens.id_usuario = usuarios.id)";
 
             return await connection.QueryFirstOrDefaultAsync<Refresh_Token>(selectQuery, new
             {
@@ -384,6 +389,80 @@ namespace DAO.DAOs.UsuarioDao
 
             return true;
         }
+
+        public async Task<DatosEditablesUsuarioDTO> BuscarDatosEditablesUsuario(int id_usuario)
+        {
+            string selectQuery =
+                " SELECT * FROM usuarios " +
+                " LEFT JOIN perfil_usuarios" +//LEFT join porque puede que el perfil esté vacio
+                " ON usuarios.id = perfil_usuarios.id_usuario " +
+                " WHERE usuarios.id = @id_usuario" +
+                " AND activo = @activo; ";
+
+            return await connection.QueryFirstOrDefaultAsync<DatosEditablesUsuarioDTO>(
+                selectQuery, 
+                new {id_usuario, activo = true});
+        }
+
+        public async Task<bool> EditarUsuario(DatosEditablesUsuarioDTO dto , string[] rolesPerfil)
+        {
+            string usuarioUpdateQuery =
+                " UPDATE usuarios " +
+                " SET " +
+                "   nombre_apellido = @Nombre_apellido, " +
+                "   rol = @Rol, " +
+                "   pais = @Pais, " +
+                "   email = @Email, " +
+                "   password = @Password " +
+                " WHERE" +
+                "   id = @Id; ";
+
+
+            string perfilUpsertQuery = 
+                " INSERT INTO perfil_usuarios " +
+                " VALUES (@Id, @Foto, @Alias) " +
+                
+                " ON DUPLICATE KEY " +
+                "      UPDATE foto = @Foto, alias = @Alias;";
+
+            using (MySqlTransaction transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    int usuarioQueryResult = await connection.ExecuteAsync(
+                        usuarioUpdateQuery,
+                        dto,
+                        transaction);
+
+
+                    //Organizador y admin no tienen perfil, no hace falta el UPDATE para esos casos
+                    int perfilQueryResult;
+
+                    if ( ! rolesPerfil.Contains(dto.Rol)) perfilQueryResult = 1;
+
+                    else perfilQueryResult = await connection.ExecuteAsync(
+                        perfilUpsertQuery,
+                        dto,
+                        transaction);
+
+
+                    if (usuarioQueryResult == 0 || perfilQueryResult == 0 ) throw new Exception($"No se pudo editar el usuario [{dto.Id}].");
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+
+
+                    throw ex;
+                }
+            }
+
+            return true;
+        }
+
+
 
 
     }
