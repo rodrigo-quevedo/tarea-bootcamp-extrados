@@ -63,7 +63,7 @@ namespace Trabajo_Final.utils.Verificar_Existencia_Admin
             //hashear password
             var passwordHash = Argon2.Hash(nuevoAdmin.Password);
             nuevoAdmin.Password = passwordHash;
-            int rowInserts = usuarioDAO.CrearUsuario(nuevoAdmin);
+            int rowInserts = usuarioDAO.CrearPrimerAdmin_Sync(nuevoAdmin);
             if (rowInserts == 1) { Console.WriteLine("Se creo un admin."); }
 
             //mostrarlo

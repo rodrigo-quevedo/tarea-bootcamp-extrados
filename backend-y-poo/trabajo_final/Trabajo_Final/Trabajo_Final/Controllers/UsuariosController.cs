@@ -192,7 +192,7 @@ namespace Trabajo_Final.Controllers
                 throw new SinPermisoException("Solo se crean usuarios con rol JUGADOR en /registro");
        
             
-            await registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar);   
+            await registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar, null);   
                 
             return Ok(new { message = $"Usuario [{datosUsuarioARegistrar.email}] se autoregistró con éxito." });
         }

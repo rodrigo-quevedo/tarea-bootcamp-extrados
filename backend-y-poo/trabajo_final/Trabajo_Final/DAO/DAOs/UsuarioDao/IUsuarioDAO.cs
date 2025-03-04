@@ -1,4 +1,5 @@
 ﻿using DAO.Entidades.Custom.EditarUsuario;
+using DAO.Entidades.Custom.RegistroUsuario;
 using DAO.Entidades.UsuarioEntidades;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,8 @@ namespace DAO.DAOs.UsuarioDao
 {
     public interface IUsuarioDAO
     {
-
-        public int CrearUsuario(Usuario usuario);
-        public Task<int> CrearUsuarioAsync(Usuario usuario);
+        public int CrearPrimerAdmin_Sync(Usuario usuario);
+        public Task<bool> CrearUsuarioAsync(DatosRegistroUsuarioDTO dto);
         public Task<int> CrearUsuarioAsync(Usuario usuario, int id_usuario_creador);
 
         public Task<IEnumerable<int>> BuscarIDsUsuarios(Usuario busqueda);

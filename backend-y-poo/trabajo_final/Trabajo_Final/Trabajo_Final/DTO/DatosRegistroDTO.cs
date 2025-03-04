@@ -34,6 +34,13 @@ namespace Trabajo_Final.DTO
 
 
 
+        [Url]
+        public string? foto { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z0-9]{5,25}$",
+          ErrorMessage = "Campo 'alias' solo permite letras y numeros. Entre 5 y 25 caracteres. ")]
+        public string? alias { get; set; }
+
 
     }
 }

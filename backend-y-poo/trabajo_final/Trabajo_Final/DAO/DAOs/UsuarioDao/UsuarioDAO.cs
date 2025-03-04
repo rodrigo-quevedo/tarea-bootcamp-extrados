@@ -1,6 +1,7 @@
 ﻿using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.Connection;
 using DAO.Entidades.Custom.EditarUsuario;
+using DAO.Entidades.Custom.RegistroUsuario;
 using DAO.Entidades.UsuarioEntidades;
 using Dapper;
 using MySqlConnector;
@@ -30,7 +31,7 @@ namespace DAO.DAOs.UsuarioDao
 
         // ------------------ CRUD ------------------ //
 
-        public int CrearUsuario(Usuario usuario)
+        public int CrearPrimerAdmin_Sync(Usuario usuario)
         {
             string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo) " +
                 "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo);";
@@ -57,43 +58,71 @@ namespace DAO.DAOs.UsuarioDao
 
                 throw e;
             }
-
         }
 
-        public async Task<int> CrearUsuarioAsync(Usuario usuario)
+            public async Task<bool> CrearUsuarioAsync(DatosRegistroUsuarioDTO dto)
         {
-            string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo) " +
-                "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo);";
+            //por defecto no hay id_usuario_creador
+            string usuarioInsertQuery = 
+                " INSERT INTO usuarios " +
+                "   (rol, pais, nombre_apellido, email, password, activo) " +
+                " VALUES " +
+                "   (@rol, @pais, @nombre_apellido, @email, @password, @activo); ";
 
-            try
+
+
+            if (dto.id_usuario_creador != default) usuarioInsertQuery =
+                " INSERT INTO usuarios " +
+                "   (rol, pais, nombre_apellido, email, password, activo, id_usuario_creador) " +
+                " VALUES " +
+                "   (@rol, @pais, @nombre_apellido, @email, @password, @activo, @id_usuario_creador); ";
+
+            string perfilInsertQuery = " INSERT INTO perfil_usuarios (id_usuario, foto, alias) " +
+                                       " VALUES (@id_usuario, @foto, @alias); ";
+            
+
+
+            using (MySqlTransaction transaction = connection.BeginTransaction())
             {
-                return await connection.ExecuteAsync(insertQuery, new
+                try
                 {
-                    usuario.Rol,
-                    usuario.Pais,
-                    usuario.Nombre_apellido,
-                    usuario.Email,
-                    usuario.Password, //recibe password YA ENCRIPTADA
-                    usuario.Activo
-                });
-            }
-            catch (MySqlException e)
-            {
-                if (e.Message.Contains("Duplicate entry")
-                    &&
-                    e.Message.Contains("for key 'usuarios.email'")
-                )
-                    throw new AlreadyExistsException($"El usuario con mail [{usuario.Email}] ya existe.");
+                    int usuariosResult = await connection.ExecuteAsync(usuarioInsertQuery, dto, transaction);
 
-                throw e;
+                    int id_usuario = await connection.QueryFirstAsync<int>(
+                        " SELECT LAST_INSERT_ID(); ",
+                        null,
+                        transaction);
+
+                    int perfilResult;
+                    if (dto.alias == default && dto.foto == default) perfilResult = 1;
+                    else perfilResult = await connection.ExecuteAsync(
+                        perfilInsertQuery, 
+                        new {id_usuario, dto.foto, dto.alias}, 
+                        transaction);
+
+                    if (usuariosResult == 0 || perfilResult == 0) throw new DefaultException($"No se pudo crear el usuario [{dto.email}].");
+
+                    transaction.Commit();
+                }
+                catch (MySqlException e)
+                {
+                    transaction.Rollback();
+
+                    if (e.Message.Contains("Duplicate entry") && e.Message.Contains("for key 'usuarios.email'"))
+                        throw new AlreadyExistsException($"El usuario con mail [{dto.email}] ya existe.");
+
+                    throw e;
+                }
             }
 
+            return true;
         }
 
 
         public async Task<int> CrearUsuarioAsync(Usuario usuario, int id_usuario_creador)
         {
-            string insertQuery = "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo, id_usuario_creador) " +
+            string insertQuery = 
+                "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo, id_usuario_creador) " +
                 "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo, @Id_usuario_creador);";
 
             try
