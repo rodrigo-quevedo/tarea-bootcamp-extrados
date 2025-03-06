@@ -1,6 +1,6 @@
-﻿using DAO.Entidades.Custom.DatosUsuario;
-using DAO.Entidades.Custom.EditarUsuario;
-using DAO.Entidades.Custom.RegistroUsuario;
+﻿using DAO.DTOs_en_DAOs.DatosUsuario;
+using DAO.DTOs_en_DAOs.EditarUsuario;
+using DAO.DTOs_en_DAOs.RegistroUsuario;
 using DAO.Entidades.UsuarioEntidades;
 using System;
 using System.Collections.Generic;

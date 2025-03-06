@@ -1,7 +1,7 @@
 ﻿using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs.Partidas;
 using DAO.DAOs.Torneos;
-using DAO.Entidades.Custom.JugadoresPartidas;
+using DAO.DTOs_en_DAOs.JugadoresPartidas;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
 using Trabajo_Final.DTO.EditarPartidas;

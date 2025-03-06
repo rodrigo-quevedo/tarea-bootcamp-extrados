@@ -1,7 +1,7 @@
 ﻿
 using DAO.DAOs.Cartas;
 using DAO.Entidades.Cartas;
-using Trabajo_Final.DTO.ColeccionCartas.ResponseColeccionar;
+using Trabajo_Final.DTO.Response.ResponseColeccionar;
 
 namespace Trabajo_Final.Services.JugadorServices.ColeccionarCartas
 {

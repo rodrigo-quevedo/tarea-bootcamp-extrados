@@ -1,9 +1,9 @@
 ﻿using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.Connection;
+using DAO.DTOs_en_DAOs.Ganador_Torneo;
+using DAO.DTOs_en_DAOs.InsertPartidas;
+using DAO.DTOs_en_DAOs.JuezTorneo;
 using DAO.Entidades.Cartas;
-using DAO.Entidades.Custom;
-using DAO.Entidades.Custom.Ganador_Torneo;
-using DAO.Entidades.Custom.JuezTorneo;
 using DAO.Entidades.TorneoEntidades;
 using DAO.Entidades.UsuarioEntidades;
 using Dapper;

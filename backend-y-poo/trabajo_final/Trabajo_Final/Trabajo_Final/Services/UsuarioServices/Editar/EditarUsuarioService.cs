@@ -1,9 +1,9 @@
 ﻿using Constantes.Constantes;
 using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs.UsuarioDao;
-using DAO.Entidades.Custom.EditarUsuario;
+using DAO.DTOs_en_DAOs.EditarUsuario;
 using Isopoh.Cryptography.Argon2;
-using Trabajo_Final.DTO.EditarUsuario;
+using Trabajo_Final.DTO.Request.InputUsuarios;
 
 namespace Trabajo_Final.Services.UsuarioServices.Editar
 {
@@ -15,7 +15,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Editar
             usuarioDAO = usuarioDao;
         }
 
-        public async Task<bool> EditarUsuario(int id_usuario, RequestBodyEditarUsuarioDTO dto)
+        public async Task<bool> EditarUsuario(int id_usuario, EditarUsuarioDTO dto)
         {
             DatosEditablesUsuarioDTO datosUsuario = 
                 await usuarioDAO.BuscarDatosEditablesUsuario(id_usuario);
@@ -29,7 +29,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Editar
 
 
         private DatosEditablesUsuarioDTO PrepararObjetoUpdate(
-            RequestBodyEditarUsuarioDTO dto, DatosEditablesUsuarioDTO datosUsuario)
+            EditarUsuarioDTO dto, DatosEditablesUsuarioDTO datosUsuario)
         {
             //usuario
             if (dto.Nombre_apellido != default) datosUsuario.Nombre_apellido = dto.Nombre_apellido;

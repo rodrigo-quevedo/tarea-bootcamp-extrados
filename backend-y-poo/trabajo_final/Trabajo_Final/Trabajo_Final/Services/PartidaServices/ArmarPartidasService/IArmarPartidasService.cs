@@ -1,7 +1,7 @@
-﻿using DAO.Entidades.Custom;
+﻿using DAO.DTOs_en_DAOs.InsertPartidas;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
-using Trabajo_Final.DTO.Partidas;
+using Trabajo_Final.DTO.ProcesamientoDatos.FechaHoraPartidas;
 
 namespace Trabajo_Final.Services.PartidaServices.ArmarPartidasService
 {

@@ -1,9 +1,9 @@
 ﻿using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.Connection;
-using DAO.Entidades.Custom;
+using DAO.DTOs_en_DAOs.InsertPartidas;
+using DAO.DTOs_en_DAOs.JugadoresPartidas;
+using DAO.DTOs_en_DAOs.Partida_CantidadRondas;
 using DAO.Entidades.Custom.Descalificaciones;
-using DAO.Entidades.Custom.JugadoresPartidas;
-using DAO.Entidades.Custom.Partida_CantidadRondas;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
 using Dapper;

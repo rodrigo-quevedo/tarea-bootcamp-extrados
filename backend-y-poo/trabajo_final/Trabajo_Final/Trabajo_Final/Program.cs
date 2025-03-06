@@ -21,7 +21,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
-using Trabajo_Final.DTO;
+using Trabajo_Final.DTO.Response.Server_HTTP_Response;
 using Trabajo_Final.Services.JugadorServices.BuscarPartidas;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;

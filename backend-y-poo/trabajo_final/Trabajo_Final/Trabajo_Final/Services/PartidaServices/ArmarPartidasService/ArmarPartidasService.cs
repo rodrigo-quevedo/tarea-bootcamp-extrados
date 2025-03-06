@@ -1,8 +1,8 @@
-﻿using DAO.Entidades.Custom;
+﻿using DAO.DTOs_en_DAOs.InsertPartidas;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
 using System.Text.Json;
-using Trabajo_Final.DTO.Partidas;
+using Trabajo_Final.DTO.ProcesamientoDatos.FechaHoraPartidas;
 using Trabajo_Final.Services.TorneoServices.Crear;
 using Trabajo_Final.utils.Horarios;
 

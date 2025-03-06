@@ -1,9 +1,9 @@
 ﻿using Constantes.Constantes;
 using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs.Torneos;
-using DAO.Entidades.Custom;
+using DAO.DTOs_en_DAOs.InsertPartidas;
 using DAO.Entidades.TorneoEntidades;
-using Trabajo_Final.DTO.Partidas;
+using Trabajo_Final.DTO.ProcesamientoDatos.FechaHoraPartidas;
 using Trabajo_Final.Services.PartidaServices.ArmarPartidasService;
 
 namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo

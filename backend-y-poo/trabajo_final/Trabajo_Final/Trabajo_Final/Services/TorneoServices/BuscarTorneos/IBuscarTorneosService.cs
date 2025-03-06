@@ -1,4 +1,4 @@
-﻿using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
+﻿using Trabajo_Final.DTO.Response.ResponseDTO;
 
 namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
 {

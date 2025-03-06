@@ -1,4 +1,4 @@
-﻿using Trabajo_Final.DTO.Torneos;
+﻿using Trabajo_Final.DTO.Request.InputTorneos;
 
 namespace Trabajo_Final.Services.TorneoServices.CancelarTorneo
 {

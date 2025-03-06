@@ -2,7 +2,7 @@
 using DAO.DAOs.Cartas;
 using DAO.DAOs.Torneos;
 using DAO.Entidades.TorneoEntidades;
-using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
+using Trabajo_Final.DTO.Response.ResponseDTO;
 
 namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
 {
@@ -48,6 +48,7 @@ namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
                     Horario_diario_fin = torneo.Horario_diario_fin,
                     Cantidad_rondas = torneo.Cantidad_rondas,
                     Pais = torneo.Pais,
+                    Fase = torneo.Fase,
                     Series_habilitadas = series.ToArray()
                 });
 

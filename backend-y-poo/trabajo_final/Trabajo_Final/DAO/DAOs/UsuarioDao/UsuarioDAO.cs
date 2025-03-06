@@ -1,9 +1,9 @@
 ﻿using Constantes.Constantes;
 using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.Connection;
-using DAO.Entidades.Custom.DatosUsuario;
-using DAO.Entidades.Custom.EditarUsuario;
-using DAO.Entidades.Custom.RegistroUsuario;
+using DAO.DTOs_en_DAOs.DatosUsuario;
+using DAO.DTOs_en_DAOs.EditarUsuario;
+using DAO.DTOs_en_DAOs.RegistroUsuario;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.UsuarioEntidades;
 using Dapper;

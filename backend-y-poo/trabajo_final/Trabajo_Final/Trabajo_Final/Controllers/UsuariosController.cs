@@ -3,7 +3,6 @@ using DAO.Entidades.UsuarioEntidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Trabajo_Final.DTO;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.AsignarRefreshToken;
@@ -13,13 +12,13 @@ using Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar;
 using Trabajo_Final.Services.UsuarioServices.Registro;
 using Custom_Exceptions.Exceptions.Exceptions;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
-using Trabajo_Final.DTO.Usuarios;
 using Trabajo_Final.Services.UsuarioServices.Perfil;
 using Trabajo_Final.Services.UsuarioServices.Eliminar;
 using Trabajo_Final.Services.UsuarioServices.Editar;
-using Trabajo_Final.DTO.EditarUsuario;
 using Trabajo_Final.Services.UsuarioServices.Buscar;
 using Constantes.Constantes;
+using Trabajo_Final.DTO.Request.InputUsuarios;
+using Trabajo_Final.DTO.Request.InputLogin;
 
 namespace Trabajo_Final.Controllers
 {
@@ -282,7 +281,7 @@ namespace Trabajo_Final.Controllers
         [HttpPut]
         [Route("/usuarios/{id_usuario}")]
         [Authorize(Roles = Roles.ADMIN)]
-        public async Task<ActionResult> EditarUsuario([FromRoute] int id_usuario, RequestBodyEditarUsuarioDTO dto)
+        public async Task<ActionResult> EditarUsuario([FromRoute] int id_usuario, EditarUsuarioDTO dto)
         {
             await editarUsuarioService.EditarUsuario(id_usuario, dto);
 

@@ -3,8 +3,8 @@ using DAO.DAOs.UsuarioDao;
 using DAO.Entidades.UsuarioEntidades;
 using Isopoh.Cryptography.Argon2;
 using Microsoft.AspNetCore.Server.IIS.Core;
-using Trabajo_Final.DTO;
 using Custom_Exceptions.Exceptions.Exceptions;
+using Trabajo_Final.DTO.Request.InputLogin;
 
 namespace Trabajo_Final.Services.UsuarioServices.Login
 {

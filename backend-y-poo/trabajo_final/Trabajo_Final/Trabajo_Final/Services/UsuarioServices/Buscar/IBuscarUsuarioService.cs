@@ -1,4 +1,4 @@
-﻿using DAO.Entidades.Custom.DatosUsuario;
+﻿using DAO.DTOs_en_DAOs.DatosUsuario;
 
 namespace Trabajo_Final.Services.UsuarioServices.Buscar
 {

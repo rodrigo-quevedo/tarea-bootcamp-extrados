@@ -1,5 +1,5 @@
-﻿using DAO.Entidades.Custom;
-using DAO.Entidades.Custom.Ganador_Torneo;
+﻿using DAO.DTOs_en_DAOs.Ganador_Torneo;
+using DAO.DTOs_en_DAOs.InsertPartidas;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
 using System;

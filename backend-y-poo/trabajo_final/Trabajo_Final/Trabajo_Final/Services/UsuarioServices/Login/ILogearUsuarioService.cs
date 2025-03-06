@@ -1,5 +1,5 @@
 ﻿using DAO.Entidades.UsuarioEntidades;
-using Trabajo_Final.DTO;
+using Trabajo_Final.DTO.Request.InputLogin;
 
 namespace Trabajo_Final.Services.UsuarioServices.Login
 {

@@ -2,10 +2,10 @@
 using DAO.DAOs.Cartas;
 using DAO.DAOs.Partidas;
 using DAO.DAOs.Torneos;
-using DAO.Entidades.Custom.Ganador_Torneo;
+using DAO.DTOs_en_DAOs.Ganador_Torneo;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
-using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
+using Trabajo_Final.DTO.Response.ResponseDTO;
 
 namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
 {
@@ -340,6 +340,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Horario_diario_fin = torneo.Horario_diario_fin,
                     Cantidad_rondas = torneo.Cantidad_rondas,
                     Pais = torneo.Pais,
+                    Fase = = torneo.Fase,
                     Series_habilitadas = series.ToArray(),
                     //Id_jugadores = id_jugadores.ToArray(),
                     Id_cartas_mazo = id_cartas_mazo.ToArray()
@@ -415,6 +416,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Horario_diario_fin = torneo.Horario_diario_fin,
                     Cantidad_rondas = torneo.Cantidad_rondas,
                     Pais = torneo.Pais,
+                    Fase = torneo.Fase,
                     Id_ganador = id_ganador,
                     Id_jugadores = id_jugadores,
                     Series_habilitadas = series_habilitadas_torneo,
