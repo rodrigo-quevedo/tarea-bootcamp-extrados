@@ -39,6 +39,7 @@ using Trabajo_Final.Services.TorneoServices.EditarJueces;
 using Trabajo_Final.Services.TorneoServices.IniciarTorneo;
 using Trabajo_Final.Services.TorneoServices.InscribirJugador;
 using Trabajo_Final.Services.TorneoServices.ValidarJueces;
+using Trabajo_Final.Services.UsuarioServices.Buscar;
 using Trabajo_Final.Services.UsuarioServices.Editar;
 using Trabajo_Final.Services.UsuarioServices.Eliminar;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
@@ -171,6 +172,8 @@ builder.Services.AddScoped<ICancelarTorneoService, CancelarTorneoService>();
 
 builder.Services.AddScoped<IEliminarUsuarioService, EliminarUsuarioService>();
 builder.Services.AddScoped<IEditarUsuarioService, EditarUsuarioService>();
+
+builder.Services.AddScoped<IBuscarUsuarioService, BuscarUsuarioService>();
 
 
 builder.Services.AddControllers();

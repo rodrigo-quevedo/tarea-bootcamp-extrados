@@ -1,4 +1,5 @@
-﻿using DAO.Entidades.Custom.EditarUsuario;
+﻿using DAO.Entidades.Custom.DatosUsuario;
+using DAO.Entidades.Custom.EditarUsuario;
 using DAO.Entidades.Custom.RegistroUsuario;
 using DAO.Entidades.UsuarioEntidades;
 using System;
@@ -31,5 +32,10 @@ namespace DAO.DAOs.UsuarioDao
 
         public Task<DatosEditablesUsuarioDTO> BuscarDatosEditablesUsuario(int id_usuario);
         public Task<bool> EditarUsuario(DatosEditablesUsuarioDTO dto, string[] rolesPerfil);
+
+        public Task<DatosCompletosUsuarioDTO> BuscarDatosCompletosUsuario(
+            int id_logeado, string rol_logeado, int id_usuario);
+        public Task<PerfilUsuarioDTO> BuscarPerfilUsuarioDTO(
+            int id_logeado, string rol_logeado, int id_usuario);
     }
 }

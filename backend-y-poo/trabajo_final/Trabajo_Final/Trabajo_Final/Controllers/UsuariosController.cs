@@ -1,19 +1,8 @@
-﻿using Configuration;
-using Configuration.DI;
-using DAO.DAOs.Cartas;
+﻿using Configuration.DI;
 using DAO.Entidades.UsuarioEntidades;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using Trabajo_Final.DTO;
 using Trabajo_Final.Services.UsuarioServices.Jwt;
 using Trabajo_Final.Services.UsuarioServices.Login;
@@ -22,15 +11,15 @@ using Trabajo_Final.Services.UsuarioServices.RefreshToken.Crear;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Desactivar;
 using Trabajo_Final.Services.UsuarioServices.RefreshToken.Validar;
 using Trabajo_Final.Services.UsuarioServices.Registro;
-using Trabajo_Final.utils.Constantes;
 using Custom_Exceptions.Exceptions.Exceptions;
-using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
 using Trabajo_Final.DTO.Usuarios;
 using Trabajo_Final.Services.UsuarioServices.Perfil;
 using Trabajo_Final.Services.UsuarioServices.Eliminar;
 using Trabajo_Final.Services.UsuarioServices.Editar;
 using Trabajo_Final.DTO.EditarUsuario;
+using Trabajo_Final.Services.UsuarioServices.Buscar;
+using Constantes.Constantes;
 
 namespace Trabajo_Final.Controllers
 {
@@ -40,17 +29,17 @@ namespace Trabajo_Final.Controllers
     {
         // services
         private IJwtConfiguration jwtConfiguration;
-        
+
         private ICrearJwtService crearJwtService;
-        
+
         private ILogearUsuarioService logearUsuarioService;
 
         private IActualizarJWTService actualizarJWTService;
         private IAsignarRefreshTokenService asignarRefreshTokenService;
         private ICrearRefreshTokenService crearRefreshTokenService;
         private IDesactivarRefreshTokenService desactivarRefreshTokenService;
-        
-        
+
+
         private IRegistroUsuarioService registroUsuarioService;
 
         private IActualizarPerfilService actualizarPerfilService;
@@ -58,18 +47,20 @@ namespace Trabajo_Final.Controllers
         private IEliminarUsuarioService eliminarUsuarioService;
         private IEditarUsuarioService editarUsuarioService;
 
+        private IBuscarUsuarioService buscarUsuarioService;
+
         public UsuariosController(
             VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
 
             IJwtConfiguration jwtConfig,
-            
+
             ICrearJwtService jwt,
 
             ILogearUsuarioService login,
 
             IActualizarJWTService actualizarJWT,
             IAsignarRefreshTokenService asignarRefreshToken,
-            ICrearRefreshTokenService  refreshToken,
+            ICrearRefreshTokenService refreshToken,
             IDesactivarRefreshTokenService desactivarRefreshToken,
 
             IRegistroUsuarioService registro,
@@ -77,15 +68,17 @@ namespace Trabajo_Final.Controllers
             IActualizarPerfilService actualizarPerfil,
 
             IEliminarUsuarioService eliminarUsuario,
-            IEditarUsuarioService editarUsuario
+            IEditarUsuarioService editarUsuario,
+
+            IBuscarUsuarioService buscarUsuario
         )
         {
             jwtConfiguration = jwtConfig;
-            
+
             crearJwtService = jwt;
 
             logearUsuarioService = login;
-            
+
             actualizarJWTService = actualizarJWT;
             asignarRefreshTokenService = asignarRefreshToken;
             crearRefreshTokenService = refreshToken;
@@ -97,6 +90,8 @@ namespace Trabajo_Final.Controllers
 
             eliminarUsuarioService = eliminarUsuario;
             editarUsuarioService = editarUsuario;
+
+            buscarUsuarioService = buscarUsuario;
         }
 
 
@@ -110,8 +105,8 @@ namespace Trabajo_Final.Controllers
 
             //Verificar que no esté logeado
             string authorizationHeaderValue = Request.Headers["Authorization"].ToString();
-            
-            if (authorizationHeaderValue != null  && authorizationHeaderValue != "" )
+
+            if (authorizationHeaderValue != null && authorizationHeaderValue != "")
                 throw new AlreadyLoggedInException("Ya está logeado. Cierre su sesión actual para poder loguearse (ir a /logout).");
 
             //Verificar credenciales
@@ -121,16 +116,16 @@ namespace Trabajo_Final.Controllers
             //(si falla sigue de largo)
             string refreshTokenExistente = Request.Cookies["refreshToken"];
             desactivarRefreshTokenService.DesactivarRefreshToken(usuarioVerificado.Id, refreshTokenExistente);
-            
+
             //Crear jwt y refresh token
             string jwt = crearJwtService.CrearJwt(usuarioVerificado);
             string refreshToken = crearRefreshTokenService.CrearRefreshToken(usuarioVerificado);
 
             //Asignar refresh token en db
             await asignarRefreshTokenService.AsignarRefreshToken(usuarioVerificado, refreshToken);
-            
 
-        //Respuesta servidor:
+
+            //Respuesta servidor:
 
             //Para cada dispositivo nuevo, se va a crear un nuevo refreshToken.
             //Si ya hay una cookie refreshToken (mismo dispositivo), se va a sobreescribir
@@ -142,7 +137,7 @@ namespace Trabajo_Final.Controllers
                 Expires = DateTime.Now.AddDays(120)
             });
 
-            return Ok(new { 
+            return Ok(new {
                 message = $"Usuario {usuarioVerificado.Email} logeado con éxito.",
                 jwt = jwt
             });
@@ -157,8 +152,8 @@ namespace Trabajo_Final.Controllers
             if (refreshToken == null || refreshToken == "") throw new SinPermisoException("No puede actualizar el token porque no está logeado.");
 
             string jwtActualizado = await actualizarJWTService.ActualizarJWT(refreshToken);
-            
-            
+
+
             return Ok(new
             {
                 message = "Se actualizó el token correctamente.",
@@ -184,16 +179,16 @@ namespace Trabajo_Final.Controllers
             Console.WriteLine("POST /registro");
 
             string authorizationHeaderValue = Request.Headers["Authorization"].ToString();
-            
+
             if (authorizationHeaderValue != null && authorizationHeaderValue != "")
                 throw new SinPermisoException($"Debe cerrar sesión para registrarse como jugador.");
 
             if (datosUsuarioARegistrar.rol != Roles.JUGADOR)
                 throw new SinPermisoException("Solo se crean usuarios con rol JUGADOR en /registro");
-       
-            
-            await registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar, null);   
-                
+
+
+            await registroUsuarioService.RegistrarUsuario(datosUsuarioARegistrar, null);
+
             return Ok(new { message = $"Usuario [{datosUsuarioARegistrar.email}] se autoregistró con éxito." });
         }
 
@@ -201,7 +196,7 @@ namespace Trabajo_Final.Controllers
         //Si está logeado, registrar a otro usuario:
         [HttpPost]
         [Route("/crear")]
-        [Authorize(Roles = $"{Roles.ADMIN},{Roles.ORGANIZADOR}")] 
+        [Authorize(Roles = $"{Roles.ADMIN},{Roles.ORGANIZADOR}")]
         public async Task<ActionResult> RegistrarUsuario(DatosRegistroDTO datosUsuarioARegistrar)
         {
             //verificar que organizador crea juez, ya que admin puede crear todo
@@ -240,7 +235,7 @@ namespace Trabajo_Final.Controllers
             if (!sesion_cerrada) throw new DefaultException("No se pudo cerrar la sesión.");
 
             //Server response:
-            
+
             Response.Cookies.Append("refreshToken", "", new CookieOptions
             {
                 HttpOnly = true,
@@ -249,8 +244,8 @@ namespace Trabajo_Final.Controllers
                 Expires = DateTime.Now
             });
 
-            
-            return Ok(new { 
+
+            return Ok(new {
                 message = "Sesión cerrada con éxito.",
                 deleteJWT = true
             });
@@ -271,7 +266,7 @@ namespace Trabajo_Final.Controllers
             string response = await actualizarPerfilService.ActualizarPerfil(
                 id_usuario, dto.url_foto, dto.alias);
 
-            return Ok(new { message = response});
+            return Ok(new { message = response });
         }
 
         [HttpDelete]
@@ -281,7 +276,7 @@ namespace Trabajo_Final.Controllers
         {
             await eliminarUsuarioService.EliminarUsuario(id_usuario);
 
-            return Ok(new {message = $"Se eliminó al usuario [{id_usuario}] con éxito."});
+            return Ok(new { message = $"Se eliminó al usuario [{id_usuario}] con éxito." });
         }
 
         [HttpPut]
@@ -293,6 +288,30 @@ namespace Trabajo_Final.Controllers
 
             return Ok(new { message = $"Se editó al usuario [{id_usuario}] con éxito." });
         }
+
+        [HttpGet]
+        [Route("/usuarios/{id_usuario}")]
+        [Authorize]
+        public async Task<ActionResult> BuscarDatosUsuario([FromRoute] int id_usuario)
+        {
+            //datos usurio logueado (necesarios para saber sus permisos)
+            string rol_logueado = User.FindFirst(ClaimTypes.Role).Value;
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_logeado);
+
+
+            if (rol_logueado == Roles.ADMIN || rol_logueado == Roles.ORGANIZADOR)
+                return Ok(new {
+                    usuario = await buscarUsuarioService.BuscarDatosCompletosUsuario(
+                        id_logeado, rol_logueado, id_usuario)
+                });
+
+
+            else return Ok(new {
+                usuario = await buscarUsuarioService.BuscarPerfilUsuario(
+                    id_logeado, rol_logueado, id_usuario)
+            });
+
+          }
 
 
     }

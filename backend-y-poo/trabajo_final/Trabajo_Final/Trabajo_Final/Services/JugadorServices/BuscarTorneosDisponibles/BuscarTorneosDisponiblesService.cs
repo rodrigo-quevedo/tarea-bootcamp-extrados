@@ -1,9 +1,8 @@
-﻿using DAO.DAOs.Cartas;
+﻿using Constantes.Constantes;
+using DAO.DAOs.Cartas;
 using DAO.DAOs.Torneos;
-using DAO.DAOs.UsuarioDao;
 using DAO.Entidades.TorneoEntidades;
 using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
-using Trabajo_Final.utils.Constantes;
 
 namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
 {

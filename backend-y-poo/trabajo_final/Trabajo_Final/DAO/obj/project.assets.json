@@ -235,6 +235,16 @@
           "bin/placeholder/Configuration.dll": {}
         }
       },
+      "Constantes/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Constantes.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Constantes.dll": {}
+        }
+      },
       "Custom Http Exceptions/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -710,6 +720,11 @@
       "path": "../Configuration/Configuration.csproj",
       "msbuildProject": "../Configuration/Configuration.csproj"
     },
+    "Constantes/1.0.0": {
+      "type": "project",
+      "path": "../Constantes/Constantes.csproj",
+      "msbuildProject": "../Constantes/Constantes.csproj"
+    },
     "Custom Http Exceptions/1.0.0": {
       "type": "project",
       "path": "../Custom Exceptions/Custom Http Exceptions.csproj",
@@ -719,6 +734,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Configuration >= 1.0.0",
+      "Constantes >= 1.0.0",
       "Custom Http Exceptions >= 1.0.0",
       "Dapper >= 2.1.35",
       "Microsoft.Extensions.Options >= 9.0.0",
@@ -760,6 +776,9 @@
           "projectReferences": {
             "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Configuration\\Configuration.csproj": {
               "projectPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Configuration\\Configuration.csproj"
+            },
+            "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Constantes\\Constantes.csproj": {
+              "projectPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Constantes\\Constantes.csproj"
             },
             "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Custom Exceptions\\Custom Http Exceptions.csproj": {
               "projectPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\Trabajo_Final\\Custom Exceptions\\Custom Http Exceptions.csproj"

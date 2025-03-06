@@ -9,6 +9,7 @@
       "DAO/1.0.0": {
         "dependencies": {
           "Configuration": "1.0.0",
+          "Constantes": "1.0.0",
           "Dapper": "2.1.35",
           "Microsoft.Extensions.Options": "9.0.0",
           "MySqlConnector": "2.4.0"
@@ -147,6 +148,14 @@
           }
         }
       },
+      "Constantes/1.0.0": {
+        "runtime": {
+          "Constantes.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Custom Http Exceptions/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.3.0"
@@ -258,6 +267,11 @@
       "hashPath": "system.text.encodings.web.8.0.0.nupkg.sha512"
     },
     "Configuration/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Constantes/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -1,6 +1,6 @@
 ﻿
+using Constantes.Constantes;
 using DAO.DAOs.Torneos;
-using Trabajo_Final.utils.Constantes;
 
 namespace Trabajo_Final.Services.TorneoServices.EditarJueces
 {

@@ -1,13 +1,11 @@
-﻿using DAO.DAOs.Cartas;
+﻿using Constantes.Constantes;
+using DAO.DAOs.Cartas;
 using DAO.DAOs.Partidas;
 using DAO.DAOs.Torneos;
 using DAO.Entidades.Custom.Ganador_Torneo;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using System.Text.Json;
 using Trabajo_Final.DTO.ListaTorneos.ResponseDTO;
-using Trabajo_Final.utils.Constantes;
 
 namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
 {

@@ -57,3 +57,5 @@ C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\T
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\Custom Http Exceptions.dll
 C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\Custom Http Exceptions.pdb
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\Constantes.dll
+C:\Users\Usuario\Downloads\tarea-bootcamp-extrados\backend-y-poo\trabajo_final\Trabajo_Final\Trabajo_Final\bin\Debug\net6.0\Constantes.pdb

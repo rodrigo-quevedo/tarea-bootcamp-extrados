@@ -1,4 +1,4 @@
-﻿namespace Trabajo_Final.utils.Constantes
+﻿namespace Constantes.Constantes
 {
     public class Roles
     {

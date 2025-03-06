@@ -1,11 +1,9 @@
 ﻿using DAO.DAOs.UsuarioDao;
-using DAO.Entidades.UsuarioEntidades;
 using Isopoh.Cryptography.Argon2;
-using System.Security.Claims;
 using Trabajo_Final.DTO;
-using Trabajo_Final.utils.Constantes;
 using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.Entidades.Custom.RegistroUsuario;
+using Constantes.Constantes;
 
 namespace Trabajo_Final.Services.UsuarioServices.Registro
 {

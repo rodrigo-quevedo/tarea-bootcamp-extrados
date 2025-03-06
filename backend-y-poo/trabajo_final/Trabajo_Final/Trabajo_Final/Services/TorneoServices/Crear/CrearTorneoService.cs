@@ -1,14 +1,9 @@
 ﻿
+using Constantes.Constantes;
 using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs.Cartas;
 using DAO.DAOs.Torneos;
-using DAO.DAOs.UsuarioDao;
-using DAO.Entidades.UsuarioEntidades;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using System.ComponentModel.DataAnnotations;
-using System.Xml.Schema;
 using Trabajo_Final.Services.TorneoServices.ValidarJueces;
-using Trabajo_Final.utils.Constantes;
 using Trabajo_Final.utils.Horarios;
 
 namespace Trabajo_Final.Services.TorneoServices.Crear

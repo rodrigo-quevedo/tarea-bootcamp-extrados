@@ -1,4 +1,5 @@
-﻿using DAO.DAOs.Cartas;
+﻿using Constantes.Constantes;
+using DAO.DAOs.Cartas;
 using DAO.Entidades.Custom.Descalificaciones;
 using DAO.Entidades.PartidaEntidades;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +15,7 @@ using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
 using Trabajo_Final.Services.TorneoServices.BuscarTorneos;
-using Trabajo_Final.utils.Constantes;
+
 using Trabajo_Final.utils.Generar_Cartas;
 using Trabajo_Final.utils.Verificar_Existencia_Admin;
 

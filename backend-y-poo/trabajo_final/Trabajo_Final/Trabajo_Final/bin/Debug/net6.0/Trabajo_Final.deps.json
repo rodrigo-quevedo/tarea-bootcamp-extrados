@@ -9,6 +9,7 @@
       "Trabajo_Final/1.0.0": {
         "dependencies": {
           "Configuration": "1.0.0",
+          "Constantes": "1.0.0",
           "DAO": "1.0.0",
           "Isopoh.Cryptography.Argon2": "2.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.36",
@@ -325,6 +326,14 @@
           }
         }
       },
+      "Constantes/1.0.0": {
+        "runtime": {
+          "Constantes.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Custom Http Exceptions/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.3.0"
@@ -339,6 +348,7 @@
       "DAO/1.0.0": {
         "dependencies": {
           "Configuration": "1.0.0",
+          "Constantes": "1.0.0",
           "Custom Http Exceptions": "1.0.0",
           "Dapper": "2.1.35",
           "Microsoft.Extensions.Options": "9.0.0",
@@ -619,6 +629,11 @@
       "hashPath": "system.text.json.4.7.2.nupkg.sha512"
     },
     "Configuration/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Constantes/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

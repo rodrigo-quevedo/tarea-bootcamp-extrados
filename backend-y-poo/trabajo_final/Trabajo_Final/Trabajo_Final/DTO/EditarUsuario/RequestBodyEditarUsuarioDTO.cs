@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Trabajo_Final.utils.Constantes;
+﻿using Constantes.Constantes;
+using System.ComponentModel.DataAnnotations;
 
 namespace Trabajo_Final.DTO.EditarUsuario
 {

@@ -1,7 +1,7 @@
-﻿using Custom_Exceptions.Exceptions.Exceptions;
+﻿using Constantes.Constantes;
+using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs.UsuarioDao;
 using DAO.Entidades.UsuarioEntidades;
-using Trabajo_Final.utils.Constantes;
 
 namespace Trabajo_Final.Services.TorneoServices.ValidarJueces
 {

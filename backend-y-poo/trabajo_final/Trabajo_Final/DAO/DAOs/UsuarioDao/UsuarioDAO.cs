@@ -1,7 +1,10 @@
-﻿using Custom_Exceptions.Exceptions.Exceptions;
+﻿using Constantes.Constantes;
+using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.Connection;
+using DAO.Entidades.Custom.DatosUsuario;
 using DAO.Entidades.Custom.EditarUsuario;
 using DAO.Entidades.Custom.RegistroUsuario;
+using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.UsuarioEntidades;
 using Dapper;
 using MySqlConnector;
@@ -60,10 +63,10 @@ namespace DAO.DAOs.UsuarioDao
             }
         }
 
-            public async Task<bool> CrearUsuarioAsync(DatosRegistroUsuarioDTO dto)
+        public async Task<bool> CrearUsuarioAsync(DatosRegistroUsuarioDTO dto)
         {
             //por defecto no hay id_usuario_creador
-            string usuarioInsertQuery = 
+            string usuarioInsertQuery =
                 " INSERT INTO usuarios " +
                 "   (rol, pais, nombre_apellido, email, password, activo) " +
                 " VALUES " +
@@ -79,7 +82,7 @@ namespace DAO.DAOs.UsuarioDao
 
             string perfilInsertQuery = " INSERT INTO perfil_usuarios (id_usuario, foto, alias) " +
                                        " VALUES (@id_usuario, @foto, @alias); ";
-            
+
 
 
             using (MySqlTransaction transaction = connection.BeginTransaction())
@@ -96,8 +99,8 @@ namespace DAO.DAOs.UsuarioDao
                     int perfilResult;
                     if (dto.alias == default && dto.foto == default) perfilResult = 1;
                     else perfilResult = await connection.ExecuteAsync(
-                        perfilInsertQuery, 
-                        new {id_usuario, dto.foto, dto.alias}, 
+                        perfilInsertQuery,
+                        new { id_usuario, dto.foto, dto.alias },
                         transaction);
 
                     if (usuariosResult == 0 || perfilResult == 0) throw new DefaultException($"No se pudo crear el usuario [{dto.email}].");
@@ -121,7 +124,7 @@ namespace DAO.DAOs.UsuarioDao
 
         public async Task<int> CrearUsuarioAsync(Usuario usuario, int id_usuario_creador)
         {
-            string insertQuery = 
+            string insertQuery =
                 "INSERT INTO usuarios(rol, pais, nombre_apellido, email, password, activo, id_usuario_creador) " +
                 "VALUES(@Rol, @Pais, @Nombre_apellido, @Email, @Password, @Activo, @Id_usuario_creador);";
 
@@ -329,15 +332,15 @@ namespace DAO.DAOs.UsuarioDao
                                  " WHERE alias = @alias " +
                                  " AND id_usuario != @id_usuario; ";
 
-            int result = await connection.QueryFirstOrDefaultAsync<int>(selectQuery, 
-                new {id_usuario, alias});
+            int result = await connection.QueryFirstOrDefaultAsync<int>(selectQuery,
+                new { id_usuario, alias });
 
             Console.WriteLine($"Verificar alias result: {result}");
 
             if (result > 0) throw new InvalidInputException($"El alias '{alias}' ya existe.");
 
             return true;
-        } 
+        }
 
         public async Task<string> ActualizarPerfil(int id_usuario, string url_foto, string alias)
         {
@@ -360,7 +363,7 @@ namespace DAO.DAOs.UsuarioDao
 
                               " ON DUPLICATE KEY " +
                               "      UPDATE alias = @Alias;";
-                
+
                 exceptionMessage = $"No se pudo agregar el alias del usuario [{id_usuario}]";
                 successMessage = $"Se agregó el alias del usuario [{id_usuario}] con éxito.";
 
@@ -383,7 +386,7 @@ namespace DAO.DAOs.UsuarioDao
                 upsertQuery, new {
                     Foto = url_foto,
                     Alias = alias,
-                    Id_usuario = id_usuario});
+                    Id_usuario = id_usuario });
 
             //id_usuario no existe: Solo si un Admin elimina al usuario antes que corra esto.
 
@@ -429,11 +432,11 @@ namespace DAO.DAOs.UsuarioDao
                 " AND activo = @activo; ";
 
             return await connection.QueryFirstOrDefaultAsync<DatosEditablesUsuarioDTO>(
-                selectQuery, 
-                new {id_usuario, activo = true});
+                selectQuery,
+                new { id_usuario, activo = true });
         }
 
-        public async Task<bool> EditarUsuario(DatosEditablesUsuarioDTO dto , string[] rolesPerfil)
+        public async Task<bool> EditarUsuario(DatosEditablesUsuarioDTO dto, string[] rolesPerfil)
         {
             string usuarioUpdateQuery =
                 " UPDATE usuarios " +
@@ -447,10 +450,10 @@ namespace DAO.DAOs.UsuarioDao
                 "   id = @Id; ";
 
 
-            string perfilUpsertQuery = 
+            string perfilUpsertQuery =
                 " INSERT INTO perfil_usuarios " +
                 " VALUES (@Id, @Foto, @Alias) " +
-                
+
                 " ON DUPLICATE KEY " +
                 "      UPDATE foto = @Foto, alias = @Alias;";
 
@@ -467,7 +470,7 @@ namespace DAO.DAOs.UsuarioDao
                     //Organizador y admin no tienen perfil, no hace falta el UPDATE para esos casos
                     int perfilQueryResult;
 
-                    if ( ! rolesPerfil.Contains(dto.Rol)) perfilQueryResult = 1;
+                    if (!rolesPerfil.Contains(dto.Rol)) perfilQueryResult = 1;
 
                     else perfilQueryResult = await connection.ExecuteAsync(
                         perfilUpsertQuery,
@@ -475,7 +478,7 @@ namespace DAO.DAOs.UsuarioDao
                         transaction);
 
 
-                    if (usuarioQueryResult == 0 || perfilQueryResult == 0 ) throw new Exception($"No se pudo editar el usuario [{dto.Id}].");
+                    if (usuarioQueryResult == 0 || perfilQueryResult == 0) throw new Exception($"No se pudo editar el usuario [{dto.Id}].");
 
                     transaction.Commit();
                 }
@@ -489,6 +492,98 @@ namespace DAO.DAOs.UsuarioDao
             }
 
             return true;
+        }
+
+        public async Task<DatosCompletosUsuarioDTO> BuscarDatosCompletosUsuario(
+            int id_logeado, string rol_logueado, int id_usuario)
+        {
+            //default: admin query
+            string selectQuery =
+                " SELECT * FROM usuarios " +
+                //LEFT join porque los roles 'admin' u 'organizador' no tienen perfil
+                " LEFT JOIN perfil_usuarios " +
+                " ON usuarios.id = perfil_usuarios.id_usuario " +
+                " WHERE usuarios.id = @id_usuario; ";
+
+
+            if (rol_logueado == Roles.ORGANIZADOR) 
+                selectQuery =
+                    " SELECT * FROM usuarios " +
+                    " LEFT JOIN perfil_usuarios " +
+                    " ON usuarios.id = perfil_usuarios.id_usuario " +
+
+                    " WHERE usuarios.id = @id_usuario " +
+                        
+                    " AND ( " +
+                    $"   (usuarios.rol = {Roles.JUEZ})" +//todos los jueces
+                    "    OR  " +
+                            //jugadores inscriptos a torneos de ese organizador
+                    $"       (usuarios.rol = {Roles.JUGADOR}" +
+                    "       AND" +
+                    "       usuarios.id IN " +
+                    "           (SELECT id_jugador FROM jugadores_inscriptos " +
+                    "            WHERE jugadores_inscriptos.id_torneo IN " +
+                    "               (SELECT torneos.id FROM torneos WHERE id_organizador = @id_logeado) " +
+                    "           ) " +
+                    "       )" +
+                    " ); ";
+
+          
+            DatosCompletosUsuarioDTO result =
+                await connection.QueryFirstOrDefaultAsync<DatosCompletosUsuarioDTO>(
+                    selectQuery,
+                    new { id_usuario, id_logeado });
+
+            if (result == null) throw new InvalidInputException($"No se pudo encontrar los datos del usuario [{id_usuario}] por alguna de estas razones: 1. El usuario no existe. 2. No tiene permiso para ver los datos del usuario.");
+
+            return result;
+
+        }
+
+
+        public async Task<PerfilUsuarioDTO> BuscarPerfilUsuarioDTO(
+            int id_logeado, string rol_logueado, int id_usuario)
+        {
+            //default: juez query
+            string selectQuery =
+                " SELECT foto, alias, id_usuario AS Id FROM perfil_usuarios " +
+                " WHERE id_usuario = @id_usuario " +
+                " AND ( " +
+                "   id_usuario IN " +
+                "       (SELECT id_jugador FROM jugadores_inscriptos " +
+                "        WHERE jugadores_inscriptos.id_torneo IN " +
+                "            (SELECT jueces_torneo.id_torneo FROM jueces_torneo " +
+                "             WHERE jueces_torneo.id_juez = @id_logeado) " +
+                "       ) " +
+                " ); ";
+
+            if (rol_logueado == Roles.JUGADOR)
+                selectQuery =
+                    " SELECT foto, alias, id_usuario AS id FROM perfil_usuarios " +
+                    " WHERE id_usuario = @id_usuario " +
+                    " AND( " +
+                    "   id_usuario IN " +
+                    "       (SELECT id_jugador_1 FROM partidas " +
+                    "        WHERE id_jugador_1 = @id_logeado OR id_jugador_2 = @id_logeado) " +
+                    "   OR " +
+                    "   id_usuario IN " +
+                    "       (SELECT id_jugador_2 FROM partidas " +
+                    "       WHERE id_jugador_1 = @id_logeado OR id_jugador_2 = @id_logeado) " +
+                    "   OR " +
+                    "   id_usuario IN " +
+                    "   (SELECT id_juez FROM partidas " +
+                    "    WHERE id_jugador_1 = @id_logeado OR id_jugador_2 = @id_logeado)" +
+                    " ); " ;
+
+
+            PerfilUsuarioDTO result =
+                await connection.QueryFirstOrDefaultAsync<PerfilUsuarioDTO>(
+                    selectQuery,
+                    new { id_usuario, id_logeado });
+
+            if (result == null) throw new InvalidInputException($"No se pudo encontrar los datos del usuario [{id_usuario}] por alguna de estas razones: 1. El usuario no existe. 2. No tiene permiso para ver los datos del usuario.");
+
+            return result;
         }
 
 
