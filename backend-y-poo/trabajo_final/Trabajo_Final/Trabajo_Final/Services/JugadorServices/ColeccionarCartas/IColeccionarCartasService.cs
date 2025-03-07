@@ -1,5 +1,4 @@
-﻿using Trabajo_Final.DTO.ColeccionCartas;
-using Trabajo_Final.DTO.Response.ResponseColeccionar;
+﻿using Trabajo_Final.DTO.Response.ResponseColeccionar;
 
 namespace Trabajo_Final.Services.JugadorServices.ColeccionarCartas
 {

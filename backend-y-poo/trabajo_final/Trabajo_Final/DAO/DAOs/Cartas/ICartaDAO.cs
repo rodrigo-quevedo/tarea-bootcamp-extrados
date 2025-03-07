@@ -33,5 +33,7 @@ namespace DAO.DAOs.Cartas
 
         public Task<IEnumerable<Carta_Del_Mazo>> BuscarMazosInscriptos(
             int id_jugador, IList<int> id_torneos);
+        public Task<IEnumerable<Carta_Del_Mazo>> BuscarMazosInscriptos(
+            IList<int> id_jugadores, IList<int> id_torneos);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Trabajo_Final.DTO.Response.ResponseDTO
+namespace Trabajo_Final.DTO.Response.TorneoResponseDTO
 {
     //Jugador: ver a qué torneos se puede inscribir
     public class TorneoDisponibleDTO : TorneoBaseDTO

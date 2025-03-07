@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Trabajo_Final.DTO.Response.ResponseDTO
+namespace Trabajo_Final.DTO.Response.TorneoResponseDTO
 {
     //Jugador: ver torneos ganados
     public class TorneoGanadoDTO : TorneoBaseDTO

@@ -1,16 +1,12 @@
 ﻿using Constantes.Constantes;
-using DAO.DAOs.Cartas;
-using DAO.Entidades.Custom.Descalificaciones;
 using DAO.Entidades.PartidaEntidades;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using System.Security.Claims;
 using Trabajo_Final.DTO.Request.ColeccionarCartas;
 using Trabajo_Final.DTO.Response.Cartas;
 using Trabajo_Final.DTO.Response.ResponseColeccionar;
-using Trabajo_Final.DTO.Response.ResponseDTO;
+using Trabajo_Final.DTO.Response.TorneoResponseDTO;
 using Trabajo_Final.Services.JugadorServices.BuscarPartidas;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;

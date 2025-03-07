@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.ColeccionCartas.ArrayIdCartasDTO",
+        "Type": "Trabajo_Final.DTO.Request.ColeccionarCartas.ArrayIdCartasDTO",
         "IsRequired": true
       }
     ],
@@ -35,7 +35,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.ColeccionCartas.ArrayIdCartasDTO",
+        "Type": "Trabajo_Final.DTO.Request.ColeccionarCartas.ArrayIdCartasDTO",
         "IsRequired": true
       }
     ],
@@ -51,7 +51,7 @@
     "Parameters": [
       {
         "Name": "datosUsuarioARegistrar",
-        "Type": "Trabajo_Final.DTO.DatosRegistroDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputUsuarios.DatosRegistroDTO",
         "IsRequired": true
       }
     ],
@@ -67,7 +67,7 @@
     "Parameters": [
       {
         "Name": "credenciales",
-        "Type": "Trabajo_Final.DTO.CredencialesLoginDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputLogin.CredencialesLoginDTO",
         "IsRequired": true
       }
     ],
@@ -113,7 +113,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.EditarPartidas.EditarJuezPartidaDTO",
+        "Type": "Trabajo_Final.DTO.Request.EditarPartidas.EditarJuezPartidaDTO",
         "IsRequired": true
       }
     ],
@@ -129,7 +129,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.EditarPartidas.EditarJugadoresPartidasDTO",
+        "Type": "Trabajo_Final.DTO.Request.EditarPartidas.EditarJugadoresPartidasDTO",
         "IsRequired": true
       }
     ],
@@ -155,7 +155,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Usuarios.ActualizarPerfilDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputUsuarios.ActualizarPerfilDTO",
         "IsRequired": true
       }
     ],
@@ -181,7 +181,7 @@
     "Parameters": [
       {
         "Name": "datosUsuarioARegistrar",
-        "Type": "Trabajo_Final.DTO.DatosRegistroDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputUsuarios.DatosRegistroDTO",
         "IsRequired": true
       }
     ],
@@ -197,7 +197,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneos.RegistroTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.RegistroTorneoDTO",
         "IsRequired": true
       }
     ],
@@ -234,7 +234,7 @@
       },
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneos.EditarJuezTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.EditarJuezTorneoDTO",
         "IsRequired": true
       }
     ],
@@ -255,7 +255,7 @@
       },
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneos.EditarJuezTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.EditarJuezTorneoDTO",
         "IsRequired": true
       }
     ],
@@ -271,7 +271,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneos.CancelarTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.CancelarTorneoDTO",
         "IsRequired": true
       }
     ],
@@ -297,7 +297,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneos.IniciarTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.IniciarTorneoDTO",
         "IsRequired": true
       }
     ],
@@ -323,7 +323,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Torneos.InscripcionTorneoDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.InscripcionTorneoDTO",
         "IsRequired": true
       }
     ],
@@ -359,7 +359,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.OficializarPartidas.OficializarPartidaDTO",
+        "Type": "Trabajo_Final.DTO.Request.OficializarPartidas.OficializarPartidaDTO",
         "IsRequired": true
       }
     ],
@@ -422,7 +422,7 @@
       },
       {
         "Name": "dto",
-        "Type": "Trabajo_Final.DTO.EditarUsuario.RequestBodyEditarUsuarioDTO",
+        "Type": "Trabajo_Final.DTO.Request.InputUsuarios.EditarUsuarioDTO",
         "IsRequired": true
       }
     ],

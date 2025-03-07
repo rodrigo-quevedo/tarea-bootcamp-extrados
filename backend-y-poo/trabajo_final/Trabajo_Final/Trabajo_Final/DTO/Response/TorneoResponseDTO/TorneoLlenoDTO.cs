@@ -1,7 +1,6 @@
 ﻿using DAO.Entidades.TorneoEntidades;
-using System.Runtime.CompilerServices;
 
-namespace Trabajo_Final.DTO.Response.ResponseDTO
+namespace Trabajo_Final.DTO.Response.TorneoResponseDTO
 {
     //Organizador: Ver los torneos llenos, listos para iniciar
     public class TorneoLlenoDTO : Torneo

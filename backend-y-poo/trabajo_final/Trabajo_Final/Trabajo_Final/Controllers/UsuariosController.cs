@@ -49,6 +49,8 @@ namespace Trabajo_Final.Controllers
         private IBuscarUsuarioService buscarUsuarioService;
 
         public UsuariosController(
+            //Solo está en UsuariosController porque sí o sí los usuarios se deben loguear/hacer refresh
+            //Por lo tanto siempre se termina activando este controller.
             VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
 
             IJwtConfiguration jwtConfig,

@@ -1,4 +1,4 @@
-﻿namespace Trabajo_Final.DTO.Response.ResponseDTO
+﻿namespace Trabajo_Final.DTO.Response.TorneoResponseDTO
 {
     public class TorneoBaseDTO
     {

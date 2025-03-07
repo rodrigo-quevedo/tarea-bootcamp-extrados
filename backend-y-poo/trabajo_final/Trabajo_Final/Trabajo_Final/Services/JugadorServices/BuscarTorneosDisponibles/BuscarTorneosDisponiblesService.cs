@@ -2,7 +2,7 @@
 using DAO.DAOs.Cartas;
 using DAO.DAOs.Torneos;
 using DAO.Entidades.TorneoEntidades;
-using Trabajo_Final.DTO.Response.ResponseDTO;
+using Trabajo_Final.DTO.Response.TorneoResponseDTO;
 
 namespace Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles
 {

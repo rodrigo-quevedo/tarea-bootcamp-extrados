@@ -5,7 +5,9 @@ using DAO.DAOs.Torneos;
 using DAO.DTOs_en_DAOs.Ganador_Torneo;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
-using Trabajo_Final.DTO.Response.ResponseDTO;
+using System.Reflection.Metadata.Ecma335;
+using Trabajo_Final.DTO.Response.Jugador_Mazo;
+using Trabajo_Final.DTO.Response.TorneoResponseDTO;
 
 namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
 {
@@ -42,6 +44,12 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
             //jugadores inscriptos (aceptados)
             IEnumerable<Jugador_Inscripto> jugadores =
                 await torneoDAO.BuscarJugadoresAceptados(torneos);
+
+            //mazos
+            IEnumerable<Carta_Del_Mazo> cartas_de_mazos =
+                await cartaDAO.BuscarMazosInscriptos(
+                    jugadores_registro.Select(j => j.Id_jugador).ToList(),
+                    torneos.Select(torneo => torneo.Id).ToList());
 
             //ganadores de torneos
             IEnumerable<GanadorTorneo> ganadores =
@@ -83,6 +91,22 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     .Select(jugador => jugador.Id_jugador)
                     .ToArray();
 
+                IList<IdJugador_IdCartasMazoDTO> idJugadores_IdCartasMazos = new List<IdJugador_IdCartasMazoDTO>();
+                if (torneo.Fase == FasesTorneo.REGISTRO) idJugadores_IdCartasMazos = null;
+                else foreach (int id_jugador in id_jugadores_aceptados)
+                    {
+                        idJugadores_IdCartasMazos.Add(new IdJugador_IdCartasMazoDTO()
+                        {
+                            Id_jugador = id_jugador,
+                            Id_cartas_mazo =
+                                cartas_de_mazos
+                                .Where(c => c.Id_torneo == torneo.Id && c.Id_jugador == id_jugador)
+                                .Select(c => c.Id_carta)
+                                .ToArray()
+                        });
+                    }
+
+
                 int? id_ganador;
                 if (torneo.Fase != FasesTorneo.FINALIZADO) id_ganador = null;
                 else id_ganador =
@@ -114,7 +138,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Series_habilitadas = series,
                     Id_jueces = id_jueces,
                     Id_jugadores_inscriptos = id_jugadores_inscriptos,
-                    Id_jugadores_aceptados = id_jugadores_aceptados,
+                    IdJugadoresAceptados_IdCartasMazos = idJugadores_IdCartasMazos.ToArray(),
                     Id_ganador = id_ganador,
                     Id_partidas = id_partidas
                 });
@@ -139,9 +163,19 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
             IEnumerable<Juez_Torneo> jueces_torneos =
                 await torneoDAO.BuscarJuecesDeTorneos(torneos);
 
+            //jugadores inscriptos (todos los inscriptos)
+            IEnumerable<Jugador_Inscripto> jugadores_registrados =
+                await torneoDAO.BuscarJugadoresInscriptos(torneos);
+
             //jugadores inscriptos (aceptados)
             IEnumerable<Jugador_Inscripto> jugadores =
                 await torneoDAO.BuscarJugadoresAceptados(torneos);
+
+            //mazos
+            IEnumerable<Carta_Del_Mazo> cartas_de_mazos =
+                await cartaDAO.BuscarMazosInscriptos(
+                    jugadores_registrados.Select(j=>j.Id_jugador).ToList(), 
+                    torneos.Select(torneo=>torneo.Id).ToList());
 
             //ganadores de torneos
             IEnumerable<GanadorTorneo> ganadores =
@@ -169,6 +203,12 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     .Select(juez => juez.Id_juez)
                     .ToArray();
 
+                int[] id_jugadores_inscriptos = 
+                    jugadores_registrados
+                    .Where(j=>j.Id_torneo == torneo.Id)
+                    .Select(j=>j.Id_jugador) 
+                    .ToArray ();
+
                 int[]? id_jugadores_aceptados;
                 if (torneo.Fase == FasesTorneo.REGISTRO) id_jugadores_aceptados = null;
                 else id_jugadores_aceptados =
@@ -176,6 +216,22 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     .Where(jugador => jugador.Id_torneo == torneo.Id)
                     .Select(jugador => jugador.Id_jugador)
                     .ToArray();
+
+                IList<IdJugador_IdCartasMazoDTO> idJugadores_IdCartasMazos = new List<IdJugador_IdCartasMazoDTO>();
+                if (torneo.Fase == FasesTorneo.REGISTRO) idJugadores_IdCartasMazos = null;
+                else foreach (int id_jugador in id_jugadores_aceptados)
+                {
+                    idJugadores_IdCartasMazos.Add(new IdJugador_IdCartasMazoDTO()
+                    {
+                        Id_jugador = id_jugador,
+                        Id_cartas_mazo =
+                            cartas_de_mazos
+                            .Where(c => c.Id_torneo == torneo.Id && c.Id_jugador == id_jugador)
+                            .Select(c => c.Id_carta)
+                            .ToArray()
+                    });
+                }
+
 
                 int? id_ganador;
                 if (torneo.Fase != FasesTorneo.FINALIZADO) id_ganador = null;
@@ -207,7 +263,8 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Id_organizador = torneo.Id_organizador,
                     Series_habilitadas = series,
                     Id_jueces = id_jueces,
-                    Id_jugadores = id_jugadores_aceptados,
+                    Id_jugadores_inscriptos = id_jugadores_inscriptos,
+                    IdJugadoresAceptados_IdCartasMazos = idJugadores_IdCartasMazos.ToArray(),
                     Id_ganador = id_ganador,
                     Id_partidas = id_partidas
                 });
@@ -340,7 +397,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Horario_diario_fin = torneo.Horario_diario_fin,
                     Cantidad_rondas = torneo.Cantidad_rondas,
                     Pais = torneo.Pais,
-                    Fase = = torneo.Fase,
+                    Fase = torneo.Fase,
                     Series_habilitadas = series.ToArray(),
                     //Id_jugadores = id_jugadores.ToArray(),
                     Id_cartas_mazo = id_cartas_mazo.ToArray()
@@ -370,6 +427,11 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
             IEnumerable<Jugador_Inscripto> jugadores_aceptados =
                 await torneoDAO.BuscarJugadoresAceptados(torneos);
 
+            IEnumerable<Carta_Del_Mazo> cartas_de_mazos =
+                await cartaDAO.BuscarMazosInscriptos(
+                    jugadores_aceptados.Select(j=>j.Id_jugador).ToList(),
+                    id_torneos_oficializados.ToList());
+
             IEnumerable<GanadorTorneo> ganadores_torneos =
                 await torneoDAO.BuscarGanadoresTorneos(torneos);
 
@@ -388,11 +450,27 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     .Select(serie => serie.Nombre_serie)
                     .ToArray();
 
+
                 int[] id_jugadores =
                     jugadores_aceptados
                     .Where(jugador => jugador.Id_torneo == torneo.Id)
                     .Select(jugador => jugador.Id_jugador) 
                     .ToArray();
+
+                IList<IdJugador_IdCartasMazoDTO> idJugadores_IdCartasMazos = new List<IdJugador_IdCartasMazoDTO>(); 
+                foreach(int id_jugador  in id_jugadores)
+                {
+                    idJugadores_IdCartasMazos.Add(new IdJugador_IdCartasMazoDTO()
+                    {
+                        Id_jugador = id_jugador,
+                        Id_cartas_mazo =
+                            cartas_de_mazos
+                            .Where(c => c.Id_torneo == torneo.Id && c.Id_jugador == id_jugador)
+                            .Select(c => c.Id_carta)
+                            .ToArray()
+                    });
+                }
+
 
                 int id_ganador =
                     ganadores_torneos
@@ -418,7 +496,7 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Pais = torneo.Pais,
                     Fase = torneo.Fase,
                     Id_ganador = id_ganador,
-                    Id_jugadores = id_jugadores,
+                    IdJugadores_IdCartasMazos = idJugadores_IdCartasMazos.ToArray(),
                     Series_habilitadas = series_habilitadas_torneo,
                     Id_partidas_oficializadas = id_partidas
                 });

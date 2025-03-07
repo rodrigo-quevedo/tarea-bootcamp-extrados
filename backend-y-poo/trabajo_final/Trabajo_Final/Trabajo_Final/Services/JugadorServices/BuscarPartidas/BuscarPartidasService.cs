@@ -1,5 +1,4 @@
 ﻿using DAO.DAOs.Partidas;
-using DAO.Entidades.Custom.Descalificaciones;
 using DAO.Entidades.PartidaEntidades;
 
 namespace Trabajo_Final.Services.JugadorServices.BuscarPartidas

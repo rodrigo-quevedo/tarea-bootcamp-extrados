@@ -1,5 +1,4 @@
 ﻿using DAO.DTOs_en_DAOs.JugadoresPartidas;
-using Trabajo_Final.DTO.EditarPartidas;
 
 namespace Trabajo_Final.Services.PartidaServices.Editar_Jugadores_Partidas
 {

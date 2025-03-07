@@ -365,6 +365,22 @@ namespace DAO.DAOs.Cartas
                 });
         }
 
+         public async Task<IEnumerable<Carta_Del_Mazo>> BuscarMazosInscriptos(
+            IList<int> id_jugadores, IList<int> id_torneos)
+        {
+            string selectQuery = " SELECT * FROM cartas_del_mazo " +
+                                 " WHERE " +
+                                 "      id_jugador IN @id_jugadores " +
+                                 " AND " +
+                                 "      id_torneo IN @id_torneos; ";
+
+            return await connection.QueryAsync<Carta_Del_Mazo>(
+                selectQuery,
+                new {
+                    id_jugadores,
+                    id_torneos
+                });
+        }
 
     }
 }

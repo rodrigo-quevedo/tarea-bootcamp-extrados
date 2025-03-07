@@ -3,16 +3,10 @@ using DAO.Connection;
 using DAO.DTOs_en_DAOs.InsertPartidas;
 using DAO.DTOs_en_DAOs.JugadoresPartidas;
 using DAO.DTOs_en_DAOs.Partida_CantidadRondas;
-using DAO.Entidades.Custom.Descalificaciones;
 using DAO.Entidades.PartidaEntidades;
 using DAO.Entidades.TorneoEntidades;
 using Dapper;
 using MySqlConnector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAO.DAOs.Partidas
 {
