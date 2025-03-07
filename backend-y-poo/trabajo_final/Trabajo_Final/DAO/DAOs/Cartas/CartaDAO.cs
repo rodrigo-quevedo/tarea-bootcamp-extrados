@@ -256,6 +256,13 @@ namespace DAO.DAOs.Cartas
                 });
         }
 
+        public async Task<IEnumerable<Serie>> BuscarSeries(string[] nombres_series)
+        {
+            string selectQuery = " SELECT * FROM series WHERE nombre IN @nombres_series; ";
+
+            return await connection.QueryAsync<Serie>(selectQuery, new { nombres_series } );
+        }
+
         public async Task<IEnumerable<Serie_De_Carta>> BuscarSeriesDeCartas(int[] id_cartas)
         {
             //string selectQuery = " SELECT * FROM series_de_cartas " +

@@ -1,0 +1,4635 @@
+{
+	"info": {
+		"_postman_id": "b7bf1041-a4af-4952-a299-bb17b6f3cfc0",
+		"name": "Trabajo final (Bootcamp Extrados)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34676059"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5156/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"// let body_jwt = jsonObj?.jwt\r",
+									"// if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"// let value = `Bearer ${body_jwt}`\r",
+									"// pm.environment.set(\"JwtBearer_Value\", value)\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin123@gmail.com\",\r\n    \"password\": \"adminpassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear organizador",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"organizador5@gmail.com\",\r\n    \"password\": \"organizador\",\r\n    \"confirmPassword\": \"organizador\",\r\n    \"pais\": \"Argentina -03:00\",\r\n    \"nombre_apellido\": \"organizador\",\r\n    \"rol\": \"organizador\",\r\n\r\n    //esto es ignorado por el Service de registro(ya que no es necesario):\r\n    \"alias\": \"xdddddddddddd\",\r\n    \"foto\": \"https://proveedor.com/xd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin2@gmail.com\",\r\n    \"password\": \"adminpassword\",\r\n    // \"confirmPassword\": \"adminpassword\",//Esto lo maneja el front.\r\n    \"pais\": \"Argentina -03:00\",\r\n    \"nombre_apellido\": \"segundo admin xd\",\r\n    \"rol\": \"admin\",\r\n\r\n    //esto es ignorado por el Service de registro(ya que no es necesario):\r\n    \"alias\": \"xdddddddddddd\",\r\n    \"foto\": \"https://proveedor.com/xd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar torneos, por fase",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/torneos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos"
+							],
+							"query": [
+								{
+									"key": "fases",
+									"value": "registro",
+									"disabled": true
+								},
+								{
+									"key": "fases",
+									"value": "torneo",
+									"disabled": true
+								},
+								{
+									"key": "fases",
+									"value": "finalizado",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar torneo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id_torneo\": 3,\r\n    \"Motivo\": \"Tormenton\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/cancelar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"cancelar"
+							],
+							"query": [
+								{
+									"key": "fases",
+									"value": "registro",
+									"disabled": true
+								},
+								{
+									"key": "fases",
+									"value": "torneo",
+									"disabled": true
+								},
+								{
+									"key": "fases",
+									"value": "finalizado",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar usuario, borrado logico",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/usuarios/115",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"usuarios",
+								"115"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre_apellido\": \"el zorro\",\r\n    \"pais\": \"Argentina -02:00\",\r\n    \"foto\": \"https://proveedor.com/usuario/image\",\r\n    \"alias\": \"zorro12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/usuarios/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"usuarios",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/usuarios/1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"usuarios",
+								"1000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos cartas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_cartas\": [1,23,4,5,6,7,8]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/cartas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"cartas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos series",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombres_series\": [\"A\", \"B\", \"C\", \"D\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/series",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"series"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Organizador",
+			"item": [
+				{
+					"name": "Refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5156/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"organizador1@gmail.com\",\r\n    \"password\": \"organizador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear juez",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"juez4@gmail.com\",\r\n    \"password\": \"juez\",\r\n    \"confirmPassword\": \"juez\",\r\n    \"pais\": \"Argentina -03:00\",\r\n    \"nombre_apellido\": \"juezzzz\",\r\n    \"rol\": \"juez\",\r\n    \"alias\": \"elJuezLocon2323\",\r\n    \"foto\": \"https://proveedor.com/randomimg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear torneo (juez invalido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha_hora_inicio\": \"2024-09-14T10:30:00.000Z\",\r\n    \"fecha_hora_fin\": \"2024-09-14T18:00:00.000Z\",\r\n    \"horario_diario_inicio\": \"10:00\",\r\n    \"horario_diario_fin\": \"18:00\",\r\n    \"pais\": \"Argentina\",\r\n    \"series_habilitadas\": [\"A\", \"C\"],\r\n    \"id_jueces_torneo\": [1]\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear torneo (serie invalida)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha_hora_inicio\": \"2024-09-14T10:30:00.000Z\",\r\n    \"fecha_hora_fin\": \"2024-09-14T18:00:00.000Z\",\r\n    \"horario_diario_inicio\": \"10:00\",\r\n    \"horario_diario_fin\": \"18:00\",\r\n    \"pais\": \"Argentina\",\r\n    \"series_habilitadas\": [\"A\", \"asdfs\"],\r\n    \"id_jueces_torneo\": [89]\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear torneo (fechaHoraInicio invalida)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha_hora_inicio\": \"2024-09-14T20:29:00.000Z\",\r\n    \"fecha_hora_fin\": \"2024-09-14T20:00:00.000Z\",\r\n    \"horario_diario_inicio\": \"10:00\",\r\n    \"horario_diario_fin\": \"18:00\",\r\n    \"pais\": \"Argentina\",\r\n    \"series_habilitadas\": [\"A\", \"B\"],\r\n    \"id_jueces_torneo\": [89]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear torneo (todo válido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha_hora_inicio\": \"2024-03-24T10:00:00.000Z\",\r\n    \"fecha_hora_fin\": \"2024-03-24T11:30:00.000Z\",\r\n    \"horario_diario_inicio\": \"10:00\",\r\n    \"horario_diario_fin\": \"18:00\",\r\n    \"pais\": \"Argentina\",\r\n    \"series_habilitadas\": [\"A\",\"B\",\"C\",\"D\",\"E\",\"J\"],\r\n    \"id_jueces_torneo\": [89]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Torneo-Agregar juez (torneo invalido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_juez\": 94\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/21/jueces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"21",
+								"jueces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Torneo-Agregar juez (juez invalido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_juez\": 123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/1/jueces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"1",
+								"jueces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Torneo-Agregar juez (valido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_juez\": 89\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/5/jueces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"5",
+								"jueces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Torneo-Eliminar juez (torneo invalido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_juez\": 94\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/212/jueces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"212",
+								"jueces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Torneo-Eliminar juez (juez invalido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_juez\": 123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/1/jueces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"1",
+								"jueces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Torneo-Eliminar juez (valido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_juez\": 89\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/5/jueces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"5",
+								"jueces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar torneos (fase invalida)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/torneos/organizados?fases=registro&fases=torneo&fases=sldkfjlsdkf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"organizados"
+							],
+							"query": [
+								{
+									"key": "fases",
+									"value": "registro"
+								},
+								{
+									"key": "fases",
+									"value": "torneo"
+								},
+								{
+									"key": "fases",
+									"value": "sldkfjlsdkf"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar torneos organizados, permite busqueda por fase",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/torneos/organizados?fases=registro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"organizados"
+							],
+							"query": [
+								{
+									"key": "fases",
+									"value": "registro"
+								},
+								{
+									"key": "fases",
+									"value": "torneo",
+									"disabled": true
+								},
+								{
+									"key": "fases",
+									"value": "finalizado",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar torneos llenos para aceptar jugadores",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/torneos/iniciar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"iniciar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Iniciar torneo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/iniciar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"iniciar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar juez partida (juez invalido)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_partida\": 11,\r\n    \"id_juez\": 944\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/partidas/juez",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"juez"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar juez partida",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_partida\": 11,\r\n    \"id_juez\": 94\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/partidas/juez",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"juez"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar jugadores partidas (formato array invalido)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"editar_jugadores_partidas\":{\r\n        \"Id_partida\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/partidas/jugadores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"jugadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar jugadores partidas (formato de elemento de array invalido)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"editar_jugadores_partidas\":[\r\n        {\r\n            \"Id_partida\": 1,\r\n            \"Id_jugador_1\": 2,\r\n            \"Id_jugador_2\": \"lsdkjf\"\r\n        },\r\n        {\r\n            \"Id_partida\": 1,\r\n            \"Id_jugador_1\": 2,\r\n            \"Id_jugador_2\": 99\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/partidas/jugadores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"jugadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar jugadores partidas (jugadores repetidos)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"editar_jugadores_partidas\":[\r\n        {\r\n            \"Id_partida\": 12345,\r\n            \"Id_jugador_1\": 2,\r\n            \"Id_jugador_2\": 3\r\n        },\r\n        {\r\n            \"Id_partida\": 1234,\r\n            \"Id_jugador_1\": 2,\r\n            \"Id_jugador_2\": 99\r\n        },\r\n          {\r\n            \"Id_partida\": 123,\r\n            \"Id_jugador_1\": 2,\r\n            \"Id_jugador_2\": 99\r\n        },\r\n          {\r\n            \"Id_partida\": 12,\r\n            \"Id_jugador_1\": 2,\r\n            \"Id_jugador_2\": 99\r\n        },\r\n          {\r\n            \"Id_partida\": 1,\r\n            \"Id_jugador_1\": 2,\r\n            \"Id_jugador_2\": 99\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/partidas/jugadores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"jugadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar jugadores partidas (jugadores no aceptados)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"editar_jugadores_partidas\":[\r\n        {\r\n            \"Id_partida\": 11,\r\n            \"Id_jugador_1\": 104,\r\n            \"Id_jugador_2\": 102\r\n        },\r\n        {\r\n            \"Id_partida\": 12,\r\n            \"Id_jugador_1\": 101,\r\n            \"Id_jugador_2\": 98\r\n        },\r\n          {\r\n            \"Id_partida\": 13,\r\n            \"Id_jugador_1\": 100,\r\n            \"Id_jugador_2\": 91\r\n        },\r\n          {\r\n            \"Id_partida\": 14,\r\n            \"Id_jugador_1\": 103,\r\n            \"Id_jugador_2\": 105\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/partidas/jugadores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"jugadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar jugadores partidas (partida ya oficializada)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"editar_jugadores_partidas\":[\r\n         {\r\n            \"Id_partida\": 8,\r\n            \"Id_jugador_1\": 99,\r\n            \"Id_jugador_2\": 91\r\n        },\r\n        {\r\n            \"Id_partida\": 9,\r\n            \"Id_jugador_1\": 100,\r\n            \"Id_jugador_2\": 98\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/partidas/jugadores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"jugadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar jugadores partidas Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"editar_jugadores_partidas\":[\r\n        {\r\n            \"Id_partida\": 11,\r\n            \"Id_jugador_1\": 102,\r\n            \"Id_jugador_2\": 104\r\n        },\r\n        {\r\n            \"Id_partida\": 12,\r\n            \"Id_jugador_1\": 101,\r\n            \"Id_jugador_2\": 98\r\n        },\r\n          {\r\n            \"Id_partida\": 13,\r\n            \"Id_jugador_1\": 100,\r\n            \"Id_jugador_2\": 91\r\n        },\r\n          {\r\n            \"Id_partida\": 14,\r\n            \"Id_jugador_1\": 103,\r\n            \"Id_jugador_2\": 99\r\n        }\r\n\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/partidas/jugadores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"jugadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/usuarios/1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"usuarios",
+								"1000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos cartas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_cartas\": [1,23,4,5,6,7,8]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/cartas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"cartas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos series",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombres_series\": [\"A\", \"B\", \"C\", \"D\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/series",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"series"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Juez",
+			"item": [
+				{
+					"name": "Refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5156/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"juez1@gmail.com\",\r\n    \"password\": \"juez\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fallar al registrar jugador",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador12312312@gmail.com\",\r\n    \"password\": \"jugador\",\r\n    \"confirmPassword\": \"jugador\",\r\n    \"pais\": \"Argentina -03:00\",\r\n    \"nombre_apellido\": \"jugador\",\r\n    \"rol\": \"jugador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/registro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"registro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar foto y alias (url invalida)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url_foto\": \"lasdjflksdafj\",\r\n    \"alias\": \"mi alias\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/perfil",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar foto y alias (alias invalido)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url_foto\": \"https://provedor-en-la-nube.com/images/juezimg\",\r\n    \"alias\": \"mi a##()lias\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/perfil",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar foto y alias (valido)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url_foto\": \"https://provedor-en-la-nube.com/images/juezimg\",\r\n    \"alias\": \"mi alias\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/perfil",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar partidas para oficializar",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/torneos/oficializar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"oficializar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Oficializar partida",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_partida\": 12,\r\n    \"id_ganador\": 101,\r\n    \"id_descalificado\": 98,\r\n    \"motivo_descalificacion\": \"trolear\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/oficializar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"oficializar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar torneos oficializados",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/torneos/oficializados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"oficializados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos cartas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_cartas\": [1,23,4,5,6,7,8]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/cartas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"cartas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos series",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombres_series\": [\"A\", \"B\", \"C\", \"D\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/series",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"series"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jugador",
+			"item": [
+				{
+					"name": "Refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5156/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador4@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Coleccionar Cartas",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id_cartas\": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,34,17,34,49,52,59,21,22,23,30,36,41,42,44,46,51,52]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/coleccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"coleccion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Coleccionar Cartas (carta invalida)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id_cartas\": [1,1,1,2,3,4,5,6,7,34,9,9,9,9,9,999]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/coleccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"coleccion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Coleccion de cartas",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/coleccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"coleccion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quitar cartas de colección",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id_cartas\": [1,2,3,4,1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/coleccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"coleccion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quitar cartas de colección (carta invalida)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id_cartas\": [400000,40]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/coleccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"coleccion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar foto y alias (url invalida)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url_foto\": \"lasdjflksdafj\",\r\n    \"alias\": \"mi alias\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/perfil",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar foto y alias (alias invalido)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url_foto\": \"https://provedor-en-la-nube.com/images/juezimg\",\r\n    \"alias\": \"mi a##()lias\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/perfil",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar foto y alias (valido)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url_foto\": \"https://provedor-en-la-nube.com/images/someimg\",\r\n    \"alias\": \"sajflskadjfl\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/perfil",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar alias (valido)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"alias\": \"mi nuevo alias 324234234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/perfil",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar foto (valido)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url_foto\": \"https://provedor-en-la-nube.com/images/jugador1img\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/perfil",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar torneos para inscribirse",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (carta invalida)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": 2,\r\n    \"id_cartas_mazo\": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,50]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (torneo invalido)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": 2222,\r\n    \"id_cartas_mazo\": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,50]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (serie de carta invalida)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": 2,\r\n    \"id_cartas_mazo\": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (valido)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": 5,\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar descalificaciones",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/partidas/descalificaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"descalificaciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar partidas perdidas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/partidas/derrotas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"derrotas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar partidas ganadas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/partidas/victorias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"victorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar torneos ganados",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/torneos/victorias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"victorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/usuarios/91",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"usuarios",
+								"91"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos cartas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_cartas\": [\r\n        1,\r\n        2,\r\n        3,\r\n        4,\r\n        5,\r\n        6,\r\n        7,\r\n        8,\r\n        9,\r\n        10,\r\n        11,\r\n        12,\r\n        13,\r\n        14,\r\n        15,\r\n        17,\r\n        21,\r\n        22,\r\n        23,\r\n        30,\r\n        34,\r\n        36,\r\n        41,\r\n        42,\r\n        44,\r\n        46,\r\n        49,\r\n        51,\r\n        52,\r\n        59\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/cartas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"cartas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar datos series",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombres_series\": [\"A\", \"B\", \"C\", \"D\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/series",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"series"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autoregistro jugador",
+			"item": [
+				{
+					"name": "Refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5156/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Autoregistrar jugador",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador18@gmail.com\",\r\n    \"password\": \"jugador\",\r\n    \"confirmPassword\": \"jugador\",\r\n    \"pais\": \"Argentina -03:00\",\r\n    \"nombre_apellido\": \"jugador\",\r\n    \"rol\": \"jugador\",\r\n    \"alias\": \"elMasCapo123\",\r\n    \"foto\": \"https://proveedor.com/imagen\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/registro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"registro"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inicializar torneo",
+			"item": [
+				{
+					"name": "Refresh Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5156/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"organizador1@gmail.com\",\r\n    \"password\": \"organizador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear torneo (todo válido) Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha_hora_inicio\": \"2024-03-01T10:00:00.000Z\",\r\n    \"fecha_hora_fin\": \"2024-03-01T13:30:00.000Z\",\r\n    \"horario_diario_inicio\": \"10:00\",\r\n    \"horario_diario_fin\": \"18:00\",\r\n    \"pais\": \"Argentina\",\r\n    \"series_habilitadas\": [\"A\",\"B\",\"C\",\"D\",\"E\",\"J\"],\r\n    \"id_jueces_torneo\": [89]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador1@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (valido) Copy 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": {{id_torneo_inscripcion}},\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador2@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (valido) Copy 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": {{id_torneo_inscripcion}},\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador3@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (valido) Copy 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": {{id_torneo_inscripcion}},\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador4@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (valido) Copy 4",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": {{id_torneo_inscripcion}},\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador5@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (valido) Copy 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": {{id_torneo_inscripcion}},\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador6@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (valido) Copy 4",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": {{id_torneo_inscripcion}},\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador7@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (valido) Copy 4",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": {{id_torneo_inscripcion}},\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jugador8@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscribirse a torneo (valido) Copy 5",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": {{id_torneo_inscripcion}},\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let www_auth_expired = pm.response.headers.get(\"WWW-Authenticate\")\r",
+									"if (www_auth_expired?.includes(\"The token expired at\")){\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let jsonObj = pm.response.json()\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"if (body_deleteJWT === true) {\r",
+									"    pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"    return;\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonObj = pm.response.json()\r",
+									"let body_jwt = jsonObj?.jwt\r",
+									"let body_deleteJWT = jsonObj?.deleteJWT\r",
+									"\r",
+									"if (body_deleteJWT === true) pm.environment.set(\"JwtBearer_Value\", \"\")\r",
+									"\r",
+									"if (body_jwt == null || body_jwt == \"\" || body_jwt == undefined) return;\r",
+									"let value = `Bearer ${body_jwt}`\r",
+									"pm.environment.set(\"JwtBearer_Value\", value)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"organizador1@gmail.com\",\r\n    \"password\": \"organizador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Iniciar torneo Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_torneo\": {{id_torneo_inscripcion}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/torneos/iniciar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"iniciar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

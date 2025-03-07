@@ -204,6 +204,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Trabajo_Final.Controllers.CartasController",
+    "Method": "BuscarSerie",
+    "RelativePath": "series",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.BuscarSeries.BuscarSeriesDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Trabajo_Final.Controllers.TorneosController",
     "Method": "CrearTorneo",
     "RelativePath": "torneos",

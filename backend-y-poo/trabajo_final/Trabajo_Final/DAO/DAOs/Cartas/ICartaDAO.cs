@@ -28,6 +28,7 @@ namespace DAO.DAOs.Cartas
         public Task<IEnumerable<Carta>> BuscarCartas(int[] id_cartas);
         public Task<IEnumerable<Carta>> BuscarCartasColeccionadas(int usuario_id);
 
+        public Task<IEnumerable<Serie>> BuscarSeries(string[] nombres_series);
         public Task<IEnumerable<Serie_De_Carta>> BuscarSeriesDeCartas(int[] id_cartas);
 
         public Task<bool> QuitarCartasColeccionadas(int id_jugador, int[] id_cartas);

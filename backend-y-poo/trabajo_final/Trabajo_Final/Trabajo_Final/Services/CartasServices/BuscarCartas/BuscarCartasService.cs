@@ -19,6 +19,8 @@ namespace Trabajo_Final.Services.CartasServices.BuscarCartas
             
             IEnumerable<Serie_De_Carta> series_de_cartas = await cartaDAO.BuscarSeriesDeCartas(id_cartas);
 
+            if (cartas == null || !cartas.Any() || series_de_cartas == null || !series_de_cartas.Any())
+                throw new Exception("No se pudo obtener ninguna informacion de las id_cartas buscadas.");
 
             IList<DatosCartaDTO> result = new List<DatosCartaDTO>();
             foreach(Carta carta in cartas)
