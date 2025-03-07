@@ -1,6 +1,6 @@
 ﻿namespace Trabajo_Final.DTO.Response.Cartas
 {
-    public class CartaColeccionadaDTO
+    public class DatosCartaDTO
     {
         public int Id { get; set; }
         public int Ataque { get; set; }

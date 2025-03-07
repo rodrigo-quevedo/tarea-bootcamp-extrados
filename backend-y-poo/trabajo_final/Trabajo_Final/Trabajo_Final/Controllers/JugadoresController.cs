@@ -76,13 +76,12 @@ namespace Trabajo_Final.Controllers
         [Authorize(Roles = Roles.JUGADOR)]
         public async Task<ActionResult> ObtenerCartasColeccionadas()
         {
-            string string_usuario_id = User.FindFirst(ClaimTypes.Sid).Value;
-            Int32.TryParse(string_usuario_id, out int usuario_id);
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int usuario_id);
 
-            CartaColeccionadaDTO[] coleccion =
+            int[] coleccion =
                 await obtenerColeccionService.ObtenerColeccion(usuario_id);
 
-            return Ok(new { cartas_coleccionadas = coleccion });
+            return Ok(new { id_cartas_coleccionadas = coleccion });
         }
 
         [HttpDelete]

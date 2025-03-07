@@ -22,6 +22,7 @@ using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
 using Trabajo_Final.DTO.Response.Server_HTTP_Response;
+using Trabajo_Final.Services.CartasServices.BuscarCartas;
 using Trabajo_Final.Services.JugadorServices.BuscarPartidas;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
@@ -174,6 +175,8 @@ builder.Services.AddScoped<IEliminarUsuarioService, EliminarUsuarioService>();
 builder.Services.AddScoped<IEditarUsuarioService, EditarUsuarioService>();
 
 builder.Services.AddScoped<IBuscarUsuarioService, BuscarUsuarioService>();
+
+builder.Services.AddScoped<IBuscarCartasService, BuscarCartasService>();
 
 
 builder.Services.AddControllers();

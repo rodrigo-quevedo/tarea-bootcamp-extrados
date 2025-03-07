@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "Trabajo_Final.Controllers.CartasController",
+    "Method": "BuscarCarta",
+    "RelativePath": "cartas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.BuscarCartas.BuscarCartasDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
     "Method": "ColeccionarCartas",
     "RelativePath": "coleccion",

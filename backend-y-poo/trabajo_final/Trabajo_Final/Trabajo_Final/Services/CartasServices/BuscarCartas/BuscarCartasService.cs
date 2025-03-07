@@ -1,0 +1,42 @@
+﻿using DAO.DAOs.Cartas;
+using DAO.Entidades.Cartas;
+using Microsoft.AspNetCore.Mvc;
+using Trabajo_Final.DTO.Response.Cartas;
+
+namespace Trabajo_Final.Services.CartasServices.BuscarCartas
+{
+    public class BuscarCartasService : IBuscarCartasService
+    {
+        private ICartaDAO cartaDAO;
+        public BuscarCartasService(ICartaDAO cartaDao) 
+        {
+            cartaDAO = cartaDao;
+        }
+
+        public async Task<IEnumerable<DatosCartaDTO>> BuscarCartas(int[] id_cartas)
+        {
+            IEnumerable<Carta> cartas =  await cartaDAO.BuscarCartas(id_cartas);
+            
+            IEnumerable<Serie_De_Carta> series_de_cartas = await cartaDAO.BuscarSeriesDeCartas(id_cartas);
+
+
+            IList<DatosCartaDTO> result = new List<DatosCartaDTO>();
+            foreach(Carta carta in cartas)
+            {
+                result.Add(new DatosCartaDTO()
+                {
+                    Id = carta.Id,
+                    Ataque = carta.Ataque,
+                    Defensa = carta.Defensa,
+                    Ilustracion = carta.Ilustracion,
+                    Series = series_de_cartas
+                            .Where(s => s.Id_carta == carta.Id)
+                            .Select(s => s.Nombre_serie)
+                            .ToArray()
+                });
+            }
+
+            return result.AsEnumerable();
+        }
+    }
+}

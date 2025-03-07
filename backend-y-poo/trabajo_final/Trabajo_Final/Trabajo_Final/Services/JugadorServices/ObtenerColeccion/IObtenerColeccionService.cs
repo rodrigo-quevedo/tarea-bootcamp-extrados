@@ -4,6 +4,6 @@ namespace Trabajo_Final.Services.JugadorServices.ObtenerColeccion
 {
     public interface IObtenerColeccionService
     {
-        public Task<CartaColeccionadaDTO[]> ObtenerColeccion(int id_jugador);
+        public Task<int[]> ObtenerColeccion(int id_jugador);
     }
 }
