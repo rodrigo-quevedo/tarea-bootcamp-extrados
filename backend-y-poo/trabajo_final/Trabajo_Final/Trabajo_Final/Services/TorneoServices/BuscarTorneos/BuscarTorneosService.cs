@@ -138,7 +138,8 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Series_habilitadas = series,
                     Id_jueces = id_jueces,
                     Id_jugadores_inscriptos = id_jugadores_inscriptos,
-                    IdJugadoresAceptados_IdCartasMazos = idJugadores_IdCartasMazos.ToArray(),
+                    IdJugadoresAceptados_IdCartasMazos =
+                        (torneo.Fase == FasesTorneo.REGISTRO) ? null : idJugadores_IdCartasMazos.ToArray(),
                     Id_ganador = id_ganador,
                     Id_partidas = id_partidas
                 });
@@ -264,7 +265,8 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Series_habilitadas = series,
                     Id_jueces = id_jueces,
                     Id_jugadores_inscriptos = id_jugadores_inscriptos,
-                    IdJugadoresAceptados_IdCartasMazos = idJugadores_IdCartasMazos.ToArray(),
+                    IdJugadoresAceptados_IdCartasMazos = 
+                        (torneo.Fase == FasesTorneo.REGISTRO)? null : idJugadores_IdCartasMazos.ToArray(),
                     Id_ganador = id_ganador,
                     Id_partidas = id_partidas
                 });
@@ -496,7 +498,8 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
                     Pais = torneo.Pais,
                     Fase = torneo.Fase,
                     Id_ganador = id_ganador,
-                    IdJugadores_IdCartasMazos = idJugadores_IdCartasMazos.ToArray(),
+                    IdJugadores_IdCartasMazos =
+                        (torneo.Fase == FasesTorneo.REGISTRO) ? null : idJugadores_IdCartasMazos.ToArray(),
                     Series_habilitadas = series_habilitadas_torneo,
                     Id_partidas_oficializadas = id_partidas
                 });
