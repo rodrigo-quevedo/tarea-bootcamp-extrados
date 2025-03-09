@@ -1,12 +1,12 @@
 ﻿using DAO.DAOs.Partidas;
 using DAO.Entidades.PartidaEntidades;
 
-namespace Trabajo_Final.Services.PartidaServices.Buscar_Partidas
+namespace Trabajo_Final.Services.PartidaServices.Buscar_Partidas_Para_Oficializar
 {
     public class BuscarPartidasParaOficializarService : IBuscarPartidasParaOficializarService
     {
         IPartidaDAO partidaDAO;
-        public BuscarPartidasParaOficializarService(IPartidaDAO partidaDao) 
+        public BuscarPartidasParaOficializarService(IPartidaDAO partidaDao)
         {
             partidaDAO = partidaDao;
         }

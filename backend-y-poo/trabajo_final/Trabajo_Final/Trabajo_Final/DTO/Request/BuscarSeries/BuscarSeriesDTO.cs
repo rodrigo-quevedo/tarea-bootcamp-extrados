@@ -9,4 +9,5 @@ namespace Trabajo_Final.DTO.Request.BuscarSeries
         [MaxLength(200, ErrorMessage = "Hay un maximo de 200 series por búsqueda.")]
         public string[] nombres_series {  get; set; }
     }
+
 }

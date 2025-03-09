@@ -4,13 +4,15 @@ using DAO.Entidades.PartidaEntidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Trabajo_Final.DTO.Request.BuscarPartidas;
 using Trabajo_Final.DTO.Request.BuscarTorneos;
 using Trabajo_Final.DTO.Request.EditarPartidas;
 using Trabajo_Final.DTO.Request.InputTorneos;
 using Trabajo_Final.DTO.Request.OficializarPartidas;
 using Trabajo_Final.DTO.Response.TorneoResponseDTO;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
-using Trabajo_Final.Services.PartidaServices.Buscar_Partidas;
+using Trabajo_Final.Services.PartidaServices.Buscar_Datos_Partidas;
+using Trabajo_Final.Services.PartidaServices.Buscar_Partidas_Para_Oficializar;
 using Trabajo_Final.Services.PartidaServices.Editar_Jueces_Partida;
 using Trabajo_Final.Services.PartidaServices.Editar_Jugadores_Partidas;
 using Trabajo_Final.Services.PartidaServices.Oficializar_Partidas;
@@ -38,13 +40,15 @@ namespace Trabajo_Final.Controllers
         IBuscarTorneosService buscarTorneosService;
         IIniciarTorneoService iniciarTorneoService;
 
-        IBuscarPartidasParaOficializarService buscarPartidasService;
+        IBuscarPartidasParaOficializarService buscarPartidasParaOficializarService;
         IOficializarPartidaService oficializarPartidaService;
 
         IEditarJuezPartidaService editarJuezPartidaService;
         IEditarJugadoresPartidasService editarJugadoresPartidasService;
 
         ICancelarTorneoService cancelarTorneoService;
+
+        IBuscarPartidasService buscarPartidasService;
 
         public TorneosController(
             ICrearTorneoService crearTorneo,
@@ -58,13 +62,15 @@ namespace Trabajo_Final.Controllers
             IBuscarTorneosService buscarTorneos,
             IIniciarTorneoService iniciarTorneo,
 
-            IBuscarPartidasParaOficializarService buscarPartidas,
+            IBuscarPartidasParaOficializarService buscarPartidasParaOficializar,
             IOficializarPartidaService oficializarPartida,
 
             IEditarJuezPartidaService editarJuezPartida,
             IEditarJugadoresPartidasService editarJugadoresPartidas,
 
-            ICancelarTorneoService cancelarTorneo
+            ICancelarTorneoService cancelarTorneo,
+
+            IBuscarPartidasService buscarPartidas
         )
         {
             crearTorneoService = crearTorneo;
@@ -78,13 +84,15 @@ namespace Trabajo_Final.Controllers
             buscarTorneosService = buscarTorneos;
             iniciarTorneoService = iniciarTorneo;
 
-            buscarPartidasService = buscarPartidas;
+            buscarPartidasParaOficializarService = buscarPartidasParaOficializar;
             oficializarPartidaService = oficializarPartida;
 
             editarJuezPartidaService = editarJuezPartida;
             editarJugadoresPartidasService = editarJugadoresPartidas;
 
             cancelarTorneoService = cancelarTorneo;
+
+            buscarPartidasService = buscarPartidas;
         }
 
 
@@ -253,7 +261,7 @@ namespace Trabajo_Final.Controllers
             Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_juez);
 
             IEnumerable<Partida> result = 
-                await buscarPartidasService.BuscarPartidasParaOficializar(id_juez);
+                await buscarPartidasParaOficializarService.BuscarPartidasParaOficializar(id_juez);
 
             if (result == null) return Ok(new { message = $"No hay partidas para el juez [{id_juez}]." });
 
@@ -334,6 +342,24 @@ namespace Trabajo_Final.Controllers
 
             return Ok(new { message = $"El torneo [{dto.Id_torneo}] fue cancelado con exito." });
         }
+
+        [HttpGet]
+        [Route("/partidas")]
+        [Authorize]
+        public async Task<ActionResult> BuscarPartidas(BuscarPartidasDTO dto)
+        {
+            dto.id_partidas = dto.id_partidas.Distinct().ToArray();
+
+
+            string rol_logeado = User.FindFirstValue(ClaimTypes.Role);
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_logeado);
+
+            IEnumerable<Partida> result =
+                await buscarPartidasService.BuscarPartidas(rol_logeado, id_logeado, dto.id_partidas);
+
+            return Ok(new { partidas = result.ToArray() });
+        }
+
 
     }
 }

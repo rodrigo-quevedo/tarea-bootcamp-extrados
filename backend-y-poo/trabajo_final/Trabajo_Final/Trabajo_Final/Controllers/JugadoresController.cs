@@ -27,7 +27,7 @@ namespace Trabajo_Final.Controllers
         private IObtenerColeccionService obtenerColeccionService;
         private IQuitarCartasService quitarCartasService;
 
-        private IBuscarPartidasService buscarPartidasService;
+        private IBuscarPartidasJugadorService buscarPartidasService;
         private IBuscarTorneosService buscarTorneosService;
 
         public JugadoresController(
@@ -38,7 +38,7 @@ namespace Trabajo_Final.Controllers
             IObtenerColeccionService obtenerColeccion,
             IQuitarCartasService quitarCartas,
 
-            IBuscarPartidasService buscarPartidas,
+            IBuscarPartidasJugadorService buscarPartidas,
             IBuscarTorneosService buscarTorneos
         )
         {

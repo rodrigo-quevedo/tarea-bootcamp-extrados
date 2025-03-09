@@ -2,7 +2,7 @@
 
 namespace Trabajo_Final.Services.JugadorServices.BuscarPartidas
 {
-    public interface IBuscarPartidasService
+    public interface IBuscarPartidasJugadorService
     {
         public Task<IEnumerable<Partida>> BuscarDescalificaciones(int id_jugador);
 

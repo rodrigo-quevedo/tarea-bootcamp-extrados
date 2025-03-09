@@ -3,10 +3,10 @@ using DAO.Entidades.PartidaEntidades;
 
 namespace Trabajo_Final.Services.JugadorServices.BuscarPartidas
 {
-    public class BuscarPartidasService : IBuscarPartidasService
+    public class BuscarPartidasJugadorService : IBuscarPartidasJugadorService
     {
         IPartidaDAO partidaDAO;
-        public BuscarPartidasService(IPartidaDAO partidaDao)
+        public BuscarPartidasJugadorService(IPartidaDAO partidaDao)
         {
             partidaDAO = partidaDao;
         }

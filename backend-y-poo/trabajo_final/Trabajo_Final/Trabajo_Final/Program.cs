@@ -30,7 +30,8 @@ using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
 using Trabajo_Final.Services.JugadorServices.ObtenerColeccion;
 using Trabajo_Final.Services.JugadorServices.QuitarCartas;
 using Trabajo_Final.Services.PartidaServices.ArmarPartidasService;
-using Trabajo_Final.Services.PartidaServices.Buscar_Partidas;
+using Trabajo_Final.Services.PartidaServices.Buscar_Datos_Partidas;
+using Trabajo_Final.Services.PartidaServices.Buscar_Partidas_Para_Oficializar;
 using Trabajo_Final.Services.PartidaServices.Editar_Jueces_Partida;
 using Trabajo_Final.Services.PartidaServices.Editar_Jugadores_Partidas;
 using Trabajo_Final.Services.PartidaServices.Oficializar_Partidas;
@@ -165,7 +166,7 @@ builder.Services.AddScoped<IInscribirJugadorService, InscribirJugadorService>();
 builder.Services.AddScoped<IBuscarPartidasParaOficializarService, BuscarPartidasParaOficializarService>();
 builder.Services.AddScoped<IOficializarPartidaService, OficializarPartidaService>();
 
-builder.Services.AddScoped<IBuscarPartidasService, BuscarPartidasService>();
+builder.Services.AddScoped<IBuscarPartidasJugadorService, BuscarPartidasJugadorService>();
 
 builder.Services.AddScoped<IEditarJuezPartidaService, EditarJuezPartidaService>();
 builder.Services.AddScoped<IEditarJugadoresPartidasService, EditarJugadoresPartidasService>();
@@ -178,7 +179,8 @@ builder.Services.AddScoped<IEditarUsuarioService, EditarUsuarioService>();
 builder.Services.AddScoped<IBuscarUsuarioService, BuscarUsuarioService>();
 
 builder.Services.AddScoped<IBuscarCartasService, BuscarCartasService>();
-builder.Services.AddScoped <IBuscarSeriesService, BuscarSeriesService>();
+builder.Services.AddScoped<IBuscarSeriesService, BuscarSeriesService>();
+builder.Services.AddScoped<IBuscarPartidasService, BuscarPartidasService>();
 
 
 builder.Services.AddControllers();

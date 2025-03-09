@@ -1,4 +1,5 @@
-﻿using Custom_Exceptions.Exceptions.Exceptions;
+﻿using Constantes.Constantes;
+using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.Connection;
 using DAO.DTOs_en_DAOs.InsertPartidas;
 using DAO.DTOs_en_DAOs.JugadoresPartidas;
@@ -75,6 +76,54 @@ namespace DAO.DAOs.Partidas
             }
 
             return result;
+        }
+
+        public async Task<IEnumerable<Partida>> BuscarPartidas(
+            string rol_logeado, int id_logeado, int[] id_partidas)
+        {
+            string selectQuery = null;
+
+            switch (rol_logeado)
+            {
+                case Roles.ADMIN: //todas las partidas
+                    {
+                        selectQuery = " SELECT * FROM partidas WHERE id IN @id_partidas; ";
+                        break;
+                    }
+
+                case Roles.ORGANIZADOR: //Partidas de torneos organizados
+                    {
+                        selectQuery =
+                            " SELECT * FROM partidas " +
+                            " WHERE id IN @id_partidas " +
+                            " AND id_torneo IN " +
+                            "   (SELECT id FROM torneos WHERE id_organizador = @id_logeado); ";
+                        break;
+                    }
+
+                case Roles.JUEZ: //Partidas oficializadas/por oficializar
+                    {
+                        selectQuery =
+                            " SELECT * FROM partidas " +
+                            " WHERE id IN @id_partidas " +
+                            " AND id_juez = @id_logeado; ";
+                        break;
+                    }
+
+                case Roles.JUGADOR: //Partidas jugadas/por jugar
+                    {
+                        selectQuery =
+                           " SELECT * FROM partidas " +
+                           " WHERE id IN @id_partidas " +
+                           " AND id_jugador_1 = @id_logeado " +
+                           " OR id_jugador_2 = @id_logeado; ";
+                        break;
+                    }
+
+            }
+
+            return await connection.QueryAsync<Partida>(selectQuery, new {id_partidas, id_logeado});
+
         }
 
         public async Task<Partida_CantidadRondasDTO> BuscarDatosParaOficializar(Partida partida)

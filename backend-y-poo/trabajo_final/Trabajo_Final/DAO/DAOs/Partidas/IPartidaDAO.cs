@@ -13,6 +13,9 @@ namespace DAO.DAOs.Partidas
         public Task<Partida_CantidadRondasDTO> BuscarDatosParaOficializar(Partida partida);
         public Task<IEnumerable<Partida>> BuscarPartidasParaOficializar(int id_juez);
         public Task<IEnumerable<Partida>> BuscarPartidasOficializadasDelTorneo(int id_juez, IEnumerable<Torneo> torneos);
+        public Task<IEnumerable<Partida>> BuscarPartidas(
+            string rol_logeado, int id_logeado, int[] id_partidas);
+
 
         public Task<bool> VerificarUltimaPartidaDeRonda(
             int id_partida,

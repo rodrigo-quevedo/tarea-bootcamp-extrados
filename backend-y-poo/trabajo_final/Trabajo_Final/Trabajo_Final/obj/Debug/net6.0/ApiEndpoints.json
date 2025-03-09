@@ -100,6 +100,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Trabajo_Final.Controllers.TorneosController",
+    "Method": "BuscarPartidas",
+    "RelativePath": "partidas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.BuscarPartidas.BuscarPartidasDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Trabajo_Final.Controllers.JugadoresController",
     "Method": "BuscarPartidasPerdidas",
     "RelativePath": "partidas/derrotas",

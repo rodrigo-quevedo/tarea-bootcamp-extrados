@@ -1,6 +1,6 @@
 ﻿using DAO.Entidades.PartidaEntidades;
 
-namespace Trabajo_Final.Services.PartidaServices.Buscar_Partidas
+namespace Trabajo_Final.Services.PartidaServices.Buscar_Partidas_Para_Oficializar
 {
     public interface IBuscarPartidasParaOficializarService
     {
