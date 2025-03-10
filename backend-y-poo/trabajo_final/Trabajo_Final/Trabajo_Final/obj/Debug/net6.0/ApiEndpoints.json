@@ -74,6 +74,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Trabajo_Final.Controllers.ImagenesController",
+    "Method": "BuscarIlustracionCarta",
+    "RelativePath": "imagenes/ilustraciones/{id_ilustracion}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_ilustracion",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Trabajo_Final.Controllers.UsuariosController",
     "Method": "LoginUser",
     "RelativePath": "login",

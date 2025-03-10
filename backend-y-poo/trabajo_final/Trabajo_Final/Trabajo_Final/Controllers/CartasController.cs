@@ -10,8 +10,8 @@ using Trabajo_Final.Services.CartasServices.BuscarSeries;
 
 namespace Trabajo_Final.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class CartasController : ControllerBase
     {
         private IBuscarCartasService buscarCartasService;

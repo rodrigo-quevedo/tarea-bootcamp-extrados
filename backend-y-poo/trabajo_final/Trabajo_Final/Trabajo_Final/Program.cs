@@ -24,6 +24,7 @@ using System.Text;
 using Trabajo_Final.DTO.Response.Server_HTTP_Response;
 using Trabajo_Final.Services.CartasServices.BuscarCartas;
 using Trabajo_Final.Services.CartasServices.BuscarSeries;
+using Trabajo_Final.Services.ImagenesServices.BuscarImagenes;
 using Trabajo_Final.Services.JugadorServices.BuscarPartidas;
 using Trabajo_Final.Services.JugadorServices.BuscarTorneosDisponibles;
 using Trabajo_Final.Services.JugadorServices.ColeccionarCartas;
@@ -86,6 +87,28 @@ var builder = WebApplication.CreateBuilder(args);
 //Console.WriteLine($"datetime utc con addMinutes y addHours: {datetime_con_addMinutes_y_addHours}");
 //return;
 
+
+//FileSystem demo
+//try
+//{
+//    // Open the text file using a stream reader.
+//    using StreamReader reader = new(@".\..\..\ilustraciones\1.jpg");
+
+//    // Read the stream as a string.
+//    string text = await reader.ReadToEndAsync();
+
+//    // Write the text to the console.
+//    Console.WriteLine(text);
+
+//    //Console.WriteLine(Directory.GetFiles(@".\..\..\ilustraciones\1.jpg"));
+//}
+//catch (IOException e)
+//{
+//    Console.WriteLine("The file could not be read:");
+//Console.WriteLine(e.Message);
+//}
+
+//return;
 
 // Servicios (auto-inyeccion de dependencias)
 
@@ -181,6 +204,12 @@ builder.Services.AddScoped<IBuscarUsuarioService, BuscarUsuarioService>();
 builder.Services.AddScoped<IBuscarCartasService, BuscarCartasService>();
 builder.Services.AddScoped<IBuscarSeriesService, BuscarSeriesService>();
 builder.Services.AddScoped<IBuscarPartidasService, BuscarPartidasService>();
+
+builder.Services.AddSingleton<IBuscarImagenesService>(
+    new BuscarImagenesService(
+        builder.Configuration.GetSection("Imagenes_OS_path:ilustraciones").Value
+    )
+);
 
 
 builder.Services.AddControllers();
