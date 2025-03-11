@@ -23,7 +23,7 @@ namespace Trabajo_Final.utils.Generar_Cartas
 
             //test:
             //foreach (Serie serie in arrSeries) { Console.WriteLine(serie.Nombre); }
-            foreach (Carta carta in arrCartas) { Console.WriteLine(JsonSerializer.Serialize(carta)); }
+            //foreach (Carta carta in arrCartas) { Console.WriteLine(JsonSerializer.Serialize(carta)); }
             //foreach (Serie_De_Carta serieDeCarta in arrSeriesDeCartas) { Console.WriteLine($"{serieDeCarta.Id_carta} -> {serieDeCarta.Nombre_serie} "); }
             
             cartaDAO.InicializarEnDB(

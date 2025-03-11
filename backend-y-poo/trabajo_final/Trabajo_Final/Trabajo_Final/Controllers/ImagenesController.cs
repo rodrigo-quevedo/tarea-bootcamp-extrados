@@ -39,7 +39,15 @@ namespace Trabajo_Final.Controllers
             //El tag <img/> siempre muestra la imagen.
         }
 
+        [HttpGet]
+        [Route("foto_perfil/{id_foto_perfil}")]
+        public async Task<ActionResult> BuscarFotoPerfil([FromRoute] string id_foto_perfil)
+        {
+            byte[] result =
+                await buscarImagenesService.BuscarFotoPerfil(id_foto_perfil);
 
+            return File(result, MediaTypeNames.Image.Jpeg);
+        }
 
     }
 }

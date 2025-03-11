@@ -1,4 +1,5 @@
 using Configuration;
+using Configuration.FilesPathConfiguration;
 using Configuration.Jwt;
 using Configuration.Primer_Admin;
 using Configuration.ServerRoutes;
@@ -209,23 +210,28 @@ builder.Services.AddScoped<IBuscarCartasService, BuscarCartasService>();
 builder.Services.AddScoped<IBuscarSeriesService, BuscarSeriesService>();
 builder.Services.AddScoped<IBuscarPartidasService, BuscarPartidasService>();
 
-builder.Services.AddSingleton<IBuscarImagenesService>(
-    new BuscarImagenesService(
-        builder.Configuration.GetSection("OS_path:imagenes:ilustraciones").Value
+builder.Services.AddSingleton<IBuscarImagenesService, BuscarImagenesService>();
+
+builder.Services.AddSingleton<IServerRoutesConfiguration>(//Se usa para POST url route en DB
+    new ServerRoutesConfiguration(
+        new Routes()
+        {
+            Ilustraciones = builder.Configuration.GetSection("Server_Routes:ilustraciones").Value,
+            Foto_Perfil = builder.Configuration.GetSection("Server_Routes:foto_perfil").Value
+        }
     )
 );
 
-builder.Services.AddSingleton<IServerRoutesConfiguration>(
-    new ServerRoutesConfiguration( 
-        new Routes() {
-            Ilustraciones = builder.Configuration.GetSection("Server_Routes:ilustraciones").Value
-        }        
-    )
-);
-builder.Services.AddSingleton<IServerURLConfiguration>(
+builder.Services.AddSingleton<IServerURLConfiguration>(//Se usa para GET archivos del server
     new ServerURLConfiguration(builder.Configuration.GetSection("Server_URL").Value)
 );
 
+builder.Services.AddSingleton<IFilesPathsConfigurations>(
+    new FilesPathConfiguration(
+        builder.Configuration.GetSection("FilesPath:imagenes:ilustraciones").Value,
+        builder.Configuration.GetSection("FilesPath:imagenes:foto_perfil").Value
+    )
+);
 
 
 builder.Services.AddControllers();

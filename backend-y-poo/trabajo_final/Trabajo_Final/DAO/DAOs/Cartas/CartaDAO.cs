@@ -287,7 +287,7 @@ namespace DAO.DAOs.Cartas
                 IEnumerable<Serie_De_Carta> queryResult =
                     await connection.QueryAsync<Serie_De_Carta>(selectQuery, new {id_carta});
 
-                if (queryResult.Count() == 0) throw new InvalidInputException($"No existe ninguna carta id [{ultimo_id_carta_select}]"); ;
+                if (!queryResult.Any()) throw new InvalidInputException($"No existe ninguna carta id [{ultimo_id_carta_select}]"); ;
 
                 result = result.Concat(queryResult);
             }

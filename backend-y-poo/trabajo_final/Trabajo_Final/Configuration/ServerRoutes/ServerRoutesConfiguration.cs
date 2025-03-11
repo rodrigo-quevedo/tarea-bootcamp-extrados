@@ -14,5 +14,10 @@ namespace Configuration.ServerRoutes
         {
             return Routes_Inyectadas.Ilustraciones;
         }
+
+        public string GetFotoPerfilRoute()
+        {
+            return Routes_Inyectadas.Foto_Perfil;
+        }
     }
 }

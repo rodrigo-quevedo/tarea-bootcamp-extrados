@@ -1,4 +1,5 @@
-﻿using DAO.DAOs.UsuarioDao;
+﻿using Configuration.ServerURL;
+using DAO.DAOs.UsuarioDao;
 using DAO.DTOs_en_DAOs.DatosUsuario;
 
 namespace Trabajo_Final.Services.UsuarioServices.Buscar
@@ -6,9 +7,11 @@ namespace Trabajo_Final.Services.UsuarioServices.Buscar
     public class BuscarUsuarioService : IBuscarUsuarioService
     {
         private IUsuarioDAO usuarioDAO;
-        public BuscarUsuarioService(IUsuarioDAO usuarioDao) 
+        private IServerURLConfiguration serverUrlConfig;
+        public BuscarUsuarioService(IUsuarioDAO usuarioDao, IServerURLConfiguration config) 
         { 
             usuarioDAO = usuarioDao;
+            serverUrlConfig = config;
         }
 
         //Admin y organizador
@@ -21,7 +24,13 @@ namespace Trabajo_Final.Services.UsuarioServices.Buscar
                 //-Datos completos de jueces (necesita ver los jueces para asignarlos a torneos que organiza)
                 //-Datos completos de usuarios que se inscribieron a sus torneos
 
-            return await usuarioDAO.BuscarDatosCompletosUsuario(id_logeado, rol_logueado, id_usuario);
+            DatosCompletosUsuarioDTO result = 
+                await usuarioDAO.BuscarDatosCompletosUsuario(id_logeado, rol_logueado, id_usuario);
+
+            //inyectar URL del server a foto Perfil
+            result.Foto = serverUrlConfig.GetServerURL() + result.Foto;
+
+            return result;
 
         }
 
@@ -32,7 +41,13 @@ namespace Trabajo_Final.Services.UsuarioServices.Buscar
             //Juez: perfil de jugadores en torneos que oficializó
             //Jugador: perfil de jugadores y jueces en partidas que jugó
 
-            return await usuarioDAO.BuscarPerfilUsuarioDTO(id_logeado, rol_logueado, id_usuario);
+            PerfilUsuarioDTO result = 
+                await usuarioDAO.BuscarPerfilUsuarioDTO(id_logeado, rol_logueado, id_usuario);
+
+            //inyectar URL del server a foto Perfil
+            result.Foto = serverUrlConfig.GetServerURL() + result.Foto;
+
+            return result;
 
         }
     }

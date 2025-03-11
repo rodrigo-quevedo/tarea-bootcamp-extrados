@@ -3,5 +3,6 @@
     public interface IServerRoutesConfiguration
     {
         public string GetIlustracionesRoute();
+        public string GetFotoPerfilRoute();
     }
 }

@@ -75,6 +75,22 @@
   },
   {
     "ContainingType": "Trabajo_Final.Controllers.ImagenesController",
+    "Method": "BuscarFotoPerfil",
+    "RelativePath": "imagenes/foto_perfil/{id_foto_perfil}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_foto_perfil",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.ImagenesController",
     "Method": "BuscarIlustracionCarta",
     "RelativePath": "imagenes/ilustraciones/{id_ilustracion}",
     "HttpMethod": "GET",
