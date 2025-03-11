@@ -8,8 +8,7 @@ namespace Trabajo_Final.DTO.Request.InputUsuarios
         //cambiar solamente la foto o el alias y dejar lo otro como estaba.
 
 
-        [Url]
-        public string? url_foto { get; set; }
+        public IFormFile? foto { get; set; }
 
         [RegularExpression("^[a-zA-Z0-9]{4,25}$",
             ErrorMessage = "Válidos: letras, números. Entre 4 y 25 caracteres.")]

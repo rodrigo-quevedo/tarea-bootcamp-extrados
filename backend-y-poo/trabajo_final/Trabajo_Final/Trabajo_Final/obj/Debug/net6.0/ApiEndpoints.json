@@ -218,9 +218,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "Trabajo_Final.DTO.Request.InputUsuarios.ActualizarPerfilDTO",
-        "IsRequired": true
+        "Name": "foto",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "alias",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

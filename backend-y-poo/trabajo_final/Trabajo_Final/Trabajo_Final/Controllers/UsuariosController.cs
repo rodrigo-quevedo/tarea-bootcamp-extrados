@@ -256,7 +256,7 @@ namespace Trabajo_Final.Controllers
         [HttpPut]
         [Route("/perfil")]
         [Authorize(Roles = $"{Roles.JUGADOR},{Roles.JUEZ}")]
-        public async Task<ActionResult> ActualizarPerfil(ActualizarPerfilDTO dto)
+        public async Task<ActionResult> ActualizarPerfil([FromForm] ActualizarPerfilDTO dto)
         {
             //id usuario
             Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_usuario);
@@ -265,7 +265,7 @@ namespace Trabajo_Final.Controllers
             if (dto.alias == "") throw new InvalidInputException("Alias incorrecto. Caracteres válidos: letras, números. Entre 4 y 25 caracteres.");
 
             string response = await actualizarPerfilService.ActualizarPerfil(
-                id_usuario, dto.url_foto, dto.alias);
+                id_usuario, dto.foto, dto.alias);
 
             return Ok(new { message = response });
         }
