@@ -2,6 +2,6 @@
 {
     public interface IBuscarImagenesService
     {
-        public Task<Byte[]> BuscarIlustracion(int id_carta);
+        public Task<Byte[]> BuscarIlustracion(int id_ilustracion);
     }
 }

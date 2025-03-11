@@ -31,7 +31,6 @@ namespace Trabajo_Final.Controllers
         private IBuscarTorneosService buscarTorneosService;
 
         public JugadoresController(
-            VerificarExistenciaAdmin verificarAdmin, //Cuando se crea el controller, se hace una verificación automática.
             GenerarCartasYSeries generarCartasYSeries,
 
             IColeccionarCartasService coleccionarCartas,

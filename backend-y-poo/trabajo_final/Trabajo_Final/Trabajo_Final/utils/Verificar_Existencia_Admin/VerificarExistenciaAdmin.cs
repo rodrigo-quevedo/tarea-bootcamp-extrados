@@ -1,8 +1,8 @@
 ﻿using Isopoh.Cryptography.Argon2;
-using Configuration.DI;
 using DAO.DAOs.UsuarioDao;
 using DAO.Entidades.UsuarioEntidades;
 using Constantes.Constantes;
+using Configuration.Primer_Admin;
 
 namespace Trabajo_Final.utils.Verificar_Existencia_Admin
 {

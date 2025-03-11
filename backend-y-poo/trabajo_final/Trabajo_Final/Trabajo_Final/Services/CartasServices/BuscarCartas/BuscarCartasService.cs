@@ -1,4 +1,5 @@
-﻿using DAO.DAOs.Cartas;
+﻿using Configuration.ServerURL;
+using DAO.DAOs.Cartas;
 using DAO.Entidades.Cartas;
 using Microsoft.AspNetCore.Mvc;
 using Trabajo_Final.DTO.Response.Cartas;
@@ -8,9 +9,11 @@ namespace Trabajo_Final.Services.CartasServices.BuscarCartas
     public class BuscarCartasService : IBuscarCartasService
     {
         private ICartaDAO cartaDAO;
-        public BuscarCartasService(ICartaDAO cartaDao) 
+        private IServerURLConfiguration serverURLConfig;
+        public BuscarCartasService(ICartaDAO cartaDao, IServerURLConfiguration serverURLConfig) 
         {
-            cartaDAO = cartaDao;
+            this.cartaDAO = cartaDao;
+            this.serverURLConfig = serverURLConfig;
         }
 
         public async Task<IEnumerable<DatosCartaDTO>> BuscarCartas(int[] id_cartas)
@@ -30,7 +33,7 @@ namespace Trabajo_Final.Services.CartasServices.BuscarCartas
                     Id = carta.Id,
                     Ataque = carta.Ataque,
                     Defensa = carta.Defensa,
-                    Ilustracion = carta.Ilustracion,
+                    Ilustracion = serverURLConfig.GetServerURL() + carta.Ilustracion,
                     Series = series_de_cartas
                             .Where(s => s.Id_carta == carta.Id)
                             .Select(s => s.Nombre_serie)

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Configuration
+namespace Configuration.ServerURL
 {
-    public class DBConfiguration
+    public interface IServerURLConfiguration
     {
-        public string general_connection_string {  get; set; }
+        public string GetServerURL();
     }
 }

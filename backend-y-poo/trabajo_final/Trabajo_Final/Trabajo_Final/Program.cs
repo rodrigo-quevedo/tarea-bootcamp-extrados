@@ -1,5 +1,9 @@
 using Configuration;
-using Configuration.DI;
+using Configuration.Jwt;
+using Configuration.Primer_Admin;
+using Configuration.ServerRoutes;
+using Configuration.ServerRoutes.RoutesParam;
+using Configuration.ServerURL;
 using Custom_Exceptions.Exceptions.BaseException;
 using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs;
@@ -207,9 +211,21 @@ builder.Services.AddScoped<IBuscarPartidasService, BuscarPartidasService>();
 
 builder.Services.AddSingleton<IBuscarImagenesService>(
     new BuscarImagenesService(
-        builder.Configuration.GetSection("Imagenes_OS_path:ilustraciones").Value
+        builder.Configuration.GetSection("OS_path:imagenes:ilustraciones").Value
     )
 );
+
+builder.Services.AddSingleton<IServerRoutesConfiguration>(
+    new ServerRoutesConfiguration( 
+        new Routes() {
+            Ilustraciones = builder.Configuration.GetSection("Server_Routes:ilustraciones").Value
+        }        
+    )
+);
+builder.Services.AddSingleton<IServerURLConfiguration>(
+    new ServerURLConfiguration(builder.Configuration.GetSection("Server_URL").Value)
+);
+
 
 
 builder.Services.AddControllers();

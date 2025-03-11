@@ -12,20 +12,20 @@ namespace Trabajo_Final.Services.ImagenesServices.BuscarImagenes
             this.ilustraciones_os_path = ilustraciones_path;
         }
 
-        public async Task<byte[]> BuscarIlustracion(int id_carta)
+        public async Task<byte[]> BuscarIlustracion(int id_ilustracion)
         {
             try
             {
                 byte[] result =
-                    await File.ReadAllBytesAsync(@$"{ilustraciones_os_path}/{id_carta}.jpg");
+                    await File.ReadAllBytesAsync(@$"{ilustraciones_os_path}/{id_ilustracion}.jpg");
 
-                if (result == null || !result.Any()) throw new Exception($"No se pudo encontrar la imagen de la carta [{id_carta}]");
+                if (result == null || !result.Any()) throw new Exception($"No se pudo encontrar la imagen de la carta [{id_ilustracion}]");
 
                 return result;
             }
             catch (Exception ex) 
             {
-                if (ex.Message.Contains("Could not find file")) throw new NotFoundException($"No se encontró la ilustracion de la carta [{id_carta}].");
+                if (ex.Message.Contains("Could not find file")) throw new NotFoundException($"No se encontró la ilustracion de la carta [{id_ilustracion}].");
 
                 throw ex;
             }

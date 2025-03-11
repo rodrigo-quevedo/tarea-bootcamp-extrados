@@ -23,16 +23,23 @@ namespace Trabajo_Final.Controllers
 
         [HttpGet]
         [Route("ilustraciones/{id_ilustracion}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> BuscarIlustracionCarta([FromRoute] int id_ilustracion)
         {
-            Console.WriteLine($"GET en /ilustraciones: {DateTime.Now}");
-
             byte[] result = 
                 await buscarImagenesService.BuscarIlustracion(id_ilustracion);
 
-            return File(result, MediaTypeNames.Image.Jpeg, $"{id_ilustracion}");
+            //esta Response permite mostrar la img en la pestaña del navegador:
+            return File(result, MediaTypeNames.Image.Jpeg);
+
+            //Esta otra Response no muestra la imagen, sino que manda la descarga directamente:
+            //return File(result, MediaTypeNames.Image.Jpeg, $"{id_ilustracion}.jpg");
+
+            //De cualquier manera, esto es al acceder con URL o con el tag <a>.
+            //El tag <img/> siempre muestra la imagen.
         }
+
+
 
     }
 }

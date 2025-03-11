@@ -1,25 +1,30 @@
-﻿using DAO.DAOs.Cartas;
+﻿using Configuration.ServerRoutes;
+using DAO.DAOs.Cartas;
 using DAO.Entidades.Cartas;
 using System.Globalization;
+using System.Text.Json;
 
 namespace Trabajo_Final.utils.Generar_Cartas
 {
     public class GenerarCartasYSeries
     {
         ICartaDAO cartaDAO;
-        public GenerarCartasYSeries(ICartaDAO dao)
+        IServerRoutesConfiguration serverRoutesConfig;
+        public GenerarCartasYSeries(ICartaDAO dao, IServerRoutesConfiguration serverRoutes)
         {
+            cartaDAO = dao;
+            serverRoutesConfig = serverRoutes;
+            
             //Si esto falla, resetear tablas con Use database + Run selection
 
-            cartaDAO = dao;
             Serie[] arrSeries = GenerarSeries(10);
             Carta[] arrCartas = GenerarCartas(60);
             Serie_De_Carta[] arrSeriesDeCartas = GenerarSeriesDeCartas(arrSeries, arrCartas, 2);
 
             //test:
             //foreach (Serie serie in arrSeries) { Console.WriteLine(serie.Nombre); }
-            //foreach (Carta carta in arrCartas) { Console.WriteLine(carta.Id); }
-            //foreach (Series_De_Carta serieDeCarta in arrSeriesDeCartas) { Console.WriteLine($"{serieDeCarta.Id_carta} -> {serieDeCarta.Nombre_serie} "); }
+            foreach (Carta carta in arrCartas) { Console.WriteLine(JsonSerializer.Serialize(carta)); }
+            //foreach (Serie_De_Carta serieDeCarta in arrSeriesDeCartas) { Console.WriteLine($"{serieDeCarta.Id_carta} -> {serieDeCarta.Nombre_serie} "); }
             
             cartaDAO.InicializarEnDB(
                 arrSeries, arrCartas, arrSeriesDeCartas,
@@ -63,7 +68,7 @@ namespace Trabajo_Final.utils.Generar_Cartas
             int id = 0;
             int atk = 0;
             int def = 0;
-            string base_url = "https://proveedor.en.la.nube.com/miusuario/imagenes/";
+            string base_url = serverRoutesConfig.GetIlustracionesRoute() + "/";
 
             for (int i = 1; i <= arrCartas.Length; i++)
             {
@@ -92,19 +97,16 @@ namespace Trabajo_Final.utils.Generar_Cartas
         {
             if (maxSeriesPorCarta > arrSeries.Length) throw new Exception("No se puede asignar a una carta más series de las que actualmente existen.");
 
-
-            Serie_De_Carta[] arrSeriesDeCartas 
-                = new Serie_De_Carta[arrCartas.Length * maxSeriesPorCarta];
+            List<Serie_De_Carta> arrSeriesDeCartas = new List<Serie_De_Carta>();
 
             Random rnd = new Random();
 
 
-            int acc_index = 0;
             foreach (var carta in arrCartas)
             {
                 int random_cantidad_series = rnd.Next(1, maxSeriesPorCarta + 1);
 
-                int[] indexes_ocupados = new int[random_cantidad_series];
+                List<int> indexes_ocupados = new List<int>();
 
                 for (int i = 0; i < random_cantidad_series; i++) { 
                     int random_serie_index = rnd.Next(0, arrSeries.Length);
@@ -113,25 +115,16 @@ namespace Trabajo_Final.utils.Generar_Cartas
                         random_serie_index = rnd.Next(0, arrSeries.Length);
                     }
 
-                    indexes_ocupados[i] = random_serie_index;
+                    indexes_ocupados.Add(random_serie_index);
 
-                    arrSeriesDeCartas[acc_index++] = new Serie_De_Carta {
+                    arrSeriesDeCartas.Add( new Serie_De_Carta { 
                         Id_carta = carta.Id,
                         Nombre_serie = arrSeries[random_serie_index].Nombre
-                    };
+                    });
                 }    
             }
 
-            //Limpiar nulls (al calcular el tamaño casi siempre sobra):
-            Serie_De_Carta[] result_arr = new Serie_De_Carta[acc_index];
-            int res_acc_index = 0;
-            foreach (var carta in arrSeriesDeCartas)
-            {
-                if (carta == null) break;
-                result_arr[res_acc_index++] = carta;
-            }
-
-            return result_arr;
+            return arrSeriesDeCartas.ToArray();
         }
     
     

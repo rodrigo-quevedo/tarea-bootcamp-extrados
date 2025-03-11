@@ -1,10 +1,8 @@
-﻿using Configuration.DI;
-
-namespace Configuration
+﻿namespace Configuration.Jwt
 {
     public class JwtConfiguration : IJwtConfiguration
     {
-        public string jwt_secret {  get; set; }
+        public string jwt_secret { get; set; }
         public string refreshToken_secret { get; set; }
         public string issuer { get; set; }
         public string audience { get; set; }

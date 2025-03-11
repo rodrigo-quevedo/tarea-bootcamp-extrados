@@ -1,13 +1,12 @@
-﻿using Configuration.DI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Configuration
+namespace Configuration.Primer_Admin
 {
-    public class Primer_AdminConfiguration: IPrimer_AdminConfiguration
+    public class Primer_AdminConfiguration : IPrimer_AdminConfiguration
     {
         public string Pais { get; set; }
         public string Nombre_apellido { get; set; }
@@ -22,10 +21,10 @@ namespace Configuration
             string password
         )
         {
-            this.Pais = pais;
-            this.Nombre_apellido = nombre_apellido;
-            this.Email = email;
-            this.Password = password;
+            Pais = pais;
+            Nombre_apellido = nombre_apellido;
+            Email = email;
+            Password = password;
         }
 
         public Primer_AdminConfiguration() { }
@@ -35,5 +34,5 @@ namespace Configuration
     }
 
 
-    
+
 }

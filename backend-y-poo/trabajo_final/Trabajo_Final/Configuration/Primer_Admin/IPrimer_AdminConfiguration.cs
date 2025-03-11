@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Configuration.DI
+namespace Configuration.Primer_Admin
 {
     public interface IPrimer_AdminConfiguration
     {
@@ -12,6 +12,6 @@ namespace Configuration.DI
         public string Nombre_apellido { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-       
+
     }
 }

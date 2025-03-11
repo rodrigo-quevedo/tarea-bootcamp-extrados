@@ -1,5 +1,4 @@
-﻿using Configuration.DI;
-using DAO.Entidades.UsuarioEntidades;
+﻿using DAO.Entidades.UsuarioEntidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -19,6 +18,7 @@ using Trabajo_Final.Services.UsuarioServices.Buscar;
 using Constantes.Constantes;
 using Trabajo_Final.DTO.Request.InputUsuarios;
 using Trabajo_Final.DTO.Request.InputLogin;
+using Configuration.Jwt;
 
 namespace Trabajo_Final.Controllers
 {
