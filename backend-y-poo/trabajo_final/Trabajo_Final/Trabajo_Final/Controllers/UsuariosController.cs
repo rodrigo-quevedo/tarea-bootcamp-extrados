@@ -283,7 +283,7 @@ namespace Trabajo_Final.Controllers
         [HttpPut]
         [Route("/usuarios/{id_usuario}")]
         [Authorize(Roles = Roles.ADMIN)]
-        public async Task<ActionResult> EditarUsuario([FromRoute] int id_usuario, EditarUsuarioDTO dto)
+        public async Task<ActionResult> EditarUsuario([FromRoute] int id_usuario, [FromForm] EditarUsuarioDTO dto)
         {
             await editarUsuarioService.EditarUsuario(id_usuario, dto);
 

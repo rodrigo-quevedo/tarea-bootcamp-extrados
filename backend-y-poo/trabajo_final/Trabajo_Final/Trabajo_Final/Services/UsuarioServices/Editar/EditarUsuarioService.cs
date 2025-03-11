@@ -1,4 +1,6 @@
-﻿using Constantes.Constantes;
+﻿using Configuration.FilesPathConfiguration;
+using Configuration.ServerRoutes;
+using Constantes.Constantes;
 using Custom_Exceptions.Exceptions.Exceptions;
 using DAO.DAOs.UsuarioDao;
 using DAO.DTOs_en_DAOs.EditarUsuario;
@@ -10,9 +12,17 @@ namespace Trabajo_Final.Services.UsuarioServices.Editar
     public class EditarUsuarioService: IEditarUsuarioService
     {
         private IUsuarioDAO usuarioDAO;
-        public EditarUsuarioService(IUsuarioDAO usuarioDao)
-        {
+        private IServerRoutesConfiguration serverRoutesConfig;
+        private IFilesPathsConfigurations filesPathsConfig;
+
+        public EditarUsuarioService(
+            IUsuarioDAO usuarioDao,
+            IServerRoutesConfiguration serverRoutes,
+            IFilesPathsConfigurations filesPaths
+        ){
             usuarioDAO = usuarioDao;
+            serverRoutesConfig = serverRoutes;
+            filesPathsConfig = filesPaths;
         }
 
         public async Task<bool> EditarUsuario(int id_usuario, EditarUsuarioDTO dto)
@@ -22,14 +32,17 @@ namespace Trabajo_Final.Services.UsuarioServices.Editar
 
             if (datosUsuario == null) throw new InvalidInputException($"El usuario [{id_usuario}] no existe o no está activo.");
 
-            DatosEditablesUsuarioDTO objetoUpdate = PrepararObjetoUpdate(dto, datosUsuario);
+            DatosEditablesUsuarioDTO objetoUpdate = 
+                await PrepararObjetoUpdate(id_usuario, dto, datosUsuario);
 
             return await usuarioDAO.EditarUsuario(objetoUpdate, new string[2] {Roles.JUGADOR, Roles.JUEZ} );
         }
 
 
-        private DatosEditablesUsuarioDTO PrepararObjetoUpdate(
-            EditarUsuarioDTO dto, DatosEditablesUsuarioDTO datosUsuario)
+        private async Task<DatosEditablesUsuarioDTO> PrepararObjetoUpdate(
+            int id_usuario,
+            EditarUsuarioDTO dto, 
+            DatosEditablesUsuarioDTO datosUsuario)
         {
             //usuario
             if (dto.Nombre_apellido != default) datosUsuario.Nombre_apellido = dto.Nombre_apellido;
@@ -39,7 +52,27 @@ namespace Trabajo_Final.Services.UsuarioServices.Editar
             if (dto.Password != default) datosUsuario.Password = Argon2.Hash(dto.Password);
 
             //perfil
-            if (dto.Foto != default) datosUsuario.Foto = dto.Foto;
+            if (dto.Foto != default)
+            {
+                string foto_path =
+                  filesPathsConfig.GetFotoPerfilPath()
+                  + @"\"
+                  + id_usuario
+                  + Path.GetExtension(dto.Foto.FileName);
+
+                //Si la foto anterior tiene la misma extension, el archivo se sobreescribe
+                using (var stream = new FileStream(foto_path, FileMode.Create))
+                {
+                    await dto.Foto.CopyToAsync(stream);
+                }
+
+                datosUsuario.Foto =
+                    serverRoutesConfig.GetFotoPerfilRoute()
+                    + "/"
+                    + id_usuario
+                    + Path.GetExtension(dto.Foto.FileName);
+            }
+            
             if (dto.Alias != default) datosUsuario.Alias = dto.Alias;
 
             return datosUsuario;

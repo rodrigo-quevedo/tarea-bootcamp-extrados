@@ -13,7 +13,7 @@ namespace Trabajo_Final.DTO.Request.InputUsuarios
         [RegularExpression(@"^[a-zA-Z +-:]{2,30}$", ErrorMessage = "Campo 'pais' solo permite letras, numeros, espacio ( ), +, -, y los dos puntos (:). Entre 2 y 30 caracteres. ")]
         public string? Pais { get; set; }
 
-        public string? Foto { get; set; }
+        public IFormFile? Foto { get; set; }
 
         public string? Alias { get; set; }
 
