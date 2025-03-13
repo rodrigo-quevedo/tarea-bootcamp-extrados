@@ -1,6 +1,5 @@
 ﻿using DAO.Entidades.Cartas;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trabajo_Final.DTO.Request.BuscarCartas;
 using Trabajo_Final.DTO.Request.BuscarSeries;
@@ -8,22 +7,28 @@ using Trabajo_Final.DTO.Response.Cartas;
 using Trabajo_Final.Services.CartasServices.BuscarCartas;
 using Trabajo_Final.Services.CartasServices.BuscarSeries;
 
-namespace Trabajo_Final.Controllers
+namespace Trabajo_Final.Controllers.Torneo.CartasYSeries
 {
     [ApiController]
     [Route("[controller]")]
     public class CartasController : ControllerBase
     {
-        private IBuscarCartasService buscarCartasService;
-        private IBuscarSeriesService buscarSeriesService;
+        private readonly IBuscarCartasService buscarCartasService;
+        private readonly IBuscarSeriesService buscarSeriesService;
+
+
         public CartasController(
-            IBuscarCartasService buscarCartas,
-            IBuscarSeriesService buscarSeries
-        ){ 
-            buscarCartasService = buscarCartas;
-            buscarSeriesService = buscarSeries;
+            IBuscarCartasService buscarCartasService,
+            IBuscarSeriesService buscarSeriesService
+        )
+        {
+            this.buscarCartasService = buscarCartasService;
+            this.buscarSeriesService = buscarSeriesService;
         }
 
+
+
+        //Endpoints para mostrar detalles de cartas y series:
 
         [HttpGet]
         [Route("/cartas")]

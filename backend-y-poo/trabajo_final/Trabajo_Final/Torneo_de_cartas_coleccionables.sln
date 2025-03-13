@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trabajo_Final", "Trabajo_Final\Trabajo_Final.csproj", "{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web API", "Trabajo_Final\Web API.csproj", "{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAO", "DAO\DAO.csproj", "{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration", "Configurat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Custom Http Exceptions", "Custom Exceptions\Custom Http Exceptions.csproj", "{7E451F47-7C85-4602-AADD-D4E59B29933F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constantes", "Constantes\Constantes.csproj", "{B18B2967-1512-45A3-8277-A41566BD8D52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Constantes", "Constantes\Constantes.csproj", "{B18B2967-1512-45A3-8277-A41566BD8D52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
