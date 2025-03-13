@@ -35,7 +35,7 @@ namespace DAO.DAOs.Torneos
             int id_organizador, 
             DateTime fecha_hora_inicio, DateTime? fecha_hora_fin, 
             string horario_inicio, string horario_fin,
-            int? cantidad_rondas, 
+            int max_cantidad_rondas, 
             string pais,
             string fase,
             string[] series_habilitadas,
@@ -59,12 +59,12 @@ namespace DAO.DAOs.Torneos
                     "   (id_organizador, pais, " +
                     "   fecha_hora_inicio, fecha_hora_fin," +
                     "   horario_diario_inicio, horario_diario_fin, " +
-                    "   cantidad_rondas, fase) " +
+                    "   cantidad_rondas, fase, max_cantidad_rondas) " +
                     " VALUES ( " +
                     "   @Id_organizador, @Pais, " +
                     "   @Fecha_hora_inicio, @Fecha_hora_fin, " +
                     "   @Horario_diario_inicio, @Horario_diario_fin, " +
-                    "   @Cantidad_rondas, @Fase" +
+                    "   @Cantidad_rondas, @Fase, @Max_cantidad_rondas" +
                     " ); ";
 
                     await connection.ExecuteAsync(insertAndReturnIdQuery, new
@@ -75,8 +75,9 @@ namespace DAO.DAOs.Torneos
                         Fecha_hora_fin = fecha_hora_fin,
                         Horario_diario_inicio = horario_inicio,
                         Horario_diario_fin = horario_fin,
-                        Cantidad_rondas = cantidad_rondas,
-                        Fase = fase
+                        Cantidad_rondas = 0,
+                        Fase = fase,
+                        Max_cantidad_rondas = max_cantidad_rondas
                     },
                     transaction);
 
@@ -636,7 +637,7 @@ namespace DAO.DAOs.Torneos
                     //chequear que el torneo no este lleno
                     string hayLugar_selectQuery =
                         " SELECT ( " +
-                        "   POWER(2, (SELECT cantidad_rondas FROM torneos " +
+                        "   POWER(2, (SELECT max_cantidad_rondas FROM torneos " +
                         "            WHERE id = @Id_torneo) " +
                         "   )" +
                         "   > " +

@@ -16,7 +16,7 @@ namespace DAO.DAOs.Torneos
             int id_organizador,
             DateTime fecha_hora_inicio, DateTime? fecha_hora_fin,
             string horario_inicio, string horario_fin,
-            int? cantidad_rondas,
+            int max_cantidad_rondas,
             string pais,
             string fase,
             string[] series_habilitadas,

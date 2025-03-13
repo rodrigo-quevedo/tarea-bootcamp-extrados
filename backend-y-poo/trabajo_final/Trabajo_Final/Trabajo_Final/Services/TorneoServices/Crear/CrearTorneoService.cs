@@ -62,14 +62,14 @@ namespace Trabajo_Final.Services.TorneoServices.Crear
                 fecha_hora_inicio, fecha_hora_fin,
                 horario_inicio, horario_fin);
             
-            int cantidad_rondas = CalcularCantidadRondas(totalMinutosTorneo);
+            int max_cantidad_rondas = CalcularCantidadRondas(totalMinutosTorneo);
 
             
             return await torneoDAO.CrearTorneo(
                 id_organizador,
                 fecha_hora_inicio, fecha_hora_fin,
                 horario_inicio, horario_fin,
-                cantidad_rondas,
+                max_cantidad_rondas,
                 pais,
                 FasesTorneo.REGISTRO,
                 series_habilitadas,

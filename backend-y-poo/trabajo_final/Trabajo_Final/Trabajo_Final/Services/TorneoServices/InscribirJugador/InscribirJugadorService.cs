@@ -51,7 +51,7 @@ namespace Trabajo_Final.Services.TorneoServices.InscribirJugador
             }
 
 
-            //Se verifica jugador, torneo, y carta en coleccion
+            //Incribir jugador al torneo:
             await torneoDAO.InscribirJugador(
                 id_jugador, Roles.JUGADOR,
                 id_torneo, FasesTorneo.REGISTRO,
