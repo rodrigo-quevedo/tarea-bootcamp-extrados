@@ -57,7 +57,57 @@ namespace Trabajo_Final.Services.TorneoServices.InscribirJugador
                 id_torneo, FasesTorneo.REGISTRO,
                 id_cartas_mazo);
 
-            return true;
+
+            //Una vez el jugador se inscribe, determinar los jugadores aceptados:
+
+            Torneo torneo = await torneoDAO.BuscarTorneoActivo(new Torneo() { Id = id_torneo });
+
+            IEnumerable<Jugador_Inscripto> jugadores_inscriptos = 
+                await torneoDAO.BuscarJugadoresInscriptos(id_torneo);
+
+            //Si se llega a una cantidad potencia de 2, se deben aceptar todos
+            //los jugadores anteriores y al jugador que se inscribió.
+
+            //Y si no se llega a esa cantidad, igualmente hay que asegurarse de que 
+            //todos los jugadores anteriores a [mayor potencia de 2 posible según
+            //la cantidad de usuarios inscriptos] sean aceptados.
+            //Es decir, cada vez que un jugador se inscriba, se va a realizar una 
+            //aceptacion automática de jugadores, según su orden.
+            
+            //Esto le sirve a los jugadores para saber el estado de su inscripcion cuanto antes
+            //(ya no es necesario que el organizador inicie el torneo para que los
+            //jugadores sepan si han sido aceptados).
+
+            int cantidad_inscriptos = jugadores_inscriptos.Count();
+            int cantidad_aceptable = 0;
+            int rondas = 1;
+            while ((int)Math.Pow(2, rondas) <= cantidad_inscriptos)
+            {
+                cantidad_aceptable = (int)Math.Pow(2, rondas++);
+            }
+
+            if (cantidad_aceptable < 2) return true;//No hay jugadores para aceptar
+
+
+            jugadores_inscriptos = jugadores_inscriptos.OrderBy(j => j.Orden);
+            
+            Jugador_Inscripto ultimo_jugador_aceptable =
+                jugadores_inscriptos.ToArray()[cantidad_aceptable - 1];
+
+            IEnumerable<Jugador_Inscripto> jugadores_para_aceptar =
+                jugadores_inscriptos
+                .Where(j =>
+                    j.Orden <= ultimo_jugador_aceptable.Orden
+                    &&
+                    j.Aceptado == false
+                );
+
+            return await torneoDAO.ActualizarJugadoresYCantidadRondas(
+                id_torneo,
+                jugadores_para_aceptar.Select(j=>j.Id_jugador), 
+                rondas - 1 //le resto 1 porque cuando corta el while se está excediendo en 1
+            );
+
         }
 
 

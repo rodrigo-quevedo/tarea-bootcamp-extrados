@@ -15,6 +15,8 @@ using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DAO.DAOs.Torneos
@@ -373,7 +375,7 @@ namespace DAO.DAOs.Torneos
             //}
         }
 
-        public async Task<IEnumerable<Torneo>> BuscarTorneosLlenos(string faseInscripcion, int id_organizador)
+        public async Task<IEnumerable<Torneo>> BuscarTorneosParaIniciar(string faseInscripcion, int id_organizador)
         {
             string selectQuery = " SELECT * FROM torneos " +
                                  " WHERE " +
@@ -383,12 +385,11 @@ namespace DAO.DAOs.Torneos
                                  " AND " +
                                  "      id NOT IN " +
                                  "          (SELECT id_torneo FROM torneos_cancelados) " +
-                                 " AND  " +
-                                 "      ( POWER(2, cantidad_rondas) " +
-                                 "        <=" +
-                                 "        (SELECT COUNT(*) FROM jugadores_inscriptos" +
-                                 "        WHERE torneos.id = jugadores_inscriptos.id_torneo)" +
-                                 "      ); ";
+                                 " AND " +
+                                        //hay al menos 2 jugadores (para un minimo de 1 partida)
+                                 "      2 >= (SELECT COUNT(*) FROM jugadores_inscriptos" +
+                                     "        WHERE torneos.id = jugadores_inscriptos.id_torneo)" +
+                                 " ; ";
 
             return await connection.QueryAsync<Torneo>(
                 selectQuery,
@@ -557,18 +558,16 @@ namespace DAO.DAOs.Torneos
             return result;
         }
 
-        public async Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(int id_torneo, int max_cantidad_jugadores)
+        public async Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(int id_torneo)
         {
             string selectQuery = " SELECT * FROM jugadores_inscriptos " +
                                  " WHERE id_torneo = @Id_torneo " +
-                                 " ORDER BY orden DESC " +
-                                 " LIMIT @Max_cantidad_jugadores; ";
+                                 " ORDER BY orden ASC; ";
 
             return await connection.QueryAsync<Jugador_Inscripto>(
                 selectQuery,
                 new {
-                    Id_torneo = id_torneo,
-                    Max_cantidad_jugadores = max_cantidad_jugadores
+                    Id_torneo = id_torneo
                 });
 
         }
@@ -657,6 +656,8 @@ namespace DAO.DAOs.Torneos
 
                     if (!hayLugar) throw new TorneoLlenoException(); 
 
+
+
                     //insert jugadores_inscriptos
                     string jugadorInsertQuery =
                         " INSERT INTO jugadores_inscriptos "                        +
@@ -671,16 +672,6 @@ namespace DAO.DAOs.Torneos
                         "           fase = @Fase "                                  +
                         "       AND id NOT IN "                                     +
                         "           (SELECT id_torneo FROM torneos_cancelados) "    +  
-                        //"       AND "                                               +
-                        //"           ( POWER(2, (SELECT cantidad_rondas FROM torneos "+
-                        //"                       WHERE id=@Id_torneo) ) "             +
-                        //"           >   "                                            +
-                        //"           (SELECT count_jugadores FROM  "                  +
-                        //"               (SELECT COUNT(*) AS count_jugadores   "      +
-                        //"               FROM jugadores_inscriptos "                  +
-                        //"               WHERE id_torneo = @Id_torneo"                +
-                        //"               ) AS count_table )"                          +
-                        //"           ) "                                              +
                         "   ), "                                                     +
                         "   @Aceptado); ";
 
@@ -761,10 +752,56 @@ namespace DAO.DAOs.Torneos
             return exito;
         }
 
+        public async Task<bool> ActualizarJugadoresYCantidadRondas(
+            int id_torneo, IEnumerable<int> id_jugadores, int cantidad_rondas)
+        {
+            using (MySqlTransaction transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    //UPDATE jugadores aceptados
+                    string jugadoresUpdateQuery = " UPDATE jugadores_inscriptos " +
+                                            " SET aceptado = @aceptado " +
+                                            " WHERE " +
+                                            "  id_torneo = @id_torneo " +
+                                            " AND " +
+                                            "  id_jugador IN @id_jugadores; ";
+
+                    int rows = await connection.ExecuteAsync(
+                        jugadoresUpdateQuery,
+                        new { id_torneo, id_jugadores, aceptado = true },
+                        transaction);
+
+                    if (rows != id_jugadores.Count()) throw new AceptarJugadoresException();
+
+                    //UPDATE cantidad_rondas
+                    string rondasUpdateQuery = " UPDATE torneos " +
+                                               " SET cantidad_rondas = @cantidad_rondas " +
+                                               " WHERE id = @id_torneo; ";
+
+                    int torneoRows = await connection.ExecuteAsync(
+                        rondasUpdateQuery,
+                        new { id_torneo, cantidad_rondas },
+                        transaction);
+
+                    if (torneoRows != 1) throw new ActualizarCantidadRondasException();
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+
+                    throw ex;
+                }
+            }
+                    return true;
+        }
+
+
         public async Task<bool> IniciarTorneo(
             string faseTorneo,
             int id_torneo,
-            IList<int> id_jugadores_aceptados,
             IList<InsertPartidaDTO> partidas_primera_ronda)
         {
 
@@ -786,27 +823,7 @@ namespace DAO.DAOs.Torneos
                         transaction);
 
                     if (torneo_result == 0) throw new Exception("No se pudo actualizar fase del torneo.");
-
-                    //UPDATE jugadores_inscriptos
-                    string jugadores_updateQuery =
-                        " UPDATE jugadores_inscriptos " +
-                        " SET aceptado = @Aceptado " +
-                        " WHERE id_jugador = @Id_jugador" +
-                        " AND id_torneo = @Id_torneo; ";
-
-                    foreach(int id_jugador in id_jugadores_aceptados)
-                    {
-                        int jugador_result = await connection.ExecuteAsync(
-                            jugadores_updateQuery,
-                            new { 
-                                Aceptado = true, 
-                                Id_jugador = id_jugador,
-                                Id_torneo = id_torneo},
-                            transaction);
-
-                        if (jugador_result == 0) throw new Exception($"No se pudo actualizar estado 'aceptado' del jugador {id_jugador}");
-                    }
-
+                    
                     //INSERT partidas
                     string insertQuery =
                         " INSERT INTO partidas ( " +
@@ -825,6 +842,7 @@ namespace DAO.DAOs.Torneos
                         transaction);
 
                     transaction.Commit();
+
                 }
                 catch (Exception ex) 
                 {

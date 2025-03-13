@@ -28,15 +28,28 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
             if (torneo.Fase != FasesTorneo.REGISTRO) throw new InvalidInputException($"El torneo {id_torneo} ya ha iniciado. Fase actual del torneo: {torneo.Fase}");
             if (torneo.Id_organizador != id_organizador) throw new InvalidInputException($"El torneo {id_torneo} no pertenece al organizador.");
 
+
             //buscar jueces
-            IEnumerable<Torneo> busqueda = Enumerable.Empty<Torneo>();
-            busqueda = busqueda.Append(new Torneo() { Id = id_torneo });
-            IEnumerable<Juez_Torneo> jueces = await torneoDAO.BuscarJuecesDeTorneos(busqueda);
+            IEnumerable<Juez_Torneo> jueces = 
+                await torneoDAO.BuscarJuecesDeTorneos(
+                    Enumerable
+                        .Empty<Torneo>()
+                        .Append(new Torneo() { Id = id_torneo }));
        
-            if (jueces.Count() == 0) throw new Exception($"No se pudo obtener los jueces del torneo [{id_torneo}]");
+            if (!jueces.Any()) throw new Exception($"No se pudo obtener los jueces del torneo [{id_torneo}]");
 
 
-            
+            //buscar jugadores aceptados
+            IEnumerable<Jugador_Inscripto> jugadores_aceptados =
+                await torneoDAO.BuscarJugadoresAceptados(
+                    Enumerable
+                    .Empty<Torneo>()
+                    .Append(new Torneo() { Id = id_torneo }) );
+
+
+            if (jugadores_aceptados == null || !jugadores_aceptados.Any()) throw new Exception($"No se encontraron jugadores aceptados en el torneo [{id_torneo}]");
+
+
             //armar fechaHora de inicio y fin de partidas
             int cantidad_partidas_primera_ronda =
                 (int) Math.Pow(2, torneo.Cantidad_rondas - 1);
@@ -49,22 +62,13 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
                     cantidad_partidas_primera_ronda);
 
 
-            //DemoLeerDateTime(torneo);
-
-            //buscar jugadores
-            int cantidad_jugadores = (int) Math.Pow(2, torneo.Cantidad_rondas);
-            
-            IEnumerable<Jugador_Inscripto> jugadores_aceptables =
-                await torneoDAO.BuscarJugadoresInscriptos(id_torneo, cantidad_jugadores);
-
-
             //armar partidas
             int ronda = 1;
             IEnumerable<InsertPartidaDTO> partidas = 
                 armarPartidasService.ArmarPartidas_JugadoresAleatorios(
                     torneo.Id, 
                     fechaHoras.ToList(), 
-                    jugadores_aceptables.ToList(),
+                    jugadores_aceptados.ToList(),
                     jueces.ToList(),
                     ronda);
 
@@ -73,7 +77,6 @@ namespace Trabajo_Final.Services.TorneoServices.IniciarTorneo
             bool exito = await torneoDAO.IniciarTorneo(
                 FasesTorneo.TORNEO,
                 id_torneo,
-                jugadores_aceptables.Select(j => j.Id_jugador).ToList(),
                 partidas.ToList());
 
 

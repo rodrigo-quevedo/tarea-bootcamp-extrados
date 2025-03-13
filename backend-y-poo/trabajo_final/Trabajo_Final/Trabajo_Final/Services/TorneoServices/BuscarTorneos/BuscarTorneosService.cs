@@ -278,11 +278,11 @@ namespace Trabajo_Final.Services.TorneoServices.BuscarTorneos
         }
 
 
-        public async Task<IList<TorneoLlenoDTO>> BuscarTorneosLlenos(int id_organizador)
+        public async Task<IList<TorneoLlenoDTO>> BuscarTorneosParaIniciar(int id_organizador)
         {
             //torneos
             IEnumerable<Torneo> torneos =
-                await torneoDAO.BuscarTorneosLlenos(FasesTorneo.REGISTRO, id_organizador);
+                await torneoDAO.BuscarTorneosParaIniciar(FasesTorneo.REGISTRO, id_organizador);
 
             if (torneos == null || torneos.Count() == 0) return null;
 

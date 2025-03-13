@@ -229,7 +229,7 @@ namespace Trabajo_Final.Controllers
             string str_id_organizador = User.FindFirst(ClaimTypes.Sid).Value;
             Int32.TryParse(str_id_organizador, out int id_organizador);
 
-            IList<TorneoLlenoDTO> result = await buscarTorneosService.BuscarTorneosLlenos(id_organizador);
+            IList<TorneoLlenoDTO> result = await buscarTorneosService.BuscarTorneosParaIniciar(id_organizador);
 
             if (result == null) return Ok(new { message = "No hay torneos llenos para aceptar inscripciones." });
 

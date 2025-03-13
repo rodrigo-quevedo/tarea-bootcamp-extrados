@@ -41,13 +41,13 @@ namespace DAO.DAOs.Torneos
         public Task<IEnumerable<Torneo>> BuscarTorneosActivos(Torneo busqueda);
         public Task<IEnumerable<Torneo>> BuscarTorneos(string[] fases);
         public Task<IEnumerable<Torneo>> BuscarTorneosOrganizados(string[] fases, int id_organizador);
-        public Task<IEnumerable<Torneo>> BuscarTorneosLlenos(string faseInscripcion, int id_organizador);
+        public Task<IEnumerable<Torneo>> BuscarTorneosParaIniciar(string faseInscripcion, int id_organizador);
         public Task<IEnumerable<int>> BuscarIdTorneosOficializados(int id_juez, string faseFinalizado);
         public Task<IEnumerable<Serie_Habilitada>> BuscarSeriesDeTorneos(IEnumerable<Torneo> torneos);
         public Task<IEnumerable<Juez_Torneo>> BuscarJuecesDeTorneos(IEnumerable<Torneo> torneos);
         public Task<IEnumerable<Juez_Torneo>> BuscarJuecesDeTorneo(int id_organizador, int id_partida);
         public Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(IEnumerable<Torneo> torneos);
-        public Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(int id_torneo, int max_cantidad_jugadores);
+        public Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresInscriptos(int id_torneo);
         public Task<IEnumerable<Jugador_Inscripto>> BuscarJugadoresAceptados(IEnumerable<Torneo> torneos);
         public Task<IEnumerable<GanadorTorneo>> BuscarGanadoresTorneos(IEnumerable<Torneo> torneos);
 
@@ -56,10 +56,11 @@ namespace DAO.DAOs.Torneos
             int id_torneo, string fase_inscripcion,
             int[] id_cartas_mazo);
 
+        public Task<bool> ActualizarJugadoresYCantidadRondas(int id_torneo, IEnumerable<int> id_jugadores, int cantidad_rondas);
+
         public Task<bool> IniciarTorneo(
             string faseTorneo,
             int id_torneo,
-            IList<int> id_jugadores_aceptados,
             IList<InsertPartidaDTO> partidas_primera_ronda);
 
 

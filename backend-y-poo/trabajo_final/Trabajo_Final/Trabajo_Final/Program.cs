@@ -93,27 +93,6 @@ var builder = WebApplication.CreateBuilder(args);
 //return;
 
 
-//FileSystem demo
-//try
-//{
-//    // Open the text file using a stream reader.
-//    using StreamReader reader = new(@".\..\..\ilustraciones\1.jpg");
-
-//    // Read the stream as a string.
-//    string text = await reader.ReadToEndAsync();
-
-//    // Write the text to the console.
-//    Console.WriteLine(text);
-
-//    //Console.WriteLine(Directory.GetFiles(@".\..\..\ilustraciones\1.jpg"));
-//}
-//catch (IOException e)
-//{
-//    Console.WriteLine("The file could not be read:");
-//Console.WriteLine(e.Message);
-//}
-
-//return;
 
 // Servicios (auto-inyeccion de dependencias)
 

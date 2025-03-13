@@ -123,6 +123,7 @@ CREATE TABLE torneos(
 	
    -- la elige el organizador, esta limitada si hay fecha_hora_fin
 	cantidad_rondas INT NOT NULL,
+	max_cantidad_rondas INT NOT NULL,
 
 	pais VARCHAR(30) NOT NULL,
 	
