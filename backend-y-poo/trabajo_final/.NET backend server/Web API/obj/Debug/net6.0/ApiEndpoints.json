@@ -1,0 +1,572 @@
+[
+  {
+    "ContainingType": "Trabajo_Final.Controllers.Torneo.CartasYSeries.CartasController",
+    "Method": "BuscarCarta",
+    "RelativePath": "cartas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.BuscarCartas.BuscarCartasDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "ObtenerCartasColeccionadas",
+    "RelativePath": "coleccion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "ColeccionarCartas",
+    "RelativePath": "coleccion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.ColeccionarCartas.ArrayIdCartasDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "BorrarCartasColeccionadas",
+    "RelativePath": "coleccion",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.ColeccionarCartas.ArrayIdCartasDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Usuarios.UsuariosController",
+    "Method": "RegistrarUsuario",
+    "RelativePath": "crear",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "datosUsuarioARegistrar",
+        "Type": "Trabajo_Final.DTO.Request.InputUsuarios.DatosRegistroDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.Media.ImagenesController",
+    "Method": "BuscarFotoPerfil",
+    "RelativePath": "imagenes/foto_perfil/{id_foto_perfil}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_foto_perfil",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.Media.ImagenesController",
+    "Method": "BuscarIlustracionCarta",
+    "RelativePath": "imagenes/ilustraciones/{id_ilustracion}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_ilustracion",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.Session.SessionController",
+    "Method": "LoginUser",
+    "RelativePath": "login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "credenciales",
+        "Type": "Trabajo_Final.DTO.Request.InputLogin.CredencialesLoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.Session.SessionController",
+    "Method": "LogoutUser",
+    "RelativePath": "logout",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.Torneo.Partidas.PartidasController",
+    "Method": "BuscarPartidas",
+    "RelativePath": "partidas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.BuscarPartidas.BuscarPartidasDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "BuscarPartidasPerdidas",
+    "RelativePath": "partidas/derrotas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "BuscarDescalificaciones",
+    "RelativePath": "partidas/descalificaciones",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.OrganizadorController",
+    "Method": "EditarJuezPartida",
+    "RelativePath": "partidas/juez",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.EditarPartidas.EditarJuezPartidaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.OrganizadorController",
+    "Method": "EditarJugadoresPartidas",
+    "RelativePath": "partidas/jugadores",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.EditarPartidas.EditarJugadoresPartidasDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "BuscarPartidasGanadas",
+    "RelativePath": "partidas/victorias",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Usuarios.UsuariosController",
+    "Method": "ActualizarPerfil",
+    "RelativePath": "perfil",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "foto",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "alias",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.Session.SessionController",
+    "Method": "RefreshToken",
+    "RelativePath": "refresh",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Usuarios.UsuariosController",
+    "Method": "AutoRegistrarJugador",
+    "RelativePath": "registro",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "datosUsuarioARegistrar",
+        "Type": "Trabajo_Final.DTO.Request.InputUsuarios.DatosRegistroDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Trabajo_Final.Controllers.Torneo.CartasYSeries.CartasController",
+    "Method": "BuscarSerie",
+    "RelativePath": "series",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.BuscarSeries.BuscarSeriesDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.AdminController",
+    "Method": "BuscarTorneos",
+    "RelativePath": "torneos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fases",
+        "Type": "System.String[]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.OrganizadorController",
+    "Method": "CrearTorneo",
+    "RelativePath": "torneos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.RegistroTorneoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.OrganizadorController",
+    "Method": "AgregarJuezTorneo",
+    "RelativePath": "torneos/{id_torneo}/jueces",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_torneo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.EditarJuezTorneoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.OrganizadorController",
+    "Method": "EliminarJuezTorneo",
+    "RelativePath": "torneos/{id_torneo}/jueces",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_torneo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.EditarJuezTorneoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.AdminController",
+    "Method": "CancelarTorneo",
+    "RelativePath": "torneos/cancelar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.CancelarTorneoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.OrganizadorController",
+    "Method": "BuscarTorneosLlenos",
+    "RelativePath": "torneos/iniciar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.OrganizadorController",
+    "Method": "IniciarTorneo",
+    "RelativePath": "torneos/iniciar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.IniciarTorneoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "BuscarTorneosDisponibles",
+    "RelativePath": "torneos/inscribirse",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "InscribirseATorneo",
+    "RelativePath": "torneos/inscribirse",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.InputTorneos.InscripcionTorneoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "BuscarEstadoInscripciones",
+    "RelativePath": "torneos/inscribirse/estado",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JuezController",
+    "Method": "BuscarTorneosOficializados",
+    "RelativePath": "torneos/oficializados",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JuezController",
+    "Method": "BuscarPartidasParaOficializar",
+    "RelativePath": "torneos/oficializar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JuezController",
+    "Method": "OficializarPartida",
+    "RelativePath": "torneos/oficializar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.OficializarPartidas.OficializarPartidaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.OrganizadorController",
+    "Method": "BuscarTorneosOrganizados",
+    "RelativePath": "torneos/organizados",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fases",
+        "Type": "System.String[]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "BuscarTorneosGanados",
+    "RelativePath": "torneos/victorias",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Usuarios.UsuariosController",
+    "Method": "EliminarUsuario",
+    "RelativePath": "usuarios/{id_usuario}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_usuario",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Usuarios.UsuariosController",
+    "Method": "EditarUsuario",
+    "RelativePath": "usuarios/{id_usuario}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_usuario",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Nombre_apellido",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Password",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Pais",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Foto",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "Alias",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Rol",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Usuarios.UsuariosController",
+    "Method": "BuscarDatosUsuario",
+    "RelativePath": "usuarios/{id_usuario}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_usuario",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

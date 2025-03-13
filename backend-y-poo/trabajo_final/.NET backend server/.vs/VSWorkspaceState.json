@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Web API",
+    "\\Web API\\Controllers",
+    "\\Web API\\Controllers\\Torneo",
+    "\\Web API\\Controllers\\Torneo\\FuncionesRestringidasPorRol"
+  ],
+  "SelectedNode": "\\Web API\\Controllers\\Torneo\\FuncionesRestringidasPorRol\\OrganizadorController.cs",
+  "PreviewInSolutionExplorer": false
+}
