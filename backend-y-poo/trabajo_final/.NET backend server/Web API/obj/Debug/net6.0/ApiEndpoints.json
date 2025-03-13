@@ -201,6 +201,16 @@
   },
   {
     "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "BuscarProximasPartidas",
+    "RelativePath": "partidas/jugar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
     "Method": "BuscarPartidasGanadas",
     "RelativePath": "partidas/victorias",
     "HttpMethod": "GET",

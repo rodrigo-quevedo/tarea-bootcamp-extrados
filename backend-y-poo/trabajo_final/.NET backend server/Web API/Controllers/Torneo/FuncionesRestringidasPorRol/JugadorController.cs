@@ -2,6 +2,7 @@
 using DAO.Entidades.PartidaEntidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using Trabajo_Final.DTO.Request.ColeccionarCartas;
 using Trabajo_Final.DTO.Request.InputTorneos;
@@ -155,6 +156,22 @@ namespace Web_API.Controllers.Torneo.FuncionesRestringidasPorRol
                 await buscarTorneosService.BuscarTorneosInscriptos(id_jugador);
 
             return Ok(new { estado_inscripciones = result });
+        }
+
+
+
+        //Endpoint para ver próximas partidas a jugar:
+        [HttpGet]
+        [Route("/partidas/jugar")]
+        [Authorize(Roles = Roles.JUGADOR)]
+        public async Task<ActionResult> BuscarProximasPartidas()
+        {
+            Int32.TryParse(User.FindFirstValue(ClaimTypes.Sid), out int id_jugador);
+
+            IEnumerable<Partida> result = 
+                await buscarPartidasService.BuscarPartidasPorJugar(id_jugador);
+
+            return Ok(new { partidas_por_jugar = result });
         }
 
 

@@ -11,6 +11,12 @@ namespace Trabajo_Final.Services.JugadorServices.BuscarPartidas
             partidaDAO = partidaDao;
         }
 
+
+        public async Task<IEnumerable<Partida>> BuscarPartidasPorJugar(int id_jugador)
+        {
+            return await partidaDAO.BuscarPartidasPorJugar(id_jugador);
+        }
+
         public async Task<IEnumerable<Partida>> BuscarDescalificaciones(int id_jugador)
         {
             return await partidaDAO.BuscarDescalificaciones(id_jugador);

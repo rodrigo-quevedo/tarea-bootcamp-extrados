@@ -10,6 +10,7 @@ namespace DAO.DAOs.Partidas
     {
         public Task<IEnumerable<Partida>> BuscarPartidasDelTorneo(IEnumerable<Torneo> torneos);
 
+        public Task<IEnumerable<Partida>> BuscarPartidasPorJugar(int id_jugador);
         public Task<Partida_CantidadRondasDTO> BuscarDatosParaOficializar(Partida partida);
         public Task<IEnumerable<Partida>> BuscarPartidasParaOficializar(int id_juez);
         public Task<IEnumerable<Partida>> BuscarPartidasOficializadasDelTorneo(int id_juez, IEnumerable<Torneo> torneos);

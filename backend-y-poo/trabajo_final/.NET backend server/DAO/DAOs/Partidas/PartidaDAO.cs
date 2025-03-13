@@ -41,6 +41,21 @@ namespace DAO.DAOs.Partidas
             return result;
         }
 
+        public async Task<IEnumerable<Partida>> BuscarPartidasPorJugar(int id_jugador)
+        {
+            string selectQuery = " SELECT * FROM partidas" +
+                                 " WHERE " +
+                                 "      (id_jugador_1 = @id_jugador" +
+                                 "      OR " +
+                                 "      id_jugador_2 = @id_jugador)" +
+                                 " AND " +
+                                 "      id_ganador IS NULL; ";
+
+            return await connection.QueryAsync<Partida>(
+                selectQuery,
+                new {id_jugador});
+        }
+
 
         //READ partidas juez
         public async Task<IEnumerable<Partida>> BuscarPartidasParaOficializar(int id_juez)
