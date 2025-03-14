@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\controllers\\torneo\\funcionesrestringidasporrol\\organizadorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\controllers\\torneo\\funcionesrestringidasporrol\\organizadorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\controllers\\torneo\\funcionesrestringidasporrol\\jugadorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\controllers\\torneo\\funcionesrestringidasporrol\\jugadorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -51,10 +55,6 @@
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\services\\torneoservices\\buscartorneos\\ibuscartorneosservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\controllers\\torneo\\funcionesrestringidasporrol\\organizadorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\controllers\\torneo\\funcionesrestringidasporrol\\organizadorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\dto\\response\\torneoresponsedto\\torneobasedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\dto\\response\\torneoresponsedto\\torneobasedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -66,11 +66,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Program.cs",
               "RelativeDocumentMoniker": "Web API\\Program.cs",
@@ -83,7 +83,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "JugadorController.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Controllers\\Torneo\\FuncionesRestringidasPorRol\\JugadorController.cs",
               "RelativeDocumentMoniker": "Web API\\Controllers\\Torneo\\FuncionesRestringidasPorRol\\JugadorController.cs",
@@ -92,12 +92,11 @@
               "ViewState": "AgIAAJsAAAAAAAAAAAAAAL0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-13T07:39:09.97Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "IBuscarPartidasJugadorService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Services\\JugadorServices\\BuscarPartidas\\IBuscarPartidasJugadorService.cs",
               "RelativeDocumentMoniker": "Web API\\Services\\JugadorServices\\BuscarPartidas\\IBuscarPartidasJugadorService.cs",
@@ -110,7 +109,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "PartidaDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\DAO\\DAOs\\Partidas\\PartidaDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\Partidas\\PartidaDAO.cs",
@@ -122,7 +121,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "IPartidaDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\DAO\\DAOs\\Partidas\\IPartidaDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\Partidas\\IPartidaDAO.cs",
@@ -134,7 +133,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "BuscarPartidasJugadorService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Services\\JugadorServices\\BuscarPartidas\\BuscarPartidasJugadorService.cs",
               "RelativeDocumentMoniker": "Web API\\Services\\JugadorServices\\BuscarPartidas\\BuscarPartidasJugadorService.cs",
@@ -146,7 +145,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "ITorneoDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\DAO\\DAOs\\Torneos\\ITorneoDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\Torneos\\ITorneoDAO.cs",
@@ -158,7 +157,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "TorneoInscriptoDTO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\DTO\\Response\\TorneoResponseDTO\\TorneoInscriptoDTO.cs",
               "RelativeDocumentMoniker": "Web API\\DTO\\Response\\TorneoResponseDTO\\TorneoInscriptoDTO.cs",
@@ -182,7 +181,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "TorneoDisponibleDTO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\DTO\\Response\\TorneoResponseDTO\\TorneoDisponibleDTO.cs",
               "RelativeDocumentMoniker": "Web API\\DTO\\Response\\TorneoResponseDTO\\TorneoDisponibleDTO.cs",
@@ -194,7 +193,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "TorneoDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\DAO\\DAOs\\Torneos\\TorneoDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\Torneos\\TorneoDAO.cs",
@@ -206,7 +205,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "BuscarTorneosService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Services\\TorneoServices\\BuscarTorneos\\BuscarTorneosService.cs",
               "RelativeDocumentMoniker": "Web API\\Services\\TorneoServices\\BuscarTorneos\\BuscarTorneosService.cs",
@@ -218,7 +217,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "IBuscarTorneosService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Services\\TorneoServices\\BuscarTorneos\\IBuscarTorneosService.cs",
               "RelativeDocumentMoniker": "Web API\\Services\\TorneoServices\\BuscarTorneos\\IBuscarTorneosService.cs",
@@ -230,15 +229,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 0,
               "Title": "OrganizadorController.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Controllers\\Torneo\\FuncionesRestringidasPorRol\\OrganizadorController.cs",
               "RelativeDocumentMoniker": "Web API\\Controllers\\Torneo\\FuncionesRestringidasPorRol\\OrganizadorController.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Controllers\\Torneo\\FuncionesRestringidasPorRol\\OrganizadorController.cs",
               "RelativeToolTip": "Web API\\Controllers\\Torneo\\FuncionesRestringidasPorRol\\OrganizadorController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAABEAAAAAAAAAA==",
+              "ViewState": "AgIAAD4AAAAAAAAAAAApwEwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-13T07:42:25.414Z"
+              "WhenOpened": "2025-03-13T07:42:25.414Z",
+              "EditorCaption": ""
             }
           ]
         }

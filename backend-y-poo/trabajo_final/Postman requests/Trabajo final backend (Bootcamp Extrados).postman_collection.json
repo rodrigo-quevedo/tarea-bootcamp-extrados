@@ -699,7 +699,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"organizador1@gmail.com\",\r\n    \"password\": \"organizador\"\r\n}",
+							"raw": "{\r\n    \"email\": \"organizador2@gmail.com\",\r\n    \"password\": \"organizador\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -929,7 +929,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fecha_hora_inicio\": \"2024-03-24T10:00:00.000Z\",\r\n    \"fecha_hora_fin\": \"2024-03-24T11:30:00.000Z\",\r\n    \"horario_diario_inicio\": \"10:00\",\r\n    \"horario_diario_fin\": \"18:00\",\r\n    \"pais\": \"Argentina\",\r\n    \"series_habilitadas\": [\"A\",\"B\",\"C\",\"D\",\"E\",\"J\"],\r\n    \"id_jueces_torneo\": [89]\r\n}",
+							"raw": "{\r\n    \"fecha_hora_inicio\": \"2024-03-24T10:00:00.000Z\",\r\n    \"fecha_hora_fin\": \"2024-03-24T23:30:00.000Z\",\r\n    \"horario_diario_inicio\": \"10:00\",\r\n    \"horario_diario_fin\": \"00:00\",\r\n    \"pais\": \"Argentina\",\r\n    \"series_habilitadas\": [\"A\",\"B\",\"C\",\"D\",\"E\",\"J\"],\r\n    \"id_jueces_torneo\": [89]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1359,7 +1359,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_torneo\": 4\r\n}",
+							"raw": "{\r\n    \"id_torneo\": 7\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2447,7 +2447,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"jugador4@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
+							"raw": "{\r\n    \"email\": \"jugador5@gmail.com\",\r\n    \"password\": \"jugador\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2965,7 +2965,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_torneo\": 5,\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
+							"raw": "{\r\n    \"id_torneo\": 7,\r\n    \"id_cartas_mazo\": [3,34,17,49,52,59,21,22,23,30,36,41,42,44,46]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2982,6 +2982,33 @@
 							"path": [
 								"torneos",
 								"inscribirse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar estado inscripciones",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/torneos/inscribirse/estado",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"torneos",
+								"inscribirse",
+								"estado"
 							]
 						}
 					},
@@ -3060,6 +3087,32 @@
 							"path": [
 								"partidas",
 								"victorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar partidas por jugar",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JwtBearer_Value}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5156/partidas/jugar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"partidas",
+								"jugar"
 							]
 						}
 					},
