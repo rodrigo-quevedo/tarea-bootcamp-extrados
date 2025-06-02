@@ -25,15 +25,16 @@ export default function Login(){
             <Typography variant="h1" fontSize={30} textAlign={"center"} py={5}>Torneo de Cartas Coleccionables</Typography>
             
 
-            <Paper elevation={3} sx={{ py: 4, maxWidth:"90%", mx:"auto", transition: 'all 0.3s',
-    '&:hover': { boxShadow: 10, scale: "1.005", backgroundColor: "#eff"}}}>
-                <Grid container spacing={1} justifyContent="space-around" alignItems="flex-start">
+            <Paper elevation={3} sx={{ py: 4, px:{xs: 2, sm: 0}, maxWidth:{xs: "90%", md:"75%"}, mx:"auto", transition: 'all 0.3s',
+    '&:hover': { boxShadow: 13, scale: "1.003"}}}>
+                <Grid container spacing={6} justifyContent="center" alignItems="flex-start">
 
-                    {/* Column 2: Login Form */}                
-                    <Grid item xs={12} md={8}>
+                    {/* Column 1: Login Form */}                
+                    <Grid item >
                         <Typography variant="h5" gutterBottom>Iniciar sesión</Typography>
 
-                        <Box component="form" noValidate autoComplete="off">
+                        <Box component="form" noValidate autoComplete="off" onSubmit={(e)=>{e.preventDefault(); console.log("submitted a form")}}>
+                            
                             <TextField
                                 fullWidth
                                 label="Email"
@@ -55,13 +56,13 @@ export default function Login(){
                                 fullWidth
                                 sx={{ mt: 2 }}
                             >
-                                Sign In
+                                Ingresar
                             </Button>
                         </Box>
                     </Grid>
 
-                    {/* Column 3: Demo Login Buttons */}
-                    <Grid item xs={12} md={3} sx={{backgroundColor:"#ccc", color: "#000", p:3, borderRadius: '5px'}}>
+                    {/* Column 2: Demo Login Buttons */}
+                    <Grid item sx={{backgroundColor:"#000", color: "#fff", p:3, borderRadius: '5px'}}>
                             <Typography variant="h6" gutterBottom pb={2}>Cuentas Demo</Typography>
 
                             <Stack spacing={2}>
@@ -74,6 +75,7 @@ export default function Login(){
 
                 </Grid>
             </Paper>
+
 
             <Paper elevation={3} sx={{ my: 3, px: 3, py:2, textAlign: 'center', display: 'block', maxWidth: 300, mx:"auto"}}>
                 <Typography variant="body2" fontSize={15} gutterBottom>Registro para Nuevos Jugadores</Typography>
