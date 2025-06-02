@@ -10,13 +10,20 @@ import {
     Stack,
 } from '@mui/material';
 import { Link } from 'react-router';
-
+import { useState } from "react";
+import {cuentasDemo} from "../config/cuentasDemo";
 
 
 export default function Login(){
 
     let demoButtonStyles = {color: "#fff", background: "#000"}
-    // let demoButtonStyles = {}
+    
+
+    const [datosUsuario, setDatosUsuario] = useState({email: "xd", password: null}) 
+    
+    //creo que se relentiza menos teniendolos separados:
+    // const [email, setEmail] = useState("el email")
+    // const [password, setPassword] = useState("la password")
 
     return (
     <>
@@ -40,6 +47,8 @@ export default function Login(){
                                 label="Email"
                                 type="email"
                                 margin="normal"
+                                value={datosUsuario.email}
+                                onChange={(e)=>{setDatosUsuario({...datosUsuario, email: e.target.value})}}
                                 required
                             />
                             <TextField
@@ -47,6 +56,8 @@ export default function Login(){
                                 label="Password"
                                 type="password"
                                 margin="normal"
+                                value={datosUsuario.password}
+                                onChange={(e)=>{setDatosUsuario({...datosUsuario, password: e.target.value})}}
                                 required
                             />
                             <Button
@@ -66,10 +77,13 @@ export default function Login(){
                             <Typography variant="h6" gutterBottom pb={2}>Cuentas Demo</Typography>
 
                             <Stack spacing={2}>
-                                <Button variant="outlined" fullWidth sx={demoButtonStyles}>Admin</Button>
-                                <Button variant="outlined" fullWidth sx={demoButtonStyles}>Organizador</Button>
-                                <Button variant="outlined" fullWidth sx={demoButtonStyles}>Juez</Button>
-                                <Button variant="outlined" fullWidth sx={demoButtonStyles}>Jugador</Button>
+                                <Button variant="outlined" fullWidth sx={demoButtonStyles} onClick={()=>{setDatosUsuario(cuentasDemo.Admin); console.log(cuentasDemo.Admin)}}>Admin</Button>
+
+                                <Button variant="outlined" fullWidth onClick={()=>setDatosUsuario(cuentasDemo.Organizador)}sx={demoButtonStyles}>Organizador</Button>
+                                
+                                <Button variant="outlined" fullWidth sx={demoButtonStyles}onClick={()=>setDatosUsuario(cuentasDemo.Juez)}>Juez</Button>
+                                
+                                <Button variant="outlined" fullWidth sx={demoButtonStyles}onClick={()=>setDatosUsuario(cuentasDemo.Jugador)}>Jugador</Button>
                             </Stack>
                     </Grid>
 
