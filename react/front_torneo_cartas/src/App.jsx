@@ -10,6 +10,8 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/registro" element={<Autoregistro />} />
+      {/* test */}
+      <Route path="/session" element={<Autoregistro />} /> 
     </Routes>
   )
 }

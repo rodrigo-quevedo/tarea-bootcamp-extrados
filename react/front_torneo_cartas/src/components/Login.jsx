@@ -13,9 +13,13 @@ import { Link } from 'react-router';
 import { useState } from "react";
 import {cuentasDemo} from "../config/cuentasDemo";
 import manejoLogin from "../services/manejoLogin";
+import { useNavigate } from 'react-router';
+
 
 
 export default function Login(){
+
+    const navigate = useNavigate();
 
     let demoButtonStyles = {color: "#fff", background: "#000"}
     
@@ -41,7 +45,7 @@ export default function Login(){
                     <Grid item >
                         <Typography variant="h5" gutterBottom>Iniciar sesión</Typography>
 
-                        <Box component="form" noValidate autoComplete="off" onSubmit={(e)=>{manejoLogin(e, datosUsuario)}}>
+                        <Box component="form" noValidate autoComplete="off" onSubmit={(e)=>{manejoLogin(e, datosUsuario, navigate)}}>
                             
                             <TextField
                                 fullWidth
