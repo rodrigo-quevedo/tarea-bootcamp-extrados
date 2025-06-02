@@ -208,6 +208,14 @@ builder.Services.AddCors(
             {
                 //Obligatorio usar 'Origin' en las requests
                 policy.WithOrigins("*");
+                policy.WithHeaders("*");
+                policy.WithMethods("*");
+
+                //TO DO: Configurarlo mejor
+                //policy
+                //.WithOrigins("http://localhost:5173")
+                //.WithHeaders("Content-Type", "Authorization")
+                //.WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
             }
         );
     }
