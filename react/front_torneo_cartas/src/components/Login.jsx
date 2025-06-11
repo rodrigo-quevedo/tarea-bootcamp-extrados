@@ -1,34 +1,24 @@
 import Footer from "./Footer/Footer";
 
-import {
-    Box,
-    Grid,
-    Button,
-    TextField,
-    Typography,
-    Paper,
-    Stack,
-} from '@mui/material';
+import { Box, Grid, Button, TextField, Typography, Paper, Stack } from '@mui/material';
 import { Link } from 'react-router';
 import { useState } from "react";
 import {cuentasDemo} from "../config/cuentasDemo";
 import manejoLogin from "../services/manejoLogin";
 import { useNavigate } from 'react-router';
 
+import revisarSesionAbierta from "../utils/revisarSesionAbierta";
+
 
 
 export default function Login(){
 
-    const navigate = useNavigate();
+    revisarSesionAbierta(useNavigate())
+
 
     let demoButtonStyles = {color: "#fff", background: "#000"}
-    
 
     const [datosUsuario, setDatosUsuario] = useState({email: "", password: ""}) 
-    
-    //creo que se relentiza menos teniendolos separados:
-    // const [email, setEmail] = useState("el email")
-    // const [password, setPassword] = useState("la password")
 
     return (
     <>

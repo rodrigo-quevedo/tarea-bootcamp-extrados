@@ -2,19 +2,19 @@
 
 export const  cuentasDemo = {
     Admin: {
-        email: import.meta.env.VITE_DEMO_ADMIN_EMAIL,
-        password: import.meta.env.VITE_DEMO_ADMIN_PASSWORD
+        email: "admin123@gmail.com",
+        password: "adminpassword"
     },
     Organizador: {
-        email: import.meta.env.VITE_DEMO_ORG_EMAIL,
-        password: import.meta.env.VITE_DEMO_ORG_PASSWORD
+        email: "organizador2@gmail.com",
+        password: "organizador"
     },
     Juez: {
-        email: import.meta.env.VITE_DEMO_JUEZ_EMAIL,
-        password: import.meta.env.VITE_DEMO_JUEZ_PASSWORD
+        email: "juez1@gmail.com",
+        password: "juez"
     },
     Jugador: {
-        email: import.meta.env.VITE_DEMO_JUGADOR_EMAIL,
-        password: import.meta.env.VITE_DEMO_JUGADOR_PASSWORD
+        email: "jugador5@gmail.com",
+        password: "jugador"
     }
 }

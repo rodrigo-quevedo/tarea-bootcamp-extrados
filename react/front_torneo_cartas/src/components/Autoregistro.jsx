@@ -1,17 +1,19 @@
 import Footer from "./Footer/Footer";
 
-import {
-    Box,
-    Grid,
-    Button,
-    TextField,
-    Typography,
-    Paper,
-    Stack,
-} from '@mui/material';
+import { Box, Button, TextField, Typography, Paper } from '@mui/material';
 import { Link } from 'react-router';
 
+import { useNavigate } from "react-router";
+
+import revisarSesionAbierta from "../utils/revisarSesionAbierta";
+
+
 export default function Autoregistro(){
+
+    const navigate = useNavigate()
+
+    revisarSesionAbierta(isAuth, navigate)
+
     return (
         <>
             <Box sx={{ minHeight: '100vh', backgroundColor: '#fff', color: "#000" }}>

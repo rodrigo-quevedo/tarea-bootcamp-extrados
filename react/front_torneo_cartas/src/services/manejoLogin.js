@@ -32,7 +32,7 @@ export default async function manejoLogin(e, datosUsuario, navigate) {
 
         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.jwt}`;
 
-        navigate('/session');
+        navigate('/');
 
     } catch (error) {
       console.error('Login error:', error.response?.data || error.message);
