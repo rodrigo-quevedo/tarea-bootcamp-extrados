@@ -13,7 +13,9 @@ import revisarSesionAbierta from "../utils/revisarSesionAbierta";
 
 export default function Login(){
 
-    revisarSesionAbierta(useNavigate())
+    const navigate = useNavigate();
+
+    revisarSesionAbierta(navigate)
 
 
     let demoButtonStyles = {color: "#fff", background: "#000"}
