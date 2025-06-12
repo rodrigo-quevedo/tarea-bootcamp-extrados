@@ -43,7 +43,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Jwt
                 issuer: jwtConfig.issuer,
                 audience: jwtConfig.audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(5),
+                expires: DateTime.Now.AddMinutes(15),
                 signingCredentials: configuracionFirmaJWT
             );
             

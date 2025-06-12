@@ -10,6 +10,8 @@ using Trabajo_Final.Services.UsuarioServices.Editar;
 using Trabajo_Final.Services.UsuarioServices.Buscar;
 using Constantes.Constantes;
 using Trabajo_Final.DTO.Request.InputUsuarios;
+using DAO.DTOs_en_DAOs.DatosUsuario;
+using System.Text.Json;
 
 namespace Web_API.Controllers.Usuarios
 {
@@ -167,6 +169,22 @@ namespace Web_API.Controllers.Usuarios
 
         }
 
+        [HttpGet]
+        [Route("/usuarios/activos")]
+        [Authorize(Roles = Roles.ADMIN)]
+        public async Task<ActionResult> BuscarDatosUsuariosActivos()
+        {
+            Console.WriteLine($"GET en buscar TODOS los usuarios: {DateTime.Now.ToString()}");
+
+            IEnumerable<DatosCompletosUsuarioDTO> result = await buscarUsuarioService.BuscarDatosCompletosUsuarios();
+
+            Console.WriteLine(JsonSerializer.Serialize(result.ToArray()[0]));//print primer resultado
+
+            return Ok(new
+            {
+                usuarios = result
+            });
+        }
 
     }
 }

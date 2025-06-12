@@ -8,19 +8,32 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import "./Usuarios.css"
 
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+import persistirAxiosHeaders from "../../../../utils/persistirAxiosHeaders";
+import actualizarUsuarios from "../../../../services/actualizarUsuarios";
 
 
 
 export default function Usuarios(){
 
+    persistirAxiosHeaders()
+
     const [actionsPopupUsuarioID, setActionsPopupUsuarioID] = useState(null);
 
-    const users = [
-        { Id: 1, Rol: 'Admin' },
-        { Id: 2, Rol: 'Player' },
-        { Id: 3, Rol: 'Organizer' }
-    ];
+    const [usuarios, setUsuarios] = useState([{
+        "id": null,
+        "foto": null,
+        "alias": null,
+        "nombre_apellido": null,
+        "pais": null,
+        "email": null,
+        "activo": null,
+        "id_usuario_creador": null
+    }])
+
+    useEffect(()=>{
+        actualizarUsuarios(setUsuarios)
+    }, [])
 
     return (
         <Box sx={{ px: {sm:4},py:4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -49,17 +62,17 @@ export default function Usuarios(){
                     </TableHead>
 
                     <TableBody>
-                        {users.map(usuario => (
+                        {usuarios.map((usuario) => (
                             <TableRow key={usuario.id}>
-                                <TableCell  align="center">{usuario.Id}</TableCell>
+                                <TableCell  align="center">{usuario.id}</TableCell>
 
-                                <TableCell  align="center">{usuario.Rol}</TableCell>
+                                <TableCell  align="center">{usuario.rol}</TableCell>
 
-                                <TableCell  align="center" >{usuario.Nombre_apellido}</TableCell>
+                                <TableCell  align="center" >{usuario.nombre_apellido}</TableCell>
 
-                                <TableCell  align="center" className="admin-usuariosTable-desktop-col">{usuario.Email}</TableCell>
+                                <TableCell  align="center" className="admin-usuariosTable-desktop-col">{usuario.email}</TableCell>
 
-                                <TableCell align="center" className="admin-usuariosTable-desktop-col">
+                                <TableCell align="center" className="admin-usuariosTable-desktop-col" >
                                     <Button variant="outlined" size="small"><InfoIcon /></Button>
                                 </TableCell>
 
@@ -72,43 +85,45 @@ export default function Usuarios(){
                                 </TableCell>
 
                                 <TableCell align="center" >
-                                    <Button variant="outlined" size="small"  color="primary" onClick={()=>{setActionsPopupUsuarioID(usuario.Id)}} className="admin-usuariosTable-mobile-col admin-usuariosTable-actionButton" >
+                                    <Button variant="outlined" size="small"  color="primary" className="admin-usuariosTable-mobile-col admin-usuariosTable-actionButton" onMouseDown={()=>{setActionsPopupUsuarioID(usuario.id)}}>
                                         <MoreVertIcon />
                                     </Button>
                                 </TableCell>
-
-                                <Dialog open={actionsPopupUsuarioID === usuario.Id} onClose={()=>{setActionsPopupUsuarioID(null)}}>
-                                    <DialogTitle>Acciones para usuario ID: {usuario.Id}</DialogTitle>
-                                    <DialogActions sx={{ flexDirection: 'column', alignItems: 'stretch', gap: 1, px: 3, pb: 3 }}>
-                                        <Button
-                                            variant="outlined"
-                                            startIcon={<InfoIcon />}
-                                            onClick={() => {}} >
-                                            Detalles
-                                        </Button>
-                                        <Button
-                                            variant="outlined"
-                                            color="primary"
-                                            startIcon={<EditIcon />}
-                                            onClick={() => {}} >
-                                            Editar
-                                        </Button>
-                                        <Button
-                                            variant="outlined"
-                                            color="error"
-                                            startIcon={<DeleteIcon />}
-                                            onClick={() => {}} >
-                                            Eliminar
-                                        </Button>
-                                    </DialogActions>
-                                </Dialog>
-
-
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            <Dialog 
+                open={actionsPopupUsuarioID !== null} 
+                onClose={()=>{setActionsPopupUsuarioID(null)}}
+                // slots={{ transition: null }}
+                >
+                <DialogTitle>Acciones para usuario ID: {actionsPopupUsuarioID}</DialogTitle>
+                <DialogActions sx={{ flexDirection: 'column', alignItems: 'stretch', gap: 1, px: 3, pb: 3 }}>
+                    <Button
+                        variant="outlined"
+                        startIcon={<InfoIcon />}
+                        onClick={() => {}} >
+                    Detalles
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        startIcon={<EditIcon />}
+                        onClick={() => {}} >
+                    Editar
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="error"
+                        startIcon={<DeleteIcon />}
+                        onClick={() => {}} >
+                    Eliminar
+                    </Button>
+               </DialogActions>
+            </Dialog>
         </Box>
     )
 }

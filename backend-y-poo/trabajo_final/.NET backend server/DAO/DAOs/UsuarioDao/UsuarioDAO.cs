@@ -540,6 +540,30 @@ namespace DAO.DAOs.UsuarioDao
 
         }
 
+        //Busqueda para Admins
+        public async Task<IEnumerable<DatosCompletosUsuarioDTO>> BuscarDatosCompletosUsuarios()
+        {
+            //default: admin query
+            string selectQuery =
+                " SELECT * FROM usuarios " +
+                //LEFT join porque los roles 'admin' u 'organizador' no tienen perfil
+                " LEFT JOIN perfil_usuarios " +
+                " ON usuarios.id = perfil_usuarios.id_usuario " +
+                " WHERE usuarios.activo = @Activo; ";
+
+
+
+            IEnumerable<DatosCompletosUsuarioDTO> result =
+                await connection.QueryAsync<DatosCompletosUsuarioDTO>(
+                    selectQuery,
+                    new { Activo = true });
+
+            if (result == null) throw new Exception($"No se encontraron usuarios en la base de datos.");
+
+            return result;
+
+        }
+
 
         public async Task<PerfilUsuarioDTO> BuscarPerfilUsuarioDTO(
             int id_logeado, string rol_logueado, int id_usuario)

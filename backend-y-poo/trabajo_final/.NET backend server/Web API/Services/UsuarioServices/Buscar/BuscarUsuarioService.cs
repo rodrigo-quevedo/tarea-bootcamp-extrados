@@ -34,6 +34,24 @@ namespace Trabajo_Final.Services.UsuarioServices.Buscar
 
         }
 
+        //Admin: buscar todos los usuarios
+        public async Task<IEnumerable<DatosCompletosUsuarioDTO>> BuscarDatosCompletosUsuarios()
+        {
+
+            IEnumerable<DatosCompletosUsuarioDTO> result =
+                await usuarioDAO.BuscarDatosCompletosUsuarios();
+
+            //inyectar URL del server a foto Perfil
+            
+            foreach (DatosCompletosUsuarioDTO usuario in result)
+            {
+                usuario.Foto = serverUrlConfig.GetServerURL() + usuario.Foto;
+            }
+
+            return result;
+
+        }
+
         //Juez y jugador
         public async Task<PerfilUsuarioDTO> BuscarPerfilUsuario(
             int id_logeado, string rol_logueado, int id_usuario)

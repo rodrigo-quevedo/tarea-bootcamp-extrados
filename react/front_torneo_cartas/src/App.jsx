@@ -10,6 +10,7 @@ import Usuarios from './components/VistaUsuario/Admin/Pantallas/Usuarios';
 import Torneos from './components/VistaUsuario/Admin/Pantallas/Torneos'
 import Partidas from './components/VistaUsuario/Admin/Pantallas/Partidas'
 
+import persistirAxiosHeaders from "./utils/persistirAxiosHeaders"
 
 // import './styles/App.css'
 
@@ -17,19 +18,14 @@ import Partidas from './components/VistaUsuario/Admin/Pantallas/Partidas'
 
 function App() {
 
-    const [isAuth, setIsAuth] = useState(false);
-
     useEffect(() => {
         const sesionUserID = getSesionUserID();
-        
-        if (sesionUserID) {
-            setIsAuth(true)
 
-            console.log("isAuth:",isAuth)
-            console.log("sesion user id:",sesionUserID)            
-        }
+        if (sesionUserID) console.log("sesion user id:",sesionUserID)   
+    }, []);
 
-    }, [isAuth]);
+    persistirAxiosHeaders();
+
 
   return (
     <Routes>
@@ -40,7 +36,7 @@ function App() {
 
         {/* <Route path="/admin" element={<VistaAdmin/>} /> */}
         
-        <Route path="admin"  element={<VistaAdmin/>} >
+        <Route path="admin"  element={<ValidarAuth><VistaAdmin/></ValidarAuth>} >
             <Route index element={<h1>Panel admin</h1>}/>
             
             <Route path="usuarios" element={<Usuarios/>} />

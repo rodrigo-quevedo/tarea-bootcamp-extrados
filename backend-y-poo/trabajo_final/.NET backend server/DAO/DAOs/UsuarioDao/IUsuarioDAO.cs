@@ -19,6 +19,9 @@ namespace DAO.DAOs.UsuarioDao
         public Task<IEnumerable<int>> BuscarIDsUsuarios(Usuario busqueda);
         public Usuario BuscarUnUsuario(Usuario usuario);
         public Task<Usuario> BuscarUnUsuarioAsync(Usuario usuario);
+        //busqueda para admins
+        public Task<IEnumerable<DatosCompletosUsuarioDTO>> BuscarDatosCompletosUsuarios();
+
 
         public Task<int> GuardarRefreshTokenAsync(int id, string refreshToken);
         public Task<int> BorradoLogicoRefreshTokenAsync(int id, string refreshToken);

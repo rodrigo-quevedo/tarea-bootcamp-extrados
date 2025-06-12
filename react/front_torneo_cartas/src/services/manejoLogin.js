@@ -5,9 +5,7 @@ import { jwtDecode } from "jwt-decode";
 
 export default async function manejoLogin(e, datosUsuario, navigate) {
     e.preventDefault(); 
-    console.log(`form submit. Datos: ${JSON.stringify(datosUsuario)}`)
-
-
+    // console.log(`form submit. Datos: ${JSON.stringify(datosUsuario)}`)
 
 
     try {
@@ -30,7 +28,12 @@ export default async function manejoLogin(e, datosUsuario, navigate) {
             rol: payload[import.meta.env.VITE_CLAIMS_ROL]
         }));
 
+
+        //el header de axios se resetea al recargar la pagina, asi que para persistilo hay que guardarlo en storage
+        localStorage.setItem('jwt', response.data.jwt);
         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.jwt}`;
+
+        // console.log('axios default en login:',axios.defaults.headers.common);
 
         navigate('/');
 

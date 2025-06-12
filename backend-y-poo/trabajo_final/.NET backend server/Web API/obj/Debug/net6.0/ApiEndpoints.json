@@ -578,5 +578,15 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Usuarios.UsuariosController",
+    "Method": "BuscarDatosUsuariosActivos",
+    "RelativePath": "usuarios/activos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]
