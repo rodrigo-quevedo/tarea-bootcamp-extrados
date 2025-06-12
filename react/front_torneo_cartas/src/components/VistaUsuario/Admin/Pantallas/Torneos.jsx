@@ -1,7 +1,10 @@
+import { Typography } from "@mui/material";
 
 export default function Torneos(){
 
     return (
-        <h1>Torneos</h1>
+        <Typography variant="h1" fontSize={40} fontWeight={"bold"} textAlign={"center"} paddingTop={6} paddingBottom={45}>
+            Torneos
+        </Typography>
     )
 }

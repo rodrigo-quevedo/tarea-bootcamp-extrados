@@ -1,0 +1,33 @@
+
+
+@media (max-width: 600px){
+
+    .admin-usuariosTable {
+        margin-left: 5px !important;
+    }
+
+    /* ultima columna (acciones) */
+   .admin-usuariosTable-actionButton{
+        /* color: #1976D2 !important;
+        border: 1px solid #1976D2 !important; */
+        padding: 3px !important;
+        min-width: auto !important;
+        margin-right: 10px !important;
+   }
+
+    .admin-usuariosTable td, .admin-usuariosTable th  {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .admin-usuariosTable-desktop-col{
+        display: none !important;
+    }
+}
+
+
+@media( min-width: 600px){
+       .admin-usuariosTable-mobile-col {
+            display: none !important;
+       }
+}
