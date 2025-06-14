@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, unstable_ClassNameGenerator } from '@mui/material';
 import { Link, useNavigate } from 'react-router';
 import axios from 'axios';
 
@@ -7,6 +7,7 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import "./Header.css"
 
 import {rutas} from "../../../../config/rutas"
+import hacerLogout from '../../../../utils/hacerLogout';
 
 
 function focusBoton (rutaString){
@@ -18,14 +19,6 @@ function focusBoton (rutaString){
 export default function Header(){
 
     const navigate = useNavigate();
-
-    const hacerLogout = () => {
-        localStorage.removeItem('sesion');
-
-        axios.defaults.headers.common['Authorization'] = null;
-
-        navigate('/login');
-    };
 
     return (
         <AppBar position="static" color="primary" sx={{ px: 2 }}>
@@ -55,7 +48,7 @@ export default function Header(){
                     Partidas
                     </Button>
 
-                    <Button onClick={hacerLogout} color="info" sx={{backgroundColor:"#000"}}>
+                    <Button onClick={()=>{hacerLogout(navigate)}} color="info" sx={{backgroundColor:"#000"}}>
                     Cerrar sesión
                     </Button>
 

@@ -45,6 +45,7 @@ namespace Trabajo_Final.Services.UsuarioServices.Buscar
             
             foreach (DatosCompletosUsuarioDTO usuario in result)
             {
+                //Console.WriteLine($"foto:{usuario.Foto}");
                 usuario.Foto = serverUrlConfig.GetServerURL() + usuario.Foto;
             }
 

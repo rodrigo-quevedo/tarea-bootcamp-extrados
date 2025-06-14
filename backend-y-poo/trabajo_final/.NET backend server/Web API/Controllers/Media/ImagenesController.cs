@@ -36,7 +36,7 @@ namespace Trabajo_Final.Controllers.Media
 
         [HttpGet]
         [Route("foto_perfil/{id_foto_perfil}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> BuscarFotoPerfil([FromRoute] string id_foto_perfil)
         {
             byte[] result =

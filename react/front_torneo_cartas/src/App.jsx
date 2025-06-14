@@ -37,7 +37,7 @@ function App() {
         {/* <Route path="/admin" element={<VistaAdmin/>} /> */}
         
         <Route path="admin"  element={<ValidarAuth><VistaAdmin/></ValidarAuth>} >
-            <Route index element={<h1>Panel admin</h1>}/>
+            <Route index element={<h1 style={{padding:"0 0 77vh 0"}}>Panel admin</h1>}/>
             
             <Route path="usuarios" element={<Usuarios/>} />
             <Route path="torneos" element={<Torneos/>} />
