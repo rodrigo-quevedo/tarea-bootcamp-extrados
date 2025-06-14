@@ -4,3 +4,8 @@
     background: #fff !important;
     color: #1976D2 !important;
 }
+
+.admin-header-logo {
+    letter-spacing: 3px !important;
+    font-size: 24px !important;
+}

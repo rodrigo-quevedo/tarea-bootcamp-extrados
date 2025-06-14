@@ -21,7 +21,7 @@ export default function Header(){
     const navigate = useNavigate();
 
     return (
-        <AppBar position="static" color="primary" sx={{ px: 2 }}>
+        <AppBar position="static" color="primary" sx={{ px: 2 }} >
             <Toolbar sx={{ justifyContent: 'space-between', display:'flex', flexWrap:'wrap' }}>
                 {/* Logo */}
                 <Typography
@@ -29,8 +29,9 @@ export default function Header(){
                     component={Link}
                     to="/"
                     sx={{ textDecoration: 'none', fontWeight: 'bold', alignItems:'center', display: 'flex', gap: '8px' }}
+                    className='cinzel-regular admin-header-logo'
                 >
-                <AutoStoriesIcon/> Torneo de Cartas
+                <img src="/transparent-moebius-trefoil.svg" width={60}/> ArcanaCards
                 </Typography>
 
                 {/* Navigation */}

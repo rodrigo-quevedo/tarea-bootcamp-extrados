@@ -1,10 +1,12 @@
 
-import { Box, Button, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, Dialog, DialogTitle, DialogActions,DialogContent, Grid, Divider, Avatar, backdropClasses } from "@mui/material"
+import { Box, Button, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, Dialog, DialogTitle, DialogActions,DialogContent, Grid, Divider, Avatar, backdropClasses, TextField } from "@mui/material"
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import InfoIcon from '@mui/icons-material/Info';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+
+import CachedIcon from '@mui/icons-material/Cached';
 
 import "./Usuarios.css"
 
@@ -26,16 +28,7 @@ export default function Usuarios(){
     //     console.log(detallePopupUsuario)
     // }, [detallePopupUsuario])
 
-    const [usuarios, setUsuarios] = useState([{
-        "id": null,
-        "foto": null,
-        "alias": null,
-        "nombre_apellido": null,
-        "pais": null,
-        "email": null,
-        "activo": null,
-        "id_usuario_creador": null
-    }])
+    const [usuarios, setUsuarios] = useState(null)
 
     useEffect(()=>{
         actualizarUsuarios(setUsuarios)
@@ -48,6 +41,20 @@ export default function Usuarios(){
                 Gestión de usuarios
             </Typography>
 
+
+            {(usuarios === null) ?
+            
+            // mensaje de loading 
+            <div className="grow-pulse-animation loading-container" >
+                <Typography className="medievalsharp-regular" sx={{fontSize:30}}>
+                    Buscando lista de usuarios...
+                </Typography>
+                
+                <CachedIcon sx={{fontSize: 40}} className="rotate-animation"/>
+           
+            </div>
+            :
+            <>
             <Button variant="contained" sx={{ mb: 3 }}>
             + Crear usuario
             </Button>
@@ -67,7 +74,7 @@ export default function Usuarios(){
                         </TableRow>
                     </TableHead>
 
-                    <TableBody>
+                    <TableBody className="jura">
                         {usuarios.map((usuario) => (
                             <TableRow key={usuario.id}>
                                 <TableCell  align="center">{usuario.id}</TableCell>
@@ -100,6 +107,9 @@ export default function Usuarios(){
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            </>
+            }
 
             {/* Popup acciones usuario */}
             <Dialog 

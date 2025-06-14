@@ -15,7 +15,7 @@ body, h1, h2, h3, h4, h5, h6, p {
 body {
   min-height: 100vh;
   line-height: 1.5;
-  font-family: system-ui, sans-serif;
+  /* font-family: system-ui, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -41,4 +41,126 @@ img, picture, video, canvas, svg {
 /* Form elements inherit fonts */
 input, button, textarea, select {
   font: inherit;
+}
+
+
+/* FONTS */
+
+.uncial-antiqua-regular, .uncial-antiqua-regular * {
+    font-family: "Uncial Antiqua", system-ui !important;
+    letter-spacing: 2.5px !important;
+
+    font-weight: 400 !important;
+    font-style: normal !important;
+}
+
+.medievalsharp-regular, .medievalsharp-regular * {
+  font-family: "MedievalSharp", cursive !important;
+  letter-spacing: 3px !important;
+
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
+/* <weight>: Use a value from 400 to 900 */
+/* <uniquifier>: Use a unique and descriptive class name */
+
+.cinzel-regular {
+  font-family: "Cinzel", serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+/* <weight>: Use a value from 100 to 700
+<uniquifier>: Use a unique and descriptive class name */
+
+.roboto-mono {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  
+  font-style: normal;
+}
+
+
+/* <weight>: Use a value from 100 to 900
+<uniquifier>: Use a unique and descriptive class name */
+
+.alumni-sans, .alumni-sans * {
+    font-family: "Alumni Sans", sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    letter-spacing: 5px !important;
+
+    font-optical-sizing: auto !important;
+    font-style: normal !important;
+}
+
+/* <weight>: Use a value from 300 to 700
+<uniquifier>: Use a unique and descriptive class name */
+
+.jura, .jura * {
+  font-family: "Jura", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+
+  font-optical-sizing: auto !important;
+  font-style: normal !important;
+}
+
+
+
+
+/* Animations */
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.pulse-animation {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+
+
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-animation {
+  animation: rotate 1s linear infinite;
+}
+
+
+
+@keyframes intermitent-grow {
+  0% {
+    transform: scale(1.00);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+}
+
+.intermitent-grow-animation {
+  animation: intermitent-grow 3s ease-out infinite;
+}
+
+.grow-pulse-animation {
+    animation: 
+        pulse 1.5s infinite ease-in-out,
+        intermitent-grow 2.3s ease-out infinite;
 }
