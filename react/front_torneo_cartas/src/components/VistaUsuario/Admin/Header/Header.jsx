@@ -1,13 +1,16 @@
-import { AppBar, Toolbar, Typography, Button, Box, unstable_ClassNameGenerator } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box} from '@mui/material';
 import { Link, useNavigate } from 'react-router';
-import axios from 'axios';
+// import axios from 'axios';
 
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+// import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+
+import ContrastIcon from '@mui/icons-material/Contrast';
 
 import "./Header.css"
 
 import {rutas} from "../../../../config/rutas"
 import hacerLogout from '../../../../utils/hacerLogout';
+import {useTema} from '../../../../hooks/useCambiarTheme.jsx';
 
 
 function focusBoton (rutaString){
@@ -19,6 +22,8 @@ function focusBoton (rutaString){
 export default function Header(){
 
     const navigate = useNavigate();
+
+    const {cambiarTema} = useTema();
 
     return (
         <AppBar position="static" color="primary" sx={{ px: 2 }} >
@@ -37,6 +42,10 @@ export default function Header(){
                 {/* Navigation */}
                 <Box sx={{ display: 'flex', gap: 2, flexWrap: "wrap" }}>
                 
+                    <Button color="secondary" onClick={cambiarTema}>
+                    <ContrastIcon/>
+                    </Button>
+                    
                     <Button component={Link} to={rutas.admin.usuarios} color="inherit" className={focusBoton(rutas.admin.usuarios)}>
                     Usuarios
                     </Button>
