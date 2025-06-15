@@ -34,7 +34,7 @@ export default function Header(){
                     component={Link}
                     to="/"
                     sx={{ textDecoration: 'none', fontWeight: 'bold', alignItems:'center', display: 'flex', gap: '8px' }}
-                    className='cinzel-regular admin-header-logo'
+                    className='cinzel admin-header-logo'
                 >
                 <img src="/transparent-moebius-trefoil.svg" width={60}/> ArcanaCards
                 </Typography>
@@ -42,10 +42,6 @@ export default function Header(){
                 {/* Navigation */}
                 <Box sx={{ display: 'flex', gap: 2, flexWrap: "wrap" }}>
                 
-                    <Button color="secondary" onClick={cambiarTema}>
-                    <ContrastIcon/>
-                    </Button>
-                    
                     <Button component={Link} to={rutas.admin.usuarios} color="inherit" className={focusBoton(rutas.admin.usuarios)}>
                     Usuarios
                     </Button>
@@ -58,8 +54,24 @@ export default function Header(){
                     Partidas
                     </Button>
 
-                    <Button onClick={()=>{hacerLogout(navigate)}} color="info" sx={{backgroundColor:"#000"}}>
-                    Cerrar sesión
+                    <Button color="secondary" onClick={cambiarTema} variant='contained' sx={{p:0}}>
+                        <ContrastIcon/>
+                    </Button>
+
+                    <Button 
+                        color="secondary" 
+                        variant='outlined' 
+                        onClick={()=>{hacerLogout(navigate)}}
+                        sx={{
+                            backgroundColor: theme => theme.palette.secondary.contrastText,
+                            color: theme => theme.palette.secondary.main,
+                            '&:hover': {
+                                backgroundColor: theme => theme.palette.secondary.dark,
+                                color:  theme => theme.palette.secondary.contrastText,
+                            }
+                        }}
+                    >
+                        Cerrar sesión
                     </Button>
 
                 </Box>

@@ -65,10 +65,14 @@ input, button, textarea, select {
 /* <weight>: Use a value from 400 to 900 */
 /* <uniquifier>: Use a unique and descriptive class name */
 
-.cinzel-regular {
+.cinzel, .cinzel * {
   font-family: "Cinzel", serif !important;
   font-optical-sizing: auto;
   font-style: normal;
+}
+.cinzel-bold, .cinzel-bold * {
+    font-weight: 900;
+    
 }
 
 /* <weight>: Use a value from 100 to 700
@@ -93,6 +97,10 @@ input, button, textarea, select {
 
     font-optical-sizing: auto !important;
     font-style: normal !important;
+}
+.alumni-sans-bold, .alumni-sans-bold * {
+    font-weight: 900 !important;
+    letter-spacing: 2px !important;
 }
 
 /* <weight>: Use a value from 300 to 700

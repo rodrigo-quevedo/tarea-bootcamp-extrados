@@ -2,19 +2,20 @@
 const lightPalette = {
     mode: 'light',
         primary: {
-        main: '#6a0000',
-        contrastText: '#fff',
+            main: '#6a0000',
+            contrastText: '#fff',
         },
         secondary: {
-        main: '#090C9B',
+            main: '#000',
+            // contrastText: '#fff'
         },
         background: {
-        default: '#ffffff',
-        paper: '#f9f9f9',
+            default: '#ffffff',
+            paper: '#e5e5e5',
         },
         text: {
-        primary: '#000000',
-        secondary: '#520006',
+            primary: '#000000',
+            secondary: '#520006'
         },
   };
 
@@ -25,12 +26,12 @@ const darkPalette = {
             contrastText: '#ffffff', 
         },
         secondary: {
-            main: '#090C9B',          
-            contrastText: '#ffffff',
+            main: '#fff',          
+            contrastText: '#000',
         },
         background: {
             default: '#000',       
-            paper: '#6A0000',        
+            paper: '#000',        
         },
         text: {
             primary: '#ffffff',      

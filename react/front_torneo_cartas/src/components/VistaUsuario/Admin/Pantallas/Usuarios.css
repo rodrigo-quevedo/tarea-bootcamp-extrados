@@ -19,30 +19,37 @@
      }
 }
 
+/* TABLA */
 
-
+.admin-usuariosTable th {
+    color: #fff;
+}
 .admin-detalleUsuario-dato{
     /* box-shadow: 1px 1px 10px #333; */
     padding: 2px;
     /* border-radius: 5px; */
 }
 @media (max-width: 800px){
-
+    
     .admin-usuariosTable {
         margin-left: 5px !important;
     }
-
+    
+    .admin-usuariosTable *{
+        font-size: 15px !important;
+    }
+    
     /* ultima columna (acciones) */
    .admin-usuariosTable-actionButton{
-        /* color: #1976D2 !important;
-        border: 1px solid #1976D2 !important; */
+       /* color: #1976D2 !important;
+       border: 1px solid #1976D2 !important; */
         padding: 3px !important;
         min-width: auto !important;
         margin-right: 10px !important;
    }
-
-    .admin-usuariosTable td, .admin-usuariosTable th  {
-        padding-left: 0;
+   
+   .admin-usuariosTable td, .admin-usuariosTable th  {
+       padding-left: 0;
         padding-right: 0;
     }
 
@@ -50,13 +57,14 @@
         display: none !important;
     }
 }
-
-
 @media( min-width: 800px){
-       .admin-usuariosTable-mobile-col {
-            display: none !important;
-       }
+    .admin-usuariosTable-mobile-col {
+        display: none !important;
+    }
 }
+
+
+
 
 
 .loading-container{
@@ -68,3 +76,5 @@
     margin-bottom: 220px;
     padding: 100px;
 }
+
+

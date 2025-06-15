@@ -59,18 +59,21 @@ export default function Usuarios(){
             + Crear usuario
             </Button>
 
-            <TableContainer component={Paper} sx={{ maxWidth: 800, width: '100%'}} >
-                <Table className="admin-usuariosTable">
-                    <TableHead>
-                        <TableRow>
+            <TableContainer component={Paper} sx={{ maxWidth: 800, width: '100%', boxShadow: "1px 1px 10px #111"}} >
+                <Table className="admin-usuariosTable" >
+                    <TableHead className="cinzel cinzel-bold" sx={{
+                        backgroundColor: theme => theme.palette.primary.main
+                    }}>
+                        <TableRow >
                             <TableCell align="center"><strong>ID</strong></TableCell>
                             <TableCell align="center"><strong>Rol</strong></TableCell>
                             <TableCell align="center" ><strong>Nombre y apellido</strong></TableCell>
                             <TableCell align="center" className="admin-usuariosTable-desktop-col"><strong>Email</strong></TableCell>
-                            <TableCell align="center" className="admin-usuariosTable-desktop-col"><strong>Detalle usuario</strong></TableCell>
+                            {/* <TableCell align="center" className="admin-usuariosTable-desktop-col"><strong>Detalle usuario</strong></TableCell>
                             <TableCell align="center" className="admin-usuariosTable-desktop-col"><strong>Editar usuario</strong></TableCell>
-                            <TableCell align="center" className="admin-usuariosTable-desktop-col"><strong>Eliminar usuario</strong></TableCell>
-                            {/* <TableCell align="center" className="admin-usuariosTable-mobile-col"><strong>Acciones</strong></TableCell> */}
+                            <TableCell align="center" className="admin-usuariosTable-desktop-col"><strong>Eliminar usuario</strong></TableCell> */}
+                            <TableCell align="center" className="admin-usuariosTable-desktop-col"><strong></strong></TableCell>
+                            <TableCell align="center" className="admin-usuariosTable-mobile-col"><strong></strong></TableCell>
                         </TableRow>
                     </TableHead>
 
@@ -87,18 +90,14 @@ export default function Usuarios(){
 
                                 <TableCell align="center" className="admin-usuariosTable-desktop-col" onMouseDown={()=>{setDetallePopupUsuario(usuario)}}>
                                     <Button variant="outlined" size="small"><InfoIcon /></Button>
-                                </TableCell>
 
-                                <TableCell align="center" className="admin-usuariosTable-desktop-col">
-                                    <Button variant="outlined" size="small" color="primary"><EditIcon /></Button>
-                                </TableCell>
+                                     <Button variant="outlined" size="small" color="primary"><EditIcon /></Button>
 
-                                <TableCell align="center" className="admin-usuariosTable-desktop-col">
                                     <Button variant="outlined" size="small" color="error"><DeleteIcon /></Button>
                                 </TableCell>
 
-                                <TableCell align="center" >
-                                    <Button variant="outlined" size="small"  color="primary" className="admin-usuariosTable-mobile-col admin-usuariosTable-actionButton" onMouseDown={()=>{setActionsPopupUsuarioID(usuario.id)}}>
+                                <TableCell align="center" className="admin-usuariosTable-mobile-col">
+                                    <Button variant="outlined" size="small"  color="primary" className=" admin-usuariosTable-actionButton" onMouseDown={()=>{setActionsPopupUsuarioID(usuario.id)}}>
                                         <MoreVertIcon />
                                     </Button>
                                 </TableCell>
