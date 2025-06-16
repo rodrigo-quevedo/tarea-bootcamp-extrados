@@ -12,7 +12,7 @@ import "./Usuarios.css"
 
 import {useState, useEffect} from 'react'
 import persistirAxiosHeaders from "../../../../utils/persistirAxiosHeaders";
-import actualizarUsuarios from "../../../../services/actualizarUsuarios";
+import traerUsuarios from "../../../../services/traerUsuarios";
 
 
 
@@ -31,7 +31,7 @@ export default function Usuarios(){
     const [usuarios, setUsuarios] = useState(null)
 
     useEffect(()=>{
-        actualizarUsuarios(setUsuarios)
+        traerUsuarios(setUsuarios)
     }, [])
 
     return (
@@ -88,12 +88,12 @@ export default function Usuarios(){
 
                                 <TableCell  align="center" className="admin-usuariosTable-desktop-col">{usuario.email}</TableCell>
 
-                                <TableCell align="center" className="admin-usuariosTable-desktop-col" onMouseDown={()=>{setDetallePopupUsuario(usuario)}}>
-                                    <Button variant="outlined" size="small"><InfoIcon /></Button>
+                                <TableCell align="center" className="admin-usuariosTable-desktop-col admin-usuariosTableActions">
+                                    <Button variant="outlined" size="small" color="secondary"  onMouseDown={()=>{setDetallePopupUsuario(usuario)}}><InfoIcon /></Button>
 
-                                     <Button variant="outlined" size="small" color="primary"><EditIcon /></Button>
+                                     <Button variant="outlined" size="small" color="secondary"><EditIcon /></Button>
 
-                                    <Button variant="outlined" size="small" color="error"><DeleteIcon /></Button>
+                                    <Button variant="outlined" size="small" color="primary"><DeleteIcon /></Button>
                                 </TableCell>
 
                                 <TableCell align="center" className="admin-usuariosTable-mobile-col">

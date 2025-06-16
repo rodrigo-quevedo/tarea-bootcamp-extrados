@@ -1,7 +1,7 @@
 // import { useEffect } from "react";
 import axios from "axios"
 
-export default async function actualizarUsuarios(setUsuarios) {
+export default async function traerUsuarios(setUsuarios) {
 
     try {
         // console.log('axios default en buscar usuarios:',axios.defaults.headers.common);

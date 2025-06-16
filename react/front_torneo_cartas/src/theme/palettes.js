@@ -6,7 +6,7 @@ const lightPalette = {
             contrastText: '#fff',
         },
         secondary: {
-            main: '#000',
+            main: '#000'
             // contrastText: '#fff'
         },
         background: {

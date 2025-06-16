@@ -11,6 +11,8 @@ import Torneos from './components/VistaUsuario/Admin/Pantallas/Torneos'
 import Partidas from './components/VistaUsuario/Admin/Pantallas/Partidas'
 
 import persistirAxiosHeaders from "./utils/persistirAxiosHeaders"
+import useScrollToTop from './hooks/useScrollToTop';
+import { validarProtocoloYDominio } from './utils/validations';
 
 // import './styles/App.css'
 
@@ -25,6 +27,11 @@ function App() {
     }, []);
 
     persistirAxiosHeaders();
+
+    useScrollToTop();
+
+    let x = "http://ldkfsf.";
+    console.log("validar protocolo:",x,validarProtocoloYDominio(x))
 
 
   return (

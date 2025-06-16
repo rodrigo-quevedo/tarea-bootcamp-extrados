@@ -29,6 +29,15 @@
     padding: 2px;
     /* border-radius: 5px; */
 }
+.admin-usuariosTableActions{
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+.admin-usuariosTableActions button {
+    padding: 10px;
+    min-width: 0 !important;
+}
 @media (max-width: 800px){
     
     .admin-usuariosTable {

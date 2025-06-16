@@ -1,18 +1,34 @@
 import Footer from "./Footer/Footer";
 
-import { Box, Button, TextField, Typography, Paper } from '@mui/material';
+import { Box, Button, TextField, Typography, Paper, Autocomplete } from '@mui/material';
 import { Link } from 'react-router';
 
 import { useNavigate } from "react-router";
 
 import revisarSesionAbierta from "../utils/revisarSesionAbierta";
 
+import paisesYZonasHorarias from "../config/paisesYZonasHorarias"
+import { useState } from "react";
+
+
+const validateEmail = (value, setEmail, setError) => {
+    setEmail(value);
+    // Simple email regex
+    // const isValid = /^+$/.test(value);
+    // setError(!isValid);
+};
+
 
 export default function Autoregistro(){
 
+    const [email, setEmail] = useState();
+    const [error, setError] = useState(false);
+
     const navigate = useNavigate()
 
-    revisarSesionAbierta(isAuth, navigate)
+    revisarSesionAbierta(navigate)
+
+    const [pais, setPais] = useState(null);
 
     return (
         <>
@@ -25,12 +41,57 @@ export default function Autoregistro(){
 
                     <Typography variant="h5" gutterBottom>Registrar nuevo jugador :</Typography>
 
-                    <Box component="form" noValidate autoComplete="off" onSubmit={(e)=>{e.preventDefault(); console.log("submitted a form")}}>
+                    <Box component="form" 
+                        noValidate 
+                        autoComplete="off" 
+                        onSubmit={(e)=>{e.preventDefault(); console.log("submitted a form")}}
+                    >
                         
                         <TextField
                             fullWidth
                             label="Email"
                             type="email"
+                            margin="normal"
+                            required
+                            // value={email}
+                            // onChange={(e) => validateEmail(e.target.value, setEmail, setError)}
+                            // error={error}
+                            // helperText={error ? 'Por favor, ingrese un email válido.' : ''}
+                        />
+                        <TextField
+                            fullWidth
+                            label="Nombre y Apellido"
+                            type="text"
+                            margin="normal"
+                            required
+                        />
+                        <Autocomplete
+                            fullWidth
+                            options={paisesYZonasHorarias}
+                            value={pais}
+                            onChange={(event, newValue) => {
+                                setPais(newValue || '');
+                            }}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="País"
+                                    margin="normal"
+                                    required
+                                />
+                            )}
+                        />
+                        <TextField
+                            fullWidth
+                            label="URL foto perfil"
+                            type="url"
+                            margin="normal"
+                            required
+                        />
+                        <TextField
+                            fullWidth
+                            label="Alias"
+                            type="text"
                             margin="normal"
                             required
                         />
@@ -48,34 +109,8 @@ export default function Autoregistro(){
                             margin="normal"
                             required
                         />
-                        <TextField
-                            fullWidth
-                            label="Pais"
-                            type="text"
-                            margin="normal"
-                            required
-                        />
-                        <TextField
-                            fullWidth
-                            label="Nombre y Apellido"
-                            type="text"
-                            margin="normal"
-                            required
-                        />
-                        <TextField
-                            fullWidth
-                            label="URL foto perfil"
-                            type="url"
-                            margin="normal"
-                            required
-                        />
-                        <TextField
-                            fullWidth
-                            label="Alias"
-                            type="text"
-                            margin="normal"
-                            required
-                        />
+
+
                         <Button
                             type="submit"
                             variant="contained"
