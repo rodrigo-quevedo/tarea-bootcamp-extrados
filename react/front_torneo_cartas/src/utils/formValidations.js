@@ -4,7 +4,7 @@ import paisesYZonasHorarias from "../config/paisesYZonasHorarias";
 import userFormProperties from "../config/userFormProperties"; //para adaptarse a cambios en la API
 import userFormErrors from "../config/userFormErrors";
 
-import {validarString, validarLengthInclusive, validarLetras_Espacio, validarFormatoEmail, validarRequired, validarProtocoloYDominio, validarLetrasNumeros} from "./validations";
+import {validarString, validarLengthInclusive, validarLetras_Espacio, validarFormatoEmail, validarRequired, validarProtocoloYDominio, validarLetrasNumeros, validarCaracteresPassword} from "./validations";
 
 //Los errores se muestran en orden de importancia de los siguientes aspectos:
 //1. required
@@ -281,9 +281,41 @@ export function validarPassword(value, setValue, error, setError, required) {
 //validarPassword() + que sean iguales
 //'value' es el campo confirmPassword y 'password' el campo password
 export function validarConfirmPassword(password, value, setValue, error, setError, required){
-
+    setValue(value)
+    
     //primero que sea valido el campo
-    validarPassword(value, setValue, error, setError, required)
+    if (required && ! validarRequired(value)) {
+        setError({ 
+            ...error,
+            [userFormProperties.confirmPassword]: userFormErrors.required
+        })
+        return false;
+    }
+
+    if (! validarString(value)) {
+        setError({ 
+            ...error,
+            [userFormProperties.confirmPassword]: userFormErrors.tipoString
+        })
+        return false;    
+    }
+
+      if (! validarLengthInclusive(value, 4, 20)){
+        setError({ 
+            ...error,
+            [userFormProperties.confirmPassword]: userFormErrors[userFormProperties.password].longitud
+        })
+        return false;    
+    }
+
+    if (! validarCaracteresPassword(value)){
+        setError({ 
+            ...error,
+            [userFormProperties.confirmPassword]: userFormErrors[userFormProperties.password].caracteres
+        })
+        return false;    
+    }
+
 
     //despues, validar que ambas passwords coincidan
     if (password !== value) {

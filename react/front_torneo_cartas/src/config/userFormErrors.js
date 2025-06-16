@@ -24,7 +24,7 @@ const userFormErrors = {
     },
     [userFormProperties.foto] : {
         longitud: `Debe tener entre 4 y 200 caracteres.`,
-        protocolo: `Debe empezar con 'https://' o 'http://'.`
+        protocolo: `Debe empezar con 'https://' o 'http://', y terminar con un dominio (ej. '.com')`
     },
    
     [userFormProperties.password] : {

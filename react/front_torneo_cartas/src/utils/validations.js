@@ -37,7 +37,7 @@ export function validarLetras_Espacio(value){
 }
 
 export function validarLetrasNumeros(value){
-    if (/^a-zA-Z0-9$/.test(value)) return true
+    if (/^[a-zA-Z0-9]*$/.test(value)) return true
 
     return false
 }
