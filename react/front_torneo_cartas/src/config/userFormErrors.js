@@ -32,7 +32,11 @@ const userFormErrors = {
         caracteres: `Debe tener solo letras (no se aceptan acentos o tildes), numeros, o los caracteres: @ # $ %`
     },
 
-    [userFormProperties.confirmPassword]:"Los campos 'Password' y 'Confirmar password' no coinciden."
+    [userFormProperties.confirmPassword]:"Los campos 'Password' y 'Confirmar password' no coinciden.",
+
+    [userFormProperties.rol]:{
+        rolInvalido: "El rol es invalido"
+    }
 
 }
 

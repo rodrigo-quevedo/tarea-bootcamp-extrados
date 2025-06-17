@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
-
+import { rutas } from '../config/rutas';
 
 
 export default async function manejoLogin(e, datosUsuario, navigate) {
@@ -35,7 +35,7 @@ export default async function manejoLogin(e, datosUsuario, navigate) {
 
         // console.log('axios default en login:',axios.defaults.headers.common);
 
-        navigate('/');
+        navigate(rutas.home);
 
     } catch (error) {
       console.error('Login error:', error.response?.data || error.message);

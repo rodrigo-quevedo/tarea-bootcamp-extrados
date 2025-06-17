@@ -1,7 +1,7 @@
 // import { useEffect } from "react";
 import axios from "axios"
 
-export default async function traerUsuarios(setUsuarios) {
+export default async function traerUsuarios(setUsuarios, setUsuariosMostrados) {
 
     try {
         // console.log('axios default en buscar usuarios:',axios.defaults.headers.common);
@@ -13,6 +13,7 @@ export default async function traerUsuarios(setUsuarios) {
         // console.log("instanceof Array:",  response.data.usuarios instanceof Array)
         
         setUsuarios(response.data.usuarios);
+        setUsuariosMostrados(response.data.usuarios)
     }
     catch(err){
         console.error("error axios buscar usuarios:",err)

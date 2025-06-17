@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { rutas } from '../config/rutas';
 
 
 export default async function manejoLogin(datosUsuario, navigate) {
@@ -14,7 +15,7 @@ export default async function manejoLogin(datosUsuario, navigate) {
         const response = await axios.post(import.meta.env.VITE_URL_BACK+'/registro', datosUsuario);
         console.log('Autoregistro ok:', response.data.message);
 
-        navigate("/login")
+        navigate(rutas.login);
 
 
     } catch (error) {

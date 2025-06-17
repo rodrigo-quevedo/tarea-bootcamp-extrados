@@ -9,6 +9,7 @@ import VistaAdmin from './components/VistaUsuario/Admin/VistaAdmin';
 import Usuarios from './components/VistaUsuario/Admin/Pantallas/Usuarios';
 import Torneos from './components/VistaUsuario/Admin/Pantallas/Torneos'
 import Partidas from './components/VistaUsuario/Admin/Pantallas/Partidas'
+import CrearUsuario from './components/VistaUsuario/Admin/Pantallas/CrearUsuario';
 
 import persistirAxiosHeaders from "./utils/persistirAxiosHeaders"
 import useScrollToTop from './hooks/useScrollToTop';
@@ -46,7 +47,8 @@ function App() {
         <Route path="admin"  element={<ValidarAuth><VistaAdmin/></ValidarAuth>} >
             <Route index element={<h1 style={{padding:"0 0 77vh 0"}}>Panel admin</h1>}/>
             
-            <Route path="usuarios" element={<Usuarios/>} />
+            <Route path="usuarios" element={<Usuarios/>}/>
+            <Route path="usuarios/crear" element={<CrearUsuario/>}/>
             <Route path="torneos" element={<Torneos/>} />
             <Route path="partidas" element={<Partidas/>} />
         </Route>

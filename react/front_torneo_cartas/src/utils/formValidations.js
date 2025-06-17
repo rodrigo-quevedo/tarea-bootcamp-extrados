@@ -333,3 +333,39 @@ export function validarConfirmPassword(password, value, setValue, error, setErro
     })
     return true;
 }
+
+export function validarRol(value, setValue, error, setError, required){
+    setValue(value)
+    
+    //primero que sea valido el campo
+    if (required && ! validarRequired(value)) {
+        setError({ 
+            ...error,
+            [userFormProperties.rol]: userFormErrors.required
+        })
+        return false;
+    }
+
+    if (! validarString(value)) {
+        setError({ 
+            ...error,
+            [userFormProperties.rol]: userFormErrors.tipoString
+        })
+        return false;    
+    }
+
+     if (! roles.includes(value)){
+        setError({
+            ...error,
+            [userFormProperties.rol]: userFormErrors[rol].rolInvalido
+        })
+        return false;
+    }
+
+    //OK
+    setError({ 
+        ...error,
+        [userFormProperties.rol]: null
+    })
+    return true;
+}

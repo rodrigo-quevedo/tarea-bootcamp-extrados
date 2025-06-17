@@ -8,15 +8,22 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import CachedIcon from '@mui/icons-material/Cached';
 
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+
 import "./Usuarios.css"
 
 import {useState, useEffect} from 'react'
 import persistirAxiosHeaders from "../../../../utils/persistirAxiosHeaders";
 import traerUsuarios from "../../../../services/traerUsuarios";
+import { useNavigate } from "react-router";
 
+import { rutas } from "../../../../config/rutas";
 
 
 export default function Usuarios(){
+
+    const navigate = useNavigate();
 
     persistirAxiosHeaders()
 
@@ -29,15 +36,46 @@ export default function Usuarios(){
     // }, [detallePopupUsuario])
 
     const [usuarios, setUsuarios] = useState(null)
+    const [usuariosMostrados, setUsuariosMostrados] = useState(null)
 
     useEffect(()=>{
-        traerUsuarios(setUsuarios)
+        traerUsuarios(setUsuarios, setUsuariosMostrados)
     }, [])
+
+
+    //ordenar por ID
+    const [ordenAscendente, setOrdenAscendente] = useState(false);
+    
+    function ordenarUsuariosPorId(){
+        const usuariosOrdenados = usuariosMostrados?.sort((a, b) =>
+            ordenAscendente ? a.id - b.id : b.id - a.id
+        );
+
+        setUsuariosMostrados(usuariosOrdenados);
+        setOrdenAscendente(!ordenAscendente);
+    };
+
+    //filtrar por nombre de usuario
+    const [terminoBusqueda, setTerminoBusqueda] = useState('');
+
+    function manejarBusqueda(e) {
+        if (e.key !== "Enter") return;
+
+        const resultado =  usuarios?.filter(
+            (usuario) =>
+                usuario?.nombre_apellido?.toLowerCase().trim()
+                .includes(
+                    e.target.value?.toLowerCase().trim()
+                )
+        );
+        setUsuariosMostrados(resultado);
+    };
+
 
     return (
         <Box sx={{ px: {sm:4},py:4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-            <Typography variant="h1" gutterBottom fontSize={40} paddingBottom={6}>
+            <Typography variant="h1" gutterBottom fontSize={30} paddingBottom={1} sx={{alignSelf:"start"}}>
                 Gestión de usuarios
             </Typography>
 
@@ -55,9 +93,30 @@ export default function Usuarios(){
             </div>
             :
             <>
-            <Button variant="contained" sx={{ mb: 3 }}>
-            + Crear usuario
-            </Button>
+
+            
+
+            <Box sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'end', gap: 2, mb: 2}} >
+                <Button variant="contained" sx={{mb:{xs:0, sm:2}}} onClick={()=>navigate(rutas.admin.crearUsuario)}>
+                    + Crear usuario
+                </Button>
+
+                <Button onClick={ordenarUsuariosPorId} variant="outlined" color="primary" sx={{mb:{xs:0, sm:2}}}>
+                    ID {ordenAscendente ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
+                </Button>
+                
+                <TextField
+                    // fullWidth
+                    label="Buscar por nombre"
+                    variant="outlined"
+                    value={terminoBusqueda}
+                    onChange={(e)=>setTerminoBusqueda(e.target.value)}
+                    onKeyDown={manejarBusqueda}
+                    margin="normal"
+                />
+
+            </Box>
+
 
             <TableContainer component={Paper} sx={{ maxWidth: 800, width: '100%', boxShadow: "1px 1px 10px #111"}} >
                 <Table className="admin-usuariosTable" >
@@ -78,7 +137,7 @@ export default function Usuarios(){
                     </TableHead>
 
                     <TableBody className="jura">
-                        {usuarios.map((usuario) => (
+                        {usuariosMostrados.map((usuario) => (
                             <TableRow key={usuario.id}>
                                 <TableCell  align="center">{usuario.id}</TableCell>
 

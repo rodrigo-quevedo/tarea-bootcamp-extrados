@@ -3,28 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\services\\usuarioservices\\buscar\\ibuscarusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\services\\usuarioservices\\buscar\\ibuscarusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\services\\usuarioservices\\buscar\\buscarusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\services\\usuarioservices\\buscar\\buscarusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\controllers\\usuarios\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\controllers\\usuarios\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\controllers\\session\\sessioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\controllers\\session\\sessioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\dao\\daos\\usuariodao\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{20F79FE7-DADA-4996-BAEC-E6E44EA7E1A8}|DAO\\DAO.csproj|solutionrelative:dao\\daos\\usuariodao\\usuariodao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\controllers\\media\\imagenescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\controllers\\media\\imagenescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\services\\usuarioservices\\buscar\\ibuscarusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\services\\usuarioservices\\buscar\\ibuscarusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\services\\usuarioservices\\buscar\\buscarusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\services\\usuarioservices\\buscar\\buscarusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\controllers\\session\\sessioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\controllers\\session\\sessioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\controllers\\media\\imagenescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|solutionrelative:web api\\controllers\\media\\imagenescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C9EF61D-2162-4EB7-897A-D1E739EBACE5}|Web API\\Web API.csproj|c:\\users\\usuario\\downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.net backend server\\web api\\services\\usuarioservices\\jwt\\crearjwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,11 +46,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "SessionController.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Controllers\\Session\\SessionController.cs",
               "RelativeDocumentMoniker": "Web API\\Controllers\\Session\\SessionController.cs",
@@ -59,8 +59,7 @@
               "ViewState": "AgIAAGsAAAAAAAAAAAA0wIIAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-01T19:20:28.792Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -70,7 +69,7 @@
               "RelativeDocumentMoniker": "Web API\\Controllers\\Usuarios\\UsuariosController.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Controllers\\Usuarios\\UsuariosController.cs",
               "RelativeToolTip": "Web API\\Controllers\\Usuarios\\UsuariosController.cs",
-              "ViewState": "AgIAAKsAAAAAAAAAAAAAALIAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAqwLIAAABdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-12T04:51:11.228Z",
               "IsPinned": true,
@@ -78,7 +77,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "UsuarioDAO.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\DAO\\DAOs\\UsuarioDao\\UsuarioDAO.cs",
               "RelativeDocumentMoniker": "DAO\\DAOs\\UsuarioDao\\UsuarioDAO.cs",
@@ -101,18 +100,17 @@
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-12T05:56:45.243Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "BuscarUsuarioService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Services\\UsuarioServices\\Buscar\\BuscarUsuarioService.cs",
               "RelativeDocumentMoniker": "Web API\\Services\\UsuarioServices\\Buscar\\BuscarUsuarioService.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Services\\UsuarioServices\\Buscar\\BuscarUsuarioService.cs",
               "RelativeToolTip": "Web API\\Services\\UsuarioServices\\Buscar\\BuscarUsuarioService.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAcwC8AAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAnwDMAAABeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-12T05:38:03.524Z",
               "IsPinned": true,
@@ -120,13 +118,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "IBuscarUsuarioService.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Services\\UsuarioServices\\Buscar\\IBuscarUsuarioService.cs",
               "RelativeDocumentMoniker": "Web API\\Services\\UsuarioServices\\Buscar\\IBuscarUsuarioService.cs",
               "ToolTip": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Services\\UsuarioServices\\Buscar\\IBuscarUsuarioService.cs",
               "RelativeToolTip": "Web API\\Services\\UsuarioServices\\Buscar\\IBuscarUsuarioService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-12T06:02:48.197Z",
               "IsPinned": true,
@@ -143,12 +141,11 @@
               "ViewState": "AgIAABcAAAAAAAAAAAAnwCIAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-12T07:09:34.553Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ImagenesController.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\Downloads\\tarea-bootcamp-extrados\\backend-y-poo\\trabajo_final\\.NET backend server\\Web API\\Controllers\\Media\\ImagenesController.cs",
               "RelativeDocumentMoniker": "Web API\\Controllers\\Media\\ImagenesController.cs",
@@ -156,8 +153,7 @@
               "RelativeToolTip": "Web API\\Controllers\\Media\\ImagenesController.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAowCUAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-12T19:04:08.302Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-12T19:04:08.302Z"
             },
             {
               "$type": "Document",
@@ -169,8 +165,7 @@
               "RelativeToolTip": "Web API\\Program.cs",
               "ViewState": "AgIAALYAAAAAAAAAAAAEwMgAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T21:28:53.168Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-02T21:28:53.168Z"
             }
           ]
         }

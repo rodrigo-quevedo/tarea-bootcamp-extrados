@@ -46,7 +46,11 @@ namespace Trabajo_Final.Services.UsuarioServices.Buscar
             foreach (DatosCompletosUsuarioDTO usuario in result)
             {
                 //Console.WriteLine($"foto:{usuario.Foto}");
-                usuario.Foto = serverUrlConfig.GetServerURL() + usuario.Foto;
+
+                //valido solo las hardcodeadas en mi BD,
+                //ya que las que vienen del front estan validadas con DataAnnotation de .NET
+                if (usuario.Foto != null && usuario.Foto.StartsWith("/imagenes/foto_perfil/"))
+                    usuario.Foto = serverUrlConfig.GetServerURL() + usuario.Foto;
             }
 
             return result;

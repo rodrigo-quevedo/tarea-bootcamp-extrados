@@ -8,7 +8,7 @@ const paisesYZonasHorarias = [
   "Colombia -05:00",
   "Egipto +02:00",
   "España +01:00",
-  "Estados Unidos:Nueva York -05:00",
+  "Estados Unidos:NY -05:00",
   "Francia +01:00",
   "Grecia +02:00",
   "India +05:30",
