@@ -442,9 +442,9 @@ namespace DAO.DAOs.UsuarioDao
                 " UPDATE usuarios " +
                 " SET " +
                 "   nombre_apellido = @Nombre_apellido, " +
-                "   rol = @Rol, " +
+                //"   rol = @Rol, " +
                 "   pais = @Pais, " +
-                "   email = @Email, " +
+                //"   email = @Email, " +
                 "   password = @Password " +
                 " WHERE" +
                 "   id = @Id; ";

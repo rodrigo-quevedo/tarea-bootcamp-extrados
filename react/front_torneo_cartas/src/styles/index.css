@@ -44,6 +44,48 @@ input, button, textarea, select {
 }
 
 
+/* Cartas */
+.carta-coleccion {
+
+}
+.carta-coleccion:hover {
+    cursor: pointer;
+    transform: scale(1.04);
+    transition: 1s all ease-out;
+}
+
+.carta-seleccionada{
+    border: 5px solid #6A0000 !important;
+    /* opacity: 0; */
+    transform: scale(1.03) !important;
+    transition: none;
+
+    position: relative;
+}
+.carta-seleccionada::after{
+    position: absolute;
+    top: 35%;
+    right: 30%;
+    
+    content: "✔️";
+    color: #6A0000;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #fff;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* So it doesn't interfere with clicks */
+
+}
+
+
+
+
 /* FONTS */
 
 .uncial-antiqua-regular, .uncial-antiqua-regular * {
@@ -52,7 +94,7 @@ input, button, textarea, select {
 
     font-weight: 400 !important;
     font-style: normal !important;
-}
+}5
 
 .medievalsharp-regular, .medievalsharp-regular * {
   font-family: "MedievalSharp", cursive !important;
@@ -171,4 +213,45 @@ input, button, textarea, select {
     animation: 
         pulse 1.5s infinite ease-in-out,
         intermitent-grow 2.3s ease-out infinite;
+}
+
+
+@keyframes mover-background{
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+}
+.mover-background {
+    background-size: 400% 100% !important;
+    animation: mover-background 7s linear infinite !important;
+}
+
+@keyframes mover-background-inv{
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+}
+.mover-background-inv {
+     background-size: 400% 100% !important;
+    animation: mover-background-inv 7s linear infinite !important;
+}
+
+.background-brillante {
+    background-image: linear-gradient(135deg,
+      #f9f9f9 0%,
+      #e0e0e0 10%,
+      #cfcfcf 15%,
+      #ffffff 20%,
+      #dcdcdc 25%,
+      #e0e0e0 40%,
+      #f9f9f9 60%,
+      #e0e0e0 80%,
+      #ffffff 100%
+    ) !important;
 }

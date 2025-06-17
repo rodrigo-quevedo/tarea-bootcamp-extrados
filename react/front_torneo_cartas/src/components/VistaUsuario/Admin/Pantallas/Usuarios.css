@@ -38,7 +38,7 @@
     padding: 10px;
     min-width: 0 !important;
 }
-@media (max-width: 800px){
+@media (max-width: 850px){
     
     .admin-usuariosTable {
         margin-left: 5px !important;
@@ -66,9 +66,14 @@
         display: none !important;
     }
 }
-@media( min-width: 800px){
+@media( min-width: 850px){
     .admin-usuariosTable-mobile-col {
         display: none !important;
+    }
+}
+@media (min-width: 600px){
+    .admin-usuariosTable{
+        margin-left: 0 !important;
     }
 }
 

@@ -16,6 +16,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Trabajo_Final.Controllers.Torneo.CartasYSeries.CartasController",
+    "Method": "BuscarTodasLasCartas",
+    "RelativePath": "cartas/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
     "Method": "ObtenerCartasColeccionadas",
     "RelativePath": "coleccion",
@@ -129,6 +139,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Web_API.Controllers.Torneo.FuncionesRestringidasPorRol.JugadorController",
+    "Method": "BuscarMazosJugador",
+    "RelativePath": "mazos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.ColeccionarCartas.ArrayIdCartasDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -526,39 +552,9 @@
         "IsRequired": true
       },
       {
-        "Name": "Nombre_apellido",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Password",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Pais",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Foto",
-        "Type": "Microsoft.AspNetCore.Http.IFormFile",
-        "IsRequired": false
-      },
-      {
-        "Name": "Alias",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Rol",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Email",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "dto",
+        "Type": "Trabajo_Final.DTO.Request.InputUsuarios.EditarUsuarioDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

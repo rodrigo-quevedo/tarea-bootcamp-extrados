@@ -43,5 +43,37 @@ namespace Trabajo_Final.Services.CartasServices.BuscarCartas
 
             return result.AsEnumerable();
         }
+
+        public async Task<IEnumerable<DatosCartaDTO>> BuscarTodasLasCartas()
+        {
+            IEnumerable<Carta> cartas = await cartaDAO.BuscarTodasLasCartas();
+            
+            int[] idCartas = cartas.Select(c => c.Id).ToArray();
+
+            IEnumerable<Serie_De_Carta> series_de_cartas = await cartaDAO.BuscarSeriesDeCartas(idCartas);
+
+            if (cartas == null || !cartas.Any() || series_de_cartas == null || !series_de_cartas.Any())
+                throw new Exception("No se pudo obtener ninguna informacion de las id_cartas buscadas.");
+
+            IList<DatosCartaDTO> result = new List<DatosCartaDTO>();
+         
+            foreach (Carta carta in cartas)
+            {
+                result.Add(new DatosCartaDTO()
+                {
+                    Id = carta.Id,
+                    Ataque = carta.Ataque,
+                    Defensa = carta.Defensa,
+                    Ilustracion = serverURLConfig.GetServerURL() + carta.Ilustracion,
+                    Series = series_de_cartas
+                            .Where(s => s.Id_carta == carta.Id)
+                            .Select(s => s.Nombre_serie)
+                            .ToArray()
+                });
+            }
+
+            return result.AsEnumerable();
+        }
+    
     }
 }

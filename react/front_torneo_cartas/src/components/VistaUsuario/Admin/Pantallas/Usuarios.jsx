@@ -1,5 +1,5 @@
 
-import { Box, Button, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, Dialog, DialogTitle, DialogActions,DialogContent, Grid, Divider, Avatar, backdropClasses, TextField } from "@mui/material"
+import { Box, Button, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, Dialog, DialogTitle, DialogActions,DialogContent, Grid, Divider, Avatar, backdropClasses, TextField, InputAdornment } from "@mui/material"
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -10,6 +10,8 @@ import CachedIcon from '@mui/icons-material/Cached';
 
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+
+import ArrowBack from '@mui/icons-material/ArrowBack'
 
 import "./Usuarios.css"
 
@@ -42,16 +44,16 @@ export default function Usuarios(){
     const [usuariosMostrados, setUsuariosMostrados] = useState(null)
 
     useEffect(()=>{
-        traerUsuarios(setUsuarios, setUsuariosMostrados)
+        traerUsuarios(setUsuarios, setUsuariosMostrados, setOrdenAscendente)
     }, [])
 
 
     //ordenar por ID
-    const [ordenAscendente, setOrdenAscendente] = useState(false);
+    const [ordenAscendente, setOrdenAscendente] = useState(true);
     
     function ordenarUsuariosPorId(){
         const usuariosOrdenados = usuariosMostrados?.sort((a, b) =>
-            ordenAscendente ? a.id - b.id : b.id - a.id
+            ordenAscendente ?  b.id - a.id : a.id - b.id
         );
 
         setUsuariosMostrados(usuariosOrdenados);
@@ -73,6 +75,13 @@ export default function Usuarios(){
         );
         setUsuariosMostrados(resultado);
     };
+
+    //editar usuario
+    const [Nombre_apellido, setNombreApellido] = useState(null)
+    const [Pais, setPais] = useState(null)
+    const [Alias, setAlias] = useState(null)
+    const [Foto, setFoto] = useState(null)
+    const [Password, setPassword] = useState(null)
 
 
     return (
@@ -100,23 +109,28 @@ export default function Usuarios(){
             
 
             <Box sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'end', gap: 2, mb: 2}} >
-                <Button variant="contained" sx={{mb:{xs:0, sm:2}}} onClick={()=>navigate(rutas.admin.crearUsuario)}>
-                    + Crear usuario
+
+                <Button variant="contained" sx={{mb:{xs:0, sm:2}}} onMouseDown={()=>navigate(rutas.admin.crearUsuario)}>
+                    ➕ Crear usuario
                 </Button>
 
-                <Button onClick={ordenarUsuariosPorId} variant="outlined" color="primary" sx={{mb:{xs:0, sm:2}}}>
+                <Button onMouseDown={ordenarUsuariosPorId} variant="outlined" color="primary" sx={{mb:{xs:0, sm:2}}}>
                     ID {ordenAscendente ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
                 </Button>
                 
                 <TextField
                     // fullWidth
-                    label="Buscar por nombre"
+                    label="🔍 Buscar por nombre"
                     variant="outlined"
                     value={terminoBusqueda}
                     onChange={(e)=>setTerminoBusqueda(e.target.value)}
                     onKeyDown={manejarBusqueda}
                     margin="normal"
                 />
+
+                <Button variant="outlined" sx={{mb:{xs:0, sm:2}}} onMouseDown={()=>{setUsuarios(null); traerUsuarios(setUsuarios, setUsuariosMostrados, setOrdenAscendente)}}>
+                    <CachedIcon/>
+                </Button>
 
             </Box>
 
@@ -228,39 +242,44 @@ export default function Usuarios(){
                 disableAutoFocus disableEnforceFocus
                 sx={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)', pt: "8px"}}
                 // disableScrollLock
-                slotProps={{paper:{style:{paddingTop:"8px", width: 500, paddingBottom:"60px"}}}}
+                slotProps={{paper:{style:{paddingTop:"8px", width: "100%", maxWidth: "80%", paddingBottom:"60px"}}}}
                 >
-                
-                {/* <DialogTitle sx={{px:0}}>
-                    Detalles del Usuario
-                    <strong style={{border: "1px solid #000", padding: "6px"}}>
-                    ID: {detallePopupUsuario?.id}
-                    </strong>
-                    </DialogTitle> */}
-                
+    
+                <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<ArrowBack />}
+                    onClick={() => {setDetallePopupUsuario(null); setActionsPopupUsuario(null)}}
+                    sx={{mb: 2, minWidth: "95px", maxWidth: "10%", ml: 3, mt: 2}}
+                >
+                Volver
+                </Button>
 
-                <DialogContent sx={{pt: "8px"}}>
+                <DialogContent sx={{pt: "8px", display:"flex", gap: 4, flexWrap:"wrap"}}>
 
-                    <div className="admin-popupTitleID" >
-                        <DialogTitle sx={{px:0}}>Detalles del Usuario</DialogTitle>
-                        <strong style={{fontSize:"20px",border: "1px solid #000", padding: "6px"}}>
-                            ID: {detallePopupUsuario?.id}
-                        </strong>
-                    </div>
-                        
-                    <Typography className="admin-detalleUsuario-dato" sx={{backgroundColor: "#000", color: "#fff", textAlign: "center", py: 1.5}}>Email: <strong>{detallePopupUsuario?.email}</strong></Typography>                        
+                    <Box sx={{width: {xs:"100%", sm:"60%", md:"45%"}}}>
+                        <div className="admin-popupTitleID" >
+                            <DialogTitle sx={{px:0}}>Detalles del Usuario</DialogTitle>
+                            <strong style={{fontSize:"20px",border: "1px solid #000", padding: "6px"}}>
+                                ID {detallePopupUsuario?.id}
+                            </strong>
+                        </div>
+                            
+                        <Typography className="admin-detalleUsuario-dato" sx={{backgroundColor: "#000", color: "#fff", textAlign: "center", py: 1.5}}>Email: <strong>{detallePopupUsuario?.email}</strong></Typography>                        
 
-                    <Typography className="admin-detalleUsuario-dato" sx={{backgroundColor: "#ddd", color: "#000", textAlign: "center", py:0.7}}>Rol:  <strong>{detallePopupUsuario?.rol.toUpperCase()}</strong></Typography>                     
+                        <Typography className="admin-detalleUsuario-dato" sx={{backgroundColor: "#ddd", color: "#000", textAlign: "center", py:0.7}}>Rol:  <strong>{detallePopupUsuario?.rol.toUpperCase()}</strong></Typography>                     
 
-                    {(detallePopupUsuario?.rol !== "admin" && detallePopupUsuario?.rol !== "organizador") && 
-                        <Avatar
-                            src={detallePopupUsuario?.foto}
-                            alt={detallePopupUsuario?.alias}
-                            sx={{ width: 120, height: 120, my:2, mx: "auto" }}
-                        />
-                    }
+                        {(detallePopupUsuario?.rol !== "admin" && detallePopupUsuario?.rol !== "organizador") && 
+                            <Avatar
+                                src={detallePopupUsuario?.foto}
+                                alt={detallePopupUsuario?.alias}
+                                sx={{ width: 120, height: 120, my:2, mx: "auto" }}
+                            />
+                        }
+                    </Box>
 
-                    <div style={{border: "1px solid #000"}}>
+
+                    <Box sx={{border: "1px solid #000", width:{xs: "100%", sm:"28%", md: "45%"}}}>
                         {(detallePopupUsuario?.rol !== "admin" && detallePopupUsuario?.rol !== "organizador") && 
                         <>
                         <Typography className="admin-detalleUsuario-dato">
@@ -285,7 +304,7 @@ export default function Usuarios(){
                         <hr />
 
                         <Typography className="admin-detalleUsuario-dato"><strong>Creado por Usuario ID</strong> <br /> {(detallePopupUsuario?.id_usuario_creador === 0)? "----": detallePopupUsuario?.id_usuario_creador}</Typography>
-                    </div>
+                    </Box>
 
                 </DialogContent>
             </Dialog>
@@ -293,7 +312,7 @@ export default function Usuarios(){
              {/* Popup CONFIRMAR eliminar usuario */}
             <Dialog 
                 open={eliminarUsuario !== null} 
-                onClose={()=>{setEliminarUsuario(null)}}
+                onClose={()=>{setEliminarUsuario(null); setActionsPopupUsuario(null)}}
                 // slots={{ transition: null }}
                 disableAutoFocus disableEnforceFocus
                 slotProps={{paper:{style:{paddingTop:"8px", width: 500}}}}
@@ -310,7 +329,7 @@ export default function Usuarios(){
                     <Button
                         variant="outlined"
                         color="secondary"
-                        onMouseDown={() => {setEliminarUsuario(null)}} >
+                        onMouseDown={() => {setEliminarUsuario(null); setActionsPopupUsuario(null)}} >
                     Cancelar
                     </Button>
                     <Button
@@ -365,6 +384,69 @@ export default function Usuarios(){
 
                 </DialogContent>
 
+            </Dialog>
+
+            {/* Editar popup */}
+            <Dialog 
+                open={editarPopupUsuario !== null} 
+                onClose={()=>{setEditarPopupUsuario(null); setActionsPopupUsuario(null)}} 
+                // slots={{ transition: null }}
+                disableAutoFocus disableEnforceFocus
+                sx={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)', pt: "8px"}}
+                // disableScrollLock
+                slotProps={{paper:{style:{paddingTop:"8px", width: 500, paddingBottom:"60px"}}}}
+                >
+                
+
+                <DialogContent sx={{pt: "8px"}}>
+
+                    <div className="admin-popupTitleID" >
+                        <DialogTitle sx={{px:0}}>Detalles del Usuario</DialogTitle>
+                        <strong style={{fontSize:"20px",border: "1px solid #000", padding: "6px"}}>
+                            ID: {detallePopupUsuario?.id}
+                        </strong>
+                    </div>
+                        
+                    <Typography className="admin-detalleUsuario-dato" sx={{backgroundColor: "#000", color: "#fff", textAlign: "center", py: 1.5}}>Email: <strong>{detallePopupUsuario?.email}</strong></Typography>                        
+
+                    <Typography className="admin-detalleUsuario-dato" sx={{backgroundColor: "#ddd", color: "#000", textAlign: "center", py:0.7}}>Rol:  <strong>{detallePopupUsuario?.rol.toUpperCase()}</strong></Typography>                     
+
+                    {(detallePopupUsuario?.rol !== "admin" && detallePopupUsuario?.rol !== "organizador") && 
+                        <Avatar
+                            src={detallePopupUsuario?.foto}
+                            alt={detallePopupUsuario?.alias}
+                            sx={{ width: 120, height: 120, my:2, mx: "auto" }}
+                        />
+                    }
+
+                    <div style={{border: "1px solid #000"}}>
+                        {(detallePopupUsuario?.rol !== "admin" && detallePopupUsuario?.rol !== "organizador") && 
+                        <>
+                        <Typography className="admin-detalleUsuario-dato">
+                            <strong>Alias</strong> 
+                            <br />
+                            {(detallePopupUsuario?.alias)? 
+                                detallePopupUsuario?.alias 
+                                : 
+                                <code style={{color:"#400"}}>Sin alias</code>}
+                        </Typography> 
+                        
+                        <hr />
+                        </>
+                        }
+
+                        <Typography className="admin-detalleUsuario-dato"><strong>Nombre y Apellido</strong> <br /> {detallePopupUsuario?.nombre_apellido}</Typography>
+
+                        <hr />
+                        
+                        <Typography className="admin-detalleUsuario-dato"><strong>País</strong> <br />{detallePopupUsuario?.pais}</Typography>
+                        
+                        <hr />
+
+                        <Typography className="admin-detalleUsuario-dato"><strong>Creado por Usuario ID</strong> <br /> {(detallePopupUsuario?.id_usuario_creador === 0)? "----": detallePopupUsuario?.id_usuario_creador}</Typography>
+                    </div>
+
+                </DialogContent>
             </Dialog>
 
         </Box>

@@ -46,31 +46,39 @@ namespace Trabajo_Final.Services.UsuarioServices.Editar
         {
             //usuario
             if (dto.Nombre_apellido != default) datosUsuario.Nombre_apellido = dto.Nombre_apellido;
-            if (dto.Rol != default) datosUsuario.Rol = dto.Rol;
+            //if (dto.Rol != default) datosUsuario.Rol = dto.Rol;
             if (dto.Pais != default) datosUsuario.Pais = dto.Pais;
-            if (dto.Email != default) datosUsuario.Email = dto.Email;
+            //if (dto.Email != default) datosUsuario.Email = dto.Email;
             if (dto.Password != default) datosUsuario.Password = Argon2.Hash(dto.Password);
 
             //perfil
             if (dto.Foto != default)
             {
-                string foto_path =
-                  filesPathsConfig.GetFotoPerfilPath()
-                  + @"\"
-                  + id_usuario
-                  + Path.GetExtension(dto.Foto.FileName);
+                ////Se escribe el archivo 'foto' en disco con la libreria 
+                ///del sistema operativo FileStream.
+                ///El archivo se escribe en un path pertenenciente a la carpeta
+                ///del servidor.
+                ///Luego se guarda ese path en tabla 'perfil_usuarios'.
 
-                //Si la foto anterior tiene la misma extension, el archivo se sobreescribe
-                using (var stream = new FileStream(foto_path, FileMode.Create))
-                {
-                    await dto.Foto.CopyToAsync(stream);
-                }
+                //string foto_path =
+                //  filesPathsConfig.GetFotoPerfilPath()
+                //  + @"\"
+                //  + id_usuario
+                //  + Path.GetExtension(dto.Foto.FileName);
 
-                datosUsuario.Foto =
-                    serverRoutesConfig.GetFotoPerfilRoute()
-                    + "/"
-                    + id_usuario
-                    + Path.GetExtension(dto.Foto.FileName);
+                ////Si la foto anterior tiene la misma extension, el archivo se sobreescribe
+                //using (var stream = new FileStream(foto_path, FileMode.Create))
+                //{
+                //    await dto.Foto.CopyToAsync(stream);
+                //}
+
+                //datosUsuario.Foto =
+                //    serverRoutesConfig.GetFotoPerfilRoute()
+                //    + "/"
+                //    + id_usuario
+                //    + Path.GetExtension(dto.Foto.FileName);
+
+                datosUsuario.Foto = dto.Foto;
             }
             
             if (dto.Alias != default) datosUsuario.Alias = dto.Alias;

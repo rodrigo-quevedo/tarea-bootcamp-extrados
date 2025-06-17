@@ -24,7 +24,7 @@ namespace Trabajo_Final.Controllers.Media
 
         [HttpGet]
         [Route("ilustraciones/{id_ilustracion}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> BuscarIlustracionCarta([FromRoute] int id_ilustracion)
         {
             byte[] result =

@@ -111,7 +111,8 @@ namespace Web_API.Controllers.Usuarios
         [HttpPut]
         [Route("/usuarios/{id_usuario}")]
         [Authorize(Roles = Roles.ADMIN)]
-        public async Task<ActionResult> EditarUsuario([FromRoute] int id_usuario, [FromForm] EditarUsuarioDTO dto)
+        //public async Task<ActionResult> EditarUsuario([FromRoute] int id_usuario, [FromForm] EditarUsuarioDTO dto)
+            public async Task<ActionResult> EditarUsuario([FromRoute] int id_usuario, [FromBody] EditarUsuarioDTO dto)
         {
             await editarUsuarioService.EditarUsuario(id_usuario, dto);
 

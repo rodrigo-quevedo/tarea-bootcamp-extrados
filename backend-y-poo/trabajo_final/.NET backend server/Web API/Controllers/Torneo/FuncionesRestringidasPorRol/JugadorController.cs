@@ -110,6 +110,20 @@ namespace Web_API.Controllers.Torneo.FuncionesRestringidasPorRol
         }
 
 
+        //demo front: plantillas de mazos
+
+        [HttpGet]
+        [Route("/mazos")]
+        [Authorize(Roles = Roles.JUGADOR)]
+        public async Task<ActionResult> BuscarMazosJugador(ArrayIdCartasDTO dto)
+        {
+            return Ok(new
+            {
+
+            });
+        }
+
+
 
         //Endpoints para inscripcion a torneos:
 

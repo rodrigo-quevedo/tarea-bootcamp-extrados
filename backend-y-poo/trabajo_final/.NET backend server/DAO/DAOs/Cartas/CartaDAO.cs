@@ -242,6 +242,14 @@ namespace DAO.DAOs.Cartas
             return await connection.QueryAsync<Carta>(selectQuery, new { id_cartas } );
         }
 
+        //front demo: READ todas las cartas
+        public async Task<IEnumerable<Carta>> BuscarTodasLasCartas()
+        {
+            string selectQuery = " SELECT * FROM cartas;";
+
+            return await connection.QueryAsync<Carta>(selectQuery);
+        }
+
         //READ cartas_coleccionadas
         public async Task<IEnumerable<Carta>> BuscarCartasColeccionadas(int usuario_id)
         {

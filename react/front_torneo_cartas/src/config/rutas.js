@@ -9,5 +9,9 @@ export const rutas = {
         torneos : "/admin/torneos",
         partidas : "/admin/partidas",
         crearUsuario: "/admin/usuarios/crear"
+    },
+    jugador: {
+        coleccion: "/jugador/coleccion",
+        mazo: "/jugador/mazo"
     }
 }

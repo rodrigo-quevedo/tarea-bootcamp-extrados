@@ -57,5 +57,18 @@ namespace Trabajo_Final.Controllers.Torneo.CartasYSeries
         }
 
 
+        [HttpGet]
+        [Route("/cartas/all")]
+        [Authorize]
+        public async Task<ActionResult> BuscarTodasLasCartas()
+        {
+
+            IEnumerable<DatosCartaDTO> result =
+                await buscarCartasService.BuscarTodasLasCartas();
+
+            return Ok(new { cartas = result.ToArray() });
+        }
+
+
     }
 }
