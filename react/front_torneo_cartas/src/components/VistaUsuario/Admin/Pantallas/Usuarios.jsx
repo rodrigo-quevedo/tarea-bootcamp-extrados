@@ -20,6 +20,8 @@ import { useNavigate } from "react-router";
 
 import { rutas } from "../../../../config/rutas";
 
+import enviarEliminarUsuario from "../../../../services/enviarEliminarUsuario"
+
 
 export default function Usuarios(){
 
@@ -27,9 +29,10 @@ export default function Usuarios(){
 
     persistirAxiosHeaders()
 
-    const [actionsPopupUsuarioID, setActionsPopupUsuarioID] = useState(null);
+    const [actionsPopupUsuario, setActionsPopupUsuario] = useState(null);
     const [detallePopupUsuario, setDetallePopupUsuario] = useState(null);
     const [editarPopupUsuario, setEditarPopupUsuario] = useState(null);
+    const [eliminarUsuario, setEliminarUsuario] = useState(null);
 
     // useEffect(()=>{
     //     console.log(detallePopupUsuario)
@@ -152,11 +155,11 @@ export default function Usuarios(){
 
                                      <Button variant="outlined" size="small" color="secondary"><EditIcon /></Button>
 
-                                    <Button variant="outlined" size="small" color="primary"><DeleteIcon /></Button>
+                                    <Button variant="outlined" size="small" color="primary" onClick={()=>setEliminarUsuario(usuario)}><DeleteIcon /></Button>
                                 </TableCell>
 
                                 <TableCell align="center" className="admin-usuariosTable-mobile-col">
-                                    <Button variant="outlined" size="small"  color="primary" className=" admin-usuariosTable-actionButton" onMouseDown={()=>{setActionsPopupUsuarioID(usuario.id)}}>
+                                    <Button variant="outlined" size="small"  color="primary" className=" admin-usuariosTable-actionButton" onMouseDown={()=>{setActionsPopupUsuario(usuario)}}>
                                         <MoreVertIcon />
                                     </Button>
                                 </TableCell>
@@ -171,8 +174,8 @@ export default function Usuarios(){
 
             {/* Popup acciones usuario */}
             <Dialog 
-                open={actionsPopupUsuarioID !== null} 
-                onClose={()=>{setActionsPopupUsuarioID(null)}}
+                open={actionsPopupUsuario !== null} 
+                onClose={()=>{setActionsPopupUsuario(null)}}
                 // slots={{ transition: null }}
                 disableAutoFocus disableEnforceFocus
                 slotProps={{paper:{style:{paddingTop:"8px", width: 300}}}}
@@ -181,7 +184,7 @@ export default function Usuarios(){
                 <div className="admin-popupTitleID" >
                     <DialogTitle sx={{px:0}}>Acciones para Usuario</DialogTitle>
                     <strong style={{fontSize:"20px",border: "1px solid #000", padding: "6px"}}>
-                        ID: {actionsPopupUsuarioID}
+                        ID: {actionsPopupUsuario?.id}
                     </strong>
                 </div>
 
@@ -190,9 +193,9 @@ export default function Usuarios(){
                         variant="outlined"
                         startIcon={<InfoIcon />}
                         onClick={() => {
-                            setActionsPopupUsuarioID(null)
+                            setActionsPopupUsuario(null)
                             for (const usuario of usuarios) {
-                                if (usuario.id == actionsPopupUsuarioID){
+                                if (usuario.id == actionsPopupUsuario?.id){
                                     setDetallePopupUsuario(usuario)
                                     break;
                                 }     
@@ -204,14 +207,14 @@ export default function Usuarios(){
                         variant="outlined"
                         color="primary"
                         startIcon={<EditIcon />}
-                        onClick={() => {setActionsPopupUsuarioID(null)}} >
+                        onClick={() => {}} >
                     Editar
                     </Button>
                     <Button
                         variant="outlined"
                         color="error"
                         startIcon={<DeleteIcon />}
-                        onClick={() => {setActionsPopupUsuarioID(null)}} >
+                        onClick={() => {setEliminarUsuario(actionsPopupUsuario)}} >
                     Eliminar
                     </Button>
                </DialogActions>
@@ -220,12 +223,12 @@ export default function Usuarios(){
             {/* Detalles popup */}
             <Dialog 
                 open={detallePopupUsuario !== null} 
-                onClose={()=>{setDetallePopupUsuario(null); setActionsPopupUsuarioID(null)}}
+                onClose={()=>{setDetallePopupUsuario(null); setActionsPopupUsuario(null)}}
                 // slots={{ transition: null }}
                 disableAutoFocus disableEnforceFocus
                 sx={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)', pt: "8px"}}
                 // disableScrollLock
-                slotProps={{paper:{style:{paddingTop:"8px", width: 350}}}}
+                slotProps={{paper:{style:{paddingTop:"8px", width: 500, paddingBottom:"60px"}}}}
                 >
                 
                 {/* <DialogTitle sx={{px:0}}>
@@ -249,11 +252,13 @@ export default function Usuarios(){
 
                     <Typography className="admin-detalleUsuario-dato" sx={{backgroundColor: "#ddd", color: "#000", textAlign: "center", py:0.7}}>Rol:  <strong>{detallePopupUsuario?.rol.toUpperCase()}</strong></Typography>                     
 
-                    <Avatar
-                        src={detallePopupUsuario?.foto}
-                        alt={detallePopupUsuario?.alias}
-                        sx={{ width: 120, height: 120, my:2, mx: "auto" }}
-                    />
+                    {(detallePopupUsuario?.rol !== "admin" && detallePopupUsuario?.rol !== "organizador") && 
+                        <Avatar
+                            src={detallePopupUsuario?.foto}
+                            alt={detallePopupUsuario?.alias}
+                            sx={{ width: 120, height: 120, my:2, mx: "auto" }}
+                        />
+                    }
 
                     <div style={{border: "1px solid #000"}}>
                         {(detallePopupUsuario?.rol !== "admin" && detallePopupUsuario?.rol !== "organizador") && 
@@ -283,6 +288,83 @@ export default function Usuarios(){
                     </div>
 
                 </DialogContent>
+            </Dialog>
+
+             {/* Popup CONFIRMAR eliminar usuario */}
+            <Dialog 
+                open={eliminarUsuario !== null} 
+                onClose={()=>{setEliminarUsuario(null)}}
+                // slots={{ transition: null }}
+                disableAutoFocus disableEnforceFocus
+                slotProps={{paper:{style:{paddingTop:"8px", width: 500}}}}
+            >
+                                    
+                <div className="admin-popupTitleID" >
+                    <DialogTitle align="center" sx={{px:0}}>Seguro que quiere eliminar al usuario?</DialogTitle>
+                    <strong style={{fontSize:"20px",border: "1px solid #000", padding: "6px"}}>
+                        ID: {eliminarUsuario?.id}
+                    </strong>
+                </div>
+
+                <DialogActions sx={{ flexDirection: 'column', alignItems: 'stretch', gap: 1, px: 3, pb: 3 }}>
+                    <Button
+                        variant="outlined"
+                        color="secondary"
+                        onMouseDown={() => {setEliminarUsuario(null)}} >
+                    Cancelar
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        startIcon={<DeleteIcon />}
+                        onClick={()=>enviarEliminarUsuario(eliminarUsuario?.id, setEliminarUsuario)} >
+                    Eliminar
+                    </Button>
+               </DialogActions>
+
+                <DialogContent sx={{pt: "8px"}}>
+                        
+                    <Typography className="admin-detalleUsuario-dato" sx={{backgroundColor: "#000", color: "#fff", textAlign: "center", py: 1.5}}>Email: <strong>{eliminarUsuario?.email}</strong></Typography>                        
+
+                    <Typography className="admin-detalleUsuario-dato" sx={{backgroundColor: "#ddd", color: "#000", textAlign: "center", py:0.7}}>Rol:  <strong>{eliminarUsuario?.rol.toUpperCase()}</strong></Typography>                     
+
+                    {(eliminarUsuario?.rol !== "admin" && eliminarUsuario?.rol !== "organizador") && 
+                        <Avatar
+                            src={eliminarUsuario?.foto}
+                            alt={eliminarUsuario?.alias}
+                            sx={{ width: 120, height: 120, my:2, mx: "auto" }}
+                        />
+                    }
+
+                    <div style={{border: "1px solid #000"}}>
+                        {(eliminarUsuario?.rol !== "admin" && eliminarUsuario?.rol !== "organizador") && 
+                        <>
+                        <Typography className="admin-detalleUsuario-dato">
+                            <strong>Alias</strong> 
+                            <br />
+                            {(eliminarUsuario?.alias)? 
+                                eliminarUsuario?.alias 
+                                : 
+                                <code style={{color:"#400"}}>Sin alias</code>}
+                        </Typography> 
+                        
+                        <hr />
+                        </>
+                        }
+
+                        <Typography className="admin-detalleUsuario-dato"><strong>Nombre y Apellido</strong> <br /> {eliminarUsuario?.nombre_apellido}</Typography>
+
+                        <hr />
+                        
+                        <Typography className="admin-detalleUsuario-dato"><strong>País</strong> <br />{eliminarUsuario?.pais}</Typography>
+                        
+                        <hr />
+
+                        <Typography className="admin-detalleUsuario-dato"><strong>Creado por Usuario ID</strong> <br /> {(eliminarUsuario?.id_usuario_creador === 0)? "----": eliminarUsuario?.id_usuario_creador}</Typography>
+                    </div>
+
+                </DialogContent>
+
             </Dialog>
 
         </Box>
