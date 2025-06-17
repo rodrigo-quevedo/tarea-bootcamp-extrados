@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import traerCartas from "../../../../services/traerCartas";
 
-import { Box, Typography, Grid, Card, CardMedia, CardContent, Chip, Button } from "@mui/material";
+import { Box, Typography, Grid, Card, CardMedia, CardContent, Chip, Button, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 
 import Cached from '@mui/icons-material/Cached'
 import colorDeSeries from "../../../../config/colorDeSeries";
+import verificarYGuardarMazo from "../../../../utils/verificarYGuardarMazo";
 
 export default function Coleccion(){
 
@@ -15,6 +16,9 @@ export default function Coleccion(){
     }, [])
 
     const [cartasSeleccionadas, setCartasSeleccionadas] = useState([])
+
+    const [popupError, setPopupError] = useState("");
+    const [popupExito, setPopupExito] = useState(false);
     
 
     return(
@@ -57,7 +61,7 @@ export default function Coleccion(){
                     de 
                     <strong style={{color: "#6A0000"}}> 15 </strong>cartas 
 
-                    <Button variant="contained" sx={{ml:{sm: 3}}} onMouseDown={()=>{}}>
+                    <Button variant="contained" sx={{ml:{sm: 3}}} onMouseDown={()=>{verificarYGuardarMazo(cartasSeleccionadas, setPopupError, setPopupExito)}}>
                     📚 Guardar mazo
                     </Button>
 
@@ -133,6 +137,42 @@ export default function Coleccion(){
             </Box>
             }
         
+            {/* Popup Error */}
+            <Dialog 
+                open={Boolean(popupError)} onClose={() => setPopupError("")}
+            >
+                
+                <DialogTitle sx={{fontSize:40, color: 'red'}}>Error</DialogTitle>
+                <DialogContent>
+                <Typography sx={{fontSize: 20}}>{popupError}</Typography>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={() => setPopupError("")} autoFocus>
+                    Cerrar
+                </Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* Popup Éxito */}
+            <Dialog open={popupExito} onClose={() => setPopupExito(false)}>
+                <DialogTitle>Éxito</DialogTitle>
+                <DialogContent>
+                <Typography>
+                    {(popupExito.length === true) ?
+                        "El mazo ha sido guardado correctamente."
+                        :
+                        popupExito
+                    }
+                </Typography>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={() => setPopupExito(false)} autoFocus>
+                    Cerrar
+                </Button>
+                </DialogActions>
+            </Dialog>
+
+
         </Box>
 
     );

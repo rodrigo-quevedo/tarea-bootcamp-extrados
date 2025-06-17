@@ -2,7 +2,7 @@ import axios from 'axios';
 import { rutas } from '../config/rutas';
 
 
-export default async function editarUsuario(datosUsuario, ) {
+export default async function editarUsuario(datosUsuario ) {
 
     //sacar confirmPassword (no hace falta enviarlo al back)
     delete datosUsuario.confirmPassword;
