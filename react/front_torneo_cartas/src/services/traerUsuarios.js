@@ -4,7 +4,6 @@ import axios from "axios"
 export default async function traerUsuarios(setUsuarios, setUsuariosMostrados, setOrdenAscendente) {
 
     try {
-        // console.log('axios default en buscar usuarios:',axios.defaults.headers.common);
 
         const response = await axios.get(import.meta.env.VITE_URL_BACK+'/usuarios/activos');
 

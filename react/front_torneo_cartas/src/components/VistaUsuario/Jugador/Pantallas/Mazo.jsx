@@ -2,11 +2,19 @@
 import {Box, Typography, Grid, Card, Chip, CardMedia, CardContent} from "@mui/material"
 
 import { Cached } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import traerCartasColeccionadas from "../../../../services/traerCartasColeccionadas";
+
+import colorDeSeries from "../../../../config/colorDeSeries";
 
 export default function Mazo(){
 
     const [cartasColeccionadas, setCartasColeccionadas] = useState(null)
+
+
+    useEffect(()=>{
+        traerCartasColeccionadas(setCartasColeccionadas)
+    },[])
 
     return(
         <Box sx={{ px: {sm:4},py:4, alignItems: 'center' }}>
@@ -46,17 +54,7 @@ export default function Mazo(){
                                         : 
                                         { backgroundImage: colorDeSeries(carta.series) }) 
                                 }}
-                                onMouseDown={(e)=>{
-                                    console.log(carta.id, ' presionada')
-                                    setCartasSeleccionadas(prev => 
-                                    prev.includes(carta.id) ? 
-                                        prev.filter(cartaId => cartaId !== carta.id) //eliminar
-                                        : 
-                                        [...prev, carta.id] //agregar
-                                    );
-                                }}
-                                className={cartasSeleccionadas.includes(carta.id) ? "carta-coleccion carta-seleccionada" : "carta-coleccion"}
-                        >
+                            >   
                                 
                                 <Grid container spacing={0.5} sx={{ my: 1, justifyContent:"space-between", color: "#000" }}>
                                     Series: 

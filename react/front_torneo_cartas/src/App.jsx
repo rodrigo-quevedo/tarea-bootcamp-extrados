@@ -34,8 +34,6 @@ function App() {
 
     useScrollToTop();
 
-    let x = "http://ldkfsf.";
-    console.log("validar protocolo:",x,validarProtocoloYDominio(x))
 
 
   return (
